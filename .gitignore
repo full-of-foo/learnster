@@ -8,8 +8,6 @@
 *.sassc
 .rspec
 .sass-cache
-/config/config.yml
-/config/database.yml
 /coverage.data
 /coverage/
 /db/*.javadb/
@@ -27,9 +25,6 @@
 /capybara-*.html
 /gems
 /rerun.txt
-/spec/requests
-/spec/routing
-/spec/views
 /specifications
 **.orig
 .DS_Store
