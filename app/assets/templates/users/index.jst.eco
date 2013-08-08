@@ -1,0 +1,9 @@
+<h2>User Index View</h2>
+
+<ul>
+    <% for u in @users.models: %>
+
+        <ul><%= u.get('email') %></ul>
+
+    <% end %>
+</ul>
