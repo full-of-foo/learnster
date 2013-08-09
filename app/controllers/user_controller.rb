@@ -2,23 +2,23 @@ class UserController < ApplicationController
     respond_to :json
 
     def index
-        respond_with User.all
+        render :json => User.all().to_json(:include => { :created_by => { :only => :id }, :admin_for => { :only => :id }})
     end
 
     def show
-        respond_with User.find(params[:id])
+        render :json => User.find(params[:id]).to_json(:include => { :created_by => { :only => :id }, :admin_for => { :only => :id }})
     end
 
     def create
-        respond_with User.create(permitted_user_params.user)
+        render :json => User.create(permitted_user_params.user)
     end
 
     def update
-        respond_with User.update(params[:id], permitted_user_params.user)
+        render :json => User.update(params[:id], permitted_user_params.user)
     end
 
     def destroy
-        respond_with User.destroy(params[:id])
+        render :json => User.destroy(params[:id])
     end
 
 end

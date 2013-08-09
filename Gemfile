@@ -3,6 +3,8 @@ ruby '2.0.0'
 
 gem 'rails', '4.0.0'
 gem 'backbone-on-rails'
+gem "eco", :require => 'eco'
+gem 'marionette-rails'
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'
