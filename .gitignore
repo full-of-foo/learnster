@@ -24,6 +24,7 @@
 /capybara*
 /capybara-*.html
 /gems
+vendor/bundle/
 /rerun.txt
 /specifications
 **.orig

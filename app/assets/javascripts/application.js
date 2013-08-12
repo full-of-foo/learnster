@@ -12,14 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require turbolinks
-//= require underscore
-//= require backbone
-//= require backbone.marionette
-//= require learnster
-//= require_tree ../templates
-//= require_tree ./models
-//= require_tree ./collections
-//= require_tree ./views
-//= require_tree ./routers
-//= require_tree .
+//= require lib/underscore
+//= require lib/backbone
+//= require lib/backbone.marionette
+//= require_tree ./backbone/config
+//= require backbone/learnster
+//= require_tree ./backbone/entites
+//= require_tree ./backbone/apps

@@ -1,6 +1,6 @@
 Learnster::Application.routes.draw do
 
-  root to:"main#index"
+  root to:"application#index"
 
   scope "api" do
     resources :user, :organisation
