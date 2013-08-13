@@ -1,7 +1,7 @@
 <div id="footer">
 
     <div class="container">
-        <p class="muted">Learnster 2013</p>
+        <p class="muted">Learnster 2013 - <%= @full_name %> </p>
     </div>
 
 </div>

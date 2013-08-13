@@ -1,3 +1,3 @@
-@Learnster.module "Entites", (Entites, App, Backbone, Marionette, $, _) ->
+@Learnster.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
-    class Entites.Models extends Backbone.Model
+    class Entities.Models extends Backbone.Model

@@ -23,6 +23,9 @@ gem "eco", :require => 'eco'
 gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.0'
 gem 'compass-rails'
+gem 'rabl'
+gem 'oj'
+gem 'gon'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

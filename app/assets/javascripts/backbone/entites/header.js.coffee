@@ -1,13 +1,13 @@
-@Learnster.module "Entites", (Entites, App, Backbone, Marionette, $, _) ->
+@Learnster.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
-    class Entites.Header extends Entites.Models
+    class Entities.Header extends Entities.Models
 
-    class Entites.HeaderCollection extends Entites.Collections
-        model: Entites.Header
+    class Entities.HeaderCollection extends Entities.Collections
+        model: Entities.Header
 
     API =
         getHeaders: ->
-            new Entites.HeaderCollection [
+            new Entities.HeaderCollection [
                 { name: "Students" }
                 { name: "Admins" }
                 { name: "Organisations" }

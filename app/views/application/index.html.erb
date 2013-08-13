@@ -10,7 +10,9 @@
 
 <%= javascript_tag do %>
     $(function(){
-        Learnster.start();
+        Learnster.start({
+            currentUser: gon.current_user
+        });
     })
 
 <% end %>
