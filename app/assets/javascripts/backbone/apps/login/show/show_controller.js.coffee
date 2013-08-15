@@ -3,8 +3,27 @@
     Show.Controller =
 
         showLogin: ->
-            loginView = @getLoginView()
-            App.mainRegion.show loginView
+            @layout = @getLayoutView()
+            @layout.on "show", =>
+                @showPanel()
+                @showForm()
 
-        getLoginView: ->
-            new Show.Login
+            App.mainRegion.show @layout
+
+        showPanel: ->
+            panelView = @getPanelView()
+            console.log @layout.panelRegion
+            @layout.panelRegion.show panelView
+
+        showForm: ->
+            formView = @getFormView()
+            @layout.formRegion.show formView
+
+        getPanelView: ->
+            new Show.Panel()
+
+        getFormView: ->
+            new Show.Form()
+
+        getLayoutView: ->
+            new Show.Layout()

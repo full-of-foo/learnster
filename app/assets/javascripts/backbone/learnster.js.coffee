@@ -23,9 +23,8 @@
 
 
     App.on "initialize:after", ->
-        if Backbone.history
+            @startHistory()
             App.rootRoute = if App.currentUser? then "/users" else "/login"
-            Backbone.history.start()
             @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is ""
 
     App
