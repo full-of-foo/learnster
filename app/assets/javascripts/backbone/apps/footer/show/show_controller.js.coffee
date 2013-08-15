@@ -8,5 +8,7 @@
             App.footerRegion.show footerView
 
         getFooterView: (currentUser) ->
-            new Show.Footer
-                model: currentUser
+            if currentUser?
+                new Show.Footer(model: currentUser)
+            else
+                new Show.Footer()

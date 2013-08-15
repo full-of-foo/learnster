@@ -5,11 +5,20 @@
 
     class Entities.UsersCollection extends Entities.Collections
         model: Entities.User
+        url: Routes.user_index_path()
 
     API =
         setCurrentUser: (currentUser) ->
-            new Entities.User currentUser
+            new Entities.User
 
+        getUserEntities: (cb) ->
+            users = new Entities.UsersCollection
+            users.fetch
+                success: ->
+                    cb users
 
     App.reqres.setHandler "set:current:user", (currentUser) ->
         API.setCurrentUser currentUser
+
+     App.reqres.setHandler "user:entities", (cb) ->
+        API.getUserEntities cb

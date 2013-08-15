@@ -3,7 +3,10 @@
     App = new Marionette.Application()
 
     App.on "initialize:before", (options) ->
-        @currentUser = App.request "set:current:user", options.currentUser
+        if options.currentUser.id?
+            @currentUser = App.request("set:current:user", options.currentUser)
+        else
+            @currentUser = null
 
     App.reqres.setHandler "get:current:user", ->
         App.currentUser
@@ -18,8 +21,11 @@
         App.module("HeaderApp").start()
         App.module("FooterApp").start()
 
+
     App.on "initialize:after", ->
         if Backbone.history
+            App.rootRoute = if App.currentUser? then "/users" else "/login"
             Backbone.history.start()
+            @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is ""
 
     App

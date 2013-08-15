@@ -1,1 +1,1 @@
-<a href="#"><%= @name %></a>
+<%- @linkTo @name, @url %>

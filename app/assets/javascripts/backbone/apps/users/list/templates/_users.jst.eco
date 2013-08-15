@@ -1,0 +1,13 @@
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                E-mail
+            </th>
+            <th>
+                Created
+            </th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>

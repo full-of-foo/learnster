@@ -7,16 +7,16 @@ Learnster::Application.routes.draw do
     resources :org_admin, :controller => "user", :type => "OrgAdmin"
     resources :app_admin, :controller => "user", :type => "AppAdmin"
     resources :student, :controller => "user", :type => "Student"
-    namespace "org_admin" do
-      resources :user, :type => "OrgAdmin"
-    end
+    # namespace "org_admin" do
+    #   resources :user, :type => "OrgAdmin"
+    # end
 
-    namespace "app_admin" do
-      resources :user, :type => "AppAdmin"
-    end
-    namespace "student" do
-      resources :user, :type => "Student"
-    end
+    # namespace "app_admin" do
+    #   resources :user, :type => "AppAdmin"
+    # end
+    # namespace "student" do
+    #   resources :user, :type => "Student"
+    # end
   end
 
 

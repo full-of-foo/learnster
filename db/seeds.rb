@@ -1,7 +1,0 @@
-User.create!(email:"foo0")
-User.create!(email:"foo1")
-User.create!(email:"foo2")
-User.create!(email:"foo3")
-User.create!(email:"foo4")
-User.create!(email:"foo5")
-User.create!(email:"foo6")

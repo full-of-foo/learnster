@@ -6,6 +6,8 @@ gem 'rails', '4.0.0'
 group :development, :test do
   gem 'sqlite3', '1.3.7'
   gem 'rspec-rails', '2.13.1'
+  gem 'populator'
+  gem 'faker'
 end
 
 group :test do
@@ -26,6 +28,7 @@ gem 'compass-rails'
 gem 'rabl'
 gem 'oj'
 gem 'gon'
+gem 'js-routes'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false
