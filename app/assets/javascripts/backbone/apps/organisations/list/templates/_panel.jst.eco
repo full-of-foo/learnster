@@ -1,11 +1,12 @@
  <div id="list-panel" class="modal-header">
 
      <div class="btn-group pull-right">
+     
+          <a class="btn" href="#"><i class="icon-fixed-width icon-plus"></i> New Organisation</a>
           <a class="btn" href="#"><i class="icon-cog"></i></a>
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             <span class="icon-caret-down"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"><i class="icon-fixed-width icon-plus"></i> Add</a></li>
             <li><a href="#"><i class="icon-fixed-width icon-level-down"></i> Export</a></li>
             <li><a href="#"><i class="icon-fixed-width icon-archive"></i> Archive</a></li>
           </ul>

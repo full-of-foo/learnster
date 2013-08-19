@@ -5,16 +5,24 @@
 
         regions:
             panelRegion: "#panel-region"
+            newRegion: "#new-region"
             usersRegion: "#users-region"
 
     class List.Panel extends App.Views.ItemView
         template: "users/list/templates/_panel"
         collectionEvents:
             "reset": "render"
+        triggers:
+            "click #new-student-button" : "new:user:student:button:clicked"
+
+    class List.New extends App.Views.ItemView
+        template: "users/list/templates/_new"
 
     class List.User extends App.Views.ItemView
         template: "users/list/templates/_user"
         tagName: "tr"
+        events:
+            "click" : -> @trigger "user:student:clicked", @model
 
     class List.Empty extends App.Views.ItemView
         template: "users/list/templates/_empty"
@@ -25,3 +33,5 @@
         itemView: List.User
         emptyView: List.Empty
         itemViewContainer: "tbody"
+        collectionEvents:
+            "reset": "render"

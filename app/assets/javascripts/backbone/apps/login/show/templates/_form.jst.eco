@@ -1,98 +1,109 @@
- <div class="" id="login-modal">
+<div class="" id="login-modal">
 
-          <div class="modal-body">
-            <div class="well">
-              <ul class="nav nav-tabs">
-                <li class="active"><a href="#login" data-toggle="tab" class="muted">Login</a></li>
-                <li><a href="#create" data-toggle="tab" class="muted">Create Organisation</a></li>
-              </ul>
-              <div id="myTabContent" class="tab-content">
+    <div class="modal-body">
+        <div class="well">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#login" data-toggle="tab" class="muted">Login</a>
+                </li>
+                <li><a href="#create" data-toggle="tab" class="muted">Create Organisation</a>
+                </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
                 <div class="tab-pane active in" id="login">
-                  <form class="form-horizontal" action='' method="POST">
+                    <form class="form-horizontal" action='' method="POST">
 
-                    <fieldset>
-                      <div id="legend">
-                        <legend class="">Student & Staff Login</legend>
-                      </div>
-                    <div class="control-group">
-                        <div class="input-prepend">
-                            <span class="add-on"><i class="icon-envelope"></i></span>
-                            <input class="input-xlarge" type="text" placeholder="Email address">
-                          </div>
-                    </div>
-                    <div class="control-group">
-                      <div class="input-prepend">
-                        <span class="add-on"><i class="icon-key"></i></span>
-                        <input class="input-xlarge" type="password" placeholder="Password">
-                      </div>
-                    </div>
-
-                      <div class="control-group">
-                        <div class="controls">
-                          <button class="btn">Login</button>
-                        </div>
-                      </div>
-                    </fieldset>
-
-                  </form>
-                </div>
-                <div class="tab-pane fade" id="create">
-                  <form id="tab">
-                    <div class="row">
-                        <div class="span1">
+                        <fieldset>
                             <div id="legend">
-                                <legend class="">Administrator Details</legend>
-                              </div>
-                            <div class="control-group">
-                             <div class="input-prepend">
-                                    <span class="add-on"><i class="icon-envelope"></i></span>
-                                    <input class="input-xlarge" type="text" placeholder="First Name">
-                                  </div>
-                            </div>
-                            <div class="control-group">
-                              <div class="input-prepend">
-                                <span class="add-on"><i class="icon-key"></i></span>
-                                <input class="input-xlarge" type="password" placeholder="Surname">
-                              </div>
+                                <legend class="">Student & Staff Login</legend>
                             </div>
                             <div class="control-group">
                                 <div class="input-prepend">
-                                    <span class="add-on"><i class="icon-envelope"></i></span>
+                                    <span class="add-on"><i class="icon-envelope"></i>
+                                    </span>
                                     <input class="input-xlarge" type="text" placeholder="Email address">
-                                  </div>
+                                </div>
                             </div>
                             <div class="control-group">
-                              <div class="input-prepend">
-                                <span class="add-on"><i class="icon-key"></i></span>
-                                <input class="input-xlarge" type="password" placeholder="New Password">
-                              </div>
-                            </div>
-                        </div>
-
-                        <div class="pull-right">
-                            <div id="legend">
-                                <legend class="">Organisation Details</legend>
-                              </div>
-                              <div class="control-group">
-                              <div class="input-prepend">
-                                <span class="add-on"><i class="icon-key"></i></span>
-                                <input class="input-xlarge" type="password" placeholder="Title">
-                              </div>
-                            </div>
-                            <div class="control-group">
-                              <div class="input-prepend">
-                                <span class="add-on"><i class="icon-key"></i></span>
-                                <input class="input-xlarge" type="password" placeholder="Description">
-                              </div>
+                                <div class="input-prepend">
+                                    <span class="add-on"><i class="icon-key"></i>
+                                    </span>
+                                    <input class="input-xlarge" type="password" placeholder="Password">
+                                </div>
                             </div>
 
                             <div class="control-group">
-                              <button class="btn">Create Organisation</button>
+                                <div class="controls">
+                                    <button class="btn">Login</button>
+                                </div>
                             </div>
-                        <div>
-                      </form>
+                        </fieldset>
+
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="create">
+
+                    <form id="tab" class="">
+                        <div class="row">
+                            <div class="span1">
+                                <div id="legend">
+                                    <legend class="">Administrator Details</legend>
+                                </div>
+                                <div class="control-group">
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-envelope"></i>
+                                        </span>
+                                        <input class="input-xlarge" type="text" placeholder="First Name">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-key"></i>
+                                        </span>
+                                        <input class="input-xlarge" type="password" placeholder="Surname">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-envelope"></i>
+                                        </span>
+                                        <input class="input-xlarge" type="text" placeholder="Email address">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-key"></i>
+                                        </span>
+                                        <input class="input-xlarge" type="password" placeholder="New Password">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="span1 pull-right">
+                                <div id="legend">
+                                    <legend class="">Organisation Details</legend>
+                                </div>
+                                <div class="control-group">
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-key"></i>
+                                        </span>
+                                        <input class="input-xlarge" type="password" placeholder="Title">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-key"></i>
+                                        </span>
+                                        <input class="input-xlarge" type="password" placeholder="Description">
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <button class="btn">Create Organisation</button>
+                                </div>
+                                <div>
+                    </form>
+                    </div>
+                    </div>
                     </div>
                 </div>
             </div>
-          </div>
-        </div>

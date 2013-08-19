@@ -21,7 +21,6 @@
         App.module("HeaderApp").start()
         App.module("FooterApp").start()
 
-
     App.on "initialize:after", ->
             @startHistory()
             App.rootRoute = if App.currentUser? then "/users" else "/login"

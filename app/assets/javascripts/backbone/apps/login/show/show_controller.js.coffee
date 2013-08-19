@@ -12,7 +12,6 @@
 
         showPanel: ->
             panelView = @getPanelView()
-            console.log @layout.panelRegion
             @layout.panelRegion.show panelView
 
         showForm: ->

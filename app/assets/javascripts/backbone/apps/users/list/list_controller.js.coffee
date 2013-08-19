@@ -12,12 +12,28 @@
 
                 App.mainRegion.show @layout
 
+        showNewRegion: ->
+            newView = App.request "new:user:student:view"
+            region = @layout.newRegion
+
+            newView.on "form:cancel:button:clicked", =>
+                region.close()
+
+            region.show newView
+
         showPanel: (users) ->
             panelView = @getPanelView users
+
+            panelView.on "new:user:student:button:clicked", =>
+                @showNewRegion()
+
             @layout.panelRegion.show panelView
 
         showUsers: (users) ->
             usersView = @getUsersView users
+
+            usersView.on "childview:user:student:clicked", (child, student) ->
+                App.vent.trigger "user:student:clicked", student
             @layout.usersRegion.show usersView
 
         getPanelView: (users) ->
@@ -27,7 +43,6 @@
         getUsersView: (users) ->
             new List.Users
                 collection: users
-
 
         getLayoutView: ->
             new List.Layout
