@@ -1,1 +1,79 @@
-foo
+<div class="container">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="span6">
+                <div class="area">
+
+                    <form class="form-horizontal">
+                        <div class="heading">
+                            <h4 class="form-heading">Sign In</h4>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputCompanyName">Company Name</label>
+                            <div class="controls">
+                                <input type="text" id="inputCompanyName" placeholder="E.g. Some Software Pvt. Ltd.">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputUsername">Username</label>
+                            <div class="controls">
+                                <input type="text" id="inputUsername" placeholder="E.g. ashwinhegde">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPassword">Password</label>
+                            <div class="controls">
+                                <input type="password" id="inputPassword" placeholder="Min. 8 Characters">
+                            </div>
+                        </div>
+                      
+                </div>
+            </div>
+
+            <div class="span6">
+                <div class="area">
+                        <div class="heading">
+                            <h4 class="form-heading">Sign Up</h4>
+                        </div>
+                      
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputFirst">First Name</label>
+                            <div class="controls">
+                                <input type="text" id="inputFirst" placeholder="E.g. Ashwin">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputLast">Last Name</label>
+                            <div class="controls">
+                                <input type="text" id="inputLast" placeholder="E.g. Hegde">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputEmail">Email</label>
+                            <div class="controls">
+                                <input type="text" id="inputEmail" placeholder="E.g. ashwinh@cybage.com">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPassword">Password</label>
+                            <div class="controls">
+                                <input type="password" id="inputPassword" placeholder="Min. 8 Characters">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                              
+                                <button type="submit" class="btn btn-success">Update User</button>
+                                <button type="button" class="btn">Cancel</button>
+                            </div>
+                        </div>
+                       
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

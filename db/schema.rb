@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130808103239) do
+ActiveRecord::Schema.define(version: 20130820085954) do
 
   create_table "organisations", force: true do |t|
     t.string   "title"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20130808103239) do
     t.datetime "updated_at"
     t.integer  "created_by"
     t.integer  "admin_for"
+    t.integer  "attending_org"
   end
 
 end

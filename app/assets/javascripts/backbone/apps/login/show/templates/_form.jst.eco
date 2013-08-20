@@ -33,6 +33,9 @@
 
                             <div class="control-group">
                                 <div class="controls">
+                                    <label class="checkbox">
+                                        <input type="checkbox">Keep me signed in
+                                    </label>
                                     <button class="btn">Login</button>
                                 </div>
                             </div>
