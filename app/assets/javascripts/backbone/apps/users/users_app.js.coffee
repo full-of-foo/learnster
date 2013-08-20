@@ -2,7 +2,8 @@
 
     class UsersApp.Router extends Marionette.AppRouter
         appRoutes:
-            "users": "listUsers"
+            "student/:id/edit" : "edit"
+            "users"            : "listUsers"
 
 
     API =
@@ -12,15 +13,16 @@
          newStudent: ->
          	UsersApp.New.Controller.newStudent()
 
-        edit: (student) ->
-            UsersApp.Edit.Controller.edit(student)
+        edit: (id, student) ->
+            UsersApp.Edit.Controller.edit(id, student)
 
     
     App.reqres.setHandler "new:user:student:view", ->
     	API.newStudent()
 
     App.vent.on "user:student:clicked", (student) ->
-        API.edit student
+        App.navigate Routes.edit_student_path(student.id).split("/api")[1]
+        API.edit student.id, student
 
    
     App.addInitializer ->

@@ -2,8 +2,10 @@
 
 	Edit.Controller =
 
-		edit: (student) ->
+		edit: (id, student) ->
+			student or= App.request "student:entity", id
 			editView = @getEditView student
+			console.log editView
 			
 			App.mainRegion.show editView
 

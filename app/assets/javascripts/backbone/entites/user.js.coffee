@@ -14,6 +14,7 @@
         getUserEntities: (cb) ->
             users = new Entities.UsersCollection
             users.fetch
+                reset: true,
                 success: ->
                     cb users
 

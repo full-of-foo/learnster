@@ -4,7 +4,6 @@
             <div class="span12">
                 <div class="span7">
                     <div class="area">
-
                         <form class="form-horizontal">
                             <div class="container">
                                 <h2 class="text-info">Student Info</h2>
@@ -22,10 +21,16 @@
                                 </div>
                             </div>
                             <div class="control-group">
+                                <label class="control-label" for="edit-user-email">E-mail</label>
+                                <div class="controls">
+                                    <input type="text" id="edit-user-email" value="<%= @email %>" />
+                                </div>
+                            </div>
+                            <div class="control-group">
                                 <label class="control-label" for="edit-user-password">Password</label>
                                 <div class="controls">
                                     <input type="password" id="edit-user-password" value="<%= @first_name %>" />
-                                </div>
+                            </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="edit-user-password-confirm">Password Confirm</label>
@@ -33,35 +38,42 @@
                                     <input type="password" id="edit-user-password-confirm" value="<%= @first_name %>" />
                                 </div>
                             </div>
-
                     </div>
                 </div>
 
                 <div class="span5">
                     <div class="area">
 
-                         <div class="control-group">
+                        <div class="control-group">
                             <label class="control-label" for="edit-user-created-at">Created at</label>
                             <div class="controls">
-                                <p id="edit-user-created-at" class="form-control-static"><%= @created_at_formatted %></p>
+                                <p id="edit-user-created-at" class="form-control-static">
+                                    <%= @created_at_formatted %>
+                                </p>
                             </div>
                         </div>
-                         <div class="control-group">
+                        <div class="control-group">
                             <label class="control-label" for="edit-user-last-online">Last online</label>
                             <div class="controls">
-                                <p id="edit-user-last-online" class="form-control-static"><%= @last_login_formatted %></p>
+                                <p id="edit-user-last-online" class="form-control-static">
+                                    <%= @last_login_formatted %>
+                                </p>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="edit-user-created-by">Created by</label>
                             <div class="controls">
-                                <p id="edit-user-created-by" class="form-control-static"><%= @created_by.full_name %></p>
+                                <p id="edit-user-created-by" class="form-control-static">
+                                   
+                                </p>
                             </div>
                         </div>
-                         <div class="control-group">
-                            <label class="control-label" for="edit-user-email">E-mail</label>
+                        <div class="control-group">
+                            <label class="control-label" for="edit-user-org">Organisation</label>
                             <div class="controls">
-                                <input type="text" id="edit-user-email" value="<%= @email %>" />
+                                <p id="edit-user-org" class="form-control-static">
+                                        
+                                </p>
                             </div>
                         </div>
                         <div class="control-group">

@@ -3,5 +3,5 @@
     class Entities.Collections extends Backbone.Collection
 
         fetch: (options = {}) ->
-            options.reset = true
+            # options.reset = true
             super options

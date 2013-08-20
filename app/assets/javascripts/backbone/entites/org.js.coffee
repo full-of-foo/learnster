@@ -14,6 +14,7 @@
         getOrgEntities: (cb) ->
             orgs = new Entities.OrgsCollection
             orgs.fetch
+                reset: true,
                 success: ->
                     cb orgs
 
