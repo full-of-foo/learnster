@@ -4,9 +4,9 @@ Learnster::Application.routes.draw do
 
   scope "api" do
     resources :user, :organisation
-    resources :org_admin, :controller => "user", :type => "OrgAdmin"
-    resources :app_admin, :controller => "user", :type => "AppAdmin"
-    resources :student, :controller => "user", :type => "Student"
+    resources :org_admin, :controller => "org_admin", :type => "OrgAdmin"
+    resources :app_admin, :controller => "app_admin", :type => "AppAdmin"
+    resources :student, :controller => "student", :type => "Student"
     # namespace "org_admin" do
     #   resources :user, :type => "OrgAdmin"
     # end

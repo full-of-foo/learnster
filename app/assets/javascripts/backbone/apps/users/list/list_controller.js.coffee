@@ -3,7 +3,7 @@
     List.Controller =
 
         listUsers: ->
-            App.request "user:entities", (users) =>
+            App.request "student:entities", (users) =>
                 @layout = @getLayoutView()
 
                 @layout.on "show", =>

@@ -6,7 +6,7 @@ AppAdmin.populate(1) do |aa|
     aa.email = "lightweightdevelopment@gmail.com"
     aa.first_name = "Anthony"
     aa.surname = "Troy"
-    aa.is_active = false
+    aa.is_active = [true, false].sample
     aa.last_login = rand(2.years).ago
 end
 
@@ -23,7 +23,7 @@ OrgAdmin.populate 10 do |oa|
     oa.first_name = name_gen.first_name
     oa.surname = name_gen.last_name
     oa.last_login = rand(2.years).ago
-    oa.is_active = false
+    oa.is_active = [true, false].sample
     oa.created_by = AppAdmin.first
     oa.admin_for = Organisation.find(count)
     count += 1
@@ -34,7 +34,7 @@ Student.populate 20 do |u|
     name_gen = Faker::Name
     u.first_name = name_gen.first_name
     u.surname = name_gen.last_name
-    u.is_active = false
+    u.is_active = [true, false].sample
     u.last_login = rand(2.years).ago
     offset = rand(Organisation.count)
     rand_record = Organisation.first(:offset => offset)

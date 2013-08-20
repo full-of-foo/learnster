@@ -1,6 +1,10 @@
 class OrgAdmin < User
 
-  	has_many :organisations, class_name: "Organisation", foreign_key: "admin_for" 
+  	belongs_to :admin_for, class_name: "Organisation", foreign_key: "admin_for" 
+
+  	def self.model_name
+    	User.model_name
+  	end
 
 	def app_admin?
 		false

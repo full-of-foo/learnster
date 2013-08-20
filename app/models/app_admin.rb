@@ -1,5 +1,9 @@
 class AppAdmin < User
 
+	def self.model_name
+    	User.model_name
+  	end
+
 	def app_admin?
 		true
 	end

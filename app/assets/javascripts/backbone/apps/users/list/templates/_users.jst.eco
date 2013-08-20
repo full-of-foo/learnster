@@ -1,8 +1,14 @@
-<table class="table table-striped table-bordered">
+<table id="app-table" class="table table-bordered">
     <thead>
-        <tr>
+        <tr id="app-table-header-row">
+            <th>
+                Name
+            </th>
             <th>
                 E-mail
+            </th>
+            <th>
+                Last Online
             </th>
             <th>
                 Created

@@ -12,7 +12,7 @@ Currently in development, learnster is an learnining management system whose ric
 
  - bundle install && bundle update
  - rake db:migrate
- - rake db:populate
+ - rake db:seed
 
 
 TODO:

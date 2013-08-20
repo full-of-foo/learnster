@@ -1,2 +1,11 @@
-<td> <%= @email %> </td>
+<td> 
+	<% if @is_active: %>
+		<i class="icon-list-online-status" title="Online"></i>
+	<% else: %>
+		<i class="icon-list-offline-status" title="Offline"></i>
+	<% end %>
+	
+<%= @full_name %> </td>
+<td><%= @email %> </td>
+<td><%= @last_login_formatted %></td>
 <td> <%= @created_at_formatted %> </td>

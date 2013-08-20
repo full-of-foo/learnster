@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
 
 
   def index
-    gon.rabl
-    # @user = User.first()
     gon.rabl template: "app/views/user/show.json.rabl", as: "current_user"
   end
 

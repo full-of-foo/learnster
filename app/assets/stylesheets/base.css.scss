@@ -7,3 +7,16 @@ html, body {
     margin: 0 auto -60px;
     min-height: 100%;
 }
+
+#app-table{
+	background-color: #f8f9f9;
+
+	tr:not(#app-table-header-row):hover{
+		background-color: #F3FFFF;
+		cursor: pointer; 
+
+		td:first-child {
+			border-left: 2px solid #06F0FF;
+		}
+	}
+}
