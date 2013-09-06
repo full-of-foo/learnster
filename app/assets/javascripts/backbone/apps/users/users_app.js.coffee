@@ -13,16 +13,19 @@
          newStudent: ->
          	UsersApp.New.Controller.newStudent()
 
-        edit: (id, student) ->
-            UsersApp.Edit.Controller.edit(id, student)
+        edit: (id) ->
+            UsersApp.Edit.Controller.edit(@get_user_id(id))
+
+        get_user_id: (id_user) ->
+            id = if id_user.id then id_user.id else id_user
 
     
     App.reqres.setHandler "new:user:student:view", ->
     	API.newStudent()
 
-    App.vent.on "user:student:clicked", (student) ->
-        App.navigate Routes.edit_student_path(student.id).split("/api")[1]
-        API.edit student.id, student
+    App.vent.on "user:student:clicked", (id) ->
+        App.navigate Routes.edit_student_path(id).split("/api")[1]
+        API.edit id
 
    
     App.addInitializer ->

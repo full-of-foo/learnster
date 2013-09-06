@@ -1,0 +1,38 @@
+<div id="add-org" class="well">
+        <button type="button" class="close cancel-new-org" data-dismiss="alert">&times;</button>
+
+        <blockquote>
+            <p class="text-info">New Organisation...</p>
+            <small class="text-info">hover over fields for help</small>
+        </blockquote>
+
+        <form class="form-horizontal">
+            <fieldset>
+
+                <div class="control-group">
+                    <!-- First Name -->
+                    <label class="control-label" for="add-org-first-name">Title</label>
+                    <div class="controls">
+                        <input type="text" id="add-org-first-name" name="add-org-first-name" placeholder="" class="input-xlarge">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <!-- Last Name -->
+                    <label class="control-label" for="add-org-last-name">Description</label>
+                    <div class="controls">
+                        <input type="text" id="add-org-last-name" name="add-org-last-name" placeholder="" class="input-xlarge">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <!-- Button -->
+                    <div class="controls">
+                        <button type="submit" class="btn btn-primary">Add Organisation</button>
+                        <button type="button" class="btn cancel-new-org">Cancel</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>

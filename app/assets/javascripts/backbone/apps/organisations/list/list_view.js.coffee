@@ -5,16 +5,21 @@
 
         regions:
             panelRegion: "#panel-region"
+            newRegion: "#new-region"
             orgsRegion: "#orgs-region"
 
     class List.Panel extends App.Views.ItemView
         template: "organisations/list/templates/_panel"
         collectionEvents:
             "reset": "render"
+        triggers:
+            "click #new-org-button" : "new:org:button:clicked"
 
     class List.Org extends App.Views.ItemView
         template: "organisations/list/templates/_org"
         tagName: "tr"
+        events:
+            "click" : -> @trigger "org:clicked", @model
 
     class List.Empty extends App.Views.ItemView
         template: "organisations/list/templates/_empty"
@@ -25,3 +30,5 @@
         itemView: List.Org
         emptyView: List.Empty
         itemViewContainer: "tbody"
+        collectionEvents:
+            "reset": "render"

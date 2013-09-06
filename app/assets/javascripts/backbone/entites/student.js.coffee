@@ -22,7 +22,8 @@
         getStudentEntity: (id) ->
             student = new Entities.Student
                 id: id
-            student.fetch()
+            student.fetch
+                reset: true
             student
 
 

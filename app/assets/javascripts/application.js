@@ -18,8 +18,10 @@
 //= require lib/underscore
 //= require lib/backbone
 //= require lib/backbone.marionette
+//= require lib/backbone.syphon	
 //= require_tree ./backbone/config
 //= require backbone/learnster
-//= require_tree ./backbone/entites
 //= require_tree ./backbone/views
+//= require_tree ./backbone/entites
+//= require_tree ./backbone/components
 //= require_tree ./backbone/apps

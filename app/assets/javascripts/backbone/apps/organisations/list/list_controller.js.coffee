@@ -4,16 +4,31 @@
 
         listOrgs: ->
             App.request "org:entities", (orgs) =>
-                @layout = @getLayoutView()
+               
+               App.execute "when:fetched", orgs, =>
+                    @layout = @getLayoutView()
 
-                @layout.on "show", =>
-                    @showPanel orgs
-                    @showOrgs orgs
+                    @layout.on "show", =>
+                        @showPanel orgs
+                        @showOrgs orgs
 
-                App.mainRegion.show @layout
+                    App.mainRegion.show @layout
+
+        showNewRegion: ->
+            newView = App.request "new:org:view"
+            region = @layout.newRegion
+
+            newView.on "form:cancel:button:clicked", =>
+                region.close()
+
+            region.show newView
 
         showPanel: (orgs) ->
             panelView = @getPanelView orgs
+
+            panelView.on "new:org:button:clicked", =>
+                @showNewRegion()
+
             @layout.panelRegion.show panelView
 
         showOrgs: (orgs) ->

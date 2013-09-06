@@ -4,13 +4,15 @@
 
         listUsers: ->
             App.request "student:entities", (users) =>
-                @layout = @getLayoutView()
 
-                @layout.on "show", =>
-                    @showPanel users
-                    @showUsers users
+                App.execute "when:fetched", users, =>
+                    @layout = @getLayoutView()
 
-                App.mainRegion.show @layout
+                    @layout.on "show", =>
+                        @showPanel users
+                        @showUsers users
+
+                    App.mainRegion.show @layout
 
         showNewRegion: ->
             newView = App.request "new:user:student:view"

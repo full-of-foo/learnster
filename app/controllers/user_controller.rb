@@ -1,9 +1,9 @@
 class UserController < ApplicationController
     respond_to :json
 
-    def index
-        @users = User.all
-    end
+    # def index
+    #     @users = User.all
+    # end
 
     # def index
     #     render :json => User.all().to_json(:include => { :created_by => { :only => :id }, :admin_for => { :only => :id }})
