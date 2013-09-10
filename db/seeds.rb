@@ -10,14 +10,14 @@ AppAdmin.populate(1) do |aa|
     aa.last_login = rand(2.years).ago
 end
 
-Organisation.populate 10 do |o|
+Organisation.populate(10) do |o|
     o.title = Faker::Company.name
     o.description = Faker::Lorem.sentence
     o.created_by = AppAdmin.first
 end
 
 count = 1
-OrgAdmin.populate 10 do |oa|
+OrgAdmin.populate(1) do |oa|
     oa.email = Faker::Internet.email
     name_gen = Faker::Name
     oa.first_name = name_gen.first_name

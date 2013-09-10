@@ -3,6 +3,12 @@
 
     class Entities.Student extends Entities.Models
         urlRoot: Routes.student_index_path()
+        relations: [
+            type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.AppAdmin
+        ]
+        initialize: ->
+            @on "all", (e) -> console.log e
+
 
     class Entities.StudentsCollection extends Entities.Collections
         model: Entities.Student
@@ -20,7 +26,7 @@
                     cb students
 
         getStudentEntity: (id) ->
-            student = new Entities.Student
+            student = Entities.Student.findOrCreate
                 id: id
             student.fetch
                 reset: true

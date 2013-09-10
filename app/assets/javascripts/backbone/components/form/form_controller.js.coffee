@@ -9,15 +9,23 @@
 			@listenTo @formLayout, "show", @setFormContentRegion
 			@listenTo @formLayout, "close", @close
 			@listenTo @formLayout, "form:submit", @formSubmit
+			@listenTo @formLayout, "form:cancel", @formCancel
+
+		formCancel: ->
+			@contentView.triggerMethod "form:cancel"
 
 		formSubmit: ->
-			data = Backbone.Syphon.serialize @formLayout
-			model = @contentView.model
+			data = Backbone.Syphon.serialize @formLayout, 
+				exclude: ["password", "password-confirm"]
+			if @contentView.triggerMethod("form:submit", data) isnt false	
+				model = @contentView.model
+				collection = @contentView.collection
+				@processFormSubmit data, model, collection 
+				 
 
-			@processFormSubmit data, model
-
-		processFormSubmit: (data, model) ->
-			model.save data
+		processFormSubmit: (data, model, collection) ->
+			model.save data,
+				collection: collection 
 
 		setFormContentRegion: ->
 			@formLayout.formContentRegion.show @contentView
@@ -38,6 +46,7 @@
 			_.defaults config,
 				footer: true
 				focusFirstInput: true
+				errors: true
 
 
 		getButtons: (buttons = {}) ->

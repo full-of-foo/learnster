@@ -9,4 +9,13 @@ class StudentController < ApplicationController
   		@student = Student.find(params[:id])
 	end
 
+	def update
+		@student = Student.find(params[:id])
+		if @student.update permitted_params.user_params
+			render "student/show"
+		else
+			respond_with @student
+		end
+	end
+
  end

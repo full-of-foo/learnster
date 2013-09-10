@@ -19,6 +19,7 @@
 //= require lib/backbone
 //= require lib/backbone.marionette
 //= require lib/backbone.syphon	
+//= require lib/backbone-relational	
 //= require_tree ./backbone/config
 //= require backbone/learnster
 //= require_tree ./backbone/views

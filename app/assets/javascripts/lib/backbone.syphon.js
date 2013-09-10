@@ -32,11 +32,9 @@ Backbone.Syphon = (function(Backbone, $, _){
     _.each(elements, function(el){
       var $el = $(el);
       var type = getElementType($el); 
-      console.log(type);
       // Get the key for the input
       var keyExtractor = config.keyExtractors.get(type);
       var key = keyExtractor($el);
-      console.log(key);
 
       // Get the value for the input
       var inputReader = config.inputReaders.get(type);

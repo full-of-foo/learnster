@@ -1,3 +1,4 @@
 <div class="hero-unit">
+		<div id="title-region"></div>
         <div id="form-region"></div>
 </div>

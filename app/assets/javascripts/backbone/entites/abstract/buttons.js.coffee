@@ -25,7 +25,7 @@
      		_.defaults buttons,
      			primary: if model.isNew() then "Create" else "Update"
      			cancel: "Cancel"
-     			placement: "pull-left"
+     			placement: "pull-right"
 
 
     App.reqres.setHandler "form:button:entities", (buttons = {}, model) ->

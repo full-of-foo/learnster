@@ -27,6 +27,11 @@
         App.navigate Routes.edit_student_path(id).split("/api")[1]
         API.edit id
 
+    App.vent.on "user:student:cancelled user:student:updated", (student) ->
+        App.navigate Routes.student_index_path().split("/api")[1]
+        API.listUsers()
+
+
    
     App.addInitializer ->
         new UsersApp.Router

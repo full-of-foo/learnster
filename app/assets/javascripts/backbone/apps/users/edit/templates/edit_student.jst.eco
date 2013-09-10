@@ -1,62 +1,59 @@
-<div class="container-fluid">
-  <div class="row-fluid">
-        <div class="container">
-                <h2 class="text-info">Student Info</h2>
-        </div>
+<div class="row">
+
         <div class="span6">
             <div class="control-group">
-                <label class="control-label" for="edit-user-first-name">First Name</label>
+                <label class="control-label" for="first_name">First Name</label>
                 <div class="controls">
-                    <input type="text" id="edit-user-first-name" value="<%= @first_name %>" />
+                    <input type="text" id="first_name" value="<%= @first_name %>" />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="edit-user-surname">Surname</label>
+                <label class="control-label" for="surname">Surname</label>
                 <div class="controls">
-                    <input type="text" id="edit-user-surname" value="<%= @surname %>" />
+                    <input type="text" id="surname" value="<%= @surname %>" />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="edit-user-email">E-mail</label>
+                <label class="control-label" for="email">E-mail</label>
                 <div class="controls">
-                    <input type="text" id="edit-user-email" value="<%= @email %>" />
+                    <input type="text" id="email" value="<%= @email %>" />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="edit-user-password">Password</label>
+                <label class="control-label" for="password">Password</label>
                 <div class="controls">
-                    <input type="password" id="edit-user-password" value="<%= @surname %>" />
+                    <input type="password" id="password" value="<%= @surname %>" />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="edit-user-password-confirm">Password Confirm</label>
+                <label class="control-label" for="password-confirm">Password Confirm</label>
                 <div class="controls">
-                    <input type="password" id="edit-user-password-confirm" value="<%= @surname %>" />
+                    <input type="password" id="password-confirm" value="<%= @surname %>" />
                 </div>
             </div>
         </div>
     
-        <div class="span1">
+        <div class="pull-right">
             <div class="control-group">
-                <label class="control-label" for="edit-user-created-at">Created at</label>
+                <label class="control-label" for="created-at">Created at</label>
                 <div class="controls">
-                    <p id="edit-user-created-at" class="form-control-static">
+                    <p id="created-at" class="form-control-static">
                         <%= @created_at_formatted %>
                     </p>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="edit-user-last-online">Last online</label>
+                <label class="control-label" for="last-online">Last online</label>
                 <div class="controls">
-                    <p id="edit-user-last-online" class="form-control-static">
+                    <p id="last-online" class="form-control-static">
                         <%= @last_login_formatted %>
                     </p>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="edit-user-created-by">Created by</label>
+                <label class="control-label" for="created-by">Created by</label>
                 <div class="controls">
-                    <p id="edit-user-created-by" class="form-control-static">
+                    <p id="created-by" class="form-control-static">
                     <% if @created_by: %>
                         <%= @created_by.full_name %>
                     <% end %>
@@ -64,9 +61,9 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="edit-user-org">Organisation</label>
+                <label class="control-label" for="org">Organisation</label>
                 <div class="controls">
-                    <p id="edit-user-org" class="form-control-static">
+                    <p id="org" class="form-control-static">
                     <% if @attending_org: %>
                         <%= @attending_org.title %>
                     </p>
@@ -74,3 +71,4 @@
                 </div>
             </div>
         </div>
+</div>
