@@ -10,8 +10,8 @@
         listUsers: ->
             UsersApp.List.Controller.listUsers()
 
-         newStudent: ->
-         	UsersApp.New.Controller.newStudent()
+        newStudentView: ->
+         	UsersApp.New.Controller.newStudentView()
 
         edit: (id) ->
             UsersApp.Edit.Controller.edit(@get_user_id(id))
@@ -21,9 +21,9 @@
 
     
     App.reqres.setHandler "new:user:student:view", ->
-    	API.newStudent()
+    	API.newStudentView()
 
-    App.vent.on "user:student:clicked", (id) ->
+    App.vent.on "user:student:clicked student:created", (id) ->
         App.navigate Routes.edit_student_path(id).split("/api")[1]
         API.edit id
 

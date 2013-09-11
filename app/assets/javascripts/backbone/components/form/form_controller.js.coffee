@@ -17,7 +17,9 @@
 		formSubmit: ->
 			data = Backbone.Syphon.serialize @formLayout, 
 				exclude: ["password", "password-confirm"]
-			if @contentView.triggerMethod("form:submit", data) isnt false	
+           
+			if @contentView.triggerMethod("form:submit", data) isnt false
+                console.log data
 				model = @contentView.model
 				collection = @contentView.collection
 				@processFormSubmit data, model, collection 
@@ -34,8 +36,9 @@
 		getFormLayout: (options = {}) ->
 			config = @getDefaultConfig _.result(@contentView, "form")
 			_.extend config, options
+			
+			buttons = @getButtons config.buttons
 
-			buttons = @getButtons(config.buttons)
 			new Form.FormWrapper
 				config: config
 				model: @contentView.model

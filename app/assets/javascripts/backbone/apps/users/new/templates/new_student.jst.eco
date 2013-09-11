@@ -1,62 +1,58 @@
-<div id="add-student" class="well">
-        <button type="button" class="close cancel-new-student" data-dismiss="alert">&times;</button>
+<button type="button" class="close cancel-new-student" data-dismiss="alert">&times;</button>
 
-        <blockquote>
-            <p class="text-info">New User...</p>
-            <small class="text-info">hover over fields for help</small>
-        </blockquote>
+<blockquote>
+    <p class="text-info">New User...</p>
+    <small class="text-info">hover over fields for help</small>
+</blockquote>
 
-        <form class="form-horizontal">
-            <fieldset>
+<div class="form-horizontal">
+    <fieldset>
 
-                <div class="control-group">
-                    <!-- First Name -->
-                    <label class="control-label" for="add-student-first-name">First Name</label>
-                    <div class="controls">
-                        <input type="text" id="add-student-first-name" name="add-student-first-name" placeholder="" class="input-xlarge">
-                    </div>
-                </div>
+        <div class="control-group">
+            <!-- First Name -->
+            <label class="control-label" for="first_name">First Name</label>
+            <div class="controls">
+                <input type="text" id="first_name" name="first_name" placeholder="" class="input-xlarge">
+            </div>
+        </div>
 
-                <div class="control-group">
-                    <!-- Last Name -->
-                    <label class="control-label" for="add-student-last-name">Last Name</label>
-                    <div class="controls">
-                        <input type="text" id="add-student-last-name" name="add-student-last-name" placeholder="" class="input-xlarge">
-                    </div>
-                </div>
+        <div class="control-group">
+            <!-- Last Name -->
+            <label class="control-label" for="surname">Last Name</label>
+            <div class="controls">
+                <input type="text" id="surname" name="surname" placeholder="" class="input-xlarge">
+            </div>
+        </div>
 
-                <div class="control-group">
-                    <!-- E-mail -->
-                    <label class="control-label" for="add-student-email">E-mail</label>
-                    <div class="controls">
-                        <input type="text" id="add-student-email" name="add-student-email" placeholder="" class="input-xlarge">
-                    </div>
-                </div>
+        <div class="control-group">
+            <!-- E-mail -->
+            <label class="control-label" for="email">E-mail</label>
+            <div class="controls">
+                <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+            </div>
+        </div>
 
-                <div class="control-group">
-                    <!-- Password-->
-                    <label class="control-label" for="add-student-password">Password</label>
-                    <div class="controls">
-                        <input type="password" id="add-student-password" name="add-student-password" placeholder="" class="input-xlarge">
-                    </div>
-                </div>
+         <div class="control-group">
+            <!-- Org -->
+            <label class="control-label">Organistation</label>
+            <div id="org-select-region" class="controls"></div>
+        </div>
 
-                <div class="control-group">
-                    <!-- Password -->
-                    <label class="control-label" for="add-student-password_confirm">Password (Confirm)</label>
-                    <div class="controls">
-                        <input type="password" id="add-student-password_confirm" name="add-student-password_confirm" placeholder="" class="input-xlarge">
-                    </div>
-                </div>
+        <div class="control-group">
+            <!-- Password-->
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+            </div>
+        </div>
 
-                <div class="control-group">
-                    <!-- Button -->
-                    <div class="controls">
-                        <button type="submit" class="btn btn-primary">Add User</button>
-                        <button type="button" class="btn cancel-new-student">Cancel</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+        <div class="control-group">
+            <!-- Password -->
+            <label class="control-label" for="password-confirm">Password (Confirm)</label>
+            <div class="controls">
+                <input type="password" id="password-confirm" name="password-confirm" placeholder="" class="input-xlarge">
+            </div>
+        </div>
 
-    </div>
+    </fieldset>
+</div>

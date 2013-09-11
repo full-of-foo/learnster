@@ -15,6 +15,7 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require js-routes
+//= require lib/bootstrap-select
 //= require lib/underscore
 //= require lib/backbone
 //= require lib/backbone.marionette

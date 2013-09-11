@@ -18,8 +18,8 @@
             newView = App.request "new:user:student:view"
             region = @layout.newRegion
 
-            newView.on "form:cancel:button:clicked", =>
-                region.close()
+            # newView.on "form:cancel", =>
+            #     region.close()
 
             region.show newView
 

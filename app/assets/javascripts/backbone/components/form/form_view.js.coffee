@@ -41,7 +41,7 @@
 	   		el.after(sm).closest(".control-group").addClass("error")
 
 		focusFirstInput: -> 
-			@$(":input:visible:enabled:first").focus()
+			@$(":input[type='text']:visible:enabled:first").focus()
 
 		getFormDataType: ->
 			if @model.isNew() then "new" else "edit"

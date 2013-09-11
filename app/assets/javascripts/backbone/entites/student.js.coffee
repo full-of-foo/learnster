@@ -14,6 +14,7 @@
         model: Entities.Student
         url: Routes.student_index_path()
 
+
     API =
         setCurrentStudent: (currentStudent) ->
             new Entities.Student
@@ -32,6 +33,12 @@
                 reset: true
             student
 
+        newStudent: ->
+            new Entities.Student
+            
+
+    App.reqres.setHandler "new:student:entity", ->
+        API.newStudent()
 
     App.reqres.setHandler "set:current:student", (currentStudent) ->
         API.setCurrentStudent currentStudent
