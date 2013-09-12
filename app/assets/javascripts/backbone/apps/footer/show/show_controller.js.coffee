@@ -1,11 +1,11 @@
 @Learnster.module "FooterApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
-    Show.Controller =
+    class Show.Controller extends App.Controllers.Base
 
-        showFooter: ->
+        initialize: ->
             currentUser = App.request "get:current:user"
             footerView = @getFooterView(currentUser)
-            App.footerRegion.show footerView
+            @show footerView
 
         getFooterView: (currentUser) ->
             if currentUser?

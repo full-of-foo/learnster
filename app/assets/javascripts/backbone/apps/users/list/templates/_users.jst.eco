@@ -13,6 +13,7 @@
             <th>
                 Organisation
             </th>
+            <th class="last-col-invisible"></th>
         </tr>
     </thead>
     <tbody></tbody>

@@ -21,8 +21,9 @@
     class List.User extends App.Views.ItemView
         template: "users/list/templates/_user"
         tagName: "tr"
-        events:
-            "click" : -> @trigger "user:student:clicked", @model
+        triggers:
+            "click .delete-student i" : "student:delete:clicked"
+            "click"                   : "user:student:clicked"
 
     class List.Empty extends App.Views.ItemView
         template: "users/list/templates/_empty"

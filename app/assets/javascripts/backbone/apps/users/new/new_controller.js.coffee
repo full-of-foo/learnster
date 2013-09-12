@@ -1,18 +1,18 @@
 @Learnster.module "UsersApp.New", (New, App, Backbone, Marionette, $, _) ->
 
-	New.Controller =
+	class New.Controller extends App.Controllers.Base
 
-		newStudentView: ->
+		initialize: (options) ->
 			student = App.request "new:student:entity"
-			New.Controller.layout = @getLayoutView student
+			@layout = @getLayoutView student
 
-			student.on "created", ->
+			@listenTo student, "created", ->
 				App.vent.trigger "student:created", student
 			
-			New.Controller.layout.on "show", =>
+			@listenTo @layout, "show", =>
 				@setFormRegion student
 
-			New.Controller.layout
+			@show @layout
 			
 
 		getLayoutView: (student) ->
@@ -27,13 +27,13 @@
 			@newView = @getNewView student
 			formView = App.request "form:wrapper", @newView
 
-			@newView.on "show", =>
+			@listenTo @newView, "show", ->
 				@setOrgSelector()
 
-			@newView.on "form:cancel", ->
-				New.Controller.layout.close()
+			@listenTo @newView, "form:cancel", =>
+				@region.close()
 
-			New.Controller.layout.formRegion.show formView
+			@layout.formRegion.show formView
 
 
 		setOrgSelector: ->

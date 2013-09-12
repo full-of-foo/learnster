@@ -19,6 +19,7 @@ class StudentController < ApplicationController
 	end
 
 	def create
+		sleep 4
 		@student = Student.new
 		params = permitted_params.user_params().merge default_student_attrs
 
@@ -27,6 +28,13 @@ class StudentController < ApplicationController
 		else
 			respond_with @student
 		end
+	end
+
+	def destroy
+		sleep 5
+  		student = Student.find(params[:id])
+  		student.destroy()
+  		render json: {}
 	end
 
 

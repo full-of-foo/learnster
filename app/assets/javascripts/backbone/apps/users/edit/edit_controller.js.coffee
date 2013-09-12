@@ -1,20 +1,21 @@
 @Learnster.module "UsersApp.Edit", (Edit, App, Backbone, Marionette, $, _) ->
 
-	Edit.Controller =
+	class Edit.Controller extends App.Controllers.Base
 
-		edit: (id) ->
+		initialize: (options) ->
+			id = options.id
 			student = App.request "student:entity", id
 
-			student.on "updated", ->
+			@listenTo student, "updated", ->
 				App.vent.trigger "user:student:updated", student
 
 			App.execute "when:fetched", student, =>
 				@layout = @getLayoutView student
-				@layout.on "show", =>
+				@listenTo @layout, "show", =>
 					@setTitleRegion student
 					@setFormRegion student
 
-				App.mainRegion.show @layout
+				@show @layout
 
 		getLayoutView: (student) ->
 			new Edit.Layout 
@@ -31,7 +32,7 @@
 		setFormRegion: (student) ->
 			editView = @getEditView student
 
-			editView.on "form:cancel", ->
+			@listenTo editView, "form:cancel", ->
 				App.vent.trigger "user:student:cancelled", student
 
 			formView = App.request "form:wrapper", editView

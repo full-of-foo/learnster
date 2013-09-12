@@ -1,16 +1,16 @@
 @Learnster = do (Backbone, Marionette) ->
 
     App = new Marionette.Application()
+    
 
     App.on "initialize:before", (options) ->
-        if options.currentUser.id?
-            @currentUser = App.request("set:current:user", options.currentUser)
-        else
-            @currentUser = null
+        App.environment = options.environment
 
     App.reqres.setHandler "get:current:user", ->
         App.currentUser
 
+    App.reqres.setHandler "default:region", ->
+        App.mainRegion
 
     App.addRegions
         headerRegion: "#header-region"
@@ -20,6 +20,14 @@
     App.addInitializer ->
         App.module("HeaderApp").start()
         App.module("FooterApp").start()
+
+
+    App.commands.setHandler "unregister:instance", (instance, id) ->
+        App.unregister instance, id if App.environment is "development"
+
+    App.commands.setHandler "register:instance", (instance, id) ->
+        App.register instance, id if App.environment is "development"
+
 
     App.on "initialize:after", ->
             @startHistory()

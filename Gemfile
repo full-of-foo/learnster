@@ -19,7 +19,7 @@ gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
 
 gem 'sass-rails', '4.0.0'
-gem 'bootstrap-sass-rails'
+gem 'bootstrap-sass-rails', '2.3.2.1'
 gem 'jquery-rails', '2.2.1'
 gem "eco", :require => 'eco'
 gem 'uglifier', '2.1.1'

@@ -3,7 +3,8 @@
 
     API =
         showFooter: ->
-            FooterApp.Show.Controller.showFooter()
+            new FooterApp.Show.Controller
+                        region: App.footerRegion
 
     FooterApp.on "start", ->
         API.showFooter()
