@@ -33,3 +33,4 @@ vendor/bundle/
 /*.tmpproj
 **.swp
 .secret
+public/assets/source_maps

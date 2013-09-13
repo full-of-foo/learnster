@@ -19,9 +19,8 @@ class StudentController < ApplicationController
 	end
 
 	def create
-		sleep 4
 		@student = Student.new
-		params = permitted_params.user_params().merge default_student_attrs
+		params = permitted_params.user_params().merge default_attrs
 
 		if @student.update params
 			render "student/show"
@@ -31,7 +30,6 @@ class StudentController < ApplicationController
 	end
 
 	def destroy
-		sleep 5
   		student = Student.find(params[:id])
   		student.destroy()
   		render json: {}
@@ -40,7 +38,7 @@ class StudentController < ApplicationController
 
 	private
 
-		def default_student_attrs
+		def default_attrs
 			#must do this a la client instead
 			org = Organisation.find_by(title: params[:attending_org]) 
 

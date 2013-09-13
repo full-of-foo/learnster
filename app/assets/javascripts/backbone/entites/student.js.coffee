@@ -5,6 +5,7 @@
         urlRoot: Routes.student_index_path()
         relations: [
             type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.AppAdmin
+            type: Backbone.HasOne, key: 'attending_org', relatedModel: Entities.Org
         ]
         initialize: ->
             @on "all", (e) -> console.log e

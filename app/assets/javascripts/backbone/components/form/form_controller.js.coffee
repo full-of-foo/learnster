@@ -18,7 +18,6 @@
 				exclude: ["password", "password-confirm"]
            
 			if @contentView.triggerMethod("form:submit", data) isnt false
-                console.log data
 				model = @contentView.model
 				collection = @contentView.collection
 				@processFormSubmit data, model, collection 

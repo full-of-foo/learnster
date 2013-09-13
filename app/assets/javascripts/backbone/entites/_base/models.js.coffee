@@ -2,6 +2,9 @@
 
     class Entities.Models extends Backbone.RelationalModel
 
+        initialize: ->
+            @on "all", (e) -> console.log e if App.enviornment is "development"
+
         fetch: (options = {}) ->
             # options.reset = true
             super options

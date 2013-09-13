@@ -1,9 +1,15 @@
 @Learnster.module "OrgsApp.New", (New, App, Backbone, Marionette, $, _) ->
 
-	class New.View extends App.Views.ItemView
-		template: "organisations/new/templates/new_org"
+        class New.Layout extends App.Views.Layout
+            template: "organisations/new/templates/new_layout"
+            regions: 
+                formRegion:   "#form-region"
 
-		triggers:
-			"click .cancel-new-org" : "form:cancel:button:clicked"
-
-
+        class New.View extends App.Views.ItemView
+            template: "organisations/new/templates/new_org"
+            triggers:
+                "click .cancel-new-org" : "form:cancel"
+            form:
+                buttons: 
+                    primary:      "Add Organisation"
+                    primaryClass: "btn btn-primary"

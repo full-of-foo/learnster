@@ -11,6 +11,4 @@
         onShow: -> 
             $('.selectpicker').selectpicker()
             $(@itemViewContainer).attr("id", @options.itemViewId)
-            console.log @options.itemViewId
-            console.log $(@itemViewContainer)
 

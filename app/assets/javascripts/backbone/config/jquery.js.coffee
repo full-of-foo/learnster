@@ -23,5 +23,4 @@ do ($) ->
                                 zIndex: obj.zIndex + 1
                                 backgroundColor: obj.backgroundColor
         else
-            console.log $("[data-wrapper]")
             $("[data-wrapper]").remove()

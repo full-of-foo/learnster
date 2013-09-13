@@ -1,4 +1,4 @@
-@Learnster.module "UsersApp.Edit", (Edit, App, Backbone, Marionette, $, _) ->
+@Learnster.module "StudentsApp.Edit", (Edit, App, Backbone, Marionette, $, _) ->
 
 	class Edit.Controller extends App.Controllers.Base
 
@@ -7,7 +7,7 @@
 			student = App.request "student:entity", id
 
 			@listenTo student, "updated", ->
-				App.vent.trigger "user:student:updated", student
+				App.vent.trigger "student:updated", student
 
 			App.execute "when:fetched", student, =>
 				@layout = @getLayoutView student
@@ -33,7 +33,7 @@
 			editView = @getEditView student
 
 			@listenTo editView, "form:cancel", ->
-				App.vent.trigger "user:student:cancelled", student
+				App.vent.trigger "student:cancelled", student
 
 			formView = App.request "form:wrapper", editView
 			@layout.formRegion.show formView

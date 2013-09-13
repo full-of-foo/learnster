@@ -10,7 +10,7 @@
 <td><%= @last_login_formatted %></td>
 <td> <%= @attending_org.title %> </td>
 <td class="last-col-invisible"> 
-	<div class="delete-student">
+	<div class="delete-icon">
 		<i class="icon-remove-sign"></i>		
 	</div>
 </td>

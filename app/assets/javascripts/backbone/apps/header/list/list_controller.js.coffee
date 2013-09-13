@@ -2,7 +2,7 @@
 
     class List.Controller extends App.Controllers.Base
 
-        initialize: ->
+        initialize: (options) ->
             links = App.request "header:entities"
 
             headerView = @getHeaderView(links)

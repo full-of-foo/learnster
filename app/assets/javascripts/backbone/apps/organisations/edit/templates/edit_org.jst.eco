@@ -1,0 +1,29 @@
+<div class="row">
+
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label" for="title">Title</label>
+                <div class="controls">
+                    <input type="text" id="title" value="<%= @title %>" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="description">Description</label>
+                <div class="controls">
+                    <input type="text" id="description" value="<%= @description %>" />
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="created-by">Created by</label>
+                <div class="controls">
+                    <p id="created-by" class="form-control-static">
+                    <% if @created_by: %>
+                        <%= @created_by.full_name %>
+                    <% end %>
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+</div>

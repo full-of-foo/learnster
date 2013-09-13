@@ -1,7 +1,7 @@
 <button type="button" class="close cancel-new-student" data-dismiss="alert">&times;</button>
 
 <blockquote>
-    <p class="text-info">New User...</p>
+    <p class="text-info">New Student...</p>
     <small class="text-info">hover over fields for help</small>
 </blockquote>
 

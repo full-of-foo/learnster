@@ -7,7 +7,7 @@
         App.environment = options.environment
 
     App.reqres.setHandler "get:current:user", ->
-        App.currentUser
+        App.currentUser = null #nyi
 
     App.reqres.setHandler "default:region", ->
         App.mainRegion

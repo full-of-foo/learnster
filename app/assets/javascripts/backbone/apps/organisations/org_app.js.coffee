@@ -3,20 +3,37 @@
 
     class OrgsApp.Router extends Marionette.AppRouter
         appRoutes:
-                "organisations": "listOrgs"
+                "organisation/:id/edit"    : "edit"
+                "organisations"            : "listOrgs"
 
 
     API =  
-        newOrg: ->
-            OrgsApp.New.Controller.newOrg()
+        newOrg: (region) ->
+            new OrgsApp.New.Controller
+                            region: region
 
         listOrgs: ->
-            OrgsApp.List.Controller.listOrgs()
+            new OrgsApp.List.Controller()
 
+         edit: (id) ->
+            new OrgsApp.Edit.Controller
+                    id: @get_org_id(id)
 
+        get_org_id: (id_org) ->
+            id = if id_org.id then id_org.id else id_org
 
-    App.reqres.setHandler "new:org:view", ->
-                API.newOrg()
+    
+    App.commands.setHandler "new:org:view", (region) ->
+        API.newOrg(region)
+
+    App.vent.on "org:clicked org:created", (id) ->
+        App.navigate Routes.edit_organisation_path(id).split("/api")[1]
+        API.edit id
+
+    App.vent.on "org:cancelled org:updated", (org) ->
+        App.navigate Routes.organisation_index_path().split("/api")[1] + "s"
+        API.listOrgs()
+
 
 
     App.addInitializer ->

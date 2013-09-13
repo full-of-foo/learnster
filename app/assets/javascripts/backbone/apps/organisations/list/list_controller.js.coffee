@@ -1,38 +1,40 @@
 @Learnster.module "OrgsApp.List", (List, App, Backbone, Marionette, $, _) ->
 
-    List.Controller =
+    class List.Controller extends App.Controllers.Base
 
-        listOrgs: ->
+        initialize: (options) ->
             App.request "org:entities", (orgs) =>
                
                App.execute "when:fetched", orgs, =>
                     @layout = @getLayoutView()
 
-                    @layout.on "show", =>
+                    @listenTo @layout, "show", =>
                         @showPanel orgs
                         @showOrgs orgs
 
-                    App.mainRegion.show @layout
+                    @show @layout
 
         showNewRegion: ->
-            newView = App.request "new:org:view"
-            region = @layout.newRegion
-
-            newView.on "form:cancel:button:clicked", =>
-                region.close()
-
-            region.show newView
+            App.execute "new:org:view", @layout.newRegion
 
         showPanel: (orgs) ->
             panelView = @getPanelView orgs
 
-            panelView.on "new:org:button:clicked", =>
+            @listenTo panelView, "new:org:button:clicked", =>
                 @showNewRegion()
 
             @layout.panelRegion.show panelView
 
         showOrgs: (orgs) ->
             orgsView = @getOrgsView orgs
+
+            @listenTo orgsView, "childview:org:clicked", (child, args) ->
+                App.vent.trigger "org:clicked", args.model
+
+            @listenTo orgsView, "childview:org:delete:clicked", (child, args) ->
+                model = args.model
+                if confirm "Are you sure you want to delete #{model.get('title')}?" then model.destroy() else false
+
             @layout.orgsRegion.show orgsView
 
         getPanelView: (orgs) ->

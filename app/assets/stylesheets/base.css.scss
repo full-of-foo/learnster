@@ -19,13 +19,13 @@ html, body {
 		td:first-child {
 			border-left: 2px solid #06F0FF;
 		}
-		.delete-student{
+		.delete-icon {
 	  	visibility: visible;
 	  }
 	}
 	.last-col-invisible {
 	  border-left: 0px;
-	  .delete-student{
+	  .delete-icon {
 	  	visibility: hidden;
 	  }
 	}

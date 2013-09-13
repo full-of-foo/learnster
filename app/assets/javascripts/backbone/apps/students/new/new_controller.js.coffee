@@ -1,4 +1,4 @@
-@Learnster.module "UsersApp.New", (New, App, Backbone, Marionette, $, _) ->
+@Learnster.module "StudentsApp.New", (New, App, Backbone, Marionette, $, _) ->
 
 	class New.Controller extends App.Controllers.Base
 

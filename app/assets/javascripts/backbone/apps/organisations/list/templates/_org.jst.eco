@@ -1,2 +1,8 @@
 <td> <%= @title %> </td>
 <td> <%= @description %> </td>
+<td> <%= @size %> </td>
+<td class="last-col-invisible"> 
+	<div class="delete-icon">
+		<i class="icon-remove-sign"></i>		
+	</div>
+</td>

@@ -8,7 +8,7 @@
     API =
         getHeaders: ->
             new Entities.HeaderCollection [
-                { name: "Students", url: Routes.user_index_path().split("/api")[1] + "s" }
+                { name: "Students", url: Routes.student_index_path().split("/api")[1] + "s" }
                 { name: "Admins" }
                 { name: "Organisations", url: Routes.organisation_index_path().split("/api")[1] + "s" }
             ]

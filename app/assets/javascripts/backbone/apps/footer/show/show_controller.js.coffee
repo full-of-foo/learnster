@@ -8,7 +8,4 @@
             @show footerView
 
         getFooterView: (currentUser) ->
-            if currentUser?
-                new Show.Footer(model: currentUser)
-            else
-                new Show.Footer()
+            if currentUser? then new Show.Footer(model: currentUser) else new Show.Footer()
