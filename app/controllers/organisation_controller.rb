@@ -2,10 +2,13 @@ class OrganisationController < ApplicationController
     respond_to :json
 
     def index
-       @organisations = Organisation.all
+    	@search = Organisation.search do
+    		fulltext params[:search]
+    	end
+        @organisations = @search.results
     end
 
-     def show
+    def show
   		@organisation = Organisation.find(params[:id])
 	end
 

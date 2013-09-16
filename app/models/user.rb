@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
 
   	validates_uniqueness_of :email
   	validates_presence_of :email, :first_name, :surname
-  	validates_presence_of :attending_org, :created_by, unless: proc { new_record? }
 
     def full_name
         "#{first_name} #{surname}"

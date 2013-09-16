@@ -7,4 +7,9 @@ class Organisation < ActiveRecord::Base
   validates_uniqueness_of :title
   validates_presence_of :title, :description
 
+  searchable do
+		text :title, :boost => 5 
+		text :description
+	end
+
 end

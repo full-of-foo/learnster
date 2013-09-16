@@ -18,6 +18,12 @@ end
 
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
+gem 'sunspot_rails', github: 'sunspot/sunspot', branch: 'master'
+gem 'progress_bar'
+
+group :development do
+  gem 'sunspot_solr', github: 'sunspot/sunspot', branch: 'master'
+end
 
 gem 'sass-rails', '4.0.0'
 gem 'bootstrap-sass-rails', '2.3.2.1'

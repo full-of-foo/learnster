@@ -2,7 +2,11 @@ class StudentController < ApplicationController
     respond_to :json
 
     def index
-        @students = Student.all
+    	# sleep 2
+    	@search = Student.search do
+    		fulltext params[:search]
+    	end
+        @students = @search.results
     end
 
     def show
@@ -21,7 +25,7 @@ class StudentController < ApplicationController
 	def create
 		@student = Student.new
 		params = permitted_params.user_params().merge default_attrs
-
+		puts "Merged params: #{params}"
 		if @student.update params
 			render "student/show"
 		else

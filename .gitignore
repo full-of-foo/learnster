@@ -34,3 +34,8 @@ vendor/bundle/
 **.swp
 .secret
 public/assets/source_maps
+*.pid
+log/
+solr/development
+solr/test
+solr/default

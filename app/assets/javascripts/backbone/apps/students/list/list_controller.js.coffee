@@ -8,6 +8,7 @@
                     @layout = @getLayoutView()
 
                     @listenTo @layout, "show", =>
+                        @showSearch students
                         @showPanel students
                         @showStudents students
  
@@ -24,6 +25,17 @@
 
             @layout.panelRegion.show panelView
 
+        showSearch: (students) ->
+            searchView = @getSearchView students
+
+            @listenTo searchView, "search:submitted", (searchTerm) =>
+                @searchStudents searchTerm
+            
+            @layout.searchRegion.show searchView
+
+        searchStudents: (searchTerm = null) ->
+            if searchTerm then @showSearchStudents(searchTerm) else console.log "empty search"
+
         showStudents: (students) ->
             studentsView = @getStudentsView students
 
@@ -38,8 +50,17 @@
 
             @layout.studentsRegion.show studentsView
 
+        showSearchStudents: (searchTerm) ->
+            students = App.request "search:students:entities", searchTerm
+
+            students.on "reset", => @showStudents(students)
+
         getPanelView: (students) ->
             new List.Panel
+                collection: students
+
+        getSearchView: (students) ->
+            new List.SearchPanel
                 collection: students
 
         getStudentsView: (students) ->

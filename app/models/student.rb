@@ -1,10 +1,16 @@
 class Student < User
 
   	belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org" 
+	validates_presence_of :attending_org
 
-  	def self.model_name
-    	User.model_name
-  	end
+	searchable do
+		text :first_name, :boost => 2
+		text :surname, :boost => 5 
+		text :email
+		text :attending_org do
+			attending_org.title
+		end
+	end
 
 	def app_admin?
 		false

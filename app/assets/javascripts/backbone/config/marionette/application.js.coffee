@@ -32,3 +32,11 @@ do (Backbone) ->
             _.size @_registry
 
 
+        makeToast: (options = {}) ->
+            $("<div>").toaster
+                            position: 
+                                top: 110, right: 0
+            $("<div>#{options.text}</div>").toast
+                                                type: options.type
+
+

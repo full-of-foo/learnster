@@ -5,7 +5,7 @@
         urlRoot: Routes.student_index_path()
         relations: [
             type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.AppAdmin
-            type: Backbone.HasOne, key: 'attending_org', relatedModel: Entities.Org
+            # type: Backbone.HasOne, key: 'attending_org', relatedModel: Entities.Org
         ]
         initialize: ->
             @on "all", (e) -> console.log e
@@ -36,7 +36,13 @@
 
         newStudent: ->
             new Entities.Student
-            
+
+        getSearchStudentEntities: (searchTerm) ->
+            students = new Entities.StudentsCollection
+            students.fetch
+                reset: true
+                data: $.param(searchTerm)
+            students
 
     App.reqres.setHandler "new:student:entity", ->
         API.newStudent()
@@ -49,3 +55,6 @@
 
     App.reqres.setHandler "student:entity", (id) ->
         API.getStudentEntity id
+
+    App.reqres.setHandler "search:students:entities", (searchTerm) ->
+        API.getSearchStudentEntities searchTerm

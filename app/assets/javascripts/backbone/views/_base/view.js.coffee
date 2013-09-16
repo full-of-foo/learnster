@@ -17,7 +17,7 @@
         remove: (args...) ->
             console.log "removing", @
             
-            if @model?.isDestroyed()
+            if @model?.isDestroyed?()
                 wrapper = @$el.toggleWrapper
                     className: "opacity"
                     backgroundColor: "red"

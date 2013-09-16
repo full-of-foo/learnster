@@ -4,7 +4,7 @@
     class Entities.Org extends Entities.Models
         relations: [
             type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.AppAdmin
-            type: Backbone.HasMany, key: 'students',  relatedModel: Entities.Student, reverseRelation: { key: 'attending_org' }
+            # type: Backbone.HasMany, key: 'students',  relatedModel: Entities.Student, reverseRelation: { key: 'attending_org' }
         ]
         urlRoot: Routes.organisation_index_path()
 

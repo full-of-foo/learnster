@@ -5,6 +5,7 @@
 
         regions:
             panelRegion: "#panel-region"
+            searchRegion: "#search-region"
             newRegion: "#new-region"
             studentsRegion: "#students-region"
 
@@ -14,6 +15,18 @@
             "reset": "render"
         triggers:
             "click #new-student-button" : "new:student:button:clicked"
+
+    class List.SearchPanel extends App.Views.ItemView
+        template: "students/list/templates/_search_panel"
+        ui:
+            "input" : "input"
+        events:
+            "submit form" : "formSubmitted"
+        formSubmitted: (e) ->
+            e.preventDefault()
+            data = Backbone.Syphon.serialize @
+            @trigger "search:submitted", data
+
 
     class List.New extends App.Views.ItemView
         template: "students/list/templates/_new"

@@ -15,16 +15,16 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require js-routes
-//= require lib/bootstrap-select
 //= require lib/underscore
 //= require lib/backbone
 //= require lib/backbone.marionette
-//= require lib/backbone.syphon	
-//= require lib/backbone-relational	
+//= require_tree ./lib/vendor
+
 //= require_tree ./backbone/config
 //= require backbone/learnster
+
 //= require_tree ./backbone/controllers
 //= require_tree ./backbone/views
-//= require_tree ./backbone/entites
+//= require_tree ./backbone/entities
 //= require_tree ./backbone/components
 //= require_tree ./backbone/apps

@@ -24,6 +24,7 @@
 				 
 
 		processFormSubmit: (data, model, collection) ->
+			console.log data, "form data"
 			model.save data,
 				collection: collection 
 
