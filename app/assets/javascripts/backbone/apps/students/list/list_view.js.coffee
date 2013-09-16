@@ -43,6 +43,9 @@
         tagName: "tr"
 
     class List.Students extends App.Views.CompositeView
+        onShow: ->
+            $("#app-table").tablesorter()
+
         template: "students/list/templates/_students"
         itemView: List.Student
         emptyView: List.Empty

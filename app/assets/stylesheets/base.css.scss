@@ -55,3 +55,21 @@ html, body {
 	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
   	opacity: 0.4;
 }
+
+/* base table sorting styles */
+.tablesorter {
+	 .header:hover {
+		background-image: url("/assets/bg.gif");
+		background-repeat: no-repeat;
+		background-position: top right;
+		padding-top: 8px;
+		height: auto;
+	}
+	.headerSortUp:hover {
+		background-image: url("/assets/asc.gif");
+	}
+	.headerSortDown:hover {
+		background-image: url("/assets/desc.gif");
+	}
+}
+

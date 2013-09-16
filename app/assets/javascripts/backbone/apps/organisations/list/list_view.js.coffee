@@ -39,6 +39,9 @@
         tagName: "tr"
 
     class List.Orgs extends App.Views.CompositeView
+        onShow: ->
+            $("#app-table").tablesorter()
+            
         template: "organisations/list/templates/_orgs"
         itemView: List.Org
         emptyView: List.Empty

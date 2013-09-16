@@ -1,4 +1,4 @@
-<table id="app-table" class="table table-bordered">
+<table id="app-table" class="table table-bordered tablesorter">
     <thead>
         <tr id="app-table-header-row">
             <th>
