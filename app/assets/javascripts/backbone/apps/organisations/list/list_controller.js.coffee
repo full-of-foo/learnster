@@ -10,6 +10,7 @@
 
                     @listenTo @layout, "show", =>
                         @showPanel orgs
+                        @showSearch orgs
                         @showOrgs orgs
 
                     @show @layout
@@ -25,6 +26,17 @@
 
             @layout.panelRegion.show panelView
 
+        showSearch: (orgs) ->
+            searchView = @getSearchView orgs
+
+            @listenTo searchView, "search:submitted", (searchTerm) =>
+                @searchOrgs searchTerm
+            
+            @layout.searchRegion.show searchView
+
+        searchOrgs: (searchTerm = null) ->
+            @showSearchOrgs(searchTerm)
+
         showOrgs: (orgs) ->
             orgsView = @getOrgsView orgs
 
@@ -37,8 +49,17 @@
 
             @layout.orgsRegion.show orgsView
 
+        showSearchOrgs: (searchTerm) ->
+            orgs = App.request "search:orgs:entities", searchTerm
+
+            orgs.on "reset", => @showOrgs(orgs)
+
         getPanelView: (orgs) ->
             new List.Panel
+                collection: orgs
+
+        getSearchView: (orgs) ->
+            new List.SearchPanel
                 collection: orgs
 
         getOrgsView: (orgs) ->

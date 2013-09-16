@@ -34,6 +34,13 @@
                 success: ->
                     cb orgs
 
+        getSearchOrgEntities: (searchTerm) ->
+            orgs = new Entities.OrgsCollection
+            orgs.fetch
+                reset: true
+                data: $.param(searchTerm)
+            orgs
+
     App.reqres.setHandler "new:org:entity", ->
         API.newOrg()
 
@@ -45,3 +52,6 @@
 
      App.reqres.setHandler "org:entity", (id) ->
         API.getOrgEntity id
+
+    App.reqres.setHandler "search:orgs:entities", (searchTerm) ->
+        API.getSearchOrgEntities searchTerm

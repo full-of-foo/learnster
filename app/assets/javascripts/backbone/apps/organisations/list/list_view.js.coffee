@@ -4,9 +4,10 @@
         template: "organisations/list/templates/list_layout"
 
         regions:
-            panelRegion: "#panel-region"
-            newRegion: "#new-region"
-            orgsRegion: "#orgs-region"
+            panelRegion:   "#panel-region"
+            newRegion:     "#new-region"
+            searchRegion:  "#search-region"
+            orgsRegion:    "#orgs-region"
 
     class List.Panel extends App.Views.ItemView
         template: "organisations/list/templates/_panel"
@@ -14,6 +15,17 @@
             "reset": "render"
         triggers:
             "click #new-org-button" : "new:org:button:clicked"
+
+     class List.SearchPanel extends App.Views.ItemView
+        template: "organisations/list/templates/_search_panel"
+        ui:
+            "input" : "input"
+        events:
+            "submit form" : "formSubmitted"
+        formSubmitted: (e) ->
+            e.preventDefault()
+            data = Backbone.Syphon.serialize @
+            @trigger "search:submitted", data
 
     class List.Org extends App.Views.ItemView
         template: "organisations/list/templates/_org"

@@ -14,8 +14,9 @@ Currently in development, learnster is an learnining management system whose ric
  - rake db:migrate
  - rake db:seed
 
-
 TODO:
+
+* Mention solr bootstrapping info
 
 * Better high-level intro
 

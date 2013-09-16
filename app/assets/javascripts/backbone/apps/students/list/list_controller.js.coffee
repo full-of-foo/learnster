@@ -34,7 +34,7 @@
             @layout.searchRegion.show searchView
 
         searchStudents: (searchTerm = null) ->
-            if searchTerm then @showSearchStudents(searchTerm) else console.log "empty search"
+            @showSearchStudents(searchTerm)
 
         showStudents: (students) ->
             studentsView = @getStudentsView students
