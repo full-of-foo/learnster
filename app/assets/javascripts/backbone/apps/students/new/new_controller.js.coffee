@@ -37,10 +37,12 @@
 
 
 		setOrgSelector: ->
-			App.request "org:entities", (orgs) =>
-				App.execute "when:fetched", orgs, =>
-					selectView = App.request "selects:wrapper",
-												collection: orgs
-												itemViewId: "attending_org"
-												itemView:   App.Components.Selects.OrgOption
-					@newView.orgSelectRegion.show selectView												
+			orgs = App.request "org:entities"
+			selectView = App.request "selects:wrapper",
+										collection: orgs
+										itemViewId: "attending_org"
+										itemView:   App.Components.Selects.OrgOption
+			@show selectView,
+                            loading:
+                                loadingType: "spinner"
+                            region:  @newView.orgSelectRegion												

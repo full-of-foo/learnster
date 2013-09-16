@@ -3,16 +3,16 @@
     class List.Controller extends App.Controllers.Base
 
         initialize: (options) ->
-            App.request "student:entities", (students) =>
-                App.execute "when:fetched", students, =>
-                    @layout = @getLayoutView()
+            students = App.request "student:entities"
+            
+            @layout = @getLayoutView()
 
-                    @listenTo @layout, "show", =>
-                        @showSearch students
-                        @showPanel students
-                        @showStudents students
- 
-                    @show @layout
+            @listenTo @layout, "show", =>
+                @showSearch students
+                @showPanel students
+                @showStudents students
+
+            @show @layout
 
         showNewRegion: ->
             App.execute "new:student:view", @layout.newRegion
@@ -48,12 +48,15 @@
                 console.log args
                 if confirm "Are you sure you want to delete #{model.get('first_name')}?" then model.destroy() else false
 
-            @layout.studentsRegion.show studentsView
+
+            @show studentsView,
+                            loading:
+                                loadingType: "spinner"
+                            region:  @layout.studentsRegion
 
         showSearchStudents: (searchTerm) ->
             students = App.request "search:students:entities", searchTerm
-
-            students.on "reset", => @showStudents(students)
+            @showStudents(students)
 
         getPanelView: (students) ->
             new List.Panel

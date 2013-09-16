@@ -20,12 +20,11 @@
         setCurrentStudent: (currentStudent) ->
             new Entities.Student
 
-        getStudentEntities: (cb) ->
+        getStudentEntities: ->
             students = new Entities.StudentsCollection
             students.fetch
-                reset: true,
-                success: ->
-                    cb students
+                reset: true
+            students
 
         getStudentEntity: (id) ->
             student = Entities.Student.findOrCreate
@@ -50,8 +49,8 @@
     App.reqres.setHandler "set:current:student", (currentStudent) ->
         API.setCurrentStudent currentStudent
 
-    App.reqres.setHandler "student:entities", (cb) ->
-        API.getStudentEntities cb
+    App.reqres.setHandler "student:entities", ->
+        API.getStudentEntities() 
 
     App.reqres.setHandler "student:entity", (id) ->
         API.getStudentEntity id

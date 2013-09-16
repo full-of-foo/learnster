@@ -36,6 +36,7 @@ gem 'rabl'
 gem 'oj'
 gem 'gon'
 gem 'js-routes'
+gem 'spinjs-rails'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

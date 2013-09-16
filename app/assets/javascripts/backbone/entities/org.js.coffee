@@ -27,12 +27,11 @@
                 reset: true
             org
 
-        getOrgEntities: (cb) ->
+        getOrgEntities: ->
             orgs = new Entities.OrgsCollection
             orgs.fetch
-                reset: true,
-                success: ->
-                    cb orgs
+                reset: true
+            orgs
 
         getSearchOrgEntities: (searchTerm) ->
             orgs = new Entities.OrgsCollection
@@ -47,8 +46,8 @@
     App.reqres.setHandler "set:current:org", (currentOrg) ->
         API.setCurrentOrg currentOrg
 
-     App.reqres.setHandler "org:entities", (cb) ->
-        API.getOrgEntities cb
+     App.reqres.setHandler "org:entities", ->
+        API.getOrgEntities()
 
      App.reqres.setHandler "org:entity", (id) ->
         API.getOrgEntity id

@@ -3,17 +3,16 @@
     class List.Controller extends App.Controllers.Base
 
         initialize: (options) ->
-            App.request "org:entities", (orgs) =>
+            orgs = App.request "org:entities"
                
-               App.execute "when:fetched", orgs, =>
-                    @layout = @getLayoutView()
+            @layout = @getLayoutView()
 
-                    @listenTo @layout, "show", =>
-                        @showPanel orgs
-                        @showSearch orgs
-                        @showOrgs orgs
+            @listenTo @layout, "show", =>
+                @showPanel orgs
+                @showSearch orgs
+                @showOrgs orgs
 
-                    @show @layout
+            @show @layout
 
         showNewRegion: ->
             App.execute "new:org:view", @layout.newRegion
@@ -47,12 +46,14 @@
                 model = args.model
                 if confirm "Are you sure you want to delete #{model.get('title')}?" then model.destroy() else false
 
-            @layout.orgsRegion.show orgsView
+            @show orgsView,
+                        loading:
+                            loadingType: "spinner"
+                        region:  @layout.orgsRegion
 
         showSearchOrgs: (searchTerm) ->
             orgs = App.request "search:orgs:entities", searchTerm
-
-            orgs.on "reset", => @showOrgs(orgs)
+            @showOrgs orgs
 
         getPanelView: (orgs) ->
             new List.Panel

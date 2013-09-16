@@ -2,7 +2,6 @@ class StudentController < ApplicationController
     respond_to :json
 
     def index
-    	# sleep 2
     	@search = Student.search do
     		fulltext params[:search]
     	end

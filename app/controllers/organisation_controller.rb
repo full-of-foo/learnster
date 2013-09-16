@@ -2,6 +2,7 @@ class OrganisationController < ApplicationController
     respond_to :json
 
     def index
+    	sleep 6
     	@search = Organisation.search do
     		fulltext params[:search]
     	end
