@@ -2,9 +2,20 @@ class StudentController < ApplicationController
     respond_to :json
 
     def index
+    	if params[:format] == "xlsx"
+    		@students = Student.all
+    		
+    		respond_to do |format|
+  			format.xlsx {
+            	send_data @students.to_xlsx.to_stream.read, :filename => 'students.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+       		 }
+  			end
+    	end
+
     	@search = Student.search do
     		fulltext params[:search]
     	end
+        
         @students = @search.results
     end
 

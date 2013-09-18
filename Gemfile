@@ -20,6 +20,9 @@ gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
 gem 'sunspot_rails', github: 'sunspot/sunspot', branch: 'master'
 gem 'progress_bar'
+gem 'acts_as_xlsx'
+gem 'axlsx_rails'
+
 
 group :development do
   gem 'sunspot_solr', github: 'sunspot/sunspot', branch: 'master'

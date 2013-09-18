@@ -1,4 +1,5 @@
 class Student < User
+	acts_as_xlsx
 
   	belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org" 
 	validates_presence_of :attending_org

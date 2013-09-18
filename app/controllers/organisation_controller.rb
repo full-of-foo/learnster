@@ -2,7 +2,16 @@ class OrganisationController < ApplicationController
     respond_to :json
 
     def index
-    	sleep 6
+    	if params[:format] == "xlsx"
+    		@orgs = Organisation.all
+    		
+    		respond_to do |format|
+  			format.xlsx {
+            	send_data @orgs.to_xlsx.to_stream.read, :filename => 'organisations.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+       		 }
+  			end
+    	end
+
     	@search = Organisation.search do
     		fulltext params[:search]
     	end
