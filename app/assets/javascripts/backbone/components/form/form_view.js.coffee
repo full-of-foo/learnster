@@ -23,6 +23,7 @@
 			"sync:stop" 	 : "syncStop"
 
 		initialize: ->	
+			console.log @model
 			@setInstancePropertiesFor "config", "buttons"
 
 		serializeData: ->

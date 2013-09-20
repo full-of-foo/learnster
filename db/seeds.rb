@@ -17,7 +17,7 @@ Organisation.populate(10) do |o|
 end
 
 count = 1
-OrgAdmin.populate(1) do |oa|
+OrgAdmin.populate(35) do |oa|
     oa.email = Faker::Internet.email
     name_gen = Faker::Name
     oa.first_name = name_gen.first_name
@@ -27,6 +27,7 @@ OrgAdmin.populate(1) do |oa|
     oa.created_by = AppAdmin.first
     oa.admin_for = Organisation.find(count)
     count += 1
+    count = 1 if count == 10
 end
 
 Student.populate 20 do |u|

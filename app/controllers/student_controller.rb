@@ -1,22 +1,29 @@
 class StudentController < ApplicationController
     respond_to :json
+    before_filter :find_org
+
 
     def index
-    	if params[:format] == "xlsx"
-    		@students = Student.all
-    		
+    	if params[:search]
+	    	@search = Student.search do
+	    		fulltext params[:search]
+	    	end
+	        return (@students = @search.results)
+    	end
+
+    	@students = Student.all
+    	
+    	if params[:format] == "xlsx"    		
     		respond_to do |format|
   			format.xlsx {
             	send_data @students.to_xlsx.to_stream.read, :filename => 'students.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
        		 }
-  			end
-    	end
-
-    	@search = Student.search do
-    		fulltext params[:search]
-    	end
-        
-        @students = @search.results
+  			end	
+	    elsif @org
+	      @students = @org.students
+	    else
+	      @students
+        end
     end
 
     def show
@@ -58,5 +65,4 @@ class StudentController < ApplicationController
 
 			{ created_by: current_user, attending_org: org, is_active: false, last_login: Time.zone.now }
 		end
-
  end

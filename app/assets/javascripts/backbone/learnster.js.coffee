@@ -33,7 +33,7 @@
 
     App.on "initialize:after", ->
             @startHistory()
-            App.rootRoute = if App.currentUser? then "/users" else "/login"
+            App.rootRoute = if App.currentUser? then "/students" else "/login"
             @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is ""
 
     App

@@ -12,7 +12,6 @@
 
             switch config.loadingType
                 when "opacity"
-                    console.log @region
                     @region.currentView.$el.css "opacity", 0.5
                 when "spinner"          
                     loadingView = @getLoadingView()

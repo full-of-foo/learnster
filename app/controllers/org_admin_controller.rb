@@ -1,21 +1,29 @@
 class OrgAdminController < ApplicationController
     respond_to :json
+    before_filter :find_org
+    
 
     def index
-    	if params[:format] == "xlsx"
-    		@org_admins = OrgAdmin.all
-    		
-    		respond_to do |format|
-  			format.xlsx {
-            	send_data @org_admins.to_xlsx.to_stream.read, :filename => 'org_admin.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
-       		 }
-  			end
+    	if params[:search]
+	    	@search = OrgAdmin.search do
+	    		fulltext params[:search]
+	    	end
+	        return (@org_admins = @search.results)
     	end
 
-    	@search = OrgAdmin.search do
-    		fulltext params[:search]
-    	end
-        @org_admins = @search.results
+    	@org_admins = OrgAdmin.all
+    	
+    	if params[:format] == "xlsx"    		
+    		respond_to do |format|
+  			format.xlsx {
+            	send_data @org_admins.to_xlsx.to_stream.read, :filename => 'organisation_admins.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+       		 }
+  			end	
+	    elsif @org
+	      @org_admins = @org.admins
+	    else
+	      @org_admins
+        end
     end
 
     def show
