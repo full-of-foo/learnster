@@ -39,3 +39,4 @@ log/
 solr/development
 solr/test
 solr/default
+kill_server.sh
