@@ -30,6 +30,9 @@
         App.navigate Routes.edit_organisation_path(id).split("/api")[1]
         API.edit id
 
+    App.vent.on "link-org-students:clicked list-org-students:clicked", (id) ->
+        console.log "Here with id", id
+
     App.vent.on "org:cancelled org:updated", (org) ->
         App.navigate Routes.organisation_index_path().split("/api")[1] + "s"
         API.listOrgs()

@@ -37,6 +37,7 @@
         triggers:
             "click .delete-icon i"    : "org_admin:delete:clicked"
             "click"                   : "org_admin:clicked"
+            "click .org-link"         : "org:clicked"
 
     class List.Empty extends App.Views.ItemView
         template: "org_admins/list/templates/_empty"

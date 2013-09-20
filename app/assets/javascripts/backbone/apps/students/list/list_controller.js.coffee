@@ -42,6 +42,9 @@
             @listenTo studentsView, "childview:student:clicked", (child, args) ->
                 App.vent.trigger "student:clicked", args.model
 
+            @listenTo studentsView, "childview:org:clicked", (child, args) ->
+                App.vent.trigger "org:clicked", args.model.get('attending_org').id
+
             @listenTo studentsView, "childview:student:delete:clicked", (child, args) ->
                 model = args.model
                 if confirm "Are you sure you want to delete #{model.get('first_name')}?" then model.destroy() else false

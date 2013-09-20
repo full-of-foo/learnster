@@ -37,6 +37,7 @@
         triggers:
             "click .delete-icon i"    : "student:delete:clicked"
             "click"                   : "student:clicked"
+            "click .org-link"         : "org:clicked"
 
     class List.Empty extends App.Views.ItemView
         template: "students/list/templates/_empty"

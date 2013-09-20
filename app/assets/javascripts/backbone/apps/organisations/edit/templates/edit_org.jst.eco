@@ -1,5 +1,15 @@
 <div class="row">
+        
+        <div class="pull-right">
 
+             <ul class="nav nav-pills nav-stacked">
+                <li><a id="org-admins-link" href="#">Administrators: <% if @admins: %><%= @admins.length %><% end %></a></li>
+                <li><a id="org-students-link" href="#">Students Attending: <%= @size %></a></li>
+                <li class="disabled"><a id="org-created-by-link" href="#">Created by: <% if @created_by: %> <%= @created_by.full_name %><% end %></a></li>
+             </ul>
+
+        </div>
+       
         <div class="span6">
             <div class="control-group">
                 <label class="control-label" for="title">Title</label>
@@ -7,21 +17,11 @@
                     <input type="text" id="title" value="<%= @title %>" />
                 </div>
             </div>
+
             <div class="control-group">
                 <label class="control-label" for="description">Description</label>
                 <div class="controls">
                     <input type="text" id="description" value="<%= @description %>" />
-                </div>
-            </div>
-            
-            <div class="control-group">
-                <label class="control-label" for="created-by">Created by</label>
-                <div class="controls">
-                    <p id="created-by" class="form-control-static">
-                    <% if @created_by: %>
-                        <%= @created_by.full_name %>
-                    <% end %>
-                    </p>
                 </div>
             </div>
             

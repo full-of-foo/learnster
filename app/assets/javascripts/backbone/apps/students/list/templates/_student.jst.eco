@@ -8,7 +8,7 @@
 <%= @full_name %> </td>
 <td><%= @email %> </td>
 <td><%= @last_login_formatted %></td>
-<td> <%= @attending_org.title %> </td>
+<td> <a href="#" class="org-link"><%= @attending_org.title %></a></td>
 <td class="last-col-invisible"> 
 	<div class="delete-icon">
 		<i class="icon-remove-sign"></i>		

@@ -66,8 +66,8 @@
                     <p id="org" class="form-control-static">
                     <% if @attending_org: %>
                         <%= @attending_org.title %>
-                    </p>
                     <% end %>
+                    </p>
                 </div>
             </div>
         </div>

@@ -31,8 +31,9 @@
         template: "organisations/list/templates/_org"
         tagName: "tr"
         triggers:
-            "click .delete-icon i"    : "org:delete:clicked"
-            "click"                   : "org:clicked"
+            "click .org-student-count"  : "org-students:clicked"
+            "click .delete-icon i"      : "org:delete:clicked"
+            "click"                     : "org:clicked"
 
     class List.Empty extends App.Views.ItemView
         template: "organisations/list/templates/_empty"
