@@ -7,6 +7,7 @@
             type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.AppAdmin
             # type: Backbone.HasOne, key: 'attending_org', relatedModel: Entities.Org
         ]
+        
         initialize: ->
             @on "all", (e) -> console.log e
 
@@ -17,8 +18,8 @@
 
 
     API =
-        setCurrentStudent: (currentStudent) ->
-            new Entities.Student
+        setCurrentStudent: (attrs) ->
+            new Entities.Student attrs
 
         getStudentEntities: ->
             students = new Entities.StudentsCollection
@@ -46,8 +47,8 @@
     App.reqres.setHandler "new:student:entity", ->
         API.newStudent()
 
-    App.reqres.setHandler "set:current:student", (currentStudent) ->
-        API.setCurrentStudent currentStudent
+    App.reqres.setHandler "init:current:student", (attrs) ->
+        API.setCurrentStudent attrs
 
     App.reqres.setHandler "student:entities", ->
         API.getStudentEntities() 

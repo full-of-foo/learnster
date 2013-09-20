@@ -4,6 +4,10 @@ class PermittedParams < Struct.new(:params, :user)
     params.require(:student).permit(*user_attributes)
   end
 
+  def org_admin_params
+    params.require(:org_admin).permit(*user_attributes)
+  end
+
   def org_params
     params.require(:organisation).permit(*org_attributes)
   end

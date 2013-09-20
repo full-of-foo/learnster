@@ -5,9 +5,11 @@
 
     App.on "initialize:before", (options) ->
         App.environment = options.environment
+        userType = gon.type[0].toLowerCase() + gon.type.slice(1)
+        App.currentUser = App.reqres.request "init:current:#{userType}", gon      
 
     App.reqres.setHandler "get:current:user", ->
-        App.currentUser = null #nyi
+        App.currentUser
 
     App.reqres.setHandler "default:region", ->
         App.mainRegion

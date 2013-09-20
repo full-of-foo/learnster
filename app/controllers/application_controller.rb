@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
 
 
   def index
-    gon.rabl template: "app/views/user/show.json.rabl", as: "current_user"
+    @user = current_user
+    gon.rabl
   end
 
   def current_user

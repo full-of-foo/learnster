@@ -1,4 +1,4 @@
-attributes :id, :email, :first_name, :surname, :full_name, :type, :is_active, :last_login, :created_at, :updated_at, :created_by
+attributes :id, :email, :first_name, :surname, :full_name, :type, :is_active, :last_login, :created_at, :updated_at
 
 
 node do |org_admin|

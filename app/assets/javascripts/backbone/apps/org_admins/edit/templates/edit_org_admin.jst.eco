@@ -1,0 +1,74 @@
+<div class="row">
+
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label" for="first_name">First Name</label>
+                <div class="controls">
+                    <input type="text" id="first_name" value="<%= @first_name %>" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="surname">Surname</label>
+                <div class="controls">
+                    <input type="text" id="surname" value="<%= @surname %>" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="email">E-mail</label>
+                <div class="controls">
+                    <input type="text" id="email" value="<%= @email %>" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">Password</label>
+                <div class="controls">
+                    <input type="password" id="password" value="<%= @surname %>" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password-confirm">Password Confirm</label>
+                <div class="controls">
+                    <input type="password" id="password-confirm" value="<%= @surname %>" />
+                </div>
+            </div>
+        </div>
+    
+        <div class="pull-right">
+            <div class="control-group">
+                <label class="control-label" for="created-at">Created at</label>
+                <div class="controls">
+                    <p id="created-at" class="form-control-static">
+                        <%= @created_at_formatted %>
+                    </p>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="last-online">Last online</label>
+                <div class="controls">
+                    <p id="last-online" class="form-control-static">
+                        <%= @last_login_formatted %>
+                    </p>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="created-by">Created by</label>
+                <div class="controls">
+                    <p id="created-by" class="form-control-static">
+                    <% if @created_by: %>
+                        <%= @created_by.full_name %>
+                    <% end %>
+                    </p>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="org">Organisation</label>
+                <div class="controls">
+                    <p id="org" class="form-control-static">
+                    <% if @admin_for: %>
+                        <%= @admin_for.title %>
+                    </p>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+</div>

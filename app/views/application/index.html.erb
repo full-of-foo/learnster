@@ -10,9 +10,11 @@
 
 <%= javascript_tag do %>
     $(function(){
+
         Learnster.start({
-            environment: "<%= Rails.env %>"
-        });
+            environment:  "<%= Rails.env %>"
+         });
+
     })
 
 <% end %>
