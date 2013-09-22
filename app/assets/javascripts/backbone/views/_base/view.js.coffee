@@ -33,11 +33,11 @@
 
         templateHelpers: ->
 
-            currentUser:
-                if !$.isEmptyObject(App.request("get:current:user")) 
-                    App.request("get:current:user").toJSON()
-                else
-                    "foo" 
+            # currentUser:
+            #     if !$.isEmptyObject(App.request("get:current:user")) 
+            #         App.request("get:current:user").toJSON()
+            #     else
+            #         "foo" 
 
 
             linkTo: (name, url, options = {}) ->

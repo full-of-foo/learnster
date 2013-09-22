@@ -7,12 +7,14 @@ class StudentController < ApplicationController
     	if params[:search]
 	    	@search = Student.search do
 	    		fulltext params[:search]
+	    		with(:org_id).equal_to(params[:organisation_id]) if params[:organisation_id]
+	    		paginate :page => 1, :per_page => 10000
 	    	end
 	        return (@students = @search.results)
     	end
 
     	@students = Student.all
-    	
+
     	if params[:format] == "xlsx"    		
     		respond_to do |format|
   			format.xlsx {
@@ -54,8 +56,7 @@ class StudentController < ApplicationController
   		student = Student.find(params[:id])
   		student.destroy()
   		render json: {}
-	end
-
+  	end
 
 	private
 

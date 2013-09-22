@@ -36,7 +36,7 @@
 				App.vent.trigger "org:cancelled", org
 
 			@listenTo editView, "org-students:clicked", ->
-				App.vent.trigger "link-org-students:clicked", org.id
+				App.vent.trigger "link-org-students:clicked", org
 
 			formView = App.request "form:wrapper", editView
 			@layout.formRegion.show formView

@@ -5,16 +5,15 @@
         urlRoot: Routes.student_index_path()
         relations: [
             type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.AppAdmin
-            # type: Backbone.HasOne, key: 'attending_org', relatedModel: Entities.Org
         ]
-        
-        initialize: ->
-            @on "all", (e) -> console.log e
 
 
     class Entities.StudentsCollection extends Entities.Collections
         model: Entities.Student
-        url: Routes.student_index_path()
+        
+        initialize: (options = {}) =>
+            @url = if not options.url then Routes.student_index_path() else options.url
+            super
 
 
     API =
@@ -23,6 +22,13 @@
 
         getStudentEntities: ->
             students = new Entities.StudentsCollection
+            students.fetch
+                reset: true
+            students
+
+        getOrgStudentEntities: (orgId) ->
+            students = new Entities.StudentsCollection
+                                            url: Routes.organisation_student_index_path(orgId)
             students.fetch
                 reset: true
             students
@@ -37,11 +43,17 @@
         newStudent: ->
             new Entities.Student
 
-        getSearchStudentEntities: (searchTerm) ->
-            students = new Entities.StudentsCollection
+        getSearchStudentEntities: (searchOpts) ->
+            { term, nestedId } = searchOpts
+            if nestedId
+                students = new Entities.StudentsCollection
+                                         url: Routes.organisation_student_index_path(nestedId)
+            else
+                students = new Entities.StudentsCollection
+
             students.fetch
                 reset: true
-                data: $.param(searchTerm)
+                data: $.param(term)
             students
 
     App.reqres.setHandler "new:student:entity", ->
@@ -50,11 +62,15 @@
     App.reqres.setHandler "init:current:student", (attrs) ->
         API.setCurrentStudent attrs
 
+    App.reqres.setHandler "org:student:entities", (orgId) ->
+        API.getOrgStudentEntities(orgId)
+    
+
     App.reqres.setHandler "student:entities", ->
         API.getStudentEntities() 
 
     App.reqres.setHandler "student:entity", (id) ->
         API.getStudentEntity id
 
-    App.reqres.setHandler "search:students:entities", (searchTerm) ->
-        API.getSearchStudentEntities searchTerm
+    App.reqres.setHandler "search:students:entities", (searchOpts) ->
+        API.getSearchStudentEntities searchOpts

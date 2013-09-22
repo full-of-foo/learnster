@@ -43,7 +43,7 @@
                 App.vent.trigger "org:clicked", args.model
 
             @listenTo orgsView, "childview:org-students:clicked", (child, args) ->
-                App.vent.trigger "list-org-students:clicked", args.model.id
+                App.vent.trigger "list-org-students:clicked", args.model
 
             @listenTo orgsView, "childview:org:delete:clicked", (child, args) ->
                 model = args.model

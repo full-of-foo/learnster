@@ -2,7 +2,6 @@
 
     class List.Layout extends App.Views.Layout
         template: "students/list/templates/list_layout"
-
         regions:
             panelRegion: "#panel-region"
             searchRegion: "#search-region"
@@ -11,6 +10,8 @@
 
     class List.Panel extends App.Views.ItemView
         template: "students/list/templates/_panel"
+        initialize: (options) ->
+            @setInstancePropertiesFor "templateHelpers"
         collectionEvents:
             "reset": "render"
         triggers:
@@ -18,6 +19,8 @@
 
     class List.SearchPanel extends App.Views.ItemView
         template: "students/list/templates/_search_panel"
+        initialize: (options) ->
+            @setInstancePropertiesFor "templateHelpers"
         ui:
             "input" : "input"
         events:
@@ -30,6 +33,9 @@
 
     class List.New extends App.Views.ItemView
         template: "students/list/templates/_new"
+        initialize: (options) ->
+            @setInstancePropertiesFor "templateHelpers"
+
 
     class List.Student extends App.Views.ItemView
         template: "students/list/templates/_student"
@@ -44,6 +50,8 @@
         tagName: "tr"
 
     class List.Students extends App.Views.CompositeView
+        initialize: (options) ->
+            @setInstancePropertiesFor "templateHelpers"
         onShow: ->
             $("#app-table").tablesorter()
 

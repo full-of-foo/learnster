@@ -3,8 +3,7 @@
 
     class Entities.Org extends Entities.Models
         relations: [
-            type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.AppAdmin
-            # type: Backbone.HasMany, key: 'students',  relatedModel: Entities.Student, reverseRelation: { key: 'attending_org' }
+            type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.OrgAdmin
         ]
         urlRoot: Routes.organisation_index_path()
 
@@ -16,6 +15,9 @@
     API =
         newOrg: ->
             new Entities.Org()
+
+        newOrgs: ->
+            new Entities.OrgsCollection()
 
         setCurrentOrg: (currentOrg) ->
             new Entities.Org currentOrg
@@ -42,6 +44,9 @@
 
     App.reqres.setHandler "new:org:entity", ->
         API.newOrg()
+
+    App.reqres.setHandler "new:org:entities", ->
+        API.newOrgs()
 
     App.reqres.setHandler "set:current:org", (currentOrg) ->
         API.setCurrentOrg currentOrg

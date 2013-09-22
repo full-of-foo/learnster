@@ -3,8 +3,9 @@
 
     class OrgsApp.Router extends Marionette.AppRouter
         appRoutes:
-                "organisation/:id/edit"    : "edit"
-                "organisations"            : "listOrgs"
+                "organisation/:id/edit"       : "edit"
+                "organisation/:id/students"   : "listOrgStudents"
+                "organisations"               : "listOrgs"
 
 
     API =  
@@ -14,6 +15,10 @@
 
         listOrgs: ->
             new OrgsApp.List.Controller()
+
+        listOrgStudents: (id) ->
+            new App.StudentsApp.List.Controller
+                                    id: @get_org_id(id)
 
          edit: (id) ->
             new OrgsApp.Edit.Controller
@@ -31,7 +36,8 @@
         API.edit id
 
     App.vent.on "link-org-students:clicked list-org-students:clicked", (id) ->
-        console.log "Here with id", id
+        App.navigate Routes.organisation_student_index_path(id).split("/api")[1] + "s"
+        API.listOrgStudents id
 
     App.vent.on "org:cancelled org:updated", (org) ->
         App.navigate Routes.organisation_index_path().split("/api")[1] + "s"

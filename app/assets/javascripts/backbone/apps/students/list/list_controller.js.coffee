@@ -2,19 +2,22 @@
 
     class List.Controller extends App.Controllers.Base
 
-        initialize: (options) ->
-            students = App.request "student:entities"
+        initialize: (options = {}) ->
+            @_nestingOrg = if options.id then App.request("org:entity", options.id) else false
+
+            students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", options.id)
             
             @layout = @getLayoutView()
 
             @listenTo @layout, "show", =>
                 @showSearch students
-                @showPanel students
+                @showPanel @_nestingOrg
                 @showStudents students
 
             @show @layout
 
         showNewRegion: ->
+            @layout.newRegion['_nestingOrg'] = @_nestingOrg
             App.execute "new:student:view", @layout.newRegion
 
         showPanel: (students) ->
@@ -23,7 +26,10 @@
             @listenTo panelView, "new:student:button:clicked", =>
                 @showNewRegion()
 
-            @layout.panelRegion.show panelView
+            @show panelView,
+                        loading:
+                            loadingType: "spinner"
+                        region:  @layout.panelRegion
 
         showSearch: (students) ->
             searchView = @getSearchView students
@@ -31,10 +37,18 @@
             @listenTo searchView, "search:submitted", (searchTerm) =>
                 @searchStudents searchTerm
             
-            @layout.searchRegion.show searchView
+            @show searchView,
+                        loading:
+                            loadingType: "spinner"
+                        region:  @layout.searchRegion
 
-        searchStudents: (searchTerm = null) ->
-            @showSearchStudents(searchTerm)
+
+        searchStudents: (searchTerm) ->
+            searchOpts =
+                nestedId: @_nestingOrg?.id
+                term:     searchTerm
+
+            @showSearchStudents(searchOpts)
 
         showStudents: (students) ->
             studentsView = @getStudentsView students
@@ -55,21 +69,29 @@
                                 loadingType: "spinner"
                             region:  @layout.studentsRegion
 
-        showSearchStudents: (searchTerm) ->
-            students = App.request "search:students:entities", searchTerm
+        showSearchStudents: (searchOpts) ->
+            students = App.request "search:students:entities", searchOpts
             @showStudents(students)
 
         getPanelView: (students) ->
             new List.Panel
                 collection: students
+                templateHelpers:
+                        nestingOrg: @_nestingOrg
 
         getSearchView: (students) ->
             new List.SearchPanel
                 collection: students
+                templateHelpers:
+                        nestingOrg: @_nestingOrg
 
         getStudentsView: (students) ->
             new List.Students
                 collection: students
+                templateHelpers:
+                        nestingOrg: @_nestingOrg
 
         getLayoutView: ->
             new List.Layout
+                templateHelpers:
+                        nestingOrg: @_nestingOrg

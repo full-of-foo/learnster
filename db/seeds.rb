@@ -13,7 +13,6 @@ end
 Organisation.populate(10) do |o|
     o.title = Faker::Company.name
     o.description = Faker::Lorem.sentence
-    o.created_by = AppAdmin.first
 end
 
 count = 1
@@ -30,15 +29,24 @@ OrgAdmin.populate(35) do |oa|
     count = 1 if count == 10
 end
 
-Student.populate 20 do |u|
-    u.email = Faker::Internet.email
-    name_gen = Faker::Name
-    u.first_name = name_gen.first_name
-    u.surname = name_gen.last_name
-    u.is_active = [true, false].sample
-    u.last_login = rand(2.years).ago
-    offset = rand(Organisation.count)
-    rand_record = Organisation.first(:offset => offset)
-    u.attending_org = rand_record
-    u.created_by = u.attending_org.created_by
+Organisation.all.each_with_index do |o, i|
+   o.created_by = OrgAdmin.find(OrgAdmin.first.id + i)
+   o.save
 end
+
+
+
+5.times { 
+        Student.populate(100) do |u|
+        u.email = Faker::Internet.email
+        name_gen = Faker::Name
+        u.first_name = name_gen.first_name
+        u.surname = name_gen.last_name
+        u.is_active = [true, false].sample
+        u.last_login = rand(2.years).ago
+        offset = rand(Organisation.count)
+        rand_record = Organisation.first(:offset => offset)
+        u.attending_org = rand_record
+        u.created_by = u.attending_org.created_by
+    end 
+}

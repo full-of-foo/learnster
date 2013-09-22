@@ -11,6 +11,9 @@ class Student < User
 		text :attending_org do
 			attending_org.title
 		end
+		integer :org_id do
+			attending_org.id
+		end
 	end
 
 	def app_admin?

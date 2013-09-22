@@ -2,7 +2,13 @@
 
     <div class="btn-group pull-right">
 
-        <a id="new-student-button" class="btn" href="#"><i class="icon-fixed-width icon-plus"></i> New Student</a>
+        <a id="new-student-button" class="btn" href="#"><i class="icon-fixed-width icon-plus"></i>
+        <% if @nestingOrg: %>
+        Enroll
+        <% else: %>
+        New
+        <% end %>
+         Student</a>
         <a class="btn" href="#"><i class="icon-cog"></i></a>
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             <span class="icon-caret-down"></span>
@@ -17,7 +23,10 @@
     </div>
 
     <blockquote>
-        <p class="muted well-small">Students...</p>
+        <p class="muted well-small">Students<% if @nestingOrg: %> of <%= @nestingOrg.get('title') %><% end %>...</p>
     </blockquote>
 
 </div>
+
+
+<%  console.log @ %>

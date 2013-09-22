@@ -4,3 +4,5 @@
 		<button type="submit" class="btn">Search</button>
 	</div>
 </form>
+
+<% console.log @ %>
