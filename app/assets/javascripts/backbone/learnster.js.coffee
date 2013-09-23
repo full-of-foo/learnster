@@ -1,4 +1,4 @@
-@Learnster = do (Backbone, Marionette) ->
+@Learnster = do ($, Backbone, Marionette) ->
 
     App = new Marionette.Application()
     
@@ -33,6 +33,7 @@
 
     App.on "initialize:after", ->
             @startHistory()
+            $().UItoTop({ easingType: 'easeOutQuart' }) #move to executed command
             App.rootRoute = if App.currentUser? then "/students" else "/login"
             @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is ""
 
