@@ -38,6 +38,9 @@
 			@listenTo editView, "org-students:clicked", ->
 				App.vent.trigger "link-org-students:clicked", org
 
+			@listenTo editView, "org-admins:clicked", ->
+				App.vent.trigger "link-org-admins:clicked", org
+
 			formView = App.request "form:wrapper", editView
 			@layout.formRegion.show formView
 

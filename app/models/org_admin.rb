@@ -12,6 +12,9 @@ class OrgAdmin < User
 		text :admin_for do
 			admin_for.title
 		end
+		integer :org_id do
+			admin_for.id
+		end
 	end
 
   	def self.model_name

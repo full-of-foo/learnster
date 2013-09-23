@@ -3,7 +3,9 @@
     class List.Controller extends App.Controllers.Base
 
         initialize: (options) ->
-            org_admins = App.request "org_admin:entities"
+            @_nestingOrg = if options.id then App.request("org:entity", options.id) else false
+
+            org_admins = if not @_nestingOrg then App.request("org_admin:entities") else App.request("org:org_admin:entities", options.id)
             
             @layout = @getLayoutView()
 
@@ -15,6 +17,7 @@
             @show @layout
 
         showNewRegion: ->
+            @layout.newRegion['_nestingOrg'] = @_nestingOrg
             App.execute "new:org_admin:view", @layout.newRegion
 
         showPanel: (org_admins) ->
@@ -33,8 +36,12 @@
             
             @layout.searchRegion.show searchView
 
-        searchOrgAdmins: (searchTerm = null) ->
-            @showSearchOrgAdmins(searchTerm)
+        searchOrgAdmins: (searchTerm) ->
+            searchOpts =
+                nestedId: @_nestingOrg?.id
+                term:     searchTerm
+
+            @showSearchOrgAdmins(searchOpts)
 
         showOrgAdmins: (org_admins) ->
             orgAdminsView = @getOrgAdminsView org_admins
@@ -55,21 +62,27 @@
                                 loadingType: "spinner"
                             region:  @layout.orgAdminsRegion
 
-        showSearchOrgAdmins: (searchTerm) ->
-            org_admins = App.request "search:org_admins:entities", searchTerm
+        showSearchOrgAdmins: (searchOpts) ->
+            org_admins = App.request "search:org_admins:entities", searchOpts
             @showOrgAdmins(org_admins)
 
         getPanelView: (org_admins) ->
             new List.Panel
                 collection: org_admins
+                templateHelpers:
+                        nestingOrg: @_nestingOrg
 
         getSearchView: (org_admins) ->
             new List.SearchPanel
                 collection: org_admins
+                templateHelpers:
+                        nestingOrg: @_nestingOrg
 
         getOrgAdminsView: (org_admins) ->
             new List.OrgAdmins
                 collection: org_admins
+                templateHelpers:
+                        nestingOrg: @_nestingOrg
 
         getLayoutView: ->
             new List.Layout

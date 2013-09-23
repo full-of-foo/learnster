@@ -11,6 +11,9 @@
 
     class List.Panel extends App.Views.ItemView
         template: "org_admins/list/templates/_panel"
+        initialize: (options) ->
+            @setInstancePropertiesFor "templateHelpers"
+
         collectionEvents:
             "reset": "render"
         triggers:
@@ -18,6 +21,9 @@
 
     class List.SearchPanel extends App.Views.ItemView
         template: "org_admins/list/templates/_search_panel"
+        initialize: (options) ->
+            @setInstancePropertiesFor "templateHelpers"
+
         ui:
             "input" : "input"
         events:
@@ -30,9 +36,15 @@
 
     class List.New extends App.Views.ItemView
         template: "org_admins/list/templates/_new"
+        initialize: (options) ->
+            @setInstancePropertiesFor "templateHelpers"
+
 
     class List.OrgAdmin extends App.Views.ItemView
         template: "org_admins/list/templates/_org_admin"
+        initialize: (options) ->
+            @setInstancePropertiesFor "templateHelpers"
+
         tagName: "tr"
         triggers:
             "click .delete-icon i"    : "org_admin:delete:clicked"
@@ -46,6 +58,9 @@
     class List.OrgAdmins extends App.Views.CompositeView
         onShow: ->
             $("#app-table").tablesorter()
+            
+        initialize: (options) ->
+            @setInstancePropertiesFor "templateHelpers"
 
         template: "org_admins/list/templates/_org_admins"
         itemView: List.OrgAdmin

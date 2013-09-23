@@ -7,6 +7,8 @@ class OrgAdminController < ApplicationController
     	if params[:search]
 	    	@search = OrgAdmin.search do
 	    		fulltext params[:search]
+	    		with(:org_id).equal_to(params[:organisation_id]) if params[:organisation_id]
+	    		paginate :page => 1, :per_page => 10000
 	    	end
 	        return (@org_admins = @search.results)
     	end

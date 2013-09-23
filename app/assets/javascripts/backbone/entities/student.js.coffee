@@ -65,7 +65,6 @@
     App.reqres.setHandler "org:student:entities", (orgId) ->
         API.getOrgStudentEntities(orgId)
     
-
     App.reqres.setHandler "student:entities", ->
         API.getStudentEntities() 
 

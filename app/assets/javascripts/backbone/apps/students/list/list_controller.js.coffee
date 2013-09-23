@@ -93,5 +93,4 @@
 
         getLayoutView: ->
             new List.Layout
-                templateHelpers:
-                        nestingOrg: @_nestingOrg
+            

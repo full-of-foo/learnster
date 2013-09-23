@@ -12,11 +12,11 @@
 
         newOrgAdmin: (region) ->
          	new OrgAdminsApp.New.Controller
-                region: region
+                                region: region
 
         edit: (id) ->
             new OrgAdminsApp.Edit.Controller
-                    id: @get_org_admin_id(id)
+                                id: @get_org_admin_id(id)
 
         get_org_admin_id: (id_org_admin) ->
             id = if id_org_admin.id then id_org_admin.id else id_org_admin

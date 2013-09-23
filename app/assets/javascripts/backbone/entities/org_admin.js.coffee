@@ -10,7 +10,10 @@
 
     class Entities.OrgAdminCollection extends Entities.Collections
         model: Entities.OrgAdmin
-        url: Routes.org_admin_index_path()
+        
+        initialize: (options = {}) =>
+            @url = if not options.url then Routes.org_admin_index_path() else options.url
+            super
 
 
     API =
@@ -23,6 +26,14 @@
                 reset: true
             org_admins
 
+        getOrgAdminOrgEntities: (orgId) ->
+            org_admins = new Entities.OrgAdminCollection
+                                            url: Routes.organisation_admin_index_path(orgId)
+            org_admins.fetch
+                reset: true
+            org_admins
+
+
         getOrgAdminEntity: (id) ->
             org_admin = Entities.OrgAdmin.findOrCreate
                 id: id
@@ -33,11 +44,17 @@
         newOrgAdmin: ->
             new Entities.OrgAdmin
 
-        getSearchOrgAdminEntities: (searchTerm) ->
-            org_admins = new Entities.OrgAdminCollection
+        getSearchOrgAdminEntities: (searchOpts) ->
+            { term, nestedId } = searchOpts
+            if nestedId
+                org_admins = new Entities.StudentsCollection
+                                         url: Routes.organisation_admin_index_path(nestedId)
+            else
+                org_admins = new Entities.OrgAdminCollection
+                
             org_admins.fetch
                 reset: true
-                data: $.param(searchTerm)
+                data: $.param(term)
             org_admins
 
     App.reqres.setHandler "new:org_admin:entity", ->
@@ -48,6 +65,9 @@
 
     App.reqres.setHandler "set:current:org_admin", (currentOrgAdmin) ->
         API.setCurrentOrgAdmin currentOrgAdmin
+
+    App.reqres.setHandler "org:org_admin:entities", (orgId) ->
+        API.getOrgAdminOrgEntities(orgId) 
 
     App.reqres.setHandler "org_admin:entities", ->
         API.getOrgAdminEntities() 

@@ -2,7 +2,10 @@
 
 	class New.Controller extends App.Controllers.Base
 
-		initialize: (options) ->
+		initialize: (options = {}) ->
+			@_nestingOrg = options.region?._nestingOrg
+			console.log @_nestingOrg
+
 			org_admin = App.request "new:org_admin:entity"
 			@layout = @getLayoutView org_admin
 
@@ -37,7 +40,12 @@
 
 
 		setOrgSelector: ->
-			orgs = App.request "org:entities"
+			if @_nestingOrg 
+				orgs = App.request("new:org:entities")
+				orgs.push(@_nestingOrg)
+			else 
+			 	orgs = App.request("org:entities")
+
 			selectView = App.request "selects:wrapper",
 										collection: orgs
 										itemViewId: "admin_for"
