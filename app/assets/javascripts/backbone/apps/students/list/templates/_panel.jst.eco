@@ -14,7 +14,7 @@
             <span class="icon-caret-down"></span>
         </a>
         <ul class="dropdown-menu">
-            <li><a href="api/student.xlsx"><i class="icon-fixed-width icon-level-down"></i> Export All</a>
+            <li><a href=<% if @nestingOrg: %>"/api/organisation/<%= @nestingOrg.get('id') %>/student.xlsx"<% else: %>"api/student.xlsx"<% end %>><i class="icon-fixed-width icon-level-down"></i> Export All</a>
             </li>
             <li><a href="#"><i class="icon-fixed-width icon-archive"></i> Archive All</a>
             </li>

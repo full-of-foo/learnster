@@ -4,28 +4,26 @@ class OrgAdminController < ApplicationController
     
 
     def index
-    	if params[:search]
+    	if search_request?
 	    	@search = OrgAdmin.search do
 	    		fulltext params[:search]
-	    		with(:org_id).equal_to(params[:organisation_id]) if params[:organisation_id]
+	    		with(:org_id).equal_to(params[:organisation_id]) if nested_org_request?
 	    		paginate :page => 1, :per_page => 10000
 	    	end
 	        return (@org_admins = @search.results)
     	end
-
-    	@org_admins = OrgAdmin.all
     	
-    	if params[:format] == "xlsx"    		
+    	@org_admins = nested_org_request? ? @org.admins() : OrgAdmin.all()
+
+    	if xlsx_request? 
     		respond_to do |format|
-  			format.xlsx {
-            	send_data @org_admins.to_xlsx.to_stream.read, :filename => 'organisation_admins.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
-       		 }
+	  			format.xlsx {
+	            	send_data @org_admins.to_xlsx.to_stream.read, :filename => 'admins.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+	       		 }
   			end	
-	    elsif @org
-	      @org_admins = @org.admins
-	    else
-	      @org_admins
         end
+
+        @org_admins
     end
 
     def show

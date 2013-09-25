@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+  source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', '4.0.0'
@@ -18,14 +18,14 @@ end
 
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
-gem 'sunspot_rails', github: 'sunspot/sunspot', branch: 'master'
+gem 'sunspot_rails'
 gem 'progress_bar'
 gem 'acts_as_xlsx'
 gem 'axlsx_rails'
 
 
 group :development do
-  gem 'sunspot_solr', github: 'sunspot/sunspot', branch: 'master'
+  gem 'sunspot_solr'
 end
 
 gem 'sass-rails', '4.0.0'

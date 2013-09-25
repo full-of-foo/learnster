@@ -4,28 +4,26 @@ class StudentController < ApplicationController
 
 
     def index
-    	if params[:search]
+    	if search_request?
 	    	@search = Student.search do
 	    		fulltext params[:search]
-	    		with(:org_id).equal_to(params[:organisation_id]) if params[:organisation_id]
+	    		with(:org_id).equal_to(params[:organisation_id]) if nested_org_request?
 	    		paginate :page => 1, :per_page => 10000
 	    	end
 	        return (@students = @search.results)
     	end
+    	
+    	@students = nested_org_request? ? @org.students() : Student.all()
 
-    	@students = Student.all
-
-    	if params[:format] == "xlsx"    		
+    	if xlsx_request? 
     		respond_to do |format|
-  			format.xlsx {
-            	send_data @students.to_xlsx.to_stream.read, :filename => 'students.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
-       		 }
+	  			format.xlsx {
+	            	send_data @students.to_xlsx.to_stream.read, :filename => 'students.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+	       		 }
   			end	
-	    elsif @org
-	      @students = @org.students
-	    else
-	      @students
         end
+
+        @students
     end
 
     def show
