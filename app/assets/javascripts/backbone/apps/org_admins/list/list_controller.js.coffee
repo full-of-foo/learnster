@@ -44,7 +44,10 @@
             @showSearchOrgAdmins(searchOpts)
 
         showOrgAdmins: (org_admins) ->
-            orgAdminsView = @getOrgAdminsView org_admins
+            cols = @getTableColumns()
+            options = @getTableOptions cols
+
+            orgAdminsView = App.request "table:wrapper", org_admins, options
 
             @listenTo orgAdminsView, "childview:org_admin:clicked", (child, args) ->
                 App.vent.trigger "org_admin:clicked", args.model
@@ -78,11 +81,29 @@
                 templateHelpers:
                         nestingOrg: @_nestingOrg
 
-        getOrgAdminsView: (org_admins) ->
-            new List.OrgAdmins
-                collection: org_admins
-                templateHelpers:
-                        nestingOrg: @_nestingOrg
-
         getLayoutView: ->
             new List.Layout
+
+        getTableColumns: ->
+            [
+             { title: "Name", htmlContent: '<% if ( model.get("is_active") ) 
+                { %><i class="icon-list-online-status" title="Online"></i>
+                <% } else { %><i class="icon-list-offline-status" title="Offline"></i>
+                <% } %><%= model.get("full_name") %>', isSortable: true }
+             { title: "Email", attrName: "email", isSortable: true },
+             { title: "Last Online", attrName: "last_login_formatted"},
+             { title: "Organisation", htmlContent: '<a href="#" class="org-link">
+                <% if ( model.get("admin_for") ) { %><%= model.get("admin_for").title %><% } %></a>', isSortable: true },
+             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible"}
+            ]
+
+        getTableOptions: (columns) ->
+            columns: columns 
+            region:  @layout.orgAdminsRegion
+            config:
+                emptyMessage: "No admins found :("
+                itemProperties:
+                    triggers:
+                        "click .delete-icon i"    : "org_admin:delete:clicked"
+                        "click"                   : "org_admin:clicked"
+                        "click .org-link"         : "org:clicked"
