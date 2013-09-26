@@ -36,7 +36,7 @@ end
 
 
 
-5.times { 
+1.times { 
         Student.populate(100) do |u|
         u.email = Faker::Internet.email
         name_gen = Faker::Name
