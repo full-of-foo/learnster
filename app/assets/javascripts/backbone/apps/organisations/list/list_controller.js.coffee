@@ -37,7 +37,10 @@
             @showSearchOrgs(searchTerm)
 
         showOrgs: (orgs) ->
-            orgsView = @getOrgsView orgs
+            cols = @getTableColumns()
+            options = @getTableOptions cols
+
+            orgsView = App.request "table:wrapper", orgs, options
 
             @listenTo orgsView, "childview:org:clicked", (child, args) ->
                 App.vent.trigger "org:clicked", args.model
@@ -76,3 +79,22 @@
 
         getLayoutView: ->
             new List.Layout
+
+        getTableColumns: ->
+            [
+             { title: "Title", attrName: "title", isSortable: true },
+             { title: "Description", attrName: "description" },
+             { title: "Size", htmlContent: '<a href="#" class="org-student-count"> <%= model.get("size") %></a>', isSortable: true },
+             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible"}
+            ]
+
+        getTableOptions: (columns) ->
+            columns: columns 
+            region:  @layout.orgsRegion
+            config:
+                emptyMessage: "No organisations found :("
+                itemProperties:
+                    triggers:
+                        "click .org-student-count"  : "org-students:clicked"
+                        "click .delete-icon i"      : "org:delete:clicked"
+                        "click"                     : "org:clicked"
