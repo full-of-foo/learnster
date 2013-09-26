@@ -51,26 +51,8 @@
             @showSearchStudents(searchOpts)
 
         showStudents: (students) ->
-            # studentsView = @getStudentsView students
-            cols = [
-             { title: "Name", htmlContent: '<% if ( model.get("is_active") ) { %><i class="icon-list-online-status" title="Online"></i>
-                <% } else { %><i class="icon-list-offline-status" title="Offline"></i><% } %><%= model.get("full_name") %>', isSortable: true }
-             { title: "Email", attrName: "email", isSortable: true },
-             { title: "Last Online", attrName: "last_login_formatted"},
-             { title: "Organisation", htmlContent: '<a href="#" class="org-link">
-                <%= model.get("attending_org").title %></a>', isSortable: true },
-             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible"}
-            ]
-            options = 
-                columns: cols 
-                region:  @layout.studentsRegion
-                config:
-                    emptyMessage: "No students found :("
-                    itemProperties:
-                        triggers:
-                            "click .delete-icon i"    : "student:delete:clicked"
-                            "click"                   : "student:clicked"
-                            "click .org-link"         : "org:clicked"
+            cols = @getTableColumns()
+            options = @getTableOptions cols
 
             studentsView = App.request "table:wrapper", students, options
 
@@ -106,12 +88,30 @@
                 templateHelpers:
                         nestingOrg: @_nestingOrg
 
-        getStudentsView: (students) ->
-            new List.Students
-                collection: students
-                templateHelpers:
-                        nestingOrg: @_nestingOrg
-
         getLayoutView: ->
             new List.Layout
+
+        getTableColumns: ->
+            [
+             { title: "Name", htmlContent: '<% if ( model.get("is_active") ) 
+                { %><i class="icon-list-online-status" title="Online"></i>
+                <% } else { %><i class="icon-list-offline-status" title="Offline"></i>
+                <% } %><%= model.get("full_name") %>', isSortable: true }
+             { title: "Email", attrName: "email", isSortable: true },
+             { title: "Last Online", attrName: "last_login_formatted"},
+             { title: "Organisation", htmlContent: '<a href="#" class="org-link">
+                <%= model.get("attending_org").title %></a>', isSortable: true },
+             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible"}
+            ]
+
+        getTableOptions: (columns) ->
+            columns: columns 
+            region:  @layout.studentsRegion
+            config:
+                emptyMessage: "No students found :("
+                itemProperties:
+                    triggers:
+                        "click .delete-icon i"    : "student:delete:clicked"
+                        "click"                   : "student:clicked"
+                        "click .org-link"         : "org:clicked"
             
