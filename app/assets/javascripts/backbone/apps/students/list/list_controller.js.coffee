@@ -96,12 +96,14 @@
              { title: "Name", htmlContent: '<% if ( model.get("is_active") ) 
                 { %><i class="icon-list-online-status" title="Online"></i>
                 <% } else { %><i class="icon-list-offline-status" title="Offline"></i>
-                <% } %><%= model.get("full_name") %>', isSortable: true }
-             { title: "Email", attrName: "email", isSortable: true },
-             { title: "Last Online", attrName: "last_login_formatted"},
+                <% } %><%= model.get("full_name") %>', isSortable: true, default: true, isRemoveable: false }
+             { title: "Email", attrName: "email", isSortable: true, default: true },
+             { title: "Last Online", attrName: "last_login_formatted", default: true},
              { title: "Organisation", htmlContent: '<a href="#" class="org-link">
-                <%= model.get("attending_org").title %></a>', isSortable: true },
-             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible"}
+                <% if ( model.get("attending_org") ) { %><%= model.get("attending_org").title %><% } %></a>', className: "wrap-text", isSortable: true, default: true },
+             { title: "Created On", attrName: "created_at_formatted",  isSortable: true },
+             { title: "Last Updated", attrName: "updated_at_formatted"},
+             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible", default: true, isRemoveable: false}
             ]
 
         getTableOptions: (columns) ->

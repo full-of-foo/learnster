@@ -24,15 +24,17 @@
 
         initialize: (options) ->
             { @columns, @config } = options
+            @defaultColumns = @getDefaultColumns @columns.models
+
             @setInstancePropertiesFor "itemViewOptions"
 
         onShow: ->
-            @drawColumnHeaders @columns
+            @drawColumnHeaders @defaultColumns
             @styleTable @config.tableClassName
 
 
         drawColumnHeaders: (columns) ->
-            @drawHeader(column) for column in columns.models
+            @drawHeader(column) for column in columns
             @ui.table.tablesorter()
 
         drawHeader: (column) ->
@@ -49,7 +51,7 @@
             if not collectionView.collection.isEmpty()
                 $row = itemView.$el
                 model = itemView.model
-                @drawCell(col, $row, model, itemView) for col in @columns.models
+                @drawCell(col, $row, model, itemView) for col in @defaultColumns
                 collectionView.$("tbody").append($row[0])
             else
                 emptyCell = "<td colspan='#{@columns.models.length}'>#{@config.emptyMessage}</td>"
@@ -68,6 +70,9 @@
 
         styleTable: (className) ->
             @ui.table.addClass className
+
+        getDefaultColumns: (columns) ->
+            (col for col in columns when col.get('default'))
 
 
 

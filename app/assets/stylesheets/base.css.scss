@@ -56,6 +56,15 @@ html, body {
   	opacity: 0.4;
 }
 
+.scroll-hor-wrapper {
+	overflow-x: scroll;
+	white-space: nowrap;
+}
+
+.wrap-text {
+	word-wrap: break-word;
+}
+
 /* base table sorting styles */
 .tablesorter {
 	 .header:hover {

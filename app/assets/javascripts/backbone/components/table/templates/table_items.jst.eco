@@ -1,7 +1,9 @@
-<table id="app-table">
-    <thead>
-        <tr id="app-table-header-row">
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+	<div class="span12 scroll-hor-wrapper">
+		<table id="app-table">
+		    <thead>
+		        <tr id="app-table-header-row">
+		        </tr>
+		    </thead>
+		    <tbody></tbody>
+		</table>
+	</div>

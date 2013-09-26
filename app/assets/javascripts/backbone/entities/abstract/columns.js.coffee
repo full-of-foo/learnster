@@ -19,12 +19,14 @@
 
         getDefaultColumn: (column) ->
             _.defaults column, 
-                isSortable:  false
-                title:       "" 
-                attrName:    false            
-                htmlHeader:  false
-                htmlContent: false 
-                className:   false
+                isSortable:     false
+                title:          "" 
+                attrName:       false            
+                htmlHeader:     false
+                htmlContent:    false 
+                className:      false
+                default:        false
+                isRemoveable:   true
 
 
     App.reqres.setHandler "table:column:entities", (columns, model = nil) ->
