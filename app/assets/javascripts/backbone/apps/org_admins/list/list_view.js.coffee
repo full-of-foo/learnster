@@ -33,38 +33,3 @@
             data = Backbone.Syphon.serialize @
             @trigger "search:submitted", data
 
-
-    class List.New extends App.Views.ItemView
-        template: "org_admins/list/templates/_new"
-        initialize: (options) ->
-            @setInstancePropertiesFor "templateHelpers"
-
-
-    class List.OrgAdmin extends App.Views.ItemView
-        template: "org_admins/list/templates/_org_admin"
-        initialize: (options) ->
-            @setInstancePropertiesFor "templateHelpers"
-
-        tagName: "tr"
-        triggers:
-            "click .delete-icon i"    : "org_admin:delete:clicked"
-            "click"                   : "org_admin:clicked"
-            "click .org-link"         : "org:clicked"
-
-    class List.Empty extends App.Views.ItemView
-        template: "org_admins/list/templates/_empty"
-        tagName: "tr"
-
-    class List.OrgAdmins extends App.Views.CompositeView
-        onShow: ->
-            $("#app-table").tablesorter()
-            
-        initialize: (options) ->
-            @setInstancePropertiesFor "templateHelpers"
-
-        template: "org_admins/list/templates/_org_admins"
-        itemView: List.OrgAdmin
-        emptyView: List.Empty
-        itemViewContainer: "tbody"
-        collectionEvents:
-            "reset": "render"

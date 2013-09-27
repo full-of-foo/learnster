@@ -42,7 +42,12 @@
 
 
             @listenTo settingsView, "settings:cancel:clicked", =>
-                @layout.listSettingsRegion.close()            
+                @layout.listSettingsRegion.close()  
+
+            @listenTo settingsView, "childview:setting:col:clicked", (child, args) =>
+                column = args.model
+                @studentsView.hideColumn(child, column)
+                          
 
             @layout.listSettingsRegion.show settingsView
 
@@ -69,20 +74,20 @@
             cols = @getTableColumns()
             options = @getTableOptions cols
 
-            studentsView = App.request "table:wrapper", students, options
+            @studentsView = App.request "table:wrapper", students, options
 
-            @listenTo studentsView, "childview:student:clicked", (child, args) ->
+            @listenTo @studentsView, "childview:student:clicked", (child, args) ->
                 App.vent.trigger "student:clicked", args.model
 
-            @listenTo studentsView, "childview:org:clicked", (child, args) ->
+            @listenTo @studentsView, "childview:org:clicked", (child, args) ->
                 App.vent.trigger "org:clicked", args.model.get('attending_org').id
 
-            @listenTo studentsView, "childview:student:delete:clicked", (child, args) ->
+            @listenTo @studentsView, "childview:student:delete:clicked", (child, args) ->
                 model = args.model
                 if confirm "Are you sure you want to delete #{model.get('first_name')}?" then model.destroy() else false
 
 
-            @show studentsView,
+            @show @studentsView,
                             loading:
                                 loadingType: "spinner"
                             region:  @layout.studentsRegion
@@ -124,7 +129,7 @@
                 <% if ( model.get("attending_org") ) { %><%= model.get("attending_org").title %><% } %></a>', className: "wrap-text", isSortable: true, default: true },
              { title: "Created On", attrName: "created_at_formatted",  isSortable: true },
              { title: "Last Updated", attrName: "updated_at_formatted"},
-             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible", default: true, isRemovable: false}
+             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
             ]
 
         getTableOptions: (columns) ->
@@ -137,4 +142,3 @@
                         "click .delete-icon i"    : "student:delete:clicked"
                         "click"                   : "student:clicked"
                         "click .org-link"         : "org:clicked"
-            

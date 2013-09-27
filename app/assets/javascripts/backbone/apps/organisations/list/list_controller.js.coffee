@@ -82,10 +82,10 @@
 
         getTableColumns: ->
             [
-             { title: "Title", attrName: "title", isSortable: true },
-             { title: "Description", attrName: "description" },
-             { title: "Size", htmlContent: '<a href="#" class="org-student-count"> <%= model.get("size") %></a>', isSortable: true },
-             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible"}
+             { title: "Title", attrName: "title", isSortable: true, isRemovable: false, default: true },
+             { title: "Description", attrName: "description", default: true },
+             { title: "Size", htmlContent: '<a href="#" class="org-student-count"> <%= model.get("size") %></a>', isSortable: true, default: true },
+             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible", default: true, isRemovable: false }
             ]
 
         getTableOptions: (columns) ->

@@ -33,15 +33,11 @@
             @trigger "search:submitted", data
 
 
-    class List.New extends App.Views.ItemView
-        template: "students/list/templates/_new"
-        initialize: (options) ->
-            @setInstancePropertiesFor "templateHelpers"
-
-
     class List.SettingsItem extends App.Views.ItemView
         template: "students/list/templates/_settings_item"
         tagName: 'li'
+        triggers:
+            "click a"   :  "setting:col:clicked"
 
     class List.SettingsList extends App.Views.CompositeView
         template: "students/list/templates/_settings"
@@ -55,41 +51,20 @@
         appendHtml: (collectionView, itemView, index) ->
             $li = itemView.$el
             col = itemView.model
-            @drawColumnItem($li, col, itemView)
-            collectionView.$("ul").append($li[0])
+            @drawFilterItem($li, col, collectionView, itemView)
 
-         drawColumnItem: ($li, column, itemView) =>
-            if column.get('isRemovable') and column.get('isShowing')
-                $li.addClass('active')
-            else if not column.get('isRemovable') and column.get('isShowing')            
-                $li.addClass('disabled')
+         drawFilterItem: ($li, column, collectionView, itemView) =>
+            if column.get('hasData')
 
-            if column.get('title')
-                title = column.get('title')
-                return $li.append('<a href="#">' + title + '</a>')
+                if column.get('isRemovable') and column.get('isShowing')
+                    $li.addClass('active')
+                else if not column.get('isRemovable') and column.get('isShowing')            
+                    $li.addClass('disabled')
+
+                if column.get('title')
+                    title = column.get('title')
+                    $li.append('<a href="#">' + title + '</a>')
+                    
+                collectionView.$("ul").append($li[0])
 
 
-    class List.Student extends App.Views.ItemView
-        template: "students/list/templates/_student"
-        tagName: "tr"
-        triggers:
-            "click .delete-icon i"    : "student:delete:clicked"
-            "click"                   : "student:clicked"
-            "click .org-link"         : "org:clicked"
-
-    class List.Empty extends App.Views.ItemView
-        template: "students/list/templates/_empty"
-        tagName: "tr"
-
-    class List.Students extends App.Views.CompositeView
-        initialize: (options) ->
-            @setInstancePropertiesFor "templateHelpers"
-        onShow: ->
-            $("#app-table").tablesorter()
-
-        template: "students/list/templates/_students"
-        itemView: List.Student
-        emptyView: List.Empty
-        itemViewContainer: "tbody"
-        collectionEvents:
-            "reset": "render"

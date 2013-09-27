@@ -27,6 +27,7 @@
                 className:      false
                 default:        false
                 isShowing:      true if column.default
+                hasData:        true
                 isRemovable:    true
 
 
