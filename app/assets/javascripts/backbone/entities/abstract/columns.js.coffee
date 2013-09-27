@@ -26,8 +26,9 @@
                 htmlContent:    false 
                 className:      false
                 default:        false
-                isRemoveable:   true
+                isShowing:      true if column.default
+                isRemovable:    true
 
 
-    App.reqres.setHandler "table:column:entities", (columns, model = nil) ->
+    App.reqres.setHandler "table:column:entities", (columns, model = null) ->
         API.getTableColumns columns, model

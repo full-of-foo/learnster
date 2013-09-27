@@ -6,6 +6,7 @@
             panelRegion: "#panel-region"
             searchRegion: "#search-region"
             newRegion: "#new-region"
+            listSettingsRegion: "#list-settings-region"
             studentsRegion: "#students-region"
 
     class List.Panel extends App.Views.ItemView
@@ -15,7 +16,8 @@
         collectionEvents:
             "reset": "render"
         triggers:
-            "click #new-student-button" : "new:student:button:clicked"
+            "click #new-student-button"   : "new:student:button:clicked"
+            "click #list-settings-button" : "settings:button:clicked"
 
     class List.SearchPanel extends App.Views.ItemView
         template: "students/list/templates/_search_panel"
@@ -35,6 +37,36 @@
         template: "students/list/templates/_new"
         initialize: (options) ->
             @setInstancePropertiesFor "templateHelpers"
+
+
+    class List.SettingsItem extends App.Views.ItemView
+        template: "students/list/templates/_settings_item"
+        tagName: 'li'
+
+    class List.SettingsList extends App.Views.CompositeView
+        template: "students/list/templates/_settings"
+        itemView: List.SettingsItem
+        triggers:
+            "click .settings-cancel" : "settings:cancel:clicked"
+
+        initialize: (options) ->
+            @setInstancePropertiesFor "templateHelpers"
+
+        appendHtml: (collectionView, itemView, index) ->
+            $li = itemView.$el
+            col = itemView.model
+            @drawColumnItem($li, col, itemView)
+            collectionView.$("ul").append($li[0])
+
+         drawColumnItem: ($li, column, itemView) =>
+            if column.get('isRemovable') and column.get('isShowing')
+                $li.addClass('active')
+            else if not column.get('isRemovable') and column.get('isShowing')            
+                $li.addClass('disabled')
+
+            if column.get('title')
+                title = column.get('title')
+                return $li.append('<a href="#">' + title + '</a>')
 
 
     class List.Student extends App.Views.ItemView

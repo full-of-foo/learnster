@@ -65,6 +65,14 @@ html, body {
 	word-wrap: break-word;
 }
 
+#student-col-list {
+	margin-left: 6pc;
+
+	li {
+		margin-left: 1pc
+	}
+}
+
 /* base table sorting styles */
 .tablesorter {
 	 .header:hover {

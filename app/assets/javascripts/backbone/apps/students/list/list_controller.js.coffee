@@ -26,10 +26,25 @@
             @listenTo panelView, "new:student:button:clicked", =>
                 @showNewRegion()
 
+            @listenTo panelView, "settings:button:clicked", =>
+                @showSettings()
+
             @show panelView,
                         loading:
                             loadingType: "spinner"
                         region:  @layout.panelRegion
+
+        showSettings: ->
+            listCols = @getTableColumns()
+            colCollection = App.request "table:column:entities", listCols, false
+
+            settingsView = @getSettingsView(colCollection)
+
+
+            @listenTo settingsView, "settings:cancel:clicked", =>
+                @layout.listSettingsRegion.close()            
+
+            @layout.listSettingsRegion.show settingsView
 
         showSearch: (students) ->
             searchView = @getSearchView students
@@ -88,6 +103,12 @@
                 templateHelpers:
                         nestingOrg: @_nestingOrg
 
+        getSettingsView: (colCollection) ->
+            new List.SettingsList
+                collection: colCollection
+                templateHelpers:
+                        nestingOrg: @_nestingOrg
+
         getLayoutView: ->
             new List.Layout
 
@@ -96,14 +117,14 @@
              { title: "Name", htmlContent: '<% if ( model.get("is_active") ) 
                 { %><i class="icon-list-online-status" title="Online"></i>
                 <% } else { %><i class="icon-list-offline-status" title="Offline"></i>
-                <% } %><%= model.get("full_name") %>', isSortable: true, default: true, isRemoveable: false }
+                <% } %><%= model.get("full_name") %>', isSortable: true, default: true, isRemovable: false }
              { title: "Email", attrName: "email", isSortable: true, default: true },
              { title: "Last Online", attrName: "last_login_formatted", default: true},
              { title: "Organisation", htmlContent: '<a href="#" class="org-link">
                 <% if ( model.get("attending_org") ) { %><%= model.get("attending_org").title %><% } %></a>', className: "wrap-text", isSortable: true, default: true },
              { title: "Created On", attrName: "created_at_formatted",  isSortable: true },
              { title: "Last Updated", attrName: "updated_at_formatted"},
-             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible", default: true, isRemoveable: false}
+             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible", default: true, isRemovable: false}
             ]
 
         getTableOptions: (columns) ->
