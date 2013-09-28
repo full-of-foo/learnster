@@ -46,7 +46,7 @@
 
             @listenTo settingsView, "childview:setting:col:clicked", (child, args) =>
                 column = args.model
-                @studentsView.hideColumn(child, column)
+                @studentsView.toggleColumn(child, column)
                           
 
             @layout.listSettingsRegion.show settingsView

@@ -23,22 +23,37 @@
 
         initialize: (options) ->
             { @columns, @config } = options
-            @defaultColumns = @getDefaultColumns @columns.models
+            @columns = @columns.models
+            @defaultColumns = @getDefaultColumns @columns
 
             @setInstancePropertiesFor "itemViewOptions"
 
         onShow: ->
-            @drawColumnHeaders @columns.models
+            @drawColumnHeaders @columns
             @styleTable @config.tableClassName
 
-        hideColumn: (itemView, filterColumn) ->
-            $li = itemView.$el
+        toggleColumn: (filterItemView, filterColumn) ->
+            $li = filterItemView.$el
             $tableCol = @$getTableColumn(filterColumn)
-            if filterColumn.get('isRemovable') and filterColumn.get('isShowing')
-                filterColumn.set('isShowing', false)
-                $li.removeClass('active')
-                $tableCol.addClass('hide')
+            isRemovable = filterColumn.get('isRemovable')
+            isShowing = filterColumn.get('isShowing')
 
+            if isRemovable and isShowing
+                @hideColumn(filterColumn, $li, $tableCol)
+
+            if isRemovable and not isShowing
+                @showColumn(filterColumn, $li, $tableCol)
+
+
+        hideColumn: (filterColumn, $li, $tableCol) ->
+            filterColumn.set('isShowing', false)
+            $li.removeClass('active')
+            $tableCol.addClass('hide')
+
+        showColumn: (filterColumn, $li, $tableCol) ->
+            filterColumn.set('isShowing', true)
+            $li.addClass('active')
+            $tableCol.removeClass('hide')
 
         drawColumnHeaders: (columns) ->
             @drawHeader(column) for column in columns
@@ -54,17 +69,19 @@
             $column.addClass "col-#{colIndex}"
             $column.addClass "{sorter: false}" if not column.get('isSortable')
             $column.addClass column.get('className') if column.get('className')
+            $column.addClass 'hide' if not column.get('default')
             $column[0]
 
         appendHtml: (collectionView, itemView, index) ->
             if not collectionView.collection.isEmpty()
                 $row = itemView.$el
                 model = itemView.model
-                @drawCell(col, $row, model, itemView, index) for col in @columns.models
+                @drawCell(col, $row, model, itemView, index) for col in @columns
                 collectionView.$("tbody").append($row[0])
             else
                 emptyCell = "<td colspan='#{@columns.models.length}'>#{@config.emptyMessage}</td>"
                 collectionView.$("tbody").append(emptyCell)
+
 
         drawCell: (col, $row, model, itemView, index) ->
             colIndex = @columns.indexOf(col)
@@ -82,13 +99,20 @@
                 t = _.template(col.get('htmlContent'), { model : model })
                 $row.append($cell.append(t))
 
+            if not col.get('default')
+                $cell.addClass('hide')
+
+
         styleTable: (className) ->
             @ui.table.addClass className
 
         $getTableColumn: (filterColumn) ->
-            console.log filterColumn
-            column = @columns.where({ title: filterColumn.get('title') })[0]
-            colIndex = @columns.indexOf column
+            column = (col for col in @columns when col.get('title') == filterColumn.get('title'))[0]
+            if not column 
+                @columns.push filterColumn
+                colIndex = @columns.indexOf filterColumn
+            else
+                colIndex = @columns.indexOf column
 
             $(".col-#{colIndex}")
 
