@@ -1,22 +1,29 @@
 
 ## Learnster - An Open Source Learning Management System
 
-Currently in development, learnster is an learnining management system whose rich experience is provided by a Backbone.Marionette front-end levearged with a Rails back-end
+Currently in development, learnster is a learnining management system whose rich experience is provided by a Backbone.Marionette front-end levearged with a Rails back-end
 
-### Requirements
+### System Requirements
 
- - Rails 4.0.0 (or above)
- - ruby 2.0.0p247 (2013-06-27 revision 41674) (or above)
+Please note that such has been tested only on OS X 10.8
 
-### Bootstrapping
+ - Rails 4.0
+ - ruby 2.0.0p247 (or above)
+ - bundler
+ - JRE (for Solr)
+
+### Development Bootstrapping
 
  - bundle install && bundle update
  - rake db:migrate
  - rake db:seed
+ - rake sunspot:solr:start
+ - rake sunspot:solr:reindex
+
+ ### Deployment Instruction
+
 
 TODO:
-
-* Mention solr bootstrapping info
 
 * Better high-level intro
 
@@ -26,7 +33,7 @@ TODO:
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+* Services (job queues, cache servers etc.)
 
 * Deployment instructions
 
