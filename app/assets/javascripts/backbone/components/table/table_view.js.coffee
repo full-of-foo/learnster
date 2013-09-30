@@ -1,5 +1,38 @@
 @Learnster.module "Components.Table", (Table, App, Backbone, Marionette, $, _) ->
 
+    class Table.SettingsItem extends App.Views.ItemView
+        template: "table/_settings_item"
+        tagName: 'li'
+        triggers:
+            "click a"   :  "setting:col:clicked"
+
+    class Table.Settings extends App.Views.CompositeView
+        template: "table/_settings"
+        itemView: Table.SettingsItem
+
+        initialize: (options) ->
+            @setInstancePropertiesFor "templateHelpers"
+
+        appendHtml: (collectionView, itemView, index) ->
+            $li = itemView.$el
+            col = itemView.model
+            @drawFilterItem($li, col, collectionView, itemView)
+
+         drawFilterItem: ($li, columnFilterItem, collectionView, itemView) =>
+            if columnFilterItem.get('hasData')
+
+                if columnFilterItem.get('isRemovable') and columnFilterItem.get('isShowing')
+                    $li.addClass('active')
+                else if not columnFilterItem.get('isRemovable') and columnFilterItem.get('isShowing')            
+                    $li.addClass('disabled')
+
+                if columnFilterItem.get('title')
+                    title = columnFilterItem.get('title')
+                    $li.append('<a href="#">' + title + '</a>')
+                    
+                collectionView.$("ul").append($li[0])
+
+
     class Table.Empty extends App.Views.ItemView
         template: "table/_empty_item"
         tagName: "tr"

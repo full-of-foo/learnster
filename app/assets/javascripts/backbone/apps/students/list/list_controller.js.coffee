@@ -36,20 +36,17 @@
 
         showSettings: ->
             listCols = @getTableColumns()
-            colCollection = App.request "table:column:entities", listCols, false
-
-            settingsView = @getSettingsView(colCollection)
-
-
-            @listenTo settingsView, "settings:cancel:clicked", =>
-                @layout.listSettingsRegion.close()  
+            @colCollection = @colCollection || App.request "table:column:entities", listCols, false
+            settingsView = App.request "settings:view", @colCollection 
 
             @listenTo settingsView, "childview:setting:col:clicked", (child, args) =>
                 column = args.model
                 @studentsView.toggleColumn(child, column)
-                          
-
-            @layout.listSettingsRegion.show settingsView
+                                      
+            @show settingsView,
+                            loading:
+                                loadingType: "spinner"
+                            region:  @layout.listSettingsRegion
 
         showSearch: (students) ->
             searchView = @getSearchView students
@@ -105,12 +102,6 @@
         getSearchView: (students) ->
             new List.SearchPanel
                 collection: students
-                templateHelpers:
-                        nestingOrg: @_nestingOrg
-
-        getSettingsView: (colCollection) ->
-            new List.SettingsList
-                collection: colCollection
                 templateHelpers:
                         nestingOrg: @_nestingOrg
 

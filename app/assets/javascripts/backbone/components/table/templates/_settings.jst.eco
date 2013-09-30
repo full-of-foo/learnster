@@ -1,0 +1,11 @@
+<div class="well">
+	<button type="button" class="close cancel-settings" data-dismiss="alert">&times;</button>
+	
+	<blockquote>
+	    <p class="text-info">Filter List...</p>
+	    <small class="text-info">hover above elements for help</small>
+	</blockquote>
+	
+	<ul id="col-list" class="nav nav-pills">
+	</ul>
+</div>

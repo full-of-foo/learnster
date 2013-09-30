@@ -35,3 +35,9 @@
             config:     options.config
             columns:    options.columns
         formController.tableView
+
+    App.reqres.setHandler "settings:view", (columns) ->
+        throw new Error "No columns supplied" unless columns
+        settingsView = new Table.Settings
+                collection: columns
+        settingsView
