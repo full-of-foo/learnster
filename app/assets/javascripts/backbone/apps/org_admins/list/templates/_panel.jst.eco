@@ -8,7 +8,7 @@
         New
         <% end %>
          Admin</a>
-        <a class="btn" href="#"><i class="icon-cog"></i></a>
+        <a class="btn" id="list-settings-button" href="#"><i class="icon-cog"></i></a>
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             <span class="icon-caret-down"></span>
         </a>

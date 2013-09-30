@@ -26,7 +26,24 @@
             @listenTo panelView, "new:org_admin:button:clicked", =>
                 @showNewRegion()
 
+            @listenTo panelView, "settings:button:clicked", =>
+                @showSettings()
+
             @layout.panelRegion.show panelView
+
+        showSettings: ->
+            listCols = @getTableColumns()
+            @colCollection = @colCollection || App.request "table:column:entities", listCols, false
+            settingsView = App.request "settings:view", @colCollection 
+
+            @listenTo settingsView, "childview:setting:col:clicked", (child, args) =>
+                column = args.model
+                @orgAdminsView.toggleColumn(child, column)
+                                      
+            @show settingsView,
+                            loading:
+                                loadingType: "spinner"
+                            region:  @layout.listSettingsRegion
 
         showSearch: (org_admins) ->
             searchView = @getSearchView org_admins
@@ -47,20 +64,20 @@
             cols = @getTableColumns()
             options = @getTableOptions cols
 
-            orgAdminsView = App.request "table:wrapper", org_admins, options
+            @orgAdminsView = App.request "table:wrapper", org_admins, options
 
-            @listenTo orgAdminsView, "childview:org_admin:clicked", (child, args) ->
+            @listenTo @orgAdminsView, "childview:org_admin:clicked", (child, args) ->
                 App.vent.trigger "org_admin:clicked", args.model
 
-            @listenTo orgAdminsView, "childview:org:clicked", (child, args) ->
+            @listenTo @orgAdminsView, "childview:org:clicked", (child, args) ->
                 App.vent.trigger "org:clicked", args.model.get('admin_for').id
 
-            @listenTo orgAdminsView, "childview:org_admin:delete:clicked", (child, args) ->
+            @listenTo @orgAdminsView, "childview:org_admin:delete:clicked", (child, args) ->
                 model = args.model
                 if confirm "Are you sure you want to delete #{model.get('first_name')}?" then model.destroy() else false
 
 
-            @show orgAdminsView,
+            @show @orgAdminsView,
                             loading:
                                 loadingType: "spinner"
                             region:  @layout.orgAdminsRegion
@@ -89,7 +106,7 @@
              { title: "Name", htmlContent: '<% if ( model.get("is_active") ) 
                 { %><i class="icon-list-online-status" title="Online"></i>
                 <% } else { %><i class="icon-list-offline-status" title="Offline"></i>
-                <% } %><%= model.get("full_name") %>', isSortable: true, default: true, isRemoveable: false }
+                <% } %><%= model.get("full_name") %>', isSortable: true, default: true, isRemovable: false }
              { title: "Email", attrName: "email", isSortable: true, default: true },
              { title: "Last Online", attrName: "last_login_formatted", default: true},
              { title: "Organisation", htmlContent: '<a href="#" class="org-link">
