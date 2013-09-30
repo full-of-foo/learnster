@@ -84,6 +84,8 @@
 
         showSearchOrgAdmins: (searchOpts) ->
             org_admins = App.request "search:org_admins:entities", searchOpts
+            @colCollection = null
+            @showSettings() if not @layout.listSettingsRegion.currentView?.isClosed and @layout.listSettingsRegion.currentView
             @showOrgAdmins(org_admins)
 
         getPanelView: (org_admins) ->

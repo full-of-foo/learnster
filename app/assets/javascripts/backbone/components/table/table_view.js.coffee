@@ -8,6 +8,12 @@
 
     class Table.Settings extends App.Views.CompositeView
         template: "table/_settings"
+        triggers:
+            "click button.cancel-settings" : "close"
+
+        onClose: ->
+            @close()
+
         itemView: Table.SettingsItem
 
         initialize: (options) ->
@@ -112,7 +118,7 @@
                 @drawCell(col, $row, model, itemView, index) for col in @columns
                 collectionView.$("tbody").append($row[0])
             else
-                emptyCell = "<td colspan='#{@columns.models.length}'>#{@config.emptyMessage}</td>"
+                emptyCell = "<td colspan='#{@columns.length}'>#{@config.emptyMessage}</td>"
                 collectionView.$("tbody").append(emptyCell)
 
 

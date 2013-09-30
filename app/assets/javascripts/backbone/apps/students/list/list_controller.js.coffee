@@ -91,6 +91,8 @@
 
         showSearchStudents: (searchOpts) ->
             students = App.request "search:students:entities", searchOpts
+            @colCollection = null
+            @showSettings() if not @layout.listSettingsRegion.currentView?.isClosed and @layout.listSettingsRegion.currentView
             @showStudents(students)
 
         getPanelView: (students) ->

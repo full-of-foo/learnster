@@ -23,7 +23,25 @@
             @listenTo panelView, "new:org:button:clicked", =>
                 @showNewRegion()
 
+            @listenTo panelView, "settings:button:clicked", =>
+                @showSettings()
+
             @layout.panelRegion.show panelView
+
+
+        showSettings: ->
+            listCols = @getTableColumns()
+            @colCollection = @colCollection || App.request "table:column:entities", listCols, false
+            settingsView = App.request "settings:view", @colCollection 
+
+            @listenTo settingsView, "childview:setting:col:clicked", (child, args) =>
+                column = args.model
+                @orgsView.toggleColumn(child, column)
+                                      
+            @show settingsView,
+                            loading:
+                                loadingType: "spinner"
+                            region:  @layout.listSettingsRegion
 
         showSearch: (orgs) ->
             searchView = @getSearchView orgs
@@ -40,28 +58,30 @@
             cols = @getTableColumns()
             options = @getTableOptions cols
 
-            orgsView = App.request "table:wrapper", orgs, options
+            @orgsView = App.request "table:wrapper", orgs, options
 
-            @listenTo orgsView, "childview:org:clicked", (child, args) ->
+            @listenTo @orgsView, "childview:org:clicked", (child, args) ->
                 App.vent.trigger "org:clicked", args.model
 
-            @listenTo orgsView, "childview:org-students:clicked", (child, args) ->
+            @listenTo @orgsView, "childview:org-students:clicked", (child, args) ->
                 App.vent.trigger "list-org-students:clicked", args.model
 
-            @listenTo orgsView, "childview:org-admins:clicked", (child, args) ->
+            @listenTo @orgsView, "childview:org-admins:clicked", (child, args) ->
                 App.vent.trigger "list-org-admins:clicked", args.model
 
-            @listenTo orgsView, "childview:org:delete:clicked", (child, args) ->
+            @listenTo @orgsView, "childview:org:delete:clicked", (child, args) ->
                 model = args.model
                 if confirm "Are you sure you want to delete #{model.get('title')}?" then model.destroy() else false
 
-            @show orgsView,
+            @show @orgsView,
                         loading:
                             loadingType: "spinner"
                         region:  @layout.orgsRegion
 
         showSearchOrgs: (searchTerm) ->
             orgs = App.request "search:orgs:entities", searchTerm
+            @colCollection = null
+            @showSettings() if not @layout.listSettingsRegion.currentView?.isClosed and @layout.listSettingsRegion.currentView
             @showOrgs orgs
 
         getPanelView: (orgs) ->
@@ -71,11 +91,6 @@
         getSearchView: (orgs) ->
             new List.SearchPanel
                 collection: orgs
-
-        getOrgsView: (orgs) ->
-            new List.Orgs
-                collection: orgs
-
 
         getLayoutView: ->
             new List.Layout
