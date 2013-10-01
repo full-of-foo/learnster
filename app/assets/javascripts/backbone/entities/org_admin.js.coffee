@@ -3,11 +3,7 @@
 
     class Entities.OrgAdmin extends Entities.Models
         urlRoot: Routes.org_admin_index_path()
-        
-        initialize: ->
-            @on "all", (e) -> console.log e
-
-
+    
     class Entities.OrgAdminCollection extends Entities.Collections
         model: Entities.OrgAdmin
         

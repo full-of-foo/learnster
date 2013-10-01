@@ -5,8 +5,11 @@
 
     App.on "initialize:before", (options) ->
         App.environment = options.environment
-        userType = gon.type[0].toLowerCase() + gon.type.slice(1)
-        App.currentUser = App.reqres.request "init:current:#{userType}", gon      
+        if not _.isEmpty(gon) 
+            userType = gon.type[0].toLowerCase() + gon.type.slice(1)
+            App.currentUser = App.reqres.request "init:current:#{userType}", gon 
+        else
+           App.currentUser = false 
 
     App.reqres.setHandler "get:current:user", ->
         App.currentUser
@@ -34,7 +37,7 @@
     App.on "initialize:after", ->
             @startHistory()
             $().UItoTop({ easingType: 'easeOutQuart' }) #move to executed command
-            App.rootRoute = if App.currentUser? then "/students" else "/login"
-            @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is ""
+            App.rootRoute = if App.currentUser then "/students" else "/login"
+            @navigate(App.rootRoute, trigger: true) if @getCurrentRoute() is "" or "/login"
 
     App
