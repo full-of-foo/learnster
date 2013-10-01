@@ -8,6 +8,9 @@ group :development, :test do
   gem 'sqlite3', '1.3.7'
   gem 'rspec-rails', '2.13.1'
   gem 'teaspoon'
+  gem 'guard-teaspoon'
+  gem 'rb-fsevent'
+  gem 'terminal-notifier-guard'
 end
 
 group :test do

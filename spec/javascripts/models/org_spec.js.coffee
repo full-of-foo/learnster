@@ -2,7 +2,6 @@
 # Standard org BB model specs
 #
 
-
 describe "new Org model", ->
 
     beforeEach ->
