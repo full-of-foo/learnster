@@ -1,4 +1,4 @@
-  source 'https://rubygems.org'
+source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', '4.0.0'
@@ -7,8 +7,7 @@ group :development, :test do
   gem 'coffee-rails-source-maps'
   gem 'sqlite3', '1.3.7'
   gem 'rspec-rails', '2.13.1'
-  gem 'populator'
-  gem 'faker'
+  gem 'teaspoon'
 end
 
 group :test do
@@ -26,6 +25,8 @@ gem 'axlsx_rails'
 
 group :development do
   gem 'sunspot_solr'
+  gem 'populator'
+  gem 'faker'
 end
 
 gem 'sass-rails', '4.0.0'
