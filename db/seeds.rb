@@ -1,52 +1,78 @@
-require "populator"
+###
+## == Teardown existing model data then populate
+#
+#
+#
 
+
+# teardown
+# 
 [User, OrgAdmin, AppAdmin, Student, Organisation].each(&:delete_all)
 
-AppAdmin.populate(1) do |aa|
-    aa.email = "lightweightdevelopment@gmail.com"
-    aa.first_name = "Anthony"
-    aa.surname = "Troy"
-    aa.is_active = [true, false].sample
-    aa.last_login = rand(2.years).ago
+
+# populate 
+#
+1.times do |i|
+    params = {
+        email: "lightweightdevelopment@gmail.com",
+        first_name: "Anthony",
+        password: "fooooooo",
+        surname: "Troy",
+        is_active: [true, false].sample,
+        last_login: rand(2.years).ago
+    }
+    AppAdmin.new(params).save
 end
 
-Organisation.populate(10) do |o|
-    o.title = Faker::Company.name
-    o.description = Faker::Lorem.sentence
+
+10.times do |i|
+    params = {
+        title: Faker::Company.name + "#{i}",
+        description: Faker::Lorem.sentence
+    }
+    Organisation.new(params).save
 end
 
 count = 1
-OrgAdmin.populate(35) do |oa|
-    oa.email = Faker::Internet.email
+
+35.times do |i|
     name_gen = Faker::Name
-    oa.first_name = name_gen.first_name
-    oa.surname = name_gen.last_name
-    oa.last_login = rand(2.years).ago
-    oa.is_active = [true, false].sample
-    oa.created_by = AppAdmin.first
-    oa.admin_for = Organisation.find(count)
+
+    params = {
+        email: Faker::Internet.email + "#{i}",
+        first_name: name_gen.first_name,
+        surname: name_gen.last_name,
+        password: "fooooooo",
+        last_login: rand(2.years).ago,
+        is_active: [true, false].sample,
+        created_by: AppAdmin.first,
+        admin_for: Organisation.find(Organisation.first.id + count) 
+    }
     count += 1
-    count = 1 if count == 10
+    count = 1 if count == 10 
+
+    OrgAdmin.new(params).save
 end
 
 Organisation.all.each_with_index do |o, i|
-   o.created_by = OrgAdmin.find(OrgAdmin.first.id + i)
-   o.save
+    o.update created_by: OrgAdmin.find(OrgAdmin.first.id + i)
 end
 
 
+90.times do |i|
+    name_gen, offset = Faker::Name, rand(Organisation.count)
+    rand_org = Organisation.first(:offset => offset)
 
-1.times { 
-        Student.populate(100) do |u|
-        u.email = Faker::Internet.email
-        name_gen = Faker::Name
-        u.first_name = name_gen.first_name
-        u.surname = name_gen.last_name
-        u.is_active = [true, false].sample
-        u.last_login = rand(2.years).ago
-        offset = rand(Organisation.count)
-        rand_record = Organisation.first(:offset => offset)
-        u.attending_org = rand_record
-        u.created_by = u.attending_org.created_by
-    end 
-}
+    params = {
+        email: Faker::Internet.email + "#{i}",
+        first_name: name_gen.first_name,
+        surname: name_gen.last_name,
+        password: "fooooooo",
+        is_active: [true, false].sample,
+        last_login: rand(2.years).ago,
+        attending_org: rand_org,
+        created_by: rand_org.created_by
+    }
+
+    s = Student.new(params).save
+end

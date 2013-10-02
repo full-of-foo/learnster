@@ -33,13 +33,13 @@
 
         templateHelpers: ->
 
-            # currentUser:
-            #     if !$.isEmptyObject(App.request("get:current:user")) 
-            #         App.request("get:current:user").toJSON()
-            #     else
-            #         "foo" 
-
-
+            currentUser: ->
+                user = App.request("get:current:user")
+                if user
+                    user.toJSON() 
+                else 
+                    user
+                
             linkTo: (name, url, options = {}) ->
                 options.external = false unless options.external
 

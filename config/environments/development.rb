@@ -29,4 +29,6 @@ Learnster::Application.configure do
 
   config.assets.initialize_on_precompile = true
 
+  # for devise
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 end

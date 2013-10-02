@@ -24,6 +24,7 @@ gem 'sunspot_rails'
 gem 'progress_bar'
 gem 'acts_as_xlsx'
 gem 'axlsx_rails'
+gem 'devise'
 
 
 group :development do

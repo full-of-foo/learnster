@@ -1,9 +1,19 @@
+<% u = @currentUser() %>
+
 <div id="header" class="navbar">
     <div class="navbar-inner">
         <div class="container">
             <div class="row">
                 <div class="pull-left">
-                  <span class="brand">Learnster</span>
+                <% if u: %>
+                    <% if(u.type is "OrgAdmin" or u.type is "AppAdmin"): %>
+                        <span class="brand">Learnster :: Admin</span>
+                    <% else: %>
+                        <span class="brand">Learnster</span>
+                    <% end %>
+                <% else: %>
+                   <span class="brand">Learnster :: Welcome</span>
+                <% end %>
                 </div>
                 <ul class="nav pull-right">
                 </ul>
