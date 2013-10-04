@@ -3,9 +3,15 @@ Learnster::Application.routes.draw do
 
   ##
   # Auth routes
-  devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
-  root "home#index"
+  devise_for :users, :path => '', :path_names => { 
+    :sign_in => 'login', :sign_out => 'logout'
+  }, controllers: {
+    sessions:  "devise_overrides/sessions"
+  }
 
+  devise_scope :user do
+    get 'current_user' => 'sessions#show_current_user', :as => 'show_current_user'
+  end
 
   ##
   # App routes
@@ -13,6 +19,7 @@ Learnster::Application.routes.draw do
     get "", :to => "application#index", :as => :app_route
   end
 
+  root "application#index"
 
   ##
   # API routes
