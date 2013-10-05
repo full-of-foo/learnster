@@ -2,7 +2,6 @@ module Api
 	module V1
 		
 		class StudentController < ApplicationController
-			#before_filter :authenticate_user!
 		    respond_to :json
 		    before_filter :find_org
 
@@ -26,12 +25,13 @@ module Api
 			       		 }
 		  			end	
 		        end
-
 		        @students
+		        render "student/index"
 		    end
 
 		    def show
 		  		@student = Student.find(params[:id])
+				render "student/show"
 			end
 
 			def update

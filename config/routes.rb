@@ -16,10 +16,14 @@ Learnster::Application.routes.draw do
     # Default API version
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
 
-     	      # Nested Org routes
+      # Session routes
+      get "logout" => "sessions#destroy", :as => "logout"
+      post "login" => "sessions#create", :as => "login"
+
+     	# Nested Org routes
       resources :organisation do
         resources :student, :type => "Student"
-        resources :admin, :type => "OrgAdmin"
+        resources :org_admin, :type => "OrgAdmin", :as => "admin"
       end
 
       # Standard routes

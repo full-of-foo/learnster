@@ -1,12 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_filter :configure_permitted_parameters, if: :devise_controller?
 
 
   def index
     # current_user = AppAdmin.first()
     @user = current_user
-    gon.rabl
+    gon.rabl if @user
   end
 
   def permitted_params
@@ -40,11 +39,5 @@ class ApplicationController < ActionController::Base
   helper_method :nested_org_request?
   helper_method :search_request?
   helper_method :xlsx_request?
-
-  protected
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :email
-  end
 
 end

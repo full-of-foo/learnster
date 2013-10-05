@@ -26,11 +26,11 @@
     	API.newOrgAdmin(region)
 
     App.vent.on "org_admin:clicked org_admin:created", (id) ->
-        App.navigate Routes.edit_org_admin_path(id).split("/api")[1]
+        App.navigate Routes.edit_api_org_admin_path(id).split("/api")[1]
         API.edit id
 
     App.vent.on "org_admin:cancelled org_admin:updated", (org_admin) ->
-        App.navigate Routes.org_admin_index_path().split("/api")[1] + "s"
+        App.navigate Routes.api_org_admin_index_path().split("/api")[1] + "s"
         API.listOrgAdmins()
 
 

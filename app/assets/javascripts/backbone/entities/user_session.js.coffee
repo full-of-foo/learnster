@@ -1,7 +1,7 @@
 @Learnster.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
     class Entities.UserSession extends Entities.Models
-        url: Routes.api_user_session_path()
+        url: Routes.api_login_path()
 
         defaults:
             "email"    : ""

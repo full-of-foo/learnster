@@ -37,19 +37,19 @@
         API.newOrg(region)
 
     App.vent.on "org:clicked org:created", (id) ->
-        App.navigate Routes.edit_organisation_path(id).split("/api")[1]
+        App.navigate Routes.edit_api_organisation_path(id).split("/api")[1]
         API.edit id
 
     App.vent.on "link-org-students:clicked list-org-students:clicked", (id) ->
-        App.navigate Routes.organisation_student_index_path(id).split("/api")[1] + "s"
+        App.navigate Routes.api_organisation_student_index_path(id).split("/api")[1] + "s"
         API.listOrgStudents id
 
     App.vent.on "link-org-admins:clicked list-org-admins:clicked", (id) ->
-        App.navigate Routes.organisation_admin_index_path(id).split("/api")[1] + "s"
+        App.navigate Routes.api_organisation_admin_index_path(id).split("/api")[1] + "s"
         API.listOrgAdmins id
 
     App.vent.on "org:cancelled org:updated", (org) ->
-        App.navigate Routes.organisation_index_path().split("/api")[1] + "s"
+        App.navigate Routes.api_organisation_index_path().split("/api")[1] + "s"
         API.listOrgs()
 
 

@@ -2,7 +2,6 @@ module Api
 	module V1
 
 		class OrganisationController < ApplicationController
-			#before_filter :authenticate_user!
 		    respond_to :json
 
 		    def index
@@ -23,11 +22,13 @@ module Api
 		  			end	
 			    else
 			      @organisations
+		     	  render "organisation/index"
 		        end
 		    end
 
 		    def show
 		  		@organisation = Organisation.find(params[:id])
+				render "organisation/show"
 			end
 
 			def update
