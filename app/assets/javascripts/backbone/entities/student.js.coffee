@@ -2,7 +2,7 @@
 
 
     class Entities.Student extends Entities.Models
-        urlRoot: Routes.student_index_path()
+        urlRoot: Routes.api_student_index_path()
         relations: [
             type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.AppAdmin
         ]
@@ -12,7 +12,7 @@
         model: Entities.Student
         
         initialize: (options = {}) =>
-            @url = if not options.url then Routes.student_index_path() else options.url
+            @url = if not options.url then Routes.api_student_index_path() else options.url
             super
 
 
@@ -28,7 +28,7 @@
 
         getOrgStudentEntities: (orgId) ->
             students = new Entities.StudentsCollection
-                                            url: Routes.organisation_student_index_path(orgId)
+                                            url: Routes.api_organisation_student_index_path(orgId)
             students.fetch
                 reset: true
             students
@@ -47,7 +47,7 @@
             { term, nestedId } = searchOpts
             if nestedId
                 students = new Entities.StudentsCollection
-                                         url: Routes.organisation_student_index_path(nestedId)
+                                         url: Routes.api_organisation_student_index_path(nestedId)
             else
                 students = new Entities.StudentsCollection
 

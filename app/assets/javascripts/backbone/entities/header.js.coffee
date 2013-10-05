@@ -22,15 +22,15 @@
                 
         getAdminHeaders: ->
             new Entities.HeaderCollection [
-                    { name: "Students", url: Routes.student_index_path().split("/api")[1] + "s" }
-                    { name: "Admins", url: Routes.org_admin_index_path().split("/api")[1] + "s" }
-                    { name: "Organisations", url: Routes.organisation_index_path().split("/api")[1] + "s" }
+                    { name: "Students", url: Routes.api_student_index_path().split("/api")[1] + "s" }
+                    { name: "Admins", url: Routes.api_org_admin_index_path().split("/api")[1] + "s" }
+                    { name: "Organisations", url: Routes.api_organisation_index_path().split("/api")[1] + "s" }
                 ]
 
         getOrgAdminHeaders: ->
             new Entities.HeaderCollection [
-                    { name: "Students", url: Routes.student_index_path().split("/api")[1] + "s" }
-                    { name: "Admins", url: Routes.org_admin_index_path().split("/api")[1] + "s" }
+                    { name: "Students", url: Routes.api_student_index_path().split("/api")[1] + "s" }
+                    { name: "Admins", url: Routes.api_org_admin_index_path().split("/api")[1] + "s" }
                     { name: "Modules", url: "TODO" }
                 ]
 

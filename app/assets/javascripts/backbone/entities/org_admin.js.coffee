@@ -2,13 +2,13 @@
 
 
     class Entities.OrgAdmin extends Entities.Models
-        urlRoot: Routes.org_admin_index_path()
+        urlRoot: Routes.api_org_admin_index_path()
     
     class Entities.OrgAdminCollection extends Entities.Collections
         model: Entities.OrgAdmin
         
         initialize: (options = {}) =>
-            @url = if not options.url then Routes.org_admin_index_path() else options.url
+            @url = if not options.url then Routes.api_org_admin_index_path() else options.url
             super
 
 
@@ -24,7 +24,7 @@
 
         getOrgAdminOrgEntities: (orgId) ->
             org_admins = new Entities.OrgAdminCollection
-                                            url: Routes.organisation_admin_index_path(orgId)
+                                            url: Routes.api_organisation_admin_index_path(orgId)
             org_admins.fetch
                 reset: true
             org_admins
@@ -44,7 +44,7 @@
             { term, nestedId } = searchOpts
             if nestedId
                 org_admins = new Entities.StudentsCollection
-                                         url: Routes.organisation_admin_index_path(nestedId)
+                                         url: Routes.api_organisation_admin_index_path(nestedId)
             else
                 org_admins = new Entities.OrgAdminCollection
                 

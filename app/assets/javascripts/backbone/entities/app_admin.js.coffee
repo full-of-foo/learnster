@@ -2,7 +2,7 @@
 
 
     class Entities.AppAdmin extends Entities.Models
-        urlRoot: Routes.app_admin_index_path()
+        urlRoot: Routes.api_app_admin_index_path()
 
 
     API =

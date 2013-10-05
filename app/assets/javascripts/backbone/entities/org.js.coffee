@@ -5,12 +5,12 @@
         relations: [
             type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.OrgAdmin
         ]
-        urlRoot: Routes.organisation_index_path()
+        urlRoot: Routes.api_organisation_index_path()
 
 
     class Entities.OrgsCollection extends Entities.Collections
         model: Entities.Org
-        url: Routes.organisation_index_path()
+        url: Routes.api_organisation_index_path()
 
     API =
         newOrg: ->
