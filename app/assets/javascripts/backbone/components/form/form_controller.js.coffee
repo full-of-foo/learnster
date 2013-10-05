@@ -15,7 +15,7 @@
 
 		formSubmit: ->
 			data = Backbone.Syphon.serialize @formLayout, 
-				exclude: ["password", "password-confirm"]
+				exclude: ["password-confirm"]
            
 			if @contentView.triggerMethod("form:submit", data) isnt false
 				model = @contentView.model

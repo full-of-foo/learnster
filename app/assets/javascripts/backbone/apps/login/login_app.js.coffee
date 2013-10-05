@@ -7,7 +7,7 @@
 
     API =
         showLogin: ->
-            LoginApp.Show.Controller.showLogin()
+            new LoginApp.Show.Controller()
 
     App.addInitializer ->
         new LoginApp.Router

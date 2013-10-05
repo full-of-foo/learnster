@@ -16,7 +16,7 @@
     params = {
         email: "lightweightdevelopment@gmail.com",
         first_name: "Anthony",
-        password: "fooooooo",
+        password: "foobar",
         surname: "Troy",
         is_active: [true, false].sample,
         last_login: rand(2.years).ago

@@ -2,7 +2,7 @@ module Api
 	module V1
 
 		class OrganisationController < ApplicationController
-			before_filter :authenticate_user!
+			#before_filter :authenticate_user!
 		    respond_to :json
 
 		    def index

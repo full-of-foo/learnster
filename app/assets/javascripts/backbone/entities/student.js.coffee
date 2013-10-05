@@ -41,7 +41,7 @@
             student
 
         newStudent: ->
-            new Entities.Student
+            new Entities.Student()
 
         getSearchStudentEntities: (searchOpts) ->
             { term, nestedId } = searchOpts

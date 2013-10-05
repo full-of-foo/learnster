@@ -11,6 +11,6 @@
         template: "login/show/templates/_panel"
 
     class Show.Form extends App.Views.ItemView
-        template: "login/show/templates/_form"
+        template: "login/show/templates/_login_form"
 
 

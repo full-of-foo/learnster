@@ -2,7 +2,7 @@ module Api
 	module V1
 
 		class OrgAdminController < ApplicationController
-			before_filter :authenticate_user!
+			#before_filter :authenticate_user!
 		    respond_to :json
 		    before_filter :find_org
 		    

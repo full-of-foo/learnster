@@ -16,15 +16,7 @@ Learnster::Application.routes.draw do
     # Default API version
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
 
-      # Aut routes
-      devise_for :users, :path => '', :path_names => { 
-        :sign_in => 'login', :sign_out => 'logout'
-        }, controllers: {
-          sessions:  "api/v1/devise_overrides/sessions",
-          registrations:  "api/v1/devise_overrides/registrations"
-        }
-
-      # Nested Org routes
+     	      # Nested Org routes
       resources :organisation do
         resources :student, :type => "Student"
         resources :admin, :type => "OrgAdmin"
