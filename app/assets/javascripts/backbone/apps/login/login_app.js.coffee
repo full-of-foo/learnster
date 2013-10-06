@@ -9,6 +9,12 @@
         showLogin: ->
             new LoginApp.Show.Controller()
 
+
+    App.vent.on "session:created", (session) ->
+        console.log session
+        # App.navigate Routes.
+
     App.addInitializer ->
         new LoginApp.Router
             controller: API
+

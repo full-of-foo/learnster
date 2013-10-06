@@ -7,6 +7,9 @@
 
             @layout = @getLayoutView()
 
+            @listenTo session, "created", ->
+                App.vent.trigger "session:created", session
+
             @listenTo @layout, "show", ->
                 @showPanel()
                 @showForm(session)

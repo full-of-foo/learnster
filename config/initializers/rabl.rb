@@ -18,7 +18,7 @@ Rabl.configure do |config|
   # config.include_child_root = false
   # config.enable_json_callbacks = false
   # config.xml_options = { :dasherize  => true, :skip_types => false }
-  # config.view_paths = []
+  # config.view_paths =
   # config.raise_on_missing_attribute = true # Defaults to false
   # config.replace_nil_values_with_empty_strings = true # Defaults to false
 end

@@ -3,11 +3,19 @@ class ApplicationController < ActionController::Base
 
 
   def index
-    # current_user = AppAdmin.first()
-    @user = current_user
+    @user ||= current_user
     gon.rabl if @user
   end
 
+  def show_current_user
+    @user ||= current_user
+    if @user 
+      render "application/show_current_user" 
+    else
+      render json: {}
+    end
+  end
+    
   def permitted_params
   	@permitted_params ||= PermittedParams.new(params, current_user)
   end

@@ -7,6 +7,8 @@ Learnster::Application.routes.draw do
     get "", :to => "application#index", :as => :app_route
   end
 
+  # Auxiallry routes
+  get "current_user" => "application#show_current_user", :as => "current_user"
   root "application#index"
 
 
