@@ -1,6 +1,6 @@
 object @organisation
 
-extends "organisation/_base"
+extends "api/v1/organisation/_base"
 
 child :admins => :admins do
   attributes :id, :email, :first_name, :surname, :full_name, :is_active

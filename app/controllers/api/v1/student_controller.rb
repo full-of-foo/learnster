@@ -26,12 +26,10 @@ module Api
 		  			end	
 		        end
 		        @students
-		        render "student/index"
 		    end
 
 		    def show
 		  		@student = Student.find(params[:id])
-				render "student/show"
 			end
 
 			def update

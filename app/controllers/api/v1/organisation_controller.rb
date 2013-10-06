@@ -22,13 +22,11 @@ module Api
 		  			end	
 			    else
 			      @organisations
-		     	  render "organisation/index"
 		        end
 		    end
 
 		    def show
 		  		@organisation = Organisation.find(params[:id])
-				render "organisation/show"
 			end
 
 			def update

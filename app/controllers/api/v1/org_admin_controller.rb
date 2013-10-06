@@ -26,12 +26,11 @@ module Api
 		  			end	
 		        end
 
-		     	render "org_admin/index"
-		    end
+				@org_admins		
+			 end
 
 		    def show
 		  		@org_admin = OrgAdmin.find(params[:id])
-		     	render "org_admin/show"
 			end
 
 			def update
