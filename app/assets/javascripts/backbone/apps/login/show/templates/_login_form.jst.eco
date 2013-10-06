@@ -1,36 +1,25 @@
-<div id="login-modal">
-
-    <div class="modal-body">
-        <div class="well">
             
-                <fieldset>
-                    <div id="legend">
-                        <legend class="">Student & Staff Login</legend>
-                    </div>
+    <div id="legend">
+        <legend class="login-modal">Student & Staff Login</legend>
+    </div>
 
 
-                <fieldset>
-
-                    <div class="control-group">
-                        <!-- email -->
-                        <label class="control-label" for="email">Email</label>
-                        <div class="controls">
-                            <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <!-- password -->
-                        <label class="control-label" for="password">Password</label>
-                        <div class="controls">
-                            <input type="text" id="password" name="password" placeholder="" class="input-xlarge">
-                        </div>
-                    </div>
-
-                   
-                </fieldset>
-
-                
+    <div class="control-group">
+        <!-- email -->
+        <label class="control-label" for="email">Email</label>
+        <div class="controls">
+            <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
+            <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
             </div>
         </div>
-</div>
+    </div>
+
+    <div class="control-group">
+        <!-- password -->
+        <label class="control-label" for="password">Password</label>
+        <div class="controls">
+            <div class="input-prepend"><span class="add-on"><i class="icon-unlock-alt"></i></span>
+            <input type="text" id="password" name="password" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+    </div>

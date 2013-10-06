@@ -16,8 +16,8 @@ module Api
 						}, status: 200
 				else
 					render json: {
-							error: "Invalid login"
-						}, status: 401
+							errors: { email: "", password: ["Invalid email or password"] }
+						}, status: 422
 				end
 			end
 

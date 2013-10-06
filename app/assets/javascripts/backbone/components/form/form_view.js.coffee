@@ -39,6 +39,7 @@
 
 		addError: (name, error) ->
 	   		el = @$("[id='#{name}']")
+	   		el = el.parent() if el.parent().hasClass("input-prepend")
 	   		sm = $("<small>").text(error).addClass("help-inline")
 	   		el.after(sm).closest(".control-group").addClass("error")
 

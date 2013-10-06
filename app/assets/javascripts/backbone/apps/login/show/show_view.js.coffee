@@ -12,5 +12,9 @@
 
     class Show.Form extends App.Views.ItemView
         template: "login/show/templates/_login_form"
+        form:
+            buttons: 
+                primary:      "Login"
+                primaryClass: "btn btn-primary"
 
 

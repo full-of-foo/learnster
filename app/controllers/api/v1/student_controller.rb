@@ -44,7 +44,6 @@ module Api
 			def create
 				@student = Student.new
 				params = permitted_params.user_params().merge default_attrs
-				puts "Merged params: #{params}"
 				if @student.update params
 					render "student/show"
 				else
