@@ -6,22 +6,19 @@
 
 
 # teardown
-# 
 [User, OrgAdmin, AppAdmin, Student, Organisation].each(&:delete_all)
 
 
 # populate 
-#
 1.times do |i|
     params = {
         email: "lightweightdevelopment@gmail.com",
         first_name: "Anthony",
         password: "foobar",
-        surname: "Troy",
-        is_active: [true, false].sample,
-        last_login: rand(2.years).ago
+        password_confirmation: "foobar",
+        surname: "Troy"
     }
-    AppAdmin.new(params).save
+    AppAdmin.new(params).save!
 end
 
 
@@ -30,7 +27,7 @@ end
         title: Faker::Company.name + "#{i}",
         description: Faker::Lorem.sentence
     }
-    Organisation.new(params).save
+    Organisation.new(params).save!
 end
 
 count = 1
@@ -39,19 +36,20 @@ count = 1
     name_gen = Faker::Name
 
     params = {
-        email: Faker::Internet.email + "#{i}",
+        email: "#{i}" + Faker::Internet.email,
         first_name: name_gen.first_name,
         surname: name_gen.last_name,
         password: "fooooooo",
-        last_login: rand(2.years).ago,
-        is_active: [true, false].sample,
+        password_confirmation: "fooooooo",
+        last_login: Time.zone.now,
+        is_active: false,
         created_by: AppAdmin.first,
         admin_for: Organisation.find(Organisation.first.id + count) 
     }
     count += 1
     count = 1 if count == 10 
 
-    OrgAdmin.new(params).save
+    OrgAdmin.new(params).save!
 end
 
 Organisation.all.each_with_index do |o, i|
@@ -64,15 +62,16 @@ end
     rand_org = Organisation.first(:offset => offset)
 
     params = {
-        email: Faker::Internet.email + "#{i}",
+        email: "#{i}" + Faker::Internet.email,
         first_name: name_gen.first_name,
         surname: name_gen.last_name,
         password: "fooooooo",
-        is_active: [true, false].sample,
-        last_login: rand(2.years).ago,
+        password_confirmation: "fooooooo",
+        last_login: Time.zone.now,
+        is_active: false,
         attending_org: rand_org,
         created_by: rand_org.created_by
     }
 
-    s = Student.new(params).save
+    s = Student.new(params).save!
 end

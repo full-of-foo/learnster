@@ -11,6 +11,7 @@ module Api
 			def create
 				@user = login(params[:email], params[:password], params[:remember_me])
 				if @user
+					@user.update(last_login: Time.zone.now, is_active: true)
 					render "application/show_current_user.json.rabl"
 				else
 					render json: {
@@ -20,6 +21,7 @@ module Api
 			end
 
 			def destroy
+				current_user.update(is_active: false)
 				logout
 				redirect_to root_url
 			end
