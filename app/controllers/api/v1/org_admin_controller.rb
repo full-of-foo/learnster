@@ -4,6 +4,7 @@ module Api
 		class OrgAdminController < ApplicationController
 		    respond_to :json
 		    before_filter :find_org
+		    before_filter :require_login
 		    
 
 		    def index

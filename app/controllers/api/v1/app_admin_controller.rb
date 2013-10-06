@@ -3,6 +3,7 @@ module Api
 
 		class AppAdminController < ApplicationController
 		    respond_to :json
+		    before_filter :require_login
 
 		    def index
 		        @app_admins = AppAdmin.all

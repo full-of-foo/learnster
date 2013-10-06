@@ -1,15 +1,19 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_filter proc { |controller| controller.response.headers['x-url'] = controller.request.fullpath } 
 
 
   def index
     @user ||= current_user
-    gon.rabl if @user
+    if @user
+      gon.rabl
+    end
+    render "application/index.html.erb" 
   end
 
   def show_current_user
     @user ||= current_user
-    if @user 
+    if @user
       render "application/show_current_user" 
     else
       render json: {}
@@ -47,5 +51,10 @@ class ApplicationController < ActionController::Base
   helper_method :nested_org_request?
   helper_method :search_request?
   helper_method :xlsx_request?
+
+  def not_authenticated
+    redirect_to :back
+    self.status = 401
+  end
 
 end

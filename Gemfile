@@ -18,7 +18,6 @@ group :test do
   gem 'capybara', '2.1.0'
 end
 
-gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
 gem 'sunspot_rails'
 gem 'progress_bar'

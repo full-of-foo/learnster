@@ -4,6 +4,7 @@ do (Backbone) ->
 
         navigate: (route, options = {}) ->
             # route = "#" + route if route.charAt(0) is "/"
+            options["trigger"] = true
             Backbone.history.navigate route, options
 
         getCurrentRoute: ->

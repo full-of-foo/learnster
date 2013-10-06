@@ -3,6 +3,7 @@ module Api
 
 		class OrganisationController < ApplicationController
 		    respond_to :json
+		    before_filter :require_login
 
 		    def index
 		    	if params[:search]

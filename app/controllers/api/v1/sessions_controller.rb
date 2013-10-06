@@ -11,18 +11,17 @@ module Api
 			def create
 				@user = login(params[:email], params[:password], params[:remember_me])
 				if @user
-					render json: {
-							user: { id: @user.id }
-						}, status: 200
+					redirect_to root_url
 				else
 					render json: {
 							errors: { email: "", password: ["Invalid email or password"] }
-						}, status: 422
+				 		}, status: 422
 				end
 			end
 
 			def destroy
 				logout
+				redirect_to root_url
 			end
 
 		end

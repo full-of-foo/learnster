@@ -38,6 +38,6 @@
             @startHistory()
             $().UItoTop({ easingType: 'easeOutQuart' }) #move to executed command
             App.rootRoute = if App.currentUser then "/students" else "/login"
-            @navigate(App.rootRoute, trigger: true) if @getCurrentRoute() is "" or "/login"
+            @navigate(App.rootRoute) if @getCurrentRoute() is "" or "/login"
 
     App
