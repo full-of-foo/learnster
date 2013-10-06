@@ -20,12 +20,13 @@
 			if @contentView.triggerMethod("form:submit", data) isnt false
 				model = @contentView.model
 				collection = @contentView.collection
-				@processFormSubmit data, model, collection 
+				@processFormSubmit data, model, collection, @formLayout.config.toast
 				 
 
-		processFormSubmit: (data, model, collection) ->
+		processFormSubmit: (data, model, collection, toast = false) ->
 			model.save data,
-				collection: collection 
+				collection: collection
+				toast: toast 
 
 		setFormContentRegion: ->
 			@region = @formLayout.formContentRegion
@@ -50,6 +51,7 @@
 				focusFirstInput: true
 				errors: true
 				syncing: true
+				toast: true
 
 
 		getButtons: (buttons = {}) ->

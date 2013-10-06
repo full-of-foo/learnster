@@ -16,5 +16,6 @@
             buttons: 
                 primary:      "Login"
                 primaryClass: "btn btn-primary"
+            toast: false
 
 

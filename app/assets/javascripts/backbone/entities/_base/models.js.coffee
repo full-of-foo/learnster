@@ -24,27 +24,29 @@
             
             _.defaults options,
                 wait: true
-                success:    _.bind(@saveSuccess, @, isNew, options.collection)
+                success:    _.bind(@saveSuccess, @, isNew, options.collection, options.toast)
                 error:      _.bind(@saveError, @)
             
             @unset "_errors"
             super data, options
         
-        saveSuccess: (isNew, collection) =>
+        saveSuccess: (isNew, collection, toast) =>
             if isNew ## model is being created
                 collection.add @ if collection
                 collection.trigger "model:created", @ if collection
                 @trigger "created", @
-                App.makeToast
-                        text: "Created successfully"
-                        type: "info"
+                if toast
+                    App.makeToast
+                            text: "Created successfully"
+                            type: "info"
             else ## model is being updated
                 collection ?= @collection ## if model has collection property defined, use that if no collection option exists
                 collection.trigger "model:updated", @ if collection
                 @trigger "updated", @
-                App.makeToast
-                        text: "Updated successfully"
-                        type: "info"
+                if toast
+                    App.makeToast
+                            text: "Updated successfully"
+                            type: "info"
         
         saveError: (model, xhr, options) =>
             console.warn xhr, model
