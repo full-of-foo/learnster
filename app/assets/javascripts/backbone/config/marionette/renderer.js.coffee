@@ -1,7 +1,10 @@
 do (Marionette) ->
     _.extend Marionette.Renderer,
 
-        lookups: ["backbone/apps/", "backbone/components/"]
+        lookups: [
+            "backbone/apps/", "backbone/apps/cruds/", "backbone/apps/dashboards/", 
+            "backbone/apps/grids/", "backbone/apps/login/", "backbone/components/"
+        ]
 
         render: (template, data) ->
             return if template is false

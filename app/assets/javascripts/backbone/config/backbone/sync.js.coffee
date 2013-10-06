@@ -4,9 +4,9 @@ do (Backbone) ->
 	Backbone.sync = (method, entity, options = {}) ->
 		
 		_.defaults options,
-			beforeSend: 	_.bind(methods.beforeSend, 	      entity)
+			beforeSend: 	_.bind(methods.beforeSend, 	entity)
 			complete:		_.bind(methods.complete, entity, options)
-		
+
 		sync = _sync(method, entity, options)
 		if !entity._fetch and method is "read"
 			entity._fetch = sync
@@ -19,8 +19,5 @@ do (Backbone) ->
 		
 		complete: (options) ->
 			if options.xhr.status is 401 
-				Backbone.history.navigate "/login", { trigger: true }
-			else if options.xhr.status is 302
-				console.log options
-			
+				Backbone.history.navigate "/login", { trigger: true }		
 			@trigger "sync:stop", @

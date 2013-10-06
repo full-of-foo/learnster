@@ -14,8 +14,7 @@
 			@contentView.triggerMethod "form:cancel"
 
 		formSubmit: ->
-			data = Backbone.Syphon.serialize @formLayout, 
-				exclude: ["password-confirm"]
+			data = Backbone.Syphon.serialize @formLayout
            
 			if @contentView.triggerMethod("form:submit", data) isnt false
 				model = @contentView.model

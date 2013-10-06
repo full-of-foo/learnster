@@ -22,7 +22,8 @@ module Api
 		    	if xlsx_request? 
 		    		respond_to do |format|
 			  			format.xlsx {
-			            	send_data @students.to_xlsx.to_stream.read, :filename => 'students.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+			            	send_data @students.to_xlsx.to_stream.read, :filename => 'students.xlsx', 
+			            	:type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
 			       		 }
 		  			end	
 		        end
@@ -35,8 +36,8 @@ module Api
 
 			def update
 				@student = Student.find(params[:id])
-				if @student.update permitted_params.user_params
-					render "student/show"
+				if @student.update permitted_params.user_params().merge update_params
+					render "api/v1/student/show"
 				else
 					respond_with @student
 				end
@@ -44,9 +45,9 @@ module Api
 
 			def create
 				@student = Student.new
-				params = permitted_params.user_params().merge default_attrs
+				params = permitted_params.user_params().merge create_params
 				if @student.update params
-					render "student/show"
+					render "api/v1/student/show"
 				else
 					respond_with @student
 				end
@@ -60,11 +61,18 @@ module Api
 
 			private
 
-				def default_attrs
-					#must do this a la client instead
+				#virtual params on update
+				def update_params
+					{ password: params[:password], password_confirmation: params[:password_confirmation] }
+				end
+
+				#virtual params on create
+				def create_params
 					org = Organisation.find_by(title: params[:attending_org]) 
 
-					{ created_by: current_user, attending_org: org, is_active: false, last_login: Time.zone.now }
+					{ created_by: current_user, attending_org: org, is_active: false, 
+						last_login: Time.zone.now, password: params[:password], 
+						password_confirmation: params[:password_confirmation] }
 				end
 		 end
 	end

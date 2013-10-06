@@ -11,8 +11,7 @@
 
 
     App.vent.on "session:created", (session) ->
-        console.log session
-        # App.navigate Routes.
+        App.navigate App.rootRoute
 
     App.addInitializer ->
         new LoginApp.Router
