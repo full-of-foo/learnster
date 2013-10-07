@@ -6,7 +6,7 @@ html, body {
 
 #wrap {
     height: auto !important;
-    margin: 0 auto -60px;
+    margin: 0 auto -40px;
     min-height: 100%;
 }
 
@@ -31,6 +31,31 @@ html, body {
 	}
 }
 
+.sidenav.affix {
+  	top: 10px;
+}
+
+@media (min-width: 1200px) {
+  .sidenav {
+      width: 248px;
+      margin-right: 1pc;
+  }
+  .sidenav {
+      width: 218px;
+      margin: 10px 0 0;
+      padding: 0;
+      background-color: #fff;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+      -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+      -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+      box-shadow: 0 1px 4px rgba(0,0,0,.065);
+  }
+  .affix {
+    position: fixed;
+  }
+}
 
 /* spacing for generic form elements */
 
