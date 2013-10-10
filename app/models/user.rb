@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
     validates :password, confirmation: true, length: { in: 6..20 }, :on => :create
 	validates :password_confirmation, presence: true, :on => :create
 
+	validates :password, confirmation: true, length: { in: 6..20 }, :allow_blank => true, :on => :update
+	validates :password_confirmation, presence: true, :allow_blank => true, :on => :update
+
   def full_name
       "#{first_name} #{surname}"
   end

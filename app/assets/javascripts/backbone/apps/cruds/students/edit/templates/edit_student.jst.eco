@@ -1,6 +1,4 @@
-<div class="row">
-
-        <div class="span6">
+<div class="span6">
             <div class="control-group">
                 <label class="control-label" for="first_name">First Name</label>
                 <div class="controls">
@@ -31,9 +29,7 @@
                     <input type="password" id="password_confirmation"/>
                 </div>
             </div>
-        </div>
     
-        <div class="pull-right">
             <div class="control-group">
                 <label class="control-label" for="created-at">Created at</label>
                 <div class="controls">
@@ -70,5 +66,4 @@
                     </p>
                 </div>
             </div>
-        </div>
 </div>

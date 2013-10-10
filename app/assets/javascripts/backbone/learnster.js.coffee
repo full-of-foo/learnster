@@ -18,12 +18,14 @@
         App.mainRegion
 
     App.addRegions
-        headerRegion: "#header-region"
-        mainRegion: "#main-region"
-        footerRegion: "#footer-region"
+        headerRegion:  "#header-region"
+        sidebarRegion: "#sidebar-region"
+        mainRegion:    "#main-region"
+        footerRegion:  "#footer-region"
 
     App.addInitializer ->
         App.module("HeaderApp").start()
+        App.module("SideBarApp").start()
         App.module("FooterApp").start()
 
 
