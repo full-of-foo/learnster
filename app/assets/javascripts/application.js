@@ -23,6 +23,7 @@
 //= require_tree ./backbone/config
 //= require backbone/learnster
 
+//= require_tree ./backbone/router
 //= require_tree ./backbone/controllers
 //= require_tree ./backbone/views
 //= require_tree ./backbone/entities
