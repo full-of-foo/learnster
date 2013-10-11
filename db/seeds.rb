@@ -60,6 +60,8 @@ end
 90.times do |i|
     name_gen, offset = Faker::Name, rand(Organisation.count)
     rand_org = Organisation.first(:offset => offset)
+    offset = rand(rand_org.admins.count)
+    rand_admin = rand_org.admins.first(:offset => offset)
 
     params = {
         email: "#{i}" + Faker::Internet.email,
@@ -70,8 +72,8 @@ end
         last_login: Time.zone.now,
         is_active: false,
         attending_org: rand_org,
-        created_by: rand_org.created_by
+        created_by: rand_admin
     }
-
+    
     s = Student.new(params).save!
 end

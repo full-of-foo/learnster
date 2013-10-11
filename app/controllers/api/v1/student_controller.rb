@@ -2,6 +2,7 @@ module Api
 	module V1
 		
 		class StudentController < ApplicationController
+			load_and_authorize_resource
 		    respond_to :json
 		    before_filter :find_org
 		    before_filter :require_login
@@ -35,6 +36,7 @@ module Api
 			end
 
 			def update
+				sleep 3
 				@student = Student.find(params[:id])
 				if @student.update permitted_params.user_params().merge update_params
 					render "api/v1/student/show"

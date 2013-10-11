@@ -2,6 +2,7 @@ module Api
 	module V1
 
 		class OrgAdminController < ApplicationController
+			load_and_authorize_resource
 		    respond_to :json
 		    before_filter :find_org
 		    before_filter :require_login
@@ -37,7 +38,7 @@ module Api
 			def update
 				@org_admin = OrgAdmin.find(params[:id])
 				if @org_admin.update permitted_params.org_admin_params
-					render "org_admin/show"
+					render "api/v1/org_admin/show"
 				else
 					respond_with @org_admin
 				end
@@ -47,7 +48,7 @@ module Api
 				@org_admin = OrgAdmin.new
 				params = permitted_params.org_admin_params.merge default_attrs
 				if @org_admin.update params
-					render "org_admin/show"
+					render "api/v1/org_admin/show"
 				else
 					respond_with @org_admin
 				end

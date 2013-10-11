@@ -14,7 +14,7 @@
 			buttonContainer: "div#form-btn-wrapper"
 
 		triggers:
-			"submit"						    : "form:submit"		
+			"submit"						    : "form:submit"
 			"click [data-form-button='cancel']" : "form:cancel"
 
 		modelEvents:
@@ -22,7 +22,7 @@
 			"sync:start" 	 : "syncStart"
 			"sync:stop" 	 : "syncStop"
 
-		initialize: ->	
+		initialize: ->
 			@setInstancePropertiesFor "config", "buttons"
 
 		serializeData: ->
@@ -31,19 +31,22 @@
 
 		onShow: ->
 			_.defer =>
-				@focusFirstInput() if @config.focusFirstInput
-				@buttonPlacement() if @buttons
+				@focusFirstInput()    if @config.focusFirstInput
+				@addButtonPlacement() if @button
 
-		buttonPlacement: ->
-			@ui.buttonContainer.addClass @buttons.placement
+		onClose: ->
+			@addOpacityWrapper(false)
+
+		addButtonPlacement: ->
+			$("div#form-btn-wrapper").addClass @buttons.placement
 
 		addError: (name, error) ->
-	   		el = @$("[id='#{name}']")
-	   		el = el.parent() if el.parent().hasClass("input-prepend")
-	   		sm = $("<small>").text(error).addClass("help-inline")
-	   		el.after(sm).closest(".control-group").addClass("error")
+			el = @$("[id='#{name}']")
+			el = el.parent() if el.parent().hasClass("input-prepend")
+			sm = $("<small>").text(error).addClass("help-inline")
+			el.after(sm).closest(".control-group").addClass("error")
 
-		focusFirstInput: -> 
+		focusFirstInput: ->
 			@$(":input[type='text']:visible:enabled:first").focus()
 
 		getFormDataType: ->
