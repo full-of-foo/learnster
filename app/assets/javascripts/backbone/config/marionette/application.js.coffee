@@ -17,14 +17,6 @@ do (Backbone, $) ->
 		startHistory: ->
 			if Backbone.history
 				Backbone.history.start()
-				$(document).on 'click', 'a:not([data-bypass])', (e) ->
-					href = $(this).attr 'href'
-					protocol = this.protocol + '//'
-					if href.slice(protocol.length) is not protocol
-						e.preventDefault()
-						@navigate @rootRoute,
-									trigger: true
-
 
 		register: (instance, id) ->
 			@_registry ?= {}

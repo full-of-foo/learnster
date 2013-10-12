@@ -45,7 +45,8 @@ module Api
 
 			def create
 				@org_admin = OrgAdmin.new
-				if @org_admin.update permitted_params.org_admin_params()
+				params = permitted_params.org_admin_params().merge create_params
+				if @org_admin.update params
 					render "api/v1/org_admin/show"
 				else
 					respond_with @org_admin
@@ -68,7 +69,8 @@ module Api
 
 				#virtual params on create
 				def create_params
-					org = Organisation.find_by(title: params[:admin_for]) 
+					org = Organisation.find_by(title: params[:admin_for])  	  if current_user.app_admin?
+					org = current_user.admin_for 							  if current_user.org_admin?
 
 					{ created_by: current_user, admin_for: org, is_active: false, 
 						last_login: Time.zone.now, password: params[:password], 

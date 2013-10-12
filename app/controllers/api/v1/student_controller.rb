@@ -67,12 +67,13 @@ module Api
 
 				#virtual params on create
 				def create_params
-					org = Organisation.find_by(title: params[:attending_org]) 
+					org = Organisation.find_by(title: params[:attending_org]) if current_user.app_admin?
+					org = current_user.admin_for 							  if current_user.org_admin?
 
 					{ created_by: current_user, attending_org: org, is_active: false, 
 						last_login: Time.zone.now, password: params[:password], 
 						password_confirmation: params[:password_confirmation] }
 				end
-		 end
+		end
 	end
 end

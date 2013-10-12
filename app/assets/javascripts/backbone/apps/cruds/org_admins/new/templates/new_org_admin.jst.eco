@@ -31,12 +31,14 @@
                 <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
             </div>
         </div>
-
-         <div class="control-group">
-            <!-- Org -->
-            <label class="control-label">Organistation</label>
-            <div id="org-select-region" class="controls"></div>
-        </div>
+        
+        <% if @currentUser().type is "AppAdmin": %>
+             <div class="control-group">
+                <!-- Org -->
+                <label class="control-label">Organistation</label>
+                <div id="org-select-region" class="controls"></div>
+            </div>
+        <% end %>
 
         <div class="control-group">
             <!-- Password-->
