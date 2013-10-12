@@ -11,12 +11,12 @@
 
 			@listenTo org_admin, "created", ->
 				App.vent.trigger "org_admin:created", org_admin
-			
+
 			@listenTo @layout, "show", =>
 				@setFormRegion org_admin
 
 			@show @layout
-			
+
 
 		getLayoutView: (org_admin) ->
 			new New.Layout
@@ -30,8 +30,11 @@
 			@newView = @getNewView org_admin
 			formView = App.request "form:wrapper", @newView
 
-			@listenTo @newView, "show", ->
-				@setOrgSelector()
+			user = App.request "get:current:user"
+
+			if user.get('type') is "AppAdmin"
+				@listenTo @newView, "show", ->
+					@setOrgSelector()
 
 			@listenTo @newView, "form:cancel", =>
 				@region.close()
@@ -40,10 +43,10 @@
 
 
 		setOrgSelector: ->
-			if @_nestingOrg 
+			if @_nestingOrg
 				orgs = App.request("new:org:entities")
 				orgs.push(@_nestingOrg)
-			else 
+			else
 			 	orgs = App.request("org:entities")
 
 			selectView = App.request "selects:wrapper",
@@ -53,4 +56,4 @@
 			@show selectView,
                             loading:
                                 loadingType: "spinner"
-                            region:  @newView.orgSelectRegion												
+                            region:  @newView.orgSelectRegion
