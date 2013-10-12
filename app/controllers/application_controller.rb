@@ -1,11 +1,10 @@
 class ApplicationController < ActionController::Base
-	rescue_from CanCan::AccessDenied do |exception|
-	    render json: {
-			errors: "Permission denied"
- 		}, status: 401
-	end
 	protect_from_forgery with: :exception
+	helper :all
+
+	before_filter :authorize
 	before_filter proc { |controller| controller.response.headers['x-url'] = controller.request.fullpath } 
+
 
 
 	def index
@@ -25,19 +24,7 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-	def permitted_params
-		@permitted_params ||= PermittedParams.new(params, current_user)
-	end
-
-	def find_org
-	  @org = Organisation.find(params[:organisation_id]) if params[:organisation_id]
-	end
-
-	def not_found
-		raise ActionController::RoutingError.new('Not Found')
-	end
-
-	def nested_org_request?
+	def nested_org_request?(params)
 		!!params[:organisation_id]
 	end
 
@@ -49,14 +36,17 @@ class ApplicationController < ActionController::Base
 		params[:format] == "xlsx"
 	end
 
+	def find_org
+	  @org = Organisation.find(params[:organisation_id]) if params[:organisation_id]
+	end
 
-	helper_method :permitted_params
-	helper_method :find_org
-	helper_method :not_found
+	def current_permission
+	  @current_permission ||= Permission.new(current_user)
+	end
 
-	helper_method :nested_org_request?
-	helper_method :search_request?
-	helper_method :xlsx_request?
-
-
+	def authorize
+	  if !current_permission.allow?(params[:controller], params[:action], params)
+	    render json: { error: "Not authorized" }, status: 401
+	  end
+	end
 end

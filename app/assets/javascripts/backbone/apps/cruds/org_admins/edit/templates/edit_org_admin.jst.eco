@@ -20,13 +20,13 @@
             <div class="control-group">
                 <label class="control-label" for="password">Password</label>
                 <div class="controls">
-                    <input type="password" id="password" value="<%= @surname %>" />
+                    <input type="password" id="password" />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="password-confirm">Password Confirm</label>
+                <label class="control-label" for="password_confirmation">Password Confirm</label>
                 <div class="controls">
-                    <input type="password" id="password-confirm" value="<%= @surname %>" />
+                    <input type="password" id="password_confirmation" />
                 </div>
             </div>
     

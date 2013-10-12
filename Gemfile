@@ -24,8 +24,6 @@ gem 'progress_bar'
 gem 'acts_as_xlsx'
 gem 'axlsx_rails'
 gem 'sorcery'
-gem "cancan"
-
 
 group :development do
   gem 'sunspot_solr'

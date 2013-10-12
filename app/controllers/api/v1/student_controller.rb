@@ -2,25 +2,23 @@ module Api
 	module V1
 		
 		class StudentController < ApplicationController
-			load_and_authorize_resource
 		    respond_to :json
 		    before_filter :find_org
 		    before_filter :require_login
-
 
 		    def index
 		    	if search_request?
 			    	@search = Student.search do
 			    		fulltext params[:search]
-			    		with(:org_id).equal_to(params[:organisation_id]) if nested_org_request?
+			    		with(:org_id).equal_to(params[:organisation_id]) if nested_org_request?(params)
 			    		paginate :page => 1, :per_page => 10000
 			    	end
 			        return (@students = @search.results)
 		    	end
 		    	
-		    	@students = nested_org_request? ? @org.students() : Student.all()
+		    	@students = nested_org_request?(params) ? @org.students() : Student.all()
 
-		    	if xlsx_request? 
+		    	if xlsx_request?
 		    		respond_to do |format|
 			  			format.xlsx {
 			            	send_data @students.to_xlsx.to_stream.read, :filename => 'students.xlsx', 
@@ -36,9 +34,8 @@ module Api
 			end
 
 			def update
-				sleep 3
 				@student = Student.find(params[:id])
-				if @student.update permitted_params.user_params().merge update_params
+				if @student.update permitted_params(params).user_params().merge update_params
 					render "api/v1/student/show"
 				else
 					respond_with @student
@@ -47,7 +44,7 @@ module Api
 
 			def create
 				@student = Student.new
-				params = permitted_params.user_params().merge create_params
+				params = permitted_params(params).user_params().merge create_params
 				if @student.update params
 					render "api/v1/student/show"
 				else

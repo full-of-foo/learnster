@@ -4,7 +4,6 @@
 
         initialize: ->
             session = App.request "new:user:session"
-
             @layout = @getLayoutView()
 
             @listenTo session, "created", ->

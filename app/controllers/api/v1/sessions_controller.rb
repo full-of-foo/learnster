@@ -21,9 +21,12 @@ module Api
 			end
 
 			def destroy
-				current_user.update(is_active: false)
-				logout
-				redirect_to root_url
+				if current_user
+					current_user.update(is_active: false)
+					logout
+					# redirect_to root_url
+				end
+				render json: {}
 			end
 
 		end
