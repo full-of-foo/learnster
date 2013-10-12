@@ -6,9 +6,10 @@ class Permission < Struct.new(:user)
 		if user
 			return true if user.app_admin?
 			if user.org_admin?
-				return true if organisation_students_request?(controller, params) && action.in?("%w[index show]")
-				return true if admin_org_request?(controller, params) && action.in?(%w[show edit])
-				return true if controller.end_with?("org_admin") && action.in?(%w[index show edit])
+				@org = user.admin_for
+				return true if organisation_request?(controller, params)    	  && action.in?(%w[show edit])
+				return true if organisation_students_request?(controller, params) && action.in?(%w[index show])
+				return true if organisation_student_request?(controller, params)  && action.in?(%w[show edit update destroy])
 			end
 		end
 		false
@@ -17,12 +18,16 @@ class Permission < Struct.new(:user)
 
 	private
 
-		def organisation_students_request?(controller, params)
-			controller.end_with?("student") && !!params[:organisation_id] 
+		def organisation_request?(controller, params)
+			controller.end_with?("organisation") && params[:id].to_i == @org.id
 		end
 
-		def admin_org_request?(controller, params)
-			controller.end_with?("organisation") && params[:organisation_id] == user.admin_for.id
+		def organisation_students_request?(controller, params)
+			controller.end_with?("student") && params[:organisation_id].to_i == @org.id
+		end
+
+		def organisation_student_request?(controller, params)
+			controller.end_with?("student") && @org.students.exists?(params[:id])
 		end
 
 end

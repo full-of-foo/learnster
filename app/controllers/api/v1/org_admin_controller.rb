@@ -36,7 +36,7 @@ module Api
 
 			def update
 				@org_admin = OrgAdmin.find(params[:id])
-				if @org_admin.update permitted_params(params).org_admin_params().merge update_params
+				if @org_admin.update permitted_params.org_admin_params().merge update_params
 					render "api/v1/org_admin/show"
 				else
 					respond_with @org_admin
@@ -45,7 +45,7 @@ module Api
 
 			def create
 				@org_admin = OrgAdmin.new
-				if @org_admin.update permitted_params(params).org_admin_params()
+				if @org_admin.update permitted_params.org_admin_params()
 					render "api/v1/org_admin/show"
 				else
 					respond_with @org_admin

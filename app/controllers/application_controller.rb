@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
 	before_filter proc { |controller| controller.response.headers['x-url'] = controller.request.fullpath } 
 
 
-
 	def index
 		@user ||= current_user
 		if @user
@@ -22,6 +21,12 @@ class ApplicationController < ActionController::Base
 		else
 		  render json: {}
 		end
+	end
+
+
+
+	def permitted_params
+		@permitted_params ||= PermittedParams.new(params, current_user)
 	end
 
 	def nested_org_request?(params)

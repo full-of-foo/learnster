@@ -33,7 +33,7 @@ module Api
 			def update
 				@organisation = Organisation.find(params[:id])
 				
-				if @organisation.update permitted_params(params).org_params
+				if @organisation.update permitted_params.org_params
 					render "api/v1/organisation/show"
 				else
 					respond_with @organisation
@@ -43,7 +43,7 @@ module Api
 			def create
 				@organisation = Organisation.new
 				
-				attrs = permitted_params(params).org_params.merge default_attrs
+				attrs = permitted_params.org_params.merge default_attrs
 				if @organisation.update attrs
 					render "api/v1/organisation/show"
 				else

@@ -35,7 +35,7 @@ module Api
 
 			def update
 				@student = Student.find(params[:id])
-				if @student.update permitted_params(params).user_params().merge update_params
+				if @student.update permitted_params.user_params().merge update_params
 					render "api/v1/student/show"
 				else
 					respond_with @student
@@ -44,7 +44,7 @@ module Api
 
 			def create
 				@student = Student.new
-				params = permitted_params(params).user_params().merge create_params
+				params = permitted_params.user_params().merge create_params
 				if @student.update params
 					render "api/v1/student/show"
 				else
