@@ -120,8 +120,11 @@
              { title: "Last Online", attrName: "last_login_formatted", default: true},
              { title: "Created On", attrName: "created_at_formatted",  isSortable: true },
              { title: "Last Updated", attrName: "updated_at_formatted"},
-             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i>
-             	</div>", className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
+             { htmlContent: '<% if ( model.get("created_by") && model.get("created_by").id === currentUser.get("id")
+             	|| currentUser.get("type") ===  "AppAdmin") { %>
+             	<div class="delete-icon"><i class="icon-remove-sign"></i></div>
+             	<% } %>
+            ', className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
             ]
             organisationCol = { title: "Organisation", htmlContent: '<a href="#" class="org-link">
                 <% if ( model.get("attending_org") ) { %><%= model.get("attending_org").title %><% }

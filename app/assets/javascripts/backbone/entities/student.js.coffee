@@ -3,14 +3,11 @@
 
     class Entities.Student extends Entities.Models
         urlRoot: Routes.api_student_index_path()
-        relations: [
-            type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.AppAdmin
-        ]
 
 
     class Entities.StudentsCollection extends Entities.Collections
         model: Entities.Student
-        
+
         initialize: (options = {}) =>
             @url = if not options.url then Routes.api_student_index_path() else options.url
             super
@@ -64,9 +61,9 @@
 
     App.reqres.setHandler "org:student:entities", (orgId) ->
         API.getOrgStudentEntities(orgId)
-    
+
     App.reqres.setHandler "student:entities", ->
-        API.getStudentEntities() 
+        API.getStudentEntities()
 
     App.reqres.setHandler "student:entity", (id) ->
         API.getStudentEntity id

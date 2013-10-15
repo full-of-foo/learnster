@@ -8,18 +8,28 @@ class Permission < Struct.new(:user)
 			return true if user.app_admin?
 			if user.org_admin?
 				@org = user.admin_for
+
 				return true if controller.end_with?("student")					  && action == "create"
 				return true if controller.end_with?("org_admin")				  && action == "create"
-
 				return true if organisation_request?(controller, params)    	  && action.in?(%w[show edit])
-				return true if organisation_students_request?(controller, params) && action.in?(%w[index show])
-				return true if fellow_admins_request?(controller, params)    	  && action.in?(%w[index show])
+				
+				if action.in?(%w[index show])
+					return true if organisation_students_request?(controller, params)
+					return true if fellow_admins_request?(controller, params)
+				end
 
-				return true if fellow_admin_request?(controller, params)    	  && action.in?(%w[show edit])
-				return true if organisation_student_request?(controller, params)  && action.in?(%w[show edit update destroy])
+				if action.in?(%w[update destroy])
+					return true if student_is_owned?(controller, params)
+					return true if admin_is_owned?(controller, params)
+				end
+
+				if action.in?(%w[show edit])
+					return true if fellow_admin_request?(controller, params)    	  
+					return true if organisation_student_request?(controller, params)
+				end
 			end
 			if user.student?
-
+				#TODO
 			end
 		end
 		false
@@ -41,12 +51,22 @@ class Permission < Struct.new(:user)
 			controller.end_with?("student") && @org.students.exists?(params[:id])
 		end
 
+
 		def fellow_admins_request?(controller, params)
 			controller.end_with?("org_admin") && params[:organisation_id].to_i == @org.id
 		end
 
 		def fellow_admin_request?(controller, params)
 			controller.end_with?("org_admin") && @org.admins.exists?(params[:id])
+		end
+
+
+		def admin_is_owned?(controller, params)
+			controller.end_with?("org_admin") && user.id == OrgAdmin.find(params[:id]).created_by.id
+		end
+
+		def student_is_owned?(controller, params)
+			controller.end_with?("student") && user.id == Student.find(params[:id]).created_by.id
 		end
 
 end

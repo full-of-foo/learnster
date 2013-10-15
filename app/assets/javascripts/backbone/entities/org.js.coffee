@@ -2,9 +2,6 @@
 
 
     class Entities.Org extends Entities.Models
-        relations: [
-            type: Backbone.HasOne, key: 'created_by', relatedModel: Entities.OrgAdmin
-        ]
         urlRoot: Routes.api_organisation_index_path()
 
 

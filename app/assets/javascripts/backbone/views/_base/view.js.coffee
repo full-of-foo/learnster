@@ -12,11 +12,11 @@
         setInstancePropertiesFor: (args...) ->
             for key, val of _.pick(@options, args...)
                 @[key] = val
-        
+
 
         remove: (args...) ->
             # console.log "removing", @
-            
+
             if @model?.isDestroyed?()
                 wrapper = @$el.toggleWrapper
                     className: "opacity"
@@ -36,10 +36,10 @@
             currentUser: ->
                 user = App.request("get:current:user")
                 if user
-                    user.toJSON() 
-                else 
-                    user
-                
+                    user.toJSON()
+                else
+                    false
+
             linkTo: (name, url, options = {}) ->
                 options.external = false unless options.external
 
