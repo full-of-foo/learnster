@@ -4,7 +4,7 @@
 
         initialize: (options) ->
             orgs = App.request "org:entities"
-               
+
             @layout = @getLayoutView()
 
             @listenTo @layout, "show", =>
@@ -32,12 +32,12 @@
         showSettings: ->
             listCols = @getTableColumns()
             @colCollection = @colCollection || App.request "table:column:entities", listCols, false
-            settingsView = App.request "settings:view", @colCollection 
+            settingsView = App.request "settings:view", @colCollection
 
             @listenTo settingsView, "childview:setting:col:clicked", (child, args) =>
                 column = args.model
                 @orgsView.toggleColumn(child, column)
-                                      
+
             @show settingsView,
                             loading:
                                 loadingType: "spinner"
@@ -48,7 +48,7 @@
 
             @listenTo searchView, "search:submitted", (searchTerm) =>
                 @searchOrgs searchTerm
-            
+
             @layout.searchRegion.show searchView
 
         searchOrgs: (searchTerm = null) ->
@@ -99,12 +99,15 @@
             [
              { title: "Title", attrName: "title", isSortable: true, isRemovable: false, default: true },
              { title: "Description", attrName: "description", default: true },
-             { title: "Size", htmlContent: '<a href="#" class="org-student-count"> <%= model.get("size") %></a>', isSortable: true, default: true },
-             { htmlContent: "<div class='delete-icon'><i class='icon-remove-sign'></i></div>", className: "last-col-invisible", default: true, isRemovable: false }
+             { title: "Size", htmlContent: '<a href="#" class="org-student-count"> <%= model.get("size")
+             	%></a>', isSortable: true, default: true },
+             { htmlContent: '<% if ( currentUser.get("type") ===  "AppAdmin" ) { %>
+             	<div class="delete-icon"><i class="icon-remove-sign"></i></div>
+             	<% } %>', className: "last-col-invisible", default: true, isRemovable: false }
             ]
 
         getTableOptions: (columns) ->
-            columns: columns 
+            columns: columns
             region:  @layout.orgsRegion
             config:
                 emptyMessage: "No organisations found :("
