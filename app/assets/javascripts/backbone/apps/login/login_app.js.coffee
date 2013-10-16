@@ -10,8 +10,8 @@
             new LoginApp.Show.Controller()
 
 
-    App.vent.on "session:created", (session) ->
-        App.navigate App.rootRoute
+    App.vent.on "session:created", (currentUser) ->
+        App.navigate "/students"
 
     App.addInitializer ->
         new LoginApp.Router

@@ -123,7 +123,7 @@
                 %></a>', className: "wrap-text", isSortable: true, default: true }
 
             user = App.request "get:current:user"
-            cols.insertAt(3, organisationCol) if user.get('type') is "AppAdmin"
+            cols.insertAt(3, organisationCol) if user instanceof Learnster.Entities.AppAdmin
             cols
 
         getTableOptions: (columns) ->

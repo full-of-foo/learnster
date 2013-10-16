@@ -11,7 +11,16 @@
 		else
 		   App.currentUser = false
 
+
 	App.reqres.setHandler "get:current:user", ->
+		App.currentUser
+
+	App.reqres.setHandler "set:current:user", (attrs) ->
+		switch attrs.type
+			when "AppAdmin" then App.currentUser = App.request("init:current:appAdmin", attrs)
+			when "OrgAdmin" then App.currentUser = App.request("init:current:orgAdmin", attrs)
+			when "Student"  then App.currentUser = App.request("init:current:student", attrs)
+			else throw new Error "Attributes supplied do not have correct user type"
 		App.currentUser
 
 	App.reqres.setHandler "default:region", ->
@@ -25,7 +34,7 @@
 
 	App.addInitializer ->
 		App.module("HeaderApp").start()
-		App.module("SideBarApp").start()
+		App.module("SidebarApp").start()
 		App.module("FooterApp").start()
 
 

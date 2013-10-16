@@ -121,7 +121,7 @@
              { title: "Created On", attrName: "created_at_formatted",  isSortable: true },
              { title: "Last Updated", attrName: "updated_at_formatted"},
              { htmlContent: '<% if ( model.get("created_by") && model.get("created_by").id === currentUser.get("id")
-             	|| currentUser.get("type") ===  "AppAdmin") { %>
+             	|| currentUser.get("type") ===  "AppAdmin" ) { %>
              	<div class="delete-icon"><i class="icon-remove-sign"></i></div>
              	<% } %>
             ', className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
@@ -131,7 +131,7 @@
                 %></a>', className: "wrap-text", isSortable: true, default: true }
 
             user = App.request "get:current:user"
-            cols.insertAt(3, organisationCol) if user.get('type') is "AppAdmin"
+            cols.insertAt(3, organisationCol) if user instanceof Learnster.Entities.AppAdmin
             cols
 
         getTableOptions: (columns) ->

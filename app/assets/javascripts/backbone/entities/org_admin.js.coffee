@@ -3,10 +3,10 @@
 
     class Entities.OrgAdmin extends Entities.Models
         urlRoot: Routes.api_org_admin_index_path()
-    
+
     class Entities.OrgAdminCollection extends Entities.Collections
         model: Entities.OrgAdmin
-        
+
         initialize: (options = {}) =>
             @url = if not options.url then Routes.api_org_admin_index_path() else options.url
             super
@@ -47,7 +47,7 @@
                                          url: Routes.api_organisation_admin_index_path(nestedId)
             else
                 org_admins = new Entities.OrgAdminCollection
-                
+
             org_admins.fetch
                 reset: true
                 data: $.param(term)
@@ -59,14 +59,11 @@
     App.reqres.setHandler "init:current:orgAdmin", (attrs) ->
         API.setCurrentOrgAdmin attrs
 
-    App.reqres.setHandler "set:current:org_admin", (currentOrgAdmin) ->
-        API.setCurrentOrgAdmin currentOrgAdmin
-
     App.reqres.setHandler "org:org_admin:entities", (orgId) ->
-        API.getOrgAdminOrgEntities(orgId) 
+        API.getOrgAdminOrgEntities(orgId)
 
     App.reqres.setHandler "org_admin:entities", ->
-        API.getOrgAdminEntities() 
+        API.getOrgAdminEntities()
 
     App.reqres.setHandler "org_admin:entity", (id) ->
         API.getOrgAdminEntity id

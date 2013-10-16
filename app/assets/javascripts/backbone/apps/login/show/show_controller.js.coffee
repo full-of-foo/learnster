@@ -1,35 +1,38 @@
 @Learnster.module "LoginApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
-    class Show.Controller extends App.Controllers.Base
+	class Show.Controller extends App.Controllers.Base
 
-        initialize: ->
-            session = App.request "new:user:session"
-            @layout = @getLayoutView()
+		initialize: ->
+			session = App.request "new:user:session"
+			@layout = @getLayoutView()
 
-            @listenTo session, "created", ->
-                App.vent.trigger "session:created", session
+			@listenTo session, "created", (userSession) ->
+				userAttrs 	= userSession.attributes
+				currentUser = App.request "set:current:user", userAttrs
 
-            @listenTo @layout, "show", ->
-                @showPanel()
-                @showForm(session)
+				App.vent.trigger "session:created", currentUser
 
-            @show @layout
+			@listenTo @layout, "show", ->
+				@showPanel()
+				@showForm(session)
 
-        showPanel: ->
-            panelView = @getPanelView()
-            @layout.panelRegion.show panelView
+			@show @layout
 
-        showForm: (session) ->
-            formView = @getFormView(session)
-            formView = App.request "form:wrapper", formView
-            @layout.formRegion.show formView
+		showPanel: ->
+			panelView = @getPanelView()
+			@layout.panelRegion.show panelView
 
-        getPanelView: ->
-            new Show.Panel()
+		showForm: (session) ->
+			formView = @getFormView(session)
+			formView = App.request "form:wrapper", formView
+			@layout.formRegion.show formView
 
-        getFormView: (session) ->
-            new Show.Form
-                model: session
+		getPanelView: ->
+			new Show.Panel()
 
-        getLayoutView: ->
-            new Show.Layout()
+		getFormView: (session) ->
+			new Show.Form
+				model: session
+
+		getLayoutView: ->
+			new Show.Layout()

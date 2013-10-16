@@ -2,8 +2,8 @@ do (Marionette) ->
     _.extend Marionette.Renderer,
 
         lookups: [
-            "backbone/apps/", "backbone/apps/cruds/", "backbone/apps/dashboards/", 
-            "backbone/apps/grids/", "backbone/apps/login/", "backbone/components/"
+            "backbone/apps/", "backbone/apps/cruds/", "backbone/apps/dashboards/",
+            "backbone/apps/layout/", "backbone/apps/login/", "backbone/components/"
         ]
 
         render: (template, data) ->
