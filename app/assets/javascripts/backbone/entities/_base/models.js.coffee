@@ -4,6 +4,8 @@
 
         initialize: ->
             @on "all", (e) -> console.log e if App.enviornment is "development"
+            @on "unpermitted:entity", (entity) ->
+            		App.execute "redirect:home"
 
         fetch: (options = {}) ->
             # options.reset = true
@@ -21,15 +23,15 @@
 
         save: (data, options = {}) ->
             isNew = @isNew()
-            
+
             _.defaults options,
                 wait: true
                 success:    _.bind(@saveSuccess, @, isNew, options.collection, options.toast)
                 error:      _.bind(@saveError, @)
-            
+
             @unset "_errors"
             super data, options
-        
+
         saveSuccess: (isNew, collection, toast) =>
             if isNew ## model is being created
                 collection.add @ if collection
@@ -47,7 +49,7 @@
                     App.makeToast
                             text: "Updated successfully"
                             type: "info"
-        
+
         saveError: (model, xhr, options) =>
             console.warn xhr, model
             ## set errors directly on the model unless status returned was 500 or 404

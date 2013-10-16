@@ -24,7 +24,7 @@
 			col = itemView.model
 			@drawFilterItem($li, col, collectionView, itemView)
 
-		 drawFilterItem: ($li, columnFilterItem, collectionView, itemView) =>
+		drawFilterItem: ($li, columnFilterItem, collectionView, itemView) =>
 			if columnFilterItem.get('hasData')
 
 				if columnFilterItem.get('isRemovable') and columnFilterItem.get('isShowing')

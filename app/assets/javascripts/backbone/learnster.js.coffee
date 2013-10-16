@@ -44,15 +44,22 @@
 	App.commands.setHandler "register:instance", (instance, id) ->
 		App.register instance, id if App.environment is "development"
 
+	App.commands.setHandler "set:root:route", =>
+		App.rootRoute = "/students"      if App.currentUser instanceof Learnster.Entities.Student
+		App.rootRoute = "/org_admins" 	 if App.currentUser instanceof Learnster.Entities.OrgAdmin
+		App.rootRoute = "/organisations" if App.currentUser instanceof Learnster.Entities.AppAdmin
+		App.rootRoute = "/login" 		 if Object(App.currentUser) instanceof Boolean
+
 	App.commands.setHandler "redirect:home", =>
+		App.execute "set:root:route"
 		App.navigate(App.rootRoute)
 
 	App.on "initialize:after", ->
 			$().UItoTop({ easingType: 'easeOutQuart' }) #move to executed command
-			@rootRoute = if App.request("get:current:user") then "/students" else "/login"
-			@startHistory()
 
-			if @getCurrentRoute() and @getCurrentRoute is not "/login"
+			App.execute "set:root:route"
+			@startHistory()
+			if @getCurrentRoute() and not Object(App.currentUser) instanceof Boolean
 				@navigate(@getCurrentRoute())
 			else
 				App.execute "redirect:home"
