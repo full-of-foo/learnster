@@ -5,7 +5,7 @@
 		initialize: (options) ->
 			id = options.id
 			org = App.request "org:entity", id
-			
+
 			@listenTo org, "updated", ->
 				App.vent.trigger "org:updated", org
 
@@ -18,7 +18,7 @@
 				@show @layout
 
 		getLayoutView: (org) ->
-			new Edit.Layout 
+			new Edit.Layout
 				model: org
 
 		getEditView: (org) ->
@@ -40,6 +40,12 @@
 
 			@listenTo editView, "org-admins:clicked", ->
 				App.vent.trigger "link-org-admins:clicked", org
+
+			user = App.request "get:current:user"
+			createdByUser = org.get('created_by').id is user.get('id') or user instanceof App.Entities.AppAdmin
+
+			options =
+			 		footer: if not createdByUser then false else true
 
 			formView = App.request "form:wrapper", editView
 			@layout.formRegion.show formView

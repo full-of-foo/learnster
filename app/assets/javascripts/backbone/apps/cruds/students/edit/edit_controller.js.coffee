@@ -18,7 +18,7 @@
 				@show @layout
 
 		getLayoutView: (student) ->
-			new Edit.Layout 
+			new Edit.Layout
 				model: student
 
 		getEditView: (student) ->
@@ -32,10 +32,21 @@
 		setFormRegion: (student) ->
 			editView = @getEditView student
 
+			user = App.request "get:current:user"
+			createdByUser = student.get('created_by').id is user.get('id') or user instanceof App.Entities.AppAdmin
+
+			editView.removeButtons() if not createdByUser
+
 			@listenTo editView, "form:cancel", ->
 				App.vent.trigger "student:cancelled", student
 
-			formView = App.request "form:wrapper", editView
+			user = App.request "get:current:user"
+			createdByUser = student.get('created_by').id is user.get('id') or user instanceof App.Entities.AppAdmin
+
+			options =
+			 		footer: if not createdByUser then false else true
+
+			formView = App.request "form:wrapper", editView, options
 			@layout.formRegion.show formView
 
 		setTitleRegion: (student) ->

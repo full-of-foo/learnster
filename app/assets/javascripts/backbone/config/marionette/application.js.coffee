@@ -4,8 +4,12 @@ do (Backbone, $) ->
 
 		navigate: (route, options = {}) ->
 			# cannot nav to login when logged in
-			route = @rootRoute  if (route.indexOf("login") is not -1 and @rootRoute is not "/login")
+			console.log "before", route
+			route = @rootRoute  if ( ( route.indexOf("login") isnt -1 and
+			 @rootRoute isnt "/login" ) or route is null)
 			route = "#" + route if route.charAt(0) is "/"
+			console.log "after", route
+
 
 			options["trigger"] = true
 			Backbone.history.navigate route, options

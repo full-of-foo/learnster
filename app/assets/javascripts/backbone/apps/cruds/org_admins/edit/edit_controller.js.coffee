@@ -18,7 +18,7 @@
 				@show @layout
 
 		getLayoutView: (org_admin) ->
-			new Edit.Layout 
+			new Edit.Layout
 				model: org_admin
 
 		getEditView: (org_admin) ->
@@ -35,7 +35,13 @@
 			@listenTo editView, "form:cancel", ->
 				App.vent.trigger "org_admin:cancelled", org_admin
 
-			formView = App.request "form:wrapper", editView
+			user = App.request "get:current:user"
+			createdByUser = org_admin.get('created_by').id is user.get('id') or user instanceof App.Entities.AppAdmin
+
+			options =
+			 		footer: if not createdByUser then false else true
+
+			formView = App.request "form:wrapper", editView, options
 			@layout.formRegion.show formView
 
 		setTitleRegion: (org_admin) ->

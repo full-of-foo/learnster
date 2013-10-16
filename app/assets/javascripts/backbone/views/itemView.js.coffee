@@ -4,3 +4,7 @@
 
 		serializeData: ->
 			super
+
+		removeButtons: ->
+			@['form'] = {} if !@form
+			@form['buttons'] = false

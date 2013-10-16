@@ -1,6 +1,5 @@
 do ($) ->
 	$.fn.toggleWrapper = (obj = {}, init = true) ->
-		console.log "toggling?"
 		_.defaults obj,
 			className: ""
 			backgroundColor: if @css("backgroundColor") isnt "transparent" then @css("backgroundColor") else "white"
@@ -24,7 +23,6 @@ do ($) ->
 								zIndex: obj.zIndex + 1
 								backgroundColor: obj.backgroundColor
 		else
-			console.log "removing wrapper?"
 			$("[data-wrapper]").remove()
 
 	$.ajaxSetup

@@ -4,7 +4,6 @@
 
 		initialize: (options = {}) ->
 			@_nestingOrg = options.region?._nestingOrg
-			console.log @_nestingOrg
 
 			org_admin = App.request "new:org_admin:entity"
 			@layout = @getLayoutView org_admin

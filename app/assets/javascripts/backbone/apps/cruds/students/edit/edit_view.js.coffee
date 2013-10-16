@@ -2,7 +2,7 @@
 
 	class Edit.Layout extends App.Views.Layout
 		template: "students/edit/templates/edit_layout"
-		regions: 
+		regions:
 			titleRegion:  "#title-region"
 			formRegion:   "#form-region"
 
@@ -14,6 +14,6 @@
 
 
 	class Edit.Student extends App.Views.ItemView
-		template: "students/edit/templates/edit_student" 
+		template: "students/edit/templates/edit_student"
 		modelEvents:
             "sync:after": "render"

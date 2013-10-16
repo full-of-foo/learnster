@@ -5,6 +5,7 @@
     <p class="text-info">
     <% if isEditableForm: %>Editing<% else: %>Showing<% end %> 
     Admin: <%= @full_name %></p>
-    <small class="text-info">hover over fields for help</small>
-         
+	<% if isEditableForm: %>
+    	<small class="text-info">hover over fields for help</small>
+    <% end %>            
 </blockquote>   
