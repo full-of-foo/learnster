@@ -29,6 +29,13 @@ class Permission < Struct.new(:user)
 				end
 			end
 			if user.student?
+				@org = user.attending_org
+
+				return true if organisation_request?(controller, params)    	  && action == "show"
+
+				if action.in?(%w[index show])
+					return true if organisation_students_request?(controller, params)
+				end
 				#TODO
 			end
 		end

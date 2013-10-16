@@ -3,39 +3,49 @@
 	class List.Controller extends App.Controllers.Base
 
 		initialize: (options) ->
-			@initOrgAdminBar(options) if options.type is "OrgAdmin"
-			@initAppAdminBar(options) if options.type is "AppAdmin"
+			switch options.type
+				when "AppAdmin" then sideBarItems = @getAppAdminBarItems()
+				when "OrgAdmin" then sideBarItems = @getOrgAdminBarItems()
+				when "Student" then sideBarItems = 	@getStudentBarItems()
+				when "Login" then sideBarItems = 	@getLoginBarItems()
 
-		initOrgAdminBar: (options) =>
-			sideBarItems = @getOrgAdminBarItems()
-
-		initAppAdminBar: (options) =>
-			sideBarItems = @getAppAdminBarItems()
 			sideItemCollection = App.request "sidebar:entities", sideBarItems
+			sideBarView = App.request "tree:wrapper", sideItemCollection
 
-			sideBarView = App.request "sidebar:wrapper", sideItemCollection
 			@show sideBarView
 
 		getAppAdminBarItems: ->
 			[
-				{ text: "Application Admin", isHeader: true },
-				{ text: "Students",      default:  true },
+				{ text: "Learnster :: Admin", isHeader: true },
+				{ text: "Students",      	 default:  true },
 				{ text: "Org Admins"      },
 				{ text: "Organisations"   }
 			]
 
 		getOrgAdminBarItems: ->
 			[
-				{ text: "Organisation Admin", isHeader: true },
+				{ text: "Learnster :: Admin", isHeader: true },
 				{ text: "Org Students",      default:  true },
 				{ text: "My Students" },
 				{ text: "Org Admins"  },
 				{ text: "My Admins"   }
 			]
 
+		getStudentBarItems: ->
+			[
+				{ text: "Learnster :: Panel", isHeader: true },
+				{ text: "Course mates",          default:  true },
+				{ text: "Educators" },
+				{ text: "Modules"  }
+			]
 
-	App.reqres.setHandler "sidebar:wrapper", (collection) ->
-		throw new Error "No sidebar collection supplied" unless collection
-		new List.SideBar
-				collection: collection
+		getLoginBarItems: ->
+			[
+				{ text: "Not logged in",     isHeader: true },
+				{ text: "Sign in",           default:  true },
+				{ text: "Sign up Organisation" }
+			]
+
+
+
 

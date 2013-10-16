@@ -65,9 +65,7 @@
 
 			App.execute "set:root:route"
 			@startHistory()
-			console.log "before condition", @getCurrentRoute()
 			if @getCurrentRoute() isnt null and Object(App.currentUser) not instanceof Boolean
-				console.log "before call", @getCurrentRoute()
 				@navigate(@getCurrentRoute())
 			else
 				App.execute "redirect:home"
