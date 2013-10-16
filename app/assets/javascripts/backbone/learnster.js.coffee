@@ -45,10 +45,16 @@
 		App.register instance, id if App.environment is "development"
 
 	App.commands.setHandler "set:root:route", =>
-		App.rootRoute = "/students"      if App.currentUser instanceof Learnster.Entities.Student
-		App.rootRoute = "/org_admins" 	 if App.currentUser instanceof Learnster.Entities.OrgAdmin
-		App.rootRoute = "/organisations" if App.currentUser instanceof Learnster.Entities.AppAdmin
-		App.rootRoute = "/login" 		 if Object(App.currentUser) instanceof Boolean
+		if App.currentUser instanceof Learnster.Entities.Student
+			orgId = App.currentUser.get('attending_org').id
+			App.rootRoute = "/organisation/#{orgId}/students"
+
+		else if App.currentUser instanceof Learnster.Entities.OrgAdmin
+			orgId = App.currentUser.get('admin_for').id
+			App.rootRoute = "/organisation/#{orgId}/students"
+
+		App.rootRoute = "/organisations"  if App.currentUser instanceof Learnster.Entities.AppAdmin
+		App.rootRoute = "/login" 		  if Object(App.currentUser) instanceof Boolean
 
 	App.commands.setHandler "redirect:home", =>
 		App.execute "set:root:route"

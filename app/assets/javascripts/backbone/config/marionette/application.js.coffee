@@ -12,7 +12,6 @@ do (Backbone, $) ->
 
 		getCurrentRoute: ->
 			frag = Backbone.history.fragment
-			console.log frag
 			if _.isEmpty(frag) then null else frag
 
 		startHistory: ->
