@@ -42,7 +42,7 @@
 
             isCreatedByUser: (created_by) ->
             	user = App.request("get:current:user")
-            	if !(Object(user) instanceof Boolean)
+            	if Object(user) not instanceof Boolean
             		created_by.id is user.get('id') or user instanceof App.Entities.AppAdmin
             	else
             		false

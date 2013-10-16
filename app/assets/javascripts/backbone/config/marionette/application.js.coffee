@@ -4,13 +4,11 @@ do (Backbone, $) ->
 
 		navigate: (route, options = {}) ->
 			# cannot nav to login when logged in
-			console.log "before", route
 			route = @rootRoute  if ( ( route.indexOf("login") isnt -1 and
 			 @rootRoute isnt "/login" ) or route is null)
+			# add pound is invalid route
 			route = "#" + route if route.charAt(0) is "/"
-			console.log "after", route
-
-
+			# always trigger route
 			options["trigger"] = true
 			Backbone.history.navigate route, options
 

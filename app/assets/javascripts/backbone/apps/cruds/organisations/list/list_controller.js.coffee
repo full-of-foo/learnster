@@ -99,8 +99,10 @@
             [
              { title: "Title", attrName: "title", isSortable: true, isRemovable: false, default: true },
              { title: "Description", attrName: "description", default: true },
-             { title: "Size", htmlContent: '<a href="#" class="org-student-count"> <%= model.get("size")
+             { title: "# Students", htmlContent: '<a href="#" class="org-student-count"> <%= model.get("studentCount")
              	%></a>', isSortable: true, default: true },
+             { title: "# Admins", htmlContent: '<a href="#" class="org-student-count">
+             	<%= model.get("adminCount") %></a>',  isSortable: true },
              { htmlContent: '<% if ( currentUser.get("type") ===  "AppAdmin" ) { %>
              	<div class="delete-icon"><i class="icon-remove-sign"></i></div>
              	<% } %>', className: "last-col-invisible", default: true, isRemovable: false }
