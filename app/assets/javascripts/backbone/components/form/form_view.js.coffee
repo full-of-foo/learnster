@@ -50,7 +50,16 @@
 			@$(":input[type='text']:visible:enabled:first").focus()
 
 		getFormDataType: ->
-			if @model.isNew() then "new" else "edit"
+			user = App.request "get:current:user"
+			isNew = @model.isNew()
+			createdByUser = if !isNew then (@model.get('created_by').id is user.get('id') or user instanceof App.Entities.AppAdmin) else false
+
+			if @model.isNew()
+				"new"
+			else if not createdByUser
+				"show"
+			else
+				"edit"
 
 		changeErrors: (model, errors, options) ->
 			if @config.errors

@@ -35,10 +35,17 @@
 
             currentUser: ->
                 user = App.request("get:current:user")
-                if user
+                if not Object(user) instanceof Boolean
                     user.toJSON()
                 else
                     false
+
+            isCreatedByUser: (created_by) ->
+            	user = App.request("get:current:user")
+            	if !(Object(user) instanceof Boolean)
+            		created_by.id is user.get('id') or user instanceof App.Entities.AppAdmin
+            	else
+            		false
 
             linkTo: (name, url, options = {}) ->
                 options.external = false unless options.external
