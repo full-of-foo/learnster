@@ -11,6 +11,9 @@
                   <li class="dock-item"><img src="/assets/nav/addons256.png" /><span>Settings</span></li> 
               </ul> 
           </div>
+          <div class="pull-right" style="margin-top: -1.5pc;">
+          	<i class="icon-signout icon-2x"></i>
+          </div>
         </div>
     </div>
 
