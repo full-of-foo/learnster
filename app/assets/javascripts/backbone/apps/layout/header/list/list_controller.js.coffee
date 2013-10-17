@@ -11,4 +11,4 @@
 
         getHeaderView: (links) ->
             new List.Headers
-                collection:links
+                # collection:links

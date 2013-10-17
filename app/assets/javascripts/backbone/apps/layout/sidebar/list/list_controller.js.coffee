@@ -10,7 +10,7 @@
 				when "Login" then sideBarItems = 	@getLoginBarItems()
 
 			sideItemCollection = App.request "sidebar:entities", sideBarItems
-			sideBarView = App.request "tree:wrapper", sideItemCollection
+			sideBarView = 		 App.request "tree:wrapper", sideItemCollection
 
 			@show sideBarView
 

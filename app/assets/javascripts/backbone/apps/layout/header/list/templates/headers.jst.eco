@@ -1,23 +1,20 @@
-<% u = @currentUser() %>
-
-<div id="header" class="navbar">
-    <div class="navbar-inner">
-        <div class="container">
-            <div class="row">
-                <div class="pull-left">
-                <% if u: %>
-                    <% if(u.type is "OrgAdmin" or u.type is "AppAdmin"): %>
-                        <span class="brand">Learnster :: Admin</span>
-                    <% else: %>
-                        <span class="brand">Learnster</span>
-                    <% end %>
-                <% else: %>
-                   <span class="brand">Learnster :: Welcome</span>
-                <% end %>
-                </div>
-                <ul class="nav pull-right">
-                </ul>
-            </div>
+<div class="container">
+      <div class="navbar">
+          <div class="navbar-inner">
+              <h1 class="logo">Learnster</h1>
+              <div class="dock" id="dock">
+                <ul class="dock-container">
+                  <li class="dock-item"><img src="/assets/nav/home256.png" /><span>Home</span></li> 
+                  <li class="dock-item"><img src="/assets/nav/couple256.png" /><span>Class Mates</span></li> 
+                  <li class="dock-item"><img src="/assets/nav/glossary256.png" /><span>My Modules</span></li> 
+                  <li class="dock-item"><img src="/assets/nav/schedule256.png" /><span>My Events</span></li> 
+                  <li class="dock-item"><img src="/assets/nav/addons256.png" /><span>Settings</span></li> 
+              </ul> 
+          </div>
         </div>
     </div>
+
 </div>
+<!--top dock -->
+
+   

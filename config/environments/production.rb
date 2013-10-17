@@ -80,4 +80,10 @@ Learnster::Application.configure do
 
   # devise config
   config.action_mailer.default_url_options = { raise "Must set host" }
+
+  # Add the fonts path
+  config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
+  # Precompile additional assets
+  config.assets.precompile += %w( .svg .eot .woff .ttf )
 end

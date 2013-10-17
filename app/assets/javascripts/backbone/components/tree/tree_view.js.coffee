@@ -7,13 +7,13 @@
 	class Tree.SideBar extends App.Views.CompositeView
 		template: 'tree/templates/sidebar'
 		itemView: Tree.SideItem
-		itemViewContainer: 'ul'
+		itemViewContainer: 'ul.sidenav'
 
 		appendHtml: (collectionView, itemView, index) ->
 			if not collectionView.collection.isEmpty()
 				sideItemEntity = itemView.model
 				$sideItem = @$drawSideItem(sideItemEntity, itemView.$el)
-				collectionView.$("ul").append($sideItem[0])
+				collectionView.$("ul.sidenav").append($sideItem[0])
 
 
 		$drawSideItem: (sideItemEntity, $itemView) ->
