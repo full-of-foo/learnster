@@ -1,11 +1,14 @@
 @Learnster.module "HeaderApp", (HeaderApp, App, Backbone, Marionette, $, _) ->
-    @startWithParent = false
+	@startWithParent = false
 
-    API =
-        listHeader: ->
-            new HeaderApp.List.Controller
-                        region: App.headerRegion
+	API =
+		listHeader: ->
+			new HeaderApp.List.Controller
+						region: App.headerRegion
 
 
-    HeaderApp.on "start", ->
-        API.listHeader()
+	App.commands.setHandler "list:headers", ->
+		API.listHeader()
+
+	HeaderApp.on "start", ->
+		API.listHeader()

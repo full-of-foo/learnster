@@ -11,9 +11,7 @@
 
 
 	App.vent.on "session:created", (currentUser) ->
-		App.execute "set:root:route"
-		App.execute "show:sidebar"
-		App.execute "redirect:home"
+		App.execute "reset:regions"
 
 	App.addInitializer ->
 		new LoginApp.Router
