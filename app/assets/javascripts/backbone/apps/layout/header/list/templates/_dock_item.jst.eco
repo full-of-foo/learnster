@@ -1,1 +1,1 @@
-<%- @dockerItemElement @imageName, @caption %> 
+<%- @dockerItemElement @elemId, @imageName, @caption %> 

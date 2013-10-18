@@ -16,3 +16,6 @@
 						itemWidth: 40
 						proximity: 130
 						halign : 'center'
+		triggers:
+			"click #home-dock-item": "home:dockItem:clicked"
+			"click #stats-dock-item" : "stats:dockItem:clicked"

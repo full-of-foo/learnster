@@ -21,34 +21,34 @@
 
 		getAppAdminArr: ->
 			[
-				{ imageName: "home256.png",          caption: "Home" },
-				{ imageName: "announcements256.png", caption: "Notifications" },
-				{ imageName: "skill-gap256.png",     caption: "App Statistics" },
-				{ imageName: "maintenance256.png",   caption: "Profile Setting" }
+				{ elemId: "home-dock-item", imageName: "home256.png",          caption: "Home" },
+				{ elemId: "", imageName: "announcements256.png", caption: "Notifications" },
+				{ elemId: "stats-dock-item", imageName: "skill-gap256.png",     caption: "App Statistics" },
+				{ elemId: "", imageName: "maintenance256.png",   caption: "Profile Setting" }
 			]
 
 		getOrgAdminArr: ->
 			[
-				{ imageName: "home256.png",          caption: "Home" },
-				{ imageName: "announcements256.png", caption: "Notifications" },
-				{ imageName: "skill-gap256.png",     caption: "Statistics" },
-				{ imageName: "maintenance256.png",   caption: "Profile Setting" }
+				{ elemId: "home-dock-item", imageName: "home256.png",          caption: "Home" },
+				{ elemId: "", imageName: "announcements256.png", caption: "Notifications" },
+				{ elemId: "stats-dock-item", imageName: "skill-gap256.png",     caption: "Statistics" },
+				{ elemId: "", imageName: "maintenance256.png",   caption: "Profile Setting" }
 			]
 
 		getStudentArr: ->
 			[
-				{ imageName: "home256.png",          caption: "Home" },
-				{ imageName: "announcements256.png", caption: "Notifications" },
-				{ imageName: "skill-gap256.png",     caption: "Grades" },
-				{ imageName: "maintenance256.png",   caption: "Profile Setting" }
+				{ elemId: "home-dock-item", imageName: "home256.png",          caption: "Home" },
+				{ elemId: "", imageName: "announcements256.png", caption: "Notifications" },
+				{ elemId: "stats-dock-item", imageName: "skill-gap256.png",     caption: "Grades" },
+				{ elemId: "", imageName: "maintenance256.png",   caption: "Profile Setting" }
 			]
 
 		getLoginArr: ->
 			[
-				{ imageName: "lessons256.png", caption: "About" },
-				{ imageName: "Teachers256.png", caption: "Testimonials" },
-				{ imageName: "Graduate-female512.png", caption: "Tutorials" },
-				{ imageName: "wizard256.png", caption: "How to Join" }
+				{ elemId: "home-dock-item", imageName: "lessons256.png", caption: "About" },
+				{ elemId: "", imageName: "Teachers256.png", caption: "Testimonials" },
+				{ elemId: "", imageName: "Graduate-female512.png", caption: "Tutorials" },
+				{ elemId: "", imageName: "wizard256.png", caption: "How to Join" }
 			]
 
 

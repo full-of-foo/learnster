@@ -15,6 +15,12 @@
 		showDock: ->
 			dockView =   App.request "get:header:dock:view"
 
+			@listenTo dockView, "home:dockItem:clicked", ->
+				App.commands.execute "redirect:home"
+
+			@listenTo dockView, "stats:dockItem:clicked", ->
+				console.log "stats clicked"
+
 			@show dockView,
 					region: @layout.dockRegion
 
