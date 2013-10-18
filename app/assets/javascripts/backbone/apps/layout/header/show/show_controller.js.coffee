@@ -4,10 +4,11 @@
 
 		initialize: (options) ->
 			@layout = @getLayoutView()
+			user = App.request "get:current:user"
 
 			@listenTo @layout, "show", =>
 				@showDock()
-				@showLogout()
+				@showLogout() if Object(user) not instanceof Boolean
 
 			@show @layout
 

@@ -1,10 +1,18 @@
 @Learnster.module "HeaderApp.List", (List, App, Backbone, Marionette, $, _) ->
 
-    class List.Header extends App.Views.ItemView
-        template: 'header/list/templates/_header'
-        tagName: 'li'
+	class List.DockItem extends App.Views.ItemView
+		template: 'header/list/templates/_dock_item'
 
-    class List.Headers extends App.Views.CompositeView
-        template: 'header/list/templates/headers'
-        itemView: List.Header
-        itemViewContainer: 'ul'
+	class List.Docker extends App.Views.CompositeView
+		template: 'header/list/templates/docker'
+		itemView: List.DockItem
+		itemViewContainer: 'ul'
+		onShow: ->
+			$('#dock').Fisheye
+						maxWidth: 50
+						items: 'li'
+						itemsText: 'span'
+						container: '.dock-container'
+						itemWidth: 40
+						proximity: 130
+						halign : 'center'

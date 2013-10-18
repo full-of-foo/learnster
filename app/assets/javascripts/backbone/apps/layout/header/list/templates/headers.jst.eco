@@ -1,9 +1,0 @@
-<div class="dock" id="dock">
-        <ul class="dock-container">
-          <li class="dock-item"><img src="/assets/nav/home256.png" /><span>Home</span></li> 
-          <li class="dock-item"><img src="/assets/nav/couple256.png" /><span>Class Mates</span></li> 
-          <li class="dock-item"><img src="/assets/nav/glossary256.png" /><span>My Modules</span></li> 
-          <li class="dock-item"><img src="/assets/nav/schedule256.png" /><span>My Events</span></li> 
-          <li class="dock-item"><img src="/assets/nav/addons256.png" /><span>Settings</span></li> 
-      </ul> 
-</div>

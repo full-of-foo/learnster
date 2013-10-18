@@ -16,7 +16,6 @@
 
 		getAppAdminBarItems: ->
 			[
-				{ text: "Learnster :: Admin", isHeader: true },
 				{ text: "Students",      	 default:  true },
 				{ text: "Org Admins"      },
 				{ text: "Organisations"   }
@@ -24,7 +23,6 @@
 
 		getOrgAdminBarItems: ->
 			[
-				{ text: "Learnster :: Admin", isHeader: true },
 				{ text: "Org Students",      default:  true },
 				{ text: "My Students" },
 				{ text: "Org Admins"  },
@@ -33,7 +31,6 @@
 
 		getStudentBarItems: ->
 			[
-				{ text: "Learnster :: Panel", isHeader: true },
 				{ text: "Course mates",          default:  true },
 				{ text: "Educators" },
 				{ text: "Modules"  }
@@ -41,7 +38,6 @@
 
 		getLoginBarItems: ->
 			[
-				{ text: "Not logged in",     isHeader: true },
 				{ text: "Sign in",           default:  true },
 				{ text: "Sign up Organisation" }
 			]

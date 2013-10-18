@@ -17,7 +17,6 @@
 
 
 	App.vent.on "session:created session:destroyed", (currentUser = null) ->
-		console.log "reseting?"
 		App.execute "reset:regions"
 
 	App.reqres.setHandler "new:destroy:icon:view", ->

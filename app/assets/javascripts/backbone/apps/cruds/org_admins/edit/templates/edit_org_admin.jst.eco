@@ -4,19 +4,19 @@
 			<div class="control-group">
 				<label class="control-label" for="first_name">First Name</label>
 				<div class="controls">
-					<%- @edit_or_show_field( @first_name, isEditableForm ) %>
+					<%- @editOrShowField( @first_name, isEditableForm ) %>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="surname">Surname</label>
 				<div class="controls">
-					<%- @edit_or_show_field( @surname, isEditableForm ) %>
+					<%- @editOrShowField( @surname, isEditableForm ) %>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="email">E-mail</label>
 				<div class="controls">
-					<%- @edit_or_show_field( @email, isEditableForm ) %>
+					<%- @editOrShowField( @email, isEditableForm ) %>
 				</div>
 			</div>
 

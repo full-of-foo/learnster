@@ -19,14 +19,14 @@
             <div class="control-group">
                 <label class="control-label" for="title">Title</label>
                 <div class="controls">
-                    <%- @edit_or_show_field( @title, isEditableForm ) %>
+                    <%- @editOrShowField( @title, isEditableForm ) %>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="description">Description</label>
                 <div class="controls">
-                    <%- @edit_or_show_field( @description, isEditableForm ) %>
+                    <%- @editOrShowField( @description, isEditableForm ) %>
                 </div>
             </div>
             

@@ -67,15 +67,6 @@
 		App.execute "redirect:home"
 
 	App.on "initialize:after", ->
-			$('#dock').Fisheye
-						maxWidth: 50
-						items: 'li'
-						itemsText: 'span'
-						container: '.dock-container'
-						itemWidth: 40
-						proximity: 120
-						halign : 'center'
-
 			App.execute "set:root:route"
 			@startHistory()
 			if @getCurrentRoute() isnt null and Object(App.currentUser) not instanceof Boolean
