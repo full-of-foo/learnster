@@ -25,7 +25,8 @@ end
 10.times do |i|
     params = {
         title: Faker::Company.name + "#{i}",
-        description: Faker::Lorem.sentence
+        description: Faker::Lorem.sentence,
+        created_at: rand(10.years).ago
     }
     Organisation.new(params).save
 end

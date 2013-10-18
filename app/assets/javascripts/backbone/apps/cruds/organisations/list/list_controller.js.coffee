@@ -103,6 +103,7 @@
              	%></a>', isSortable: true, default: true },
              { title: "# Admins", htmlContent: '<a href="#" class="org-student-count">
              	<%= model.get("adminCount") %></a>',  isSortable: true },
+             { title: "Created On", attrName: "created_at_formatted",  isSortable: true },
              { htmlContent: '<% if ( currentUser.get("type") ===  "AppAdmin" ) { %>
              	<div class="delete-icon"><i class="icon-remove-sign"></i></div>
              	<% } %>', className: "last-col-invisible", default: true, isRemovable: false }
