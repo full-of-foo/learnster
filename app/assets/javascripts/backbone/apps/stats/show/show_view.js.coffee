@@ -8,7 +8,6 @@
 
         	@ctx = $("#chart").get(0).getContext("2d")
         	@chart = new Chart(@ctx)
-        	console.log @chart
         	new Chart(@ctx).Line(data, null)
 
 

@@ -1,1 +1,7 @@
-<canvas id="chart" width="400" height="400"></canvas>
+<blockquote id="edit-form-header">
+
+    <p class="text-info">Showing Statistic: <%= @title %>
+    </p>          
+</blockquote>  
+
+<canvas id="chart" width="550" height="420"></canvas>

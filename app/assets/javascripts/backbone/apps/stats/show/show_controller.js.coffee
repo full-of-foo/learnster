@@ -3,10 +3,11 @@
     class Show.Controller extends App.Controllers.Base
 
         initialize: (options = {}) ->
-           # statEntity = App.request "get:stat:entity", options.title
+           title = options.title
 
-           statEntity = App.request("get:default:stat:collection")
+           # TODO - get data - request stat helper (finds data via title)
 
+           statEntity = App.request "set:stat:entity", title, data
            statView = @getStatView statEntity
 
            @show statView

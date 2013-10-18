@@ -1,0 +1,1 @@
+@Learnster.module "StatsApp.Helper", (Helper, App, Backbone, Marionette, $, _) ->

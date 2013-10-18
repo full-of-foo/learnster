@@ -1,4 +1,8 @@
 do ($) ->
+
+	#jquery-ui incompatibilty issue
+	$.curCSS = $.css if not $.curCSS
+
 	$.fn.toggleWrapper = (obj = {}, init = true) ->
 		_.defaults obj,
 			className: ""
