@@ -24,9 +24,13 @@ module Api
 				if current_user
 					current_user.update(is_active: false)
 					logout
-					# redirect_to root_url
+					render :json => {
+				        'csrfParam' => request_forgery_protection_token,
+				        'csrfToken' => form_authenticity_token
+				    }
+				else
+					render json: {}
 				end
-				render json: {}
 			end
 
 		end

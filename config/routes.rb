@@ -19,7 +19,7 @@ Learnster::Application.routes.draw do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
 
       # Session routes
-      get "logout" => "sessions#destroy", :as => "logout"
+      delete "logout" => "sessions#destroy", :as => "logout"
       post "login" => "sessions#create", :as => "login"
 
      	# Nested Org routes

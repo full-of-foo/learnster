@@ -1,0 +1,12 @@
+<div class="container">
+      <div class="navbar">
+          <div class="navbar-inner">
+              <h1 class="logo">Learnster</h1>
+              <div id="dock-region"></div>
+              <div id="logout-region"></div>
+        </div>
+    </div>
+
+</div>
+
+   

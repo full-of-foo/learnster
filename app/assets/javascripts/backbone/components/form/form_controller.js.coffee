@@ -1,5 +1,5 @@
 @Learnster.module "Components.Form", (Form, App, Backbone, Marionette, $, _) ->
-	
+
 	class Form.Controller extends App.Controllers.Base
 
 		initialize: (options = {}) ->
@@ -15,17 +15,17 @@
 
 		formSubmit: ->
 			data = Backbone.Syphon.serialize @formLayout
-           
+
 			if @contentView.triggerMethod("form:submit", data) isnt false
 				model = @contentView.model
 				collection = @contentView.collection
 				@processFormSubmit data, model, collection, @formLayout.config.toast
-				 
+
 
 		processFormSubmit: (data, model, collection, toast = false) ->
 			model.save data,
 				collection: collection
-				toast: toast 
+				toast: toast
 
 		setFormContentRegion: ->
 			@region = @formLayout.formContentRegion
@@ -35,7 +35,7 @@
 		getFormLayout: (options = {}) ->
 			config = @getDefaultConfig _.result(@contentView, "form")
 			_.extend config, options
-			
+
 			buttons = @getButtons config.buttons
 
 			new Form.FormWrapper

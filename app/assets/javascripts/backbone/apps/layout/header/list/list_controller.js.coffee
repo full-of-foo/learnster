@@ -1,14 +1,16 @@
 @Learnster.module "HeaderApp.List", (List, App, Backbone, Marionette, $, _) ->
 
-    class List.Controller extends App.Controllers.Base
+	class List.Controller extends App.Controllers.Base
 
-        initialize: (options) ->
-            links = App.request "header:entities"
+		initialize: (options) ->
+			links = App.request "header:entities"
+			headerView = @getHeaderView(links)
+			@contentView = headerView
 
-            headerView = @getHeaderView(links)
-            @show headerView
 
+		getHeaderView: (links) ->
+			new List.Headers
+				# collection:links
 
-        getHeaderView: (links) ->
-            new List.Headers
-                # collection:links
+	App.reqres.setHandler "get:header:dock:view", ->
+		new List.Controller().contentView

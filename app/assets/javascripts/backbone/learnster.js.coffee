@@ -63,7 +63,7 @@
 	App.commands.setHandler "reset:regions", ->
 		App.execute "set:root:route"
 		App.execute "show:sidebar"
-		App.execute "list:headers"
+		App.execute "show:header"
 		App.execute "redirect:home"
 
 	App.on "initialize:after", ->

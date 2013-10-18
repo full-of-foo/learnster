@@ -40,9 +40,6 @@
 			@listenTo editView, "form:cancel", ->
 				App.vent.trigger "student:cancelled", student
 
-			user = App.request "get:current:user"
-			createdByUser = student.get('created_by').id is user.get('id') or user instanceof App.Entities.AppAdmin
-
 			options =
 			 		footer: if not createdByUser then false else true
 

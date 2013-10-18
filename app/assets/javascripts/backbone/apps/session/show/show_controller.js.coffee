@@ -1,4 +1,4 @@
-@Learnster.module "LoginApp.Show", (Show, App, Backbone, Marionette, $, _) ->
+@Learnster.module "SessionApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
 	class Show.Controller extends App.Controllers.Base
 
@@ -7,9 +7,9 @@
 			@layout = @getLayoutView()
 
 			@listenTo session, "created", (userSession) ->
-				userAttrs 	= userSession.attributes
-				currentUser = App.request "set:current:user", userAttrs
-
+				App.userSession = userSession
+				userAttrs 		= userSession.attributes
+				currentUser 	= App.request "set:current:user", userAttrs
 				App.vent.trigger "session:created", currentUser
 
 			@listenTo @layout, "show", ->

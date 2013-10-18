@@ -2,13 +2,13 @@
 	@startWithParent = false
 
 	API =
-		listHeader: ->
-			new HeaderApp.List.Controller
+		showHeader: ->
+			new HeaderApp.Show.Controller
 						region: App.headerRegion
 
 
-	App.commands.setHandler "list:headers", ->
-		API.listHeader()
+	App.commands.setHandler "show:header", ->
+		API.showHeader()
 
 	HeaderApp.on "start", ->
-		API.listHeader()
+		API.showHeader()

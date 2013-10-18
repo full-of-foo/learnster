@@ -17,7 +17,8 @@
 
 			if (@contentView?.model instanceof App.Entities.UserSession) and App.request("get:current:user")
 				@close
-				App.execute "redirect:home"
+				console.log "Unpermittee"
+				App.execute "reset:regions"
 
 			_.defaults options,
 				loading: false
