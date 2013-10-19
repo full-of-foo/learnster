@@ -82,7 +82,8 @@ end
         last_login: Time.zone.now,
         is_active: false,
         attending_org: rand_org,
-        created_by: AppAdmin.first
+        created_by: AppAdmin.first,
+        created_at: rand(1.years).ago
     }
     
     s = Student.new(params).save

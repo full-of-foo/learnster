@@ -1,18 +1,26 @@
 @Learnster.module "StatsApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
-    class Show.Controller extends App.Controllers.Base
+	class Show.Controller extends App.Controllers.Base
 
-        initialize: (options = {}) ->
-           title = options.title
+		initialize: (options = {}) ->
+		   { orgId, type, range } = options
 
-           # TODO - get data - request stat helper (finds data via title)
+		   # helper fetches col via type and range
+		   @helper = new Show.Helper(orgId, type, range)
+		   collection = @helper.collection
 
-           statEntity = App.request "set:stat:entity", title, data
-           statView = @getStatView statEntity
+		   # the assign the compute data
+		   App.execute "when:fetched", collection, =>
+			   data = @helper.getData()
+			   statEntity = App.request "set:stat:entity", type, data
+			   statView = @getStatView statEntity
+			   # spin until the col is fetched
+			   @show statView,
+							loading:
+								loadingType: "spinner"
+								entities:     collection
 
-           @show statView
 
-
-        getStatView: (statEntity) ->
-        	new Show.StatChart
-        			model: statEntity
+		getStatView: (statEntity) ->
+			new Show.StatChart
+					model: statEntity

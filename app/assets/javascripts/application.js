@@ -15,6 +15,8 @@
 //= require jquery.spin
 //= require twitter/bootstrap
 //= require js-routes
+//= require date
+
 //= require lib/underscore
 //= require lib/backbone
 //= require lib/backbone.marionette
