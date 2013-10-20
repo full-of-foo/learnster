@@ -21,6 +21,9 @@
 			@id = id
 			@type = type
 			@range = range
+			@isLayeredDataset = @range % 12 is 0 and @range isnt 12
+			@yearCount = @range / 12
+			@monthInterval = @_getMonthInterval()
 
 			switch @type
 				when @_getStandardStatTypes()[0] then @collection = @_fetchStudentsEnrolledFrom @id, @range
@@ -32,37 +35,57 @@
 			datasetData = @_getDataset(labels)
 			data =
 				labels: labels
-				datasets:
-					[
-						data: datasetData
-					]
+				dataset: datasetData
+			console.log data
 			data
 
+
+
+		_getMonthInterval: ->
+			switch @range
+				when 3 then interval = 1
+				when 6 then interval = 1
+				when 12 then interval = 1
+				when 24 then interval = 2
+				when 36 then interval = 3
+				when 48 then interval = 4
+				when 60 then interval = 5
+			interval
+
+
 		_getDataset: (labels) ->
-			monthlyCounts = []
-			# start each data month count a zero
-			monthlyCounts.push 0 for monthStr in labels
-			for i in [0..labels.length-1] by 1
-				monthStr = labels[i]
-				# increment a month count if a student enrolled on the corresonding month
-				monthlyCounts[i]++ for entity in @collection.models when @_isEnrolledAtMonth entity, monthStr
+			perMonthCounts = @_getCountMonthObj labels
+			for key, value of perMonthCounts
+				perMonthCounts[key]++ for entity in @collection.models when @_isEnrolledAtDate entity, key
+			value for key, value of perMonthCounts
 
-			monthlyCounts
+		_getCountMonthObj: (labels) ->
+			perMonthCounts = {}
+			perMonthCounts[label] = 0 for label in labels
+			perMonthCounts
 
-
-
-		_isEnrolledAtMonth: (entity, monthStr) ->
-			createdAtMonth = Date.parse(entity.get('created_at')).toString "MMMM"
-			monthStr.indexOf(createdAtMonth) isnt -1
+		_isEnrolledAtDate: (entity, dateStr) ->
+			# TODO fix parsing
+			createdAtDate = Date.parse(entity.get('created_at'))
+			intervalDate = Date.parse dateStr
+			# mutation hack
+			startDate = Date.parse(intervalDate.toString("dd MMMM yyyy")).add(-Math.abs(@monthInterval)).month()
+			createdAtDate.between(startDate, intervalDate)
 
 		_getMonthLabels: (range) ->
 			labels = []
-			for i in [0..range-1] by 1
-				monthStr = (i).months().ago().toString("MMMM")
-				monthStr = monthStr.concat "\n#{(i + 1).months().ago().toString('yyyy')}" if monthStr is "January"
-				labels.push monthStr
-			labels
+			switch @monthInterval
+				when 1 then multiplier = 1
+				when 2 then multiplier = 2
+				when 3 then multiplier = 3
+				when 4 then multiplier = 4
+				when 5 then multiplier = 5
 
+			maxLength = if @monthInterval > 1 then 12 else @range
+			for i in [0..maxLength-1]
+						monthStr = (i * multiplier).months().ago().toString "dd MMMM yyyy"
+						labels.push monthStr
+			labels
 
 		_fetchStudentsEnrolledFrom: (id, range) ->
 			App.request "search:students:entities",

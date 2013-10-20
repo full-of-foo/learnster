@@ -1,0 +1,4 @@
+<blockquote>
+    <p class="text-info">Stats Panel <% console.log this %>
+    </p>          
+</blockquote>  
