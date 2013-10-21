@@ -24,10 +24,13 @@
 			@isLayeredDataset = @range % 12 is 0 and @range isnt 12
 			@yearCount = @range / 12
 			@monthInterval = @_getMonthInterval()
+			@trendField = @_getTrendField()
 
 			switch @type
 				when @_getStandardStatTypes()[0] then @collection = @_fetchStudentsEnrolledFrom @id, @range
 				when @_getStandardStatTypes()[1] then @collection = @_fetchAdminsEnrolledFrom @id, @range
+				when @_getStandardStatTypes()[2] then @collection = @_fetchStudentsUpdatedFrom @id, @range
+				when @_getStandardStatTypes()[3] then @collection = @_fetchAdminsUpdatedFrom @id, @range
 
 
 		getData: ->
@@ -38,6 +41,12 @@
 				labels: labelsFormatted
 				dataset: datasetData
 			data
+
+		_getTrendField: ->
+			if (@type.indexOf("update") isnt -1)
+				"updated_at"
+			else if (@type.indexOf("enrollment") isnt -1)
+				"created_at"
 
 		_formatLabels: (labelDates) ->
 			if @monthInterval is 1
@@ -60,7 +69,7 @@
 		_getDataset: (labels) ->
 			perMonthCounts = @_getCountMonthObj labels
 			for key, value of perMonthCounts
-				perMonthCounts[key]++ for entity in @collection.models when @_isEnrolledAtDate entity, key
+				perMonthCounts[key]++ for entity in @collection.models when @_isOccursAtDate entity, key
 			value for key, value of perMonthCounts
 
 		_getCountMonthObj: (labels) ->
@@ -68,13 +77,13 @@
 			perMonthCounts[label] = 0 for label in labels
 			perMonthCounts
 
-		_isEnrolledAtDate: (entity, dateStr) ->
-			# TODO fix parsing
-			createdAtDate = Date.parse(entity.get('created_at'))
+		_isOccursAtDate: (entity, dateStr) ->
+			occurDate = Date.parse(entity.get(@trendField))
+			console.log occurDate
 			intervalDate = Date.parse dateStr
 			# mutation hack
 			startDate = Date.parse(intervalDate.toString("dd MMMM yyyy")).add(-Math.abs(@monthInterval)).month()
-			createdAtDate.between(startDate, intervalDate)
+			occurDate.between(startDate, intervalDate)
 
 		_getMonthLabels: (range) ->
 			labels = []
@@ -95,7 +104,28 @@
 			App.request "search:students:entities",
 											term:
 												search:     ""
-												months_ago: range
+												created_months_ago: range
+											nestedId: id
+
+		_fetchAdminsEnrolledFrom: (id, range) ->
+			App.request "search:org_admins:entities",
+											term:
+												search:     ""
+												created_months_ago: range
+											nestedId: id
+
+		_fetchStudentsUpdatedFrom: (id, range) ->
+			App.request "search:students:entities",
+											term:
+												search:     ""
+												updated_months_ago: range
+											nestedId: id
+
+		_fetchAdminsUpdatedFrom: (id, range) ->
+			App.request "search:org_admins:entities",
+											term:
+												search:     ""
+												updated_months_ago: range
 											nestedId: id
 
 		_isValidRange: (range) ->

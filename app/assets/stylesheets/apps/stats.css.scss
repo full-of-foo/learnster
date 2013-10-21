@@ -3,6 +3,23 @@
 	max-height: 550px;
 }
 
+.stat-summary-list {
+	cursor: pointer;
+
+	i {
+		display: none;
+	}
+
+	li:hover {
+		p.lead{
+			text-decoration: underline;
+		}
+		i {
+			display: block;
+		}
+	}
+}
+
 .btn-group.btn {   border: 0;   padding: 0; }
 .btn-group.btn > .btn { border-radius: 0 }
 .btn-group.btn > .dropdown-menu {  text-align: left; }

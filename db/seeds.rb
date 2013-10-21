@@ -51,7 +51,9 @@ count = 0
         last_login: Time.zone.now,
         is_active: false,
         created_by: AppAdmin.first,
-        admin_for: Organisation.find(orgId) 
+        admin_for: Organisation.find(orgId),
+        created_at: rand(3.years).ago,
+        updated_at: rand(2.years).ago
     }
     count += 1
     count = 0 if count == 10
@@ -83,7 +85,7 @@ end
         is_active: false,
         attending_org: rand_org,
         created_by: AppAdmin.first,
-        created_at: rand(5.years).ago
+        created_at: rand(5.years).ago,
     }
     
     s = Student.new(params).save
@@ -92,7 +94,8 @@ end
 count = 1
 
 Student.all.each do |s|
-    s.update created_by: s.attending_org.admins.first
+    s.update created_by: s.attending_org.admins.first, updated_at: rand(1.years).ago
+
     count += 1
     count = 1 if count == 34    
 end

@@ -9,6 +9,7 @@ class Student < User
 		text :surname, :boost => 5 
 		text :email
 		date :created_at
+		date :updated_at
 		text :attending_org do
 			attending_org.title
 		end

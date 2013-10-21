@@ -1,4 +1,5 @@
-<div class="well">
-	<p><%= @capitalizeTitle @title %></p>
-	<p><%= @description %></p>
+<div class="well well-small">
+<i class="icon-li icon-double-angle-right"></i>
+	<p class="lead"><%= @capitalizeTitle @title %></p>
+	<blockquote><p class="text-info"><%= @description %></p></blockquote>
 </div>

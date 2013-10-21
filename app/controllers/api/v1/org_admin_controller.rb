@@ -12,6 +12,8 @@ module Api
 			    	@search = OrgAdmin.search do
 			    		fulltext params[:search]
 			    		with(:org_id).equal_to(params[:organisation_id]) if nested_org_request?(params)
+			    		with(:created_at, Time.zone.now.ago((params[:created_months_ago].to_i).months)..Time.zone.now) if params[:created_months_ago]
+			    		with(:updated_at, Time.zone.now.ago((params[:updated_months_ago].to_i).months)..Time.zone.now) if params[:updated_months_ago]
 			    		paginate :page => 1, :per_page => 10000
 			    	end
 			        return (@org_admins = @search.results)

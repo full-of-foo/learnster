@@ -7,6 +7,8 @@ class OrgAdmin < User
 		text :first_name, :boost => 2
 		text :surname, :boost => 5 
 		text :email
+		date :created_at
+		date :updated_at
 		text :admin_for do
 			admin_for.title
 		end

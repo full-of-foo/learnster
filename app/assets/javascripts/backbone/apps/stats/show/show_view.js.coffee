@@ -11,7 +11,6 @@
 		events:
 			"click #chart-as-jpeg" : "saveJpeg"
 			"click #chart-as-png"  : "savePng"
-
 		triggers:
 			"click li#stat-range-3"  : "range:list:3:clicked"
 			"click li#stat-range-6"  : "range:list:6:clicked"
@@ -29,19 +28,19 @@
 			e.preventDefault()
 			Canvas2Image.saveAsPNG($("#chart")[0])
 
+
 	class Show.StatChart extends App.Views.ItemView
 		template: "stats/show/templates/show_chart"
 		modelEvents:
 			"change" : "render"
 
 		drawChart: ->
-			data = @_deriveModelData()
+			data = @_getModelData()
 			@ctx = $("#chart").get(0).getContext("2d")
 			@chart = new Chart(@ctx)
 			new Chart(@ctx).Line(data, null)
 
-		_deriveModelData: ->
-			console.log @model
+		_getModelData: ->
 			data =
 				labels   : @model.get('labels'),
 				datasets : [
@@ -57,9 +56,6 @@
 					pointStrokeColor: datasetEntity.get('pointStrokeColor'),
 					data: 			  datasetEntity.get('dataCounts')
 				}
-
-
-
 
 
 

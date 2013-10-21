@@ -19,7 +19,7 @@
 				App.commands.execute "redirect:home"
 
 			@listenTo dockView, "stats:dockItem:clicked", ->
-				App.request "get:default:stat:collection"
+				App.navigate "/statistics"
 
 			@show dockView,
 					region: @layout.dockRegion
