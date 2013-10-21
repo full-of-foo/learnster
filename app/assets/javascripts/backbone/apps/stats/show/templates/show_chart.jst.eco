@@ -1,5 +1,5 @@
 
-<p class="text-info"><%= @capitalizeTitle @title %>
+<p class="text-info"><%= @capitalizeTitle @title %> (over <%= @range %> months)
 </p>          
 
 <canvas id="chart" width="600" height="450"></canvas> 

@@ -2,7 +2,7 @@
 
 	class StatsApp.Router extends Marionette.AppRouter
 		appRoutes:
-			"stat/:orgId/:title/:range"       : "showStat"
+			"stat/:orgId/:title/:range"      : "showStat"
 			"stats"    		 				 : "listStats"
 
 
@@ -15,6 +15,10 @@
 									orgId: orgId
 									title:  title
 									range: range
+
+	App.vent.on "stat:range:item:clicked", (options) ->
+		{ orgId, title, range } = options
+		App.navigate "stat/#{orgId}/#{title}/#{range}"
 
 	App.addInitializer ->
 		new StatsApp.Router

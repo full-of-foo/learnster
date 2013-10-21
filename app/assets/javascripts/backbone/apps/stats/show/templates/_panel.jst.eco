@@ -14,19 +14,19 @@
                 <span class="icon-caret-down"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="#"> 3 months</a>
+                <li id="stat-range-3"><a href="#"> 3 months</a>
                 </li>
-                <li><a href="#"> 6 months</a>
+                <li id="stat-range-6"><a href="#"> 6 months</a>
                 </li>
-                 <li><a href="#"> 1 year</a>
+                 <li id="stat-range-12"><a href="#"> 1 year</a>
                 </li>
-                 <li><a href="#"> 2 years</a>
+                 <li id="stat-range-24"><a href="#"> 2 years</a>
                 </li>
-                 <li><a href="#"> 3 years</a>
+                 <li id="stat-range-36"><a href="#"> 3 years</a>
                 </li>
-                 <li><a href="#"> 4 years</a>
+                 <li id="stat-range-48"><a href="#"> 4 years</a>
                 </li>
-                 <li><a href="#"> 5 years</a>
+                 <li id="stat-range-60"><a href="#"> 5 years</a>
                 </li>
             </ul>
      </div>

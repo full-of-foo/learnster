@@ -10,7 +10,16 @@
 		template: "stats/show/templates/_panel"
 		events:
 			"click #chart-as-jpeg" : "saveJpeg"
-			"click #chart-as-png" : "savePng"
+			"click #chart-as-png"  : "savePng"
+
+		triggers:
+			"click li#stat-range-3"  : "range:list:3:clicked"
+			"click li#stat-range-6"  : "range:list:6:clicked"
+			"click li#stat-range-12" : "range:list:12:clicked"
+			"click li#stat-range-24" : "range:list:24:clicked"
+			"click li#stat-range-36" : "range:list:36:clicked"
+			"click li#stat-range-48" : "range:list:48:clicked"
+			"click li#stat-range-60" : "range:list:60:clicked"
 
 		saveJpeg: (e) ->
 			e.preventDefault()

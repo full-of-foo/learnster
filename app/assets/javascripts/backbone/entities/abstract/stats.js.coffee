@@ -23,9 +23,10 @@
 		model: Entities.Stat
 
 
-	App.reqres.setHandler "set:stat:entity", (title, data) ->
+	App.reqres.setHandler "set:stat:entity", (title, data, range) ->
 		stat = new Entities.Stat
 		stat.set('title', title)
+		stat.set('range', range)
 		stat.set('labels', data.labels)
 		attrs = { dataCounts: data.dataset }
 		dataset = new Entities.StatDataset( attrs )
