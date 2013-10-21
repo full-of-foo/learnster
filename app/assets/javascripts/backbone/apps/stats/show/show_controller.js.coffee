@@ -35,6 +35,9 @@
 
 		showPanel: (collection) ->
 			panelView = @getPanelView(collection)
+
+
+
 			@show panelView,
 						loading:
 							loadingType: "spinner"

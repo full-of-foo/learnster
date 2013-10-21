@@ -1,0 +1,38 @@
+<div class="btn-group pull-right">
+    <div class="btn-group">
+            <a id="chart-download-button" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="icon-fixed-width icon-download-alt"></i> Save as...</a>
+                <ul class="dropdown-menu">
+                    <li id="chart-as-jpeg"><a href="#"> JPEG</a>
+                    </li>
+                    <li id="chart-as-png"><a href="#"> PNG</a>
+                    </li>
+                </ul>
+    </div>
+    <div class="btn-group">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="icon-caret-down"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#"> 3 months</a>
+                </li>
+                <li><a href="#"> 6 months</a>
+                </li>
+                 <li><a href="#"> 1 year</a>
+                </li>
+                 <li><a href="#"> 2 years</a>
+                </li>
+                 <li><a href="#"> 3 years</a>
+                </li>
+                 <li><a href="#"> 4 years</a>
+                </li>
+                 <li><a href="#"> 5 years</a>
+                </li>
+            </ul>
+     </div>
+</div>
+
+<blockquote>
+    <p class="text-info"><% if @items.length > 0: %>Data pool size: <%= @items.length %><% else: %>Oops! No data to plot this time range
+    </p>          
+</blockquote>  

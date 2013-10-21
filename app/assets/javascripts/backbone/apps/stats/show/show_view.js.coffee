@@ -1,13 +1,24 @@
 @Learnster.module "StatsApp.Show", (Show, App, Backbone, Marionette, $, _, Chart) ->
 
 	class Show.Layout extends App.Views.Layout
-		template: "stats/show/templates/show_layout"
+		template: "stats/show/templates/layout"
 		regions:
 			panelRegion: "#panel-region"
 			statRegion:  "#stat-region"
 
 	class Show.Panel extends App.Views.ItemView
-		template: "stats/show/templates/show_panel"
+		template: "stats/show/templates/_panel"
+		events:
+			"click #chart-as-jpeg" : "saveJpeg"
+			"click #chart-as-png" : "savePng"
+
+		saveJpeg: (e) ->
+			e.preventDefault()
+			Canvas2Image.saveAsJPEG($("#chart")[0])
+
+		savePng: (e) ->
+			e.preventDefault()
+			Canvas2Image.saveAsPNG($("#chart")[0])
 
 	class Show.StatChart extends App.Views.ItemView
 		template: "stats/show/templates/show_chart"

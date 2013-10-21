@@ -1,4 +1,0 @@
-<blockquote>
-    <p class="text-info"><% if @items.length > 0: %>Data pool size: <%= @items.length %><% else: %>Oops! No data to plot this time range
-    </p>          
-</blockquote>  
