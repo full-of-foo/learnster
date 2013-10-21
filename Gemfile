@@ -24,6 +24,7 @@ gem 'progress_bar'
 gem 'acts_as_xlsx'
 gem 'axlsx_rails'
 gem 'sorcery'
+gem 'public_activity'
 
 group :development do
   gem 'sunspot_solr'

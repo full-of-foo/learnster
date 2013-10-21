@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-	protect_from_forgery with: :exception
-	helper :all
+	include PublicActivity::StoreController 
 
+	protect_from_forgery with: :exception
 	before_filter :authorize
 	before_filter proc { |controller| controller.response.headers['x-url'] = controller.request.fullpath } 
 
@@ -22,9 +22,7 @@ class ApplicationController < ActionController::Base
 		  render json: {}
 		end
 	end
-
-
-
+	
 	def permitted_params
 		@permitted_params ||= PermittedParams.new(params, current_user)
 	end

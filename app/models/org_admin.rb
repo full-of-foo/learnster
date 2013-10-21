@@ -1,5 +1,9 @@
 class OrgAdmin < User
+	include PublicActivity::Model
+	
+	tracked owner: ->(controller, model) { controller && controller.current_user }
 	acts_as_xlsx
+	
 	validates_presence_of :admin_for
   	belongs_to :admin_for, class_name: "Organisation", foreign_key: "admin_for" 
 

@@ -20,4 +20,20 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+   activity:
+    organisation:
+      create: 'an organisation has been created'
+      update: 'an organisation has been edited'
+      destroy: 'an organisation has been removed!'
+    student:
+      create: 'a student has been created'
+      update: 'a student has been edited'
+      destroy: 'a student has been removed!'
+    org_admin:
+      create: 'an administrator has been created'
+      update: 'an administrator has been edited'
+      destroy: 'an administrator has been removed!'
+    app_admin:
+      create: 'an application-administrator has been created'
+      update: 'an application-administrator has been edited'
+      destroy: 'an application-administrator has been removed!'
