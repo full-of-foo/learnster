@@ -29,5 +29,5 @@
 		stat.set('labels', data.labels)
 		attrs = { dataCounts: data.dataset }
 		dataset = new Entities.StatDataset( attrs )
-		stat.set('dataset', data.dataset)
+		stat.set('dataset', dataset)
 		stat

@@ -31,15 +31,19 @@
 
 
 		getData: ->
-			labels = @_getMonthLabels(@range)
-			datasetData = @_getDataset(labels)
+			labelDates = @_getMonthLabels(@range)
+			datasetData = @_getDataset(labelDates)
+			labelsFormatted = @_formatLabels(labelDates)
 			data =
-				labels: labels
+				labels: labelsFormatted
 				dataset: datasetData
-			console.log data
 			data
 
-
+		_formatLabels: (labelDates) ->
+			if @monthInterval is 1
+				labelDates.map (date) -> Date.parse(date).toString("MMMM")
+			else
+				labelDates.map (date) -> Date.parse(date).toString("MMMM yyyy")
 
 		_getMonthInterval: ->
 			switch @range

@@ -3,21 +3,21 @@
 	class Show.Controller extends App.Controllers.Base
 
 		initialize: (options = {}) ->
-			{ orgId, type, range } = options
+			{ orgId, title, range } = options
 
-			# helper fetches col via type and range
-			@helper = new Show.Helper(orgId, type, range)
+			# helper fetches col via title and range
+			@helper = new Show.Helper(orgId, title, range)
 			collection = @helper.collection
 
 			@layout = @getLayoutView()
 
 			@listenTo @layout, "show", =>
 				@showPanel collection
-				@showStat collection, type
+				@showStat collection, title
 
 			@show @layout
 
-		showStat: (collection, type) ->
+		showStat: (collection, title) ->
 			statView = @getStatView()
 			@show statView,
 						loading:
@@ -27,8 +27,9 @@
 
 			App.execute "when:fetched", collection, =>
 				data = @helper.getData()
-				statEntity = App.request "set:stat:entity", type, data
+				statEntity = App.request "set:stat:entity", title, data
 				statView.model = statEntity
+				statView.render()
 				statView.drawChart()
 
 

@@ -1,5 +1,5 @@
 
-    <p class="text-info">Showing Statistic: <%= @title %>
-    </p>          
+<p class="text-info"><%= @capitalizeTitle @title %>
+</p>          
 
-<canvas id="chart" width="550" height="420"></canvas>
+<canvas id="chart" width="600" height="450"></canvas> 

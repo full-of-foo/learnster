@@ -33,6 +33,12 @@
 
 		templateHelpers: ->
 
+			capitalizeTitle: (title) ->
+				if title
+					(title.split(/[ ]|[-]/).map (word) -> word[0].toUpperCase() + word[1..-1].toLowerCase()).join ' '
+				else
+					""
+
 			dockerItemElement: (elemId, imageName, caption) ->
 				"<li id='#{@escape(elemId)}' class='dock-item'><img src='/assets/nav/#{@escape(imageName)}' /><span>#{@escape(caption)}</span></li>"
 

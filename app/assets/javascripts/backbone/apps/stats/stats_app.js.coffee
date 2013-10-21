@@ -2,7 +2,7 @@
 
 	class StatsApp.Router extends Marionette.AppRouter
 		appRoutes:
-			"stat/:orgId/:type/:range"       : "showStat"
+			"stat/:orgId/:title/:range"       : "showStat"
 			"stats"    		 				 : "listStats"
 
 
@@ -10,10 +10,10 @@
 		listStats: ->
 			new StatsApp.List.Controller()
 
-		showStat: (orgId, type, range) ->
+		showStat: (orgId, title, range) ->
 			new StatsApp.Show.Controller
 									orgId: orgId
-									type:  type
+									title:  title
 									range: range
 
 	App.addInitializer ->

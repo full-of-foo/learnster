@@ -11,20 +11,21 @@
 
 	class Show.StatChart extends App.Views.ItemView
 		template: "stats/show/templates/show_chart"
+		modelEvents:
+			"change" : "render"
 
 		drawChart: ->
 			data = @_deriveModelData()
-			console.log data
 			@ctx = $("#chart").get(0).getContext("2d")
 			@chart = new Chart(@ctx)
 			new Chart(@ctx).Line(data, null)
 
 		_deriveModelData: ->
+			console.log @model
 			data =
 				labels   : @model.get('labels'),
 				datasets : [
-					data:
-						@model.get('dataset')
+					@_getDataSetAttrs(@model.get('dataset'))
 				]
 
 
