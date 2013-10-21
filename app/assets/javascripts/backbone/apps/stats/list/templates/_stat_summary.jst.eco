@@ -1,0 +1,4 @@
+<div class="well">
+	<p><%= @capitalizeTitle @title %></p>
+	<p><%= @description %></p>
+</div>

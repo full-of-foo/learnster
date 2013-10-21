@@ -44,7 +44,7 @@
 
 			currentUser: ->
 				user = App.request("get:current:user")
-				if not Object(user) instanceof Boolean
+				if Object(user) not instanceof Boolean
 					user.toJSON()
 				else
 					false

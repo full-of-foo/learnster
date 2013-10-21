@@ -16,7 +16,7 @@
 									title:  title
 									range: range
 
-	App.vent.on "stat:range:item:clicked", (options) ->
+	App.vent.on "stat:range:item:clicked stat:summary:clicked", (options) ->
 		{ orgId, title, range } = options
 		App.navigate "stat/#{orgId}/#{title}/#{range}"
 

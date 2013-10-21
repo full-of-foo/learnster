@@ -48,7 +48,6 @@
 			else
 				students = new Entities.StudentsCollection
 
-			console.log $.param(term)
 			students.fetch
 				reset: true
 				data: $.param(term)
