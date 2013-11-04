@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-	include PublicActivity::StoreController 
-
 	protect_from_forgery with: :exception
 	before_filter :authorize
 	before_filter proc { |controller| controller.response.headers['x-url'] = controller.request.fullpath } 
