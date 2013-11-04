@@ -4,7 +4,6 @@ class Permission < Struct.new(:user)
 		return true if controller.end_with?("sessions")
 		return true if controller.end_with?("application") && action == "index"
 		if user
-
 			return true if user.app_admin?
 			if user.org_admin?
 				@org = user.admin_for

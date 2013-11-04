@@ -1,7 +1,4 @@
 class AppAdmin < User
-	include PublicActivity::Model
-	
-	tracked owner: ->(controller, model) { controller && controller.current_user }
 
 	def self.model_name
     	User.model_name

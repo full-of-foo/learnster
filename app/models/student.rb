@@ -1,7 +1,4 @@
 class Student < User
-	include PublicActivity::Model
-
-	tracked owner: ->(controller, model) { controller && controller.current_user }
 	acts_as_xlsx
 
   	belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org" 

@@ -1,7 +1,4 @@
 class Organisation < ActiveRecord::Base
-  include PublicActivity::Model
-  
-  tracked owner: ->(controller, model) { controller && controller.current_user }
   acts_as_xlsx
   
   belongs_to :created_by, class_name: "OrgAdmin", foreign_key: "created_by"
