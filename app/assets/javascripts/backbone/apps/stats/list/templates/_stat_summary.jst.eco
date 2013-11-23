@@ -1,5 +1,5 @@
 <div class="well well-small">
-<i class="icon-li icon-double-angle-right"></i>
+<i class="fa-li fa fa-arrow-circle-o-right"></i>
 	<p class="lead"><%= @capitalizeTitle @title %></p>
 	<blockquote><p class="text-info"><%= @description %></p></blockquote>
 </div>

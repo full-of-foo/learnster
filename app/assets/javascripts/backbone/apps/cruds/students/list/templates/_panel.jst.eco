@@ -11,12 +11,12 @@
          Student</a>
         <a class="btn" id="list-settings-button" href="#"><i class="icon-cog"></i></a>
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <span class="icon-caret-down"></span>
+            <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu">
-            <li><a href=<% if @nestingOrg: %>"/api/organisation/<%= @nestingOrg.get('id') %>/student.xlsx"<% else: %>"api/student.xlsx"<% end %>><i class="icon-fixed-width icon-level-down"></i> Export All</a>
+            <li><a href=<% if @nestingOrg: %>"/api/organisation/<%= @nestingOrg.get('id') %>/student.xlsx"<% else: %>"api/student.xlsx"<% end %>><i class="fa fa-fixed-width fa-level-down"></i> Export All</a>
             </li>
-            <li><a href="#"><i class="icon-fixed-width icon-archive"></i> Archive All</a>
+            <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
             </li>
         </ul>
 

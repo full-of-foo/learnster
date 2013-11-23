@@ -11,7 +11,7 @@
     </div>
     <div class="btn-group">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                <span class="icon-caret-down"></span>
+                <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu">
                 <li id="stat-range-3"><a href="#"> 3 months</a>
