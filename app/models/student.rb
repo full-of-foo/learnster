@@ -1,7 +1,7 @@
 class Student < User
 	acts_as_xlsx
 
-  	belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org" 
+  belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org" 
 	validates_presence_of :attending_org
 
 	searchable do
@@ -10,12 +10,6 @@ class Student < User
 		text :email
 		date :created_at
 		date :updated_at
-		text :attending_org do
-			attending_org.title
-		end
-		integer :org_id do
-			attending_org.id
-		end
 	end
 
 	def app_admin?

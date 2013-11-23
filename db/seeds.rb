@@ -21,14 +21,30 @@
     AppAdmin.new(params).save
 end
 
+1.times do |i|
+    params = {
+        email: "doo@gmail.com",
+        first_name: "Foo",
+        password: "foobar",
+        password_confirmation: "foobar",
+        surname: "Troy"
+    }
+    oa = OrgAdmin.new(params)
+    oa.save
+    Sunspot.index! [oa]
+end
+
 
 10.times do |i|
     params = {
         title: Faker::Company.name + "#{i}",
         description: Faker::Lorem.sentence,
-        created_at: rand(10.years).ago
+        created_at: rand(10.years).ago,
+        created_by: OrgAdmin.first
     }
-    Organisation.new(params).save
+    o = Organisation.new(params)
+    o.save
+    Sunspot.index! [o]
 end
 
 count = 0
@@ -58,7 +74,9 @@ count = 0
     count += 1
     count = 0 if count == 10
 
-    OrgAdmin.new(params).save
+    oa = OrgAdmin.new(params)
+    oa.save
+    Sunspot.index! [oa]
 end
 
 Organisation.all.each_with_index do |o, i|
@@ -68,6 +86,7 @@ Organisation.all.each_with_index do |o, i|
         index = OrgAdmin.first.id + i
     end
     o.update created_by: OrgAdmin.find(index)
+    Sunspot.index! [o]
 end
 
 
