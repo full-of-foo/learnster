@@ -1,7 +1,7 @@
 <div class="btn-group pull-right">
     <div class="btn-group">
             <a id="chart-download-button" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="icon-fixed-width icon-download-alt"></i> Save as...</a>
+            <i class="fa fa-fixed-width icon-download-alt"></i> Save as...</a>
                 <ul class="dropdown-menu">
                     <li id="chart-as-jpeg"><a href="#"> JPEG</a>
                     </li>

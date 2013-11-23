@@ -1,5 +1,13 @@
+<% u = @currentUser() %>
 <span class="content">
-		<%= @user.full_name %> <%= @action_formatted %>
+	<% if u.full_name is @user.full_name: %>
+		You
+	<% else: %>
+		<%= @user.full_name %>
+	<% end %>
+
+	  <%= @action_formatted %>
+
 	<% if @trackable: %>
 	 <%= @trackable.name %>
 	<% else: %>

@@ -4,9 +4,8 @@
 #
 #
 
-
 # teardown
-[User, OrgAdmin, AppAdmin, Student, Organisation].each(&:delete_all)
+[Activity, User, OrgAdmin, AppAdmin, Student, Organisation].each(&:delete_all)
 
 
 # populate 
@@ -30,7 +29,7 @@ end
         surname: "Troy"
     }
     oa = OrgAdmin.new(params)
-    oa.save
+    oa.save(:validate => false)
     Sunspot.index! [oa]
 end
 
@@ -45,6 +44,7 @@ end
     o = Organisation.new(params)
     o.save
     Sunspot.index! [o]
+    OrgAdmin.first.activities.create! action: "create", trackable: o
 end
 
 count = 0
@@ -76,6 +76,7 @@ count = 0
 
     oa = OrgAdmin.new(params)
     oa.save
+    AppAdmin.first.activities.create! action: "create", trackable: oa
     Sunspot.index! [oa]
 end
 
@@ -86,6 +87,7 @@ Organisation.all.each_with_index do |o, i|
         index = OrgAdmin.first.id + i
     end
     o.update created_by: OrgAdmin.find(index)
+    AppAdmin.first.activities.create! action: "update", trackable: o
     Sunspot.index! [o]
 end
 
@@ -106,8 +108,9 @@ end
         created_by: AppAdmin.first,
         created_at: rand(5.years).ago,
     }
-    
-    s = Student.new(params).save
+    s = Student.new(params)
+    s.save
+    s.activities.create! action: "update", trackable: rand_org
 end
 
 count = 1

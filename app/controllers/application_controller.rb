@@ -25,8 +25,9 @@ class ApplicationController < ActionController::Base
 		@permitted_params ||= PermittedParams.new(params, current_user)
 	end
 
-	def track_activity(trackable, action = params[:action])
-  	current_user.activities.create! action: action, trackable: trackable
+	def track_activity(trackable, action = params[:action], user = nil)
+		user ||= current_user
+  	user.activities.create! action: action, trackable: trackable
 	end
 
 	def nested_org_request?(params)
