@@ -4,7 +4,7 @@ do (Marionette) ->
         lookups: [
             "backbone/apps/", "backbone/apps/cruds/", "backbone/apps/dashboards/",
             "backbone/apps/layout/", "backbone/apps/session/", "backbone/components/",
-            "backbone/stats/"
+            "backbone/stats/", "backbone/notifications/"
         ]
 
         render: (template, data) ->

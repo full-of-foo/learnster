@@ -14,7 +14,14 @@ end
 
 child :trackable => :trackable do
   attributes :id
-  attributes :title, :if => lambda { |object| object.class.name == "Organisation" }
-  attributes :full_name, :type, :if => lambda { |object| object.class.superclass.name == "User" }
+  node(:name, :if => lambda { |object| object.class.name == "Organisation" }) do |object|
+  	object.title
+  end
+  node(:name, :if => lambda { |object| object.class.superclass.name == "User"}) do |object|
+  	object.full_name
+  end
+  node(:trackable_type, :if => lambda { |object| true }) do |object|
+  	object.class.name
+  end
 end
 

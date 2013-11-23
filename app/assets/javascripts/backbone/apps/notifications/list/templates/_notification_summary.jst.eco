@@ -1,0 +1,9 @@
+<span class="content">
+		<%= @user.full_name %> <%= @action_formatted %>
+	<% if @trackable: %>
+	 <%= @trackable.name %>
+	<% else: %>
+	 <em>something</em>
+	<% end %>
+</span>
+<span class="timestamp"> <%= @created_at_formatted %> ago </span>

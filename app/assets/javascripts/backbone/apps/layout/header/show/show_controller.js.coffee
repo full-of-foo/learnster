@@ -1,39 +1,40 @@
 @Learnster.module "HeaderApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
-	class Show.Controller extends App.Controllers.Base
+  class Show.Controller extends App.Controllers.Base
 
-		initialize: (options) ->
-			@layout = @getLayoutView()
-			user = App.request "get:current:user"
+    initialize: (options) ->
+      @layout = @getLayoutView()
+      user = App.request "get:current:user"
 
-			@listenTo @layout, "show", =>
-				@showDock()
-				@showLogout() if Object(user) not instanceof Boolean
+      @listenTo @layout, "show", =>
+        @showDock()
+        @showLogout() if Object(user) not instanceof Boolean
 
-			@show @layout
+      @show @layout
 
-		showDock: ->
-			dockView =   App.request "get:header:dock:view"
+    showDock: ->
+      dockView =   App.request "get:header:dock:view"
 
-			@listenTo dockView, "home:dockItem:clicked", ->
-				App.commands.execute "redirect:home"
+      @listenTo dockView, "home:dockItem:clicked", ->
+        App.commands.execute "redirect:home"
 
-			@listenTo dockView, "stats:dockItem:clicked", ->
-				App.navigate "/statistics"
+      @listenTo dockView, "stats:dockItem:clicked", ->
+        App.navigate "/statistics"
 
-			@show dockView,
-					region: @layout.dockRegion
+      @listenTo dockView, "notifications:dockItem:clicked", ->
+        App.navigate "/notifications"
 
-		showLogout: ->
-			logoutView = App.request "new:destroy:icon:view"
+      @show dockView,
+          region: @layout.dockRegion
 
-			@listenTo logoutView, "session:destroy:clicked", ->
-				App.request "destroy:session"
+    showLogout: ->
+      logoutView = App.request "new:destroy:icon:view"
 
-			@show logoutView,
-					region:  @layout.logoutRegion
+      @listenTo logoutView, "session:destroy:clicked", ->
+        App.request "destroy:session"
 
+      @show logoutView,
+          region:  @layout.logoutRegion
 
-
-		getLayoutView:  ->
-			new Show.Layout()
+    getLayoutView:  ->
+      new Show.Layout()

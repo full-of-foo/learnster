@@ -19,3 +19,4 @@
 		triggers:
 			"click #home-dock-item"  : "home:dockItem:clicked"
 			"click #stats-dock-item" : "stats:dockItem:clicked"
+			"click #notifications-dock-item" : "notifications:dockItem:clicked"

@@ -1,0 +1,12 @@
+<% u = @currentUser() %>
+<blockquote>
+    <p class="text-info">
+    <% if u.type is "AppAdmin": %>
+    Application Notifications
+    <% else if u.type is "OrgAdmin": %>
+    Organisation Notifications
+	<% else: %>
+	Notifications
+	<% end %>
+    </p>          
+</blockquote>
