@@ -15,7 +15,8 @@ class Api::V1::OrganisationController < ApplicationController
 		if params[:format] == "xlsx"    		
 			respond_to do |format|
 			format.xlsx {
-				send_data @organisations.to_xlsx.to_stream.read, :filename => 'organisations.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+				send_data @organisations.to_xlsx.to_stream.read, :filename => 'organisations.xlsx', :type => "application/\
+				vnd.openxmlformates-officedocument.spreadsheetml.sheet"
 			 }
 			end	
 		else
@@ -31,6 +32,7 @@ class Api::V1::OrganisationController < ApplicationController
 		@organisation = Organisation.find(params[:id])
 		
 		if @organisation.update permitted_params.org_params
+			track_activity @organisation
 			render "api/v1/organisation/show"
 		else
 			respond_with @organisation
@@ -42,6 +44,7 @@ class Api::V1::OrganisationController < ApplicationController
 		
 		attrs = permitted_params.org_params.merge default_attrs
 		if @organisation.update attrs
+			track_activity @organisation
 			render "api/v1/organisation/show"
 		else
 			respond_with @organisation
@@ -49,9 +52,13 @@ class Api::V1::OrganisationController < ApplicationController
 	end
 
 	def destroy
-		organisation = Organisation.find(params[:id])
-		organisation.destroy()
-		render json: {}
+		@organisation = Organisation.find(params[:id])
+		if @organisation.destroy()
+			track_activity @organisation
+			render json: {}
+		else
+			respond_with @organisation
+		end
 	end
 
 	def default_attrs

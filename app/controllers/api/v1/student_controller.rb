@@ -34,7 +34,9 @@ class Api::V1::StudentController < ApplicationController
 
 	def update
 		@student = Student.find(params[:id])
+
 		if @student.update permitted_params.user_params().merge update_params
+			track_activity @student
 			render "api/v1/student/show"
 		else
 			respond_with @student
@@ -44,7 +46,9 @@ class Api::V1::StudentController < ApplicationController
 	def create
 		@student = Student.new
 		params = permitted_params.user_params().merge create_params
+
 		if @student.update params
+			track_activity @student
 			render "api/v1/student/show"
 		else
 			respond_with @student
@@ -52,9 +56,14 @@ class Api::V1::StudentController < ApplicationController
 	end
 
 	def destroy
-		student = Student.find(params[:id])
-		student.destroy()
-		render json: {}
+		@student = Student.find(params[:id])
+		
+		if @student.destroy()
+			track_activity @student
+			render json: {}
+		else
+			respond_with @student
+		end
 	end
 
 	private

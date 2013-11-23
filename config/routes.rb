@@ -32,6 +32,7 @@ Learnster::Application.routes.draw do
       resources :org_admin, :type => "OrgAdmin"
       resources :app_admin, :type => "AppAdmin"
       resources :student, :type => "Student" 
+      resources :activities
     end
     
   end
