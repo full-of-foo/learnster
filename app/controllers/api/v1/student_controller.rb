@@ -66,6 +66,12 @@ class Api::V1::StudentController < ApplicationController
 		end
 	end
 
+	def import
+		Student.import(params[:file])
+		# hadle errors here - 422 response
+		render json: {}
+	end
+
 	private
 
 		#virtual params on update

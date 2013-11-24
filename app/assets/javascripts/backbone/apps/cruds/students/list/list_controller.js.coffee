@@ -85,7 +85,16 @@
 
       @listenTo @studentsView, "childview:student:delete:clicked", (child, args) ->
         model = args.model
-        if confirm "Are you sure you want to delete #{model.get('first_name')}?" then model.destroy() else false
+        dialogView = @getDialogView model
+
+        @listenTo dialogView, "dialog:delete:student:clicked", =>
+          dialogView.$el.modal "hide"
+          model.destroy()
+
+        @show dialogView,
+          loading:
+            loadingType: "spinner"
+          region: App.dialogRegion
 
       @show @studentsView,
         loading:
@@ -109,6 +118,10 @@
         collection: students
         templateHelpers:
           nestingOrg: @_nestingOrg
+
+    getDialogView: (student) ->
+      new List.DeleteDialog
+        model: student
 
     getLayoutView: ->
       new List.Layout

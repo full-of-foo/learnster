@@ -20,6 +20,11 @@
 //= require lib/underscore
 //= require lib/backbone
 //= require lib/backbone.marionette
+//= require lib/vendor/jquery.ui.widget
+//= require lib/vendor/jquery.iframe-transport
+//= require lib/vendor/jquery.fileupload
+//= require lib/vendor/backbone.defered-view-loader
+//= require lib/vendor/backbone.upload-manager
 //= require_tree ./lib/vendor
 
 //= require_tree ./backbone/config
