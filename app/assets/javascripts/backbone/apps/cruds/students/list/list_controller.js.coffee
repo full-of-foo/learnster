@@ -1,146 +1,149 @@
 @Learnster.module "StudentsApp.List", (List, App, Backbone, Marionette, $, _) ->
 
-    class List.Controller extends App.Controllers.Base
+  class List.Controller extends App.Controllers.Base
 
-        initialize: (options = {}) ->
-            @_nestingOrg = if options.id then App.request("org:entity", options.id) else false
+    initialize: (options = {}) ->
+      @_nestingOrg = if options.id then App.request("org:entity", options.id) else false
 
-            students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", options.id)
+      students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", options.id)
 
-            @layout = @getLayoutView()
+      @layout = @getLayoutView()
 
-            @listenTo @layout, "show", =>
-                @showSearch students
-                @showPanel @_nestingOrg
-                @showStudents students
+      @listenTo @layout, "show", =>
+        @showSearch students
+        @showPanel @_nestingOrg
+        @showStudents students
 
-            @show @layout
+      @show @layout
 
-        showNewRegion: ->
-            @layout.newRegion['_nestingOrg'] = @_nestingOrg
-            App.execute "new:student:view", @layout.newRegion
+    showNewRegion: ->
+      @layout.newRegion['_nestingOrg'] = @_nestingOrg
+      App.execute "new:student:view", @layout.newRegion
 
-        showPanel: (students) ->
-            panelView = @getPanelView students
+    showPanel: (students) ->
+      panelView = @getPanelView students
 
-            @listenTo panelView, "new:student:button:clicked", =>
-                @showNewRegion()
+      @listenTo panelView, "new:student:button:clicked", =>
+        @showNewRegion()
 
-            @listenTo panelView, "settings:button:clicked", =>
-                @showSettings()
+      @listenTo panelView, "settings:button:clicked", =>
+        @showSettings()
 
-            @show panelView,
-                        loading:
-                            loadingType: "spinner"
-                        region:  @layout.panelRegion
+      if @_nestingOrg
+        @listenTo panelView, "import:dropdown:clicked", =>
+          App.vent.trigger "open:student:import:dialog"
 
-        showSettings: ->
-            listCols = @getTableColumns()
-            @colCollection = @colCollection || App.request "table:column:entities", listCols, false
-            settingsView = App.request "settings:view", @colCollection
+      @show panelView,
+        loading:
+          loadingType: "spinner"
+        region: @layout.panelRegion
 
-            @listenTo settingsView, "childview:setting:col:clicked", (child, args) =>
-                column = args.model
-                @studentsView.toggleColumn(child, column)
+    showSettings: ->
+      listCols = @getTableColumns()
+      @colCollection = @colCollection || App.request "table:column:entities", listCols, false
+      settingsView = App.request "settings:view", @colCollection
 
-            @show settingsView,
-                            loading:
-                                loadingType: "spinner"
-                            region:  @layout.listSettingsRegion
+      @listenTo settingsView, "childview:setting:col:clicked", (child, args) =>
+        column = args.model
+        @studentsView.toggleColumn(child, column)
 
-        showSearch: (students) ->
-            searchView = @getSearchView students
+      @show settingsView,
+        loading:
+          loadingType: "spinner"
+        region:  @layout.listSettingsRegion
 
-            @listenTo searchView, "search:submitted", (searchTerm) =>
-                @searchStudents searchTerm
+    showSearch: (students) ->
+      searchView = @getSearchView students
 
-            @show searchView,
-                        loading:
-                            loadingType: "spinner"
-                        region:  @layout.searchRegion
+      @listenTo searchView, "search:submitted", (searchTerm) =>
+        @searchStudents searchTerm
 
-
-        searchStudents: (searchTerm) ->
-            searchOpts =
-                nestedId: @_nestingOrg?.id
-                term:     searchTerm
-
-            @showSearchStudents(searchOpts)
-
-        showStudents: (students) ->
-            cols = @getTableColumns()
-            options = @getTableOptions cols
-
-            @studentsView = App.request "table:wrapper", students, options
-
-            @listenTo @studentsView, "childview:student:clicked", (child, args) ->
-                App.vent.trigger "student:clicked", args.model
-
-            @listenTo @studentsView, "childview:org:clicked", (child, args) ->
-                App.vent.trigger "org:clicked", args.model.get('attending_org').id
-
-            @listenTo @studentsView, "childview:student:delete:clicked", (child, args) ->
-                model = args.model
-                if confirm "Are you sure you want to delete #{model.get('first_name')}?" then model.destroy() else false
+      @show searchView,
+        loading:
+          loadingType: "spinner"
+        region:  @layout.searchRegion
 
 
-            @show @studentsView,
-                            loading:
-                                loadingType: "spinner"
-                            region:  @layout.studentsRegion
+    searchStudents: (searchTerm) ->
+      searchOpts =
+        nestedId: @_nestingOrg?.id
+        term: searchTerm
 
-        showSearchStudents: (searchOpts) ->
-            students = App.request "search:students:entities", searchOpts
-            @colCollection = null
-            @showSettings() if not @layout.listSettingsRegion.currentView?.isClosed and @layout.listSettingsRegion.currentView
-            @showStudents(students)
+      @showSearchStudents(searchOpts)
 
-        getPanelView: (students) ->
-            new List.Panel
-                collection: students
-                templateHelpers:
-                        nestingOrg: @_nestingOrg
+    showStudents: (students) ->
+      cols = @getTableColumns()
+      options = @getTableOptions cols
 
-        getSearchView: (students) ->
-            new List.SearchPanel
-                collection: students
-                templateHelpers:
-                        nestingOrg: @_nestingOrg
+      @studentsView = App.request "table:wrapper", students, options
 
-        getLayoutView: ->
-            new List.Layout
+      @listenTo @studentsView, "childview:student:clicked", (child, args) ->
+        App.vent.trigger "student:clicked", args.model
 
-        getTableColumns: ->
-            cols = [
-             { title: "Name", htmlContent: '<% if ( model.get("is_active") )
-                { %><i class="icon-list-online-status" title="Online"></i>
-                <% } else { %><i class="icon-list-offline-status" title="Offline"></i>
-                <% } %><%= model.get("full_name") %>', isSortable: true, default: true, isRemovable: false }
-             { title: "Email", attrName: "email", isSortable: true, default: true },
-             { title: "Last Online", attrName: "last_login_formatted", default: true},
-             { title: "Created On", attrName: "created_at_formatted",  isSortable: true },
-             { title: "Last Updated", attrName: "updated_at_formatted"},
-             { htmlContent: '<% if ( model.get("created_by") && model.get("created_by").id === currentUser.get("id")
-             	|| currentUser.get("type") ===  "AppAdmin" ) { %>
-             	<div class="delete-icon"><i class="icon-remove-sign"></i></div>
-             	<% } %>
-            ', className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
-            ]
-            organisationCol = { title: "Organisation", htmlContent: '<a href="#" class="org-link">
-                <% if ( model.get("attending_org") ) { %><%= model.get("attending_org").title %><% }
-                %></a>', className: "wrap-text", isSortable: true, default: true }
+      @listenTo @studentsView, "childview:org:clicked", (child, args) ->
+        App.vent.trigger "org:clicked", args.model.get('attending_org').id
 
-            user = App.request "get:current:user"
-            cols.insertAt(3, organisationCol) if user instanceof Learnster.Entities.AppAdmin
-            cols
+      @listenTo @studentsView, "childview:student:delete:clicked", (child, args) ->
+        model = args.model
+        if confirm "Are you sure you want to delete #{model.get('first_name')}?" then model.destroy() else false
 
-        getTableOptions: (columns) ->
-            columns: columns
-            region:  @layout.studentsRegion
-            config:
-                emptyMessage: "No students found :("
-                itemProperties:
-                    triggers:
-                        "click .delete-icon i"    : "student:delete:clicked"
-                        "click"                   : "student:clicked"
-                        "click .org-link"         : "org:clicked"
+      @show @studentsView,
+        loading:
+          loadingType: "spinner"
+        region:  @layout.studentsRegion
+
+    showSearchStudents: (searchOpts) ->
+      students = App.request "search:students:entities", searchOpts
+      @colCollection = null
+      @showSettings() if not @layout.listSettingsRegion.currentView?.isClosed and @layout.listSettingsRegion.currentView
+      @showStudents(students)
+
+    getPanelView: (students) ->
+      new List.Panel
+        collection: students
+        templateHelpers:
+          nestingOrg: @_nestingOrg
+
+    getSearchView: (students) ->
+      new List.SearchPanel
+        collection: students
+        templateHelpers:
+          nestingOrg: @_nestingOrg
+
+    getLayoutView: ->
+      new List.Layout
+
+    getTableColumns: ->
+      cols = [
+       { title: "Name", htmlContent: '<% if ( model.get("is_active") )
+          { %><i class="icon-list-online-status" title="Online"></i>
+          <% } else { %><i class="icon-list-offline-status" title="Offline"></i>
+          <% } %><%= model.get("full_name") %>', isSortable: true, default: true, isRemovable: false }
+       { title: "Email", attrName: "email", isSortable: true, default: true },
+       { title: "Last Online", attrName: "last_login_formatted", default: true},
+       { title: "Created On", attrName: "created_at_formatted",  isSortable: true },
+       { title: "Last Updated", attrName: "updated_at_formatted"},
+       { htmlContent: '<% if ( model.get("created_by") && model.get("created_by").id === currentUser.get("id")
+        || currentUser.get("type") ===  "AppAdmin" ) { %>
+        <div class="delete-icon"><i class="icon-remove-sign"></i></div>
+        <% } %>
+      ', className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
+      ]
+      organisationCol = { title: "Organisation", htmlContent: '<a href="#" class="org-link">
+        <% if ( model.get("attending_org") ) { %><%= model.get("attending_org").title %><% }
+        %></a>', className: "wrap-text", isSortable: true, default: true }
+
+      user = App.request "get:current:user"
+      cols.insertAt(3, organisationCol) if user instanceof Learnster.Entities.AppAdmin
+      cols
+
+    getTableOptions: (columns) ->
+      columns: columns
+      region: @layout.studentsRegion
+      config:
+        emptyMessage: "No students found :("
+        itemProperties:
+          triggers:
+              "click .delete-icon i"   : "student:delete:clicked"
+              "click"                  : "student:clicked"
+              "click .org-link"        : "org:clicked"

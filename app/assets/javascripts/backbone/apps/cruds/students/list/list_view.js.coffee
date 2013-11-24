@@ -18,6 +18,7 @@
         triggers:
             "click #new-student-button"   : "new:student:button:clicked"
             "click #list-settings-button" : "settings:button:clicked"
+            "click #import-dropdown-item" : "import:dropdown:clicked"
 
     class List.SearchPanel extends App.Views.ItemView
         template: "students/list/templates/_search_panel"

@@ -18,6 +18,10 @@
             </li>
             <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
             </li>
+            <% if @nestingOrg: %>
+            <li><a href="#" id="import-dropdown-item"><i class="fa fa-fixed-width fa-upload"></i> Import...</a>
+            </li>
+            <% end %>
         </ul>
 
     </div>

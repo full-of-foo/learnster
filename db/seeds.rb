@@ -23,10 +23,12 @@ end
 1.times do |i|
     params = {
         email: "doo@gmail.com",
-        first_name: "Foo",
-        password: "foobar",
-        password_confirmation: "foobar",
-        surname: "Troy"
+        first_name: "sddsf",
+        surname: "sddsf",
+        password: "fooooooo",
+        password_confirmation: "fooooooo",
+        last_login: Time.zone.now,
+        is_active: false
     }
     oa = OrgAdmin.new(params)
     oa.save(:validate => false)

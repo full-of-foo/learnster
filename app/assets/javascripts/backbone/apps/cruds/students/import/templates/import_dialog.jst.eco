@@ -1,0 +1,21 @@
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Import Users</h4>
+      </div>
+      <div class="modal-body">
+        <p>Upload multiple students via <a href="#">this</a> template&hellip;</p>
+        <ol>
+          <li>ensure all values are formatted correctly</li>
+          <li>ensure file is in CSV format</li>
+          <li>add the file and upload</li>
+
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Upload</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->

@@ -31,6 +31,7 @@
 		sidebarRegion: "#sidebar-region"
 		mainRegion:    "#main-region"
 		footerRegion:  "#footer-region"
+		dialogRegion:  Marionette.Region.Dialog.extend el:"#dialog-region"
 
 	App.addInitializer ->
 		App.module("HeaderApp").start()
