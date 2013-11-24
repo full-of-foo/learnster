@@ -1,0 +1,15 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Delete Organisation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delelte <%= @title %>&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="delete-organisation-button" type="button" class="btn btn-danger">Delete Organisation</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
