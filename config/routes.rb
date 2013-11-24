@@ -25,7 +25,8 @@ Learnster::Application.routes.draw do
      	# Nested Org routes
       resources :organisation do
         resources :student, :type => "Student"
-        resources :org_admin, :type => "OrgAdmin", :as => "admin"
+        post '/import_users' => 'student#import', as: :import_users
+        resources :org_admin, :type => "OrgAdmin", as: :admin
       end
 
       # Standard routes
@@ -33,6 +34,7 @@ Learnster::Application.routes.draw do
       resources :app_admin, :type => "AppAdmin"
       resources :student, :type => "Student" 
       resources :activities
+
     end
     
   end

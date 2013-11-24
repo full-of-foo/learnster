@@ -67,22 +67,30 @@ class Api::V1::StudentController < ApplicationController
 	end
 
 	def import
-		Student.import(params[:file])
-		# hadle errors here - 422 response
-		render json: {}
+		if params[:qqfile] and nested_org_request?(params)
+			import_status_data = Student.import_with_validation(params[:qqfile], @org, current_user)
+			if import_status_data.values.all? { |value| value == true }
+				render :json => { :success => true }	
+			else
+				render :json => { :success => false, :error => import_status_data,
+				 :preventRetry => true }, :status => 422
+			end
+		else
+			render :json => { :success => false }, :status => :unauthorized
+		end
 	end
 
 	private
 
-		#virtual params on update
+		# virtual params on update
 		def update_params
 			{ password: params[:password], password_confirmation: params[:password_confirmation] }
 		end
 
-		#virtual params on create
+		# virtual params on create
 		def create_params
 			org = Organisation.find_by(title: params[:attending_org]) if current_user.app_admin?
-			org = current_user.admin_for 							  if current_user.org_admin?
+			org = current_user.admin_for if current_user.org_admin?
 
 			{ created_by: current_user, attending_org: org, is_active: false, 
 				last_login: Time.zone.now, password: params[:password], 

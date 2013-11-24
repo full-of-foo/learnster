@@ -25,6 +25,7 @@ gem 'acts_as_xlsx'
 gem 'axlsx_rails'
 gem 'sorcery'
 gem 'rubyzip',  "~> 0.9.9"
+gem 'roo'
 
 group :development do
   gem 'sunspot_solr'

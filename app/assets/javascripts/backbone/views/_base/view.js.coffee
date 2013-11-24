@@ -1,4 +1,4 @@
-@Learnster.module "Views", (Views, App, Backbone, Marionette, $, _) ->
+@Learnster.module "Views", (Views, App, Backbone, Marionette, $, _, Routes) ->
 
 	_remove = Marionette.View::remove
 
@@ -32,6 +32,9 @@
 
 
 		templateHelpers: ->
+
+			route: (route_name, params = []) ->
+				if params.length > 0 then Routes[route_name](params[0]) else Routes[route_name]()
 
 			capitalizeTitle: (title) ->
 				if title
@@ -67,3 +70,5 @@
 
 				url = "#" + url unless options.external
 				"<a href='#{url}'>#{@escape(name)}</a>"
+
+, Routes

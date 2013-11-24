@@ -31,7 +31,7 @@
 
       if @_nestingOrg
         @listenTo panelView, "import:dropdown:clicked", =>
-          App.vent.trigger "open:student:import:dialog"
+          App.vent.trigger "open:student:import:dialog", @_nestingOrg
 
       @show panelView,
         loading:
