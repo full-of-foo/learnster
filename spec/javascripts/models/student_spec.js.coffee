@@ -9,7 +9,7 @@ describe "new Student model", ->
         @s = new Learnster.Entities.Student
                         first_name: "joe"
                         surname:     "blogs"
-                        email:       "foo@bar.com" 
+                        email:       "foo@bar.com"
 
     it "should be true", ->
         expect(@s).toBeTruthy()
@@ -17,7 +17,7 @@ describe "new Student model", ->
     it "should expose an attribute", ->
         expect(@s.get('first_name')).toEqual("joe")
 
-    url = Routes.student_index_path()
+    url = Routes.api_student_index_path()
 
     it "url should be #{url}", ->
         expect(@s.url()).toEqual(url)
@@ -38,8 +38,8 @@ describe "Student collection", ->
     it "should have the correct request size", ->
         @studs.fetch()
         expect(@server.requests.length).toEqual(1)
-       
-    url = Routes.student_index_path()
+
+    url = Routes.api_student_index_path()
 
     it "should make the correct request url", ->
         @studs.fetch()

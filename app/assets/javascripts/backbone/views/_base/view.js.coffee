@@ -59,11 +59,11 @@
 				else
 					false
 
-			editOrShowField: (value, isField, editType = "text") ->
+			editOrShowField: (id, value, isField, editType = "text") ->
 				if isField
-					"<input type='#{@escape(editType)}' id='#{@escape(value)}' value='#{@escape(value)}'/>"
+					"<input type='#{@escape(editType)}' id='#{@escape(id)}' value='#{@escape(value)}'/>"
 				else
-					"<span id='#{@escape(value)}'>#{@escape(value)}</span>"
+					"<span id='#{@escape(id)}'>#{@escape(value)}</span>"
 
 			linkTo: (name, url, options = {}) ->
 				options.external = false unless options.external

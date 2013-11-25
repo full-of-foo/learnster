@@ -20,33 +20,33 @@
     AppAdmin.new(params).save
 end
 
-1.times do |i|
-    params = {
-        email: "doo@gmail.com",
-        first_name: "sddsf",
-        surname: "sddsf",
-        password: "fooooooo",
-        password_confirmation: "fooooooo",
-        last_login: Time.zone.now,
-        is_active: false
-    }
-    oa = OrgAdmin.new(params)
-    oa.save(:validate => false)
-    Sunspot.index! [oa]
-end
+# 1.times do |i|
+#     params = {
+#         email: "doo@gmail.com",
+#         first_name: "sddsf",
+#         surname: "sddsf",
+#         password: "fooooooo",
+#         password_confirmation: "fooooooo",
+#         last_login: Time.zone.now,
+#         is_active: false
+#     }
+#     oa = OrgAdmin.new(params)
+#     oa.save(:validate => false)
+#     Sunspot.index! [oa]
+# end
 
 
 10.times do |i|
     params = {
         title: Faker::Company.name + "#{i}",
         description: Faker::Lorem.sentence,
-        created_at: rand(10.years).ago,
-        created_by: OrgAdmin.first
+        created_at: rand(10.years).ago
+        # created_by: OrgAdmin.first
     }
     o = Organisation.new(params)
     o.save
     Sunspot.index! [o]
-    OrgAdmin.first.activities.create! action: "create", trackable: o
+    # OrgAdmin.first.activities.create! action: "create", trackable: o
 end
 
 count = 0

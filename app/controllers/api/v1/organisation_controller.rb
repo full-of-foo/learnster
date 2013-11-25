@@ -62,7 +62,6 @@ class Api::V1::OrganisationController < ApplicationController
 	end
 
 	def default_attrs
-
 		{ created_by: current_user.org_admin? ? current_user : OrgAdmin.first }
 	end
 

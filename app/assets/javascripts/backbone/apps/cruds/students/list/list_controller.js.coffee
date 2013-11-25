@@ -3,9 +3,10 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
-      @_nestingOrg = if options.id then App.request("org:entity", options.id) else false
+      @_nestingOrgId = if options.id then options.id else false
+      @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
-      students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", options.id)
+      students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", @_nestingOrgId)
 
       @layout = @getLayoutView()
 
@@ -32,9 +33,8 @@
       if @_nestingOrg
         @listenTo panelView, "import:dropdown:clicked", =>
           App.vent.trigger "open:student:import:dialog", @_nestingOrg
-          App.vent.on "students:import:success", (dialogView) ->
-            console.log 'success'
-            students.reset()
+          App.vent.on "students:import:success", (dialogView) =>
+            @showFetchedStudents()
 
       @show panelView,
         loading:
@@ -108,6 +108,12 @@
       students = App.request "search:students:entities", searchOpts
       @colCollection = null
       @showSettings() if not @layout.listSettingsRegion.currentView?.isClosed and @layout.listSettingsRegion.currentView
+      @showStudents(students)
+
+    showFetchedStudents: ->
+      students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", @_nestingOrgId)
+      @colCollection = null
+      @showSettings() if not @layout.listSettingsRegion?.currentView?.isClosed and @layout.listSettingsRegion?.currentView
       @showStudents(students)
 
     getPanelView: (students) ->

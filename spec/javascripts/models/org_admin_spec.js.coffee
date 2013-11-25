@@ -9,7 +9,7 @@ describe "new Org Admin model", ->
         @oa = new Learnster.Entities.OrgAdmin
                         first_name: "joe"
                         surname:     "blogs"
-                        email:       "foo@bar.com" 
+                        email:       "foo@bar.com"
 
     it "should be true", ->
         expect(@oa).toBeTruthy()
@@ -17,7 +17,7 @@ describe "new Org Admin model", ->
     it "should expose an attribute", ->
         expect(@oa.get('first_name')).toEqual("joe")
 
-    url = Routes.org_admin_index_path()
+    url = Routes.api_org_admin_index_path()
 
     it "url should be #{url}", ->
         expect(@oa.url()).toEqual(url)
@@ -38,8 +38,8 @@ describe "Student collection", ->
     it "should have the correct request size", ->
         @studs.fetch()
         expect(@server.requests.length).toEqual(1)
-       
-    url = Routes.org_admin_index_path()
+
+    url = Routes.api_org_admin_index_path()
 
     it "should make the correct request url", ->
         @studs.fetch()
