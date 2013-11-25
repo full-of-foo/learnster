@@ -67,16 +67,17 @@ class Api::V1::StudentController < ApplicationController
 	end
 
 	def import
-		if params[:qqfile] and nested_org_request?(params)
+		if nested_org_request?(params) and ['.csv', '.xls', '.xlsx'].include? File.extname(params[:qqfilename])
 			import_status_data = Student.import_with_validation(params[:qqfile], @org, current_user)
-			if import_status_data.values.all? { |value| value == true }
+			if import_status_data.values.all? { |value| value == true } and not import_status_data.empty?
 				render :json => { :success => true }	
 			else
 				render :json => { :success => false, :error => import_status_data,
 				 :preventRetry => true }, :status => 422
 			end
 		else
-			render :json => { :success => false }, :status => :unauthorized
+			render :json => { :success => false, :error => { "File Type Error" => "Invalid file uploaded" },
+			 :preventRetry => true }, :status => :unauthorized
 		end
 	end
 

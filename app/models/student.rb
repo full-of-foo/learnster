@@ -10,6 +10,16 @@ class Student < User
     text :email
     date :created_at
     date :updated_at
+    integer :org_id
+    text :org_title, :boost => 2
+  end
+
+  def org_id
+    self.attending_org ? self.attending_org.id : nil 
+  end
+
+  def org_title
+    self.attending_org ? self.attending_org.title : nil 
   end
 
   def app_admin?

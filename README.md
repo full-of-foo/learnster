@@ -5,9 +5,9 @@ Currently in development, learnster is a learnining management system whose rich
 
 ### System Requirements
 
-Please note that such has been tested only on OS X 10.8
+Please note that such has been tested only on OS X 10.8+
 
- - Rails 4.0
+ - Rails 4.0.1
  - ruby 2.0.0p247 (or above)
  - bundler
  - JRE (for Solr)

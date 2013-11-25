@@ -5,10 +5,11 @@
         <h4 class="modal-title">Import Students</h4>
       </div>
       <div class="modal-body">
-        <p>Upload multiple students via <a href="#">this</a> template&hellip;</p>
+        <p>Upload multiple students via <a target="_blank" href="/docs/student_import_template.csv">
+        this</a> template&hellip;</p>
         <ol>
           <li>ensure all values are formatted correctly</li>
-          <li>ensure file is in CSV format</li>
+          <li>ensure data file is in CSV, XLS, or XLSX format</li>
           <li>add the file and upload</li>
 
         </ol>
@@ -17,10 +18,9 @@
 
         <div id="upload-results"></div>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button id="import-students-dialog-button" type="button" class="btn btn-primary">Import Students</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

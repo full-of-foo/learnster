@@ -61,6 +61,9 @@
 		App.execute "set:root:route"
 		App.navigate(App.rootRoute)
 
+  App.commands.setHandler "refresh:current:route", ->
+    @refreshCurrentRoute()
+
 	App.commands.setHandler "reset:regions", ->
 		App.execute "set:root:route"
 		App.execute "show:sidebar"

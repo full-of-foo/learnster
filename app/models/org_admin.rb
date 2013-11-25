@@ -10,7 +10,17 @@ class OrgAdmin < User
 		text :email
 		date :created_at
 		date :updated_at
-	end
+ 		integer :org_id
+    text :org_title, :boost => 2
+  end
+
+  def org_id
+    self.admin_for ? self.admin_for.id : nil 
+  end
+
+  def org_title
+    self.admin_for ? self.admin_for.title : nil 
+  end
 
 	def self.model_name
   	User.model_name

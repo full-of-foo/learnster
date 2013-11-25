@@ -11,7 +11,7 @@
 
       @listenTo @layout, "show", =>
         @showSearch students
-        @showPanel @_nestingOrg
+        @showPanel students
         @showStudents students
 
       @show @layout
@@ -21,7 +21,7 @@
       App.execute "new:student:view", @layout.newRegion
 
     showPanel: (students) ->
-      panelView = @getPanelView students
+      panelView = @getPanelView @_nestingOrg
 
       @listenTo panelView, "new:student:button:clicked", =>
         @showNewRegion()
@@ -32,6 +32,9 @@
       if @_nestingOrg
         @listenTo panelView, "import:dropdown:clicked", =>
           App.vent.trigger "open:student:import:dialog", @_nestingOrg
+          App.vent.on "students:import:success", (dialogView) ->
+            console.log 'success'
+            students.reset()
 
       @show panelView,
         loading:
