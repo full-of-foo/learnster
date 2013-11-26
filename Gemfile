@@ -5,7 +5,6 @@ gem "rails", "4.0.1"
 
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0.beta'
   gem "coffee-rails-source-maps"
   gem "sqlite3", "1.3.7"
 end
@@ -16,8 +15,7 @@ group :test do
   gem "rb-fsevent"
   gem "terminal-notifier-guard"
   gem "factory_girl_rails"
-  gem "capybara"
-  gem "cucumber-rails"
+  gem 'cucumber-rails', :require => false
   gem "database_cleaner"
   gem "watir-webdriver"
   gem "parallel_tests"

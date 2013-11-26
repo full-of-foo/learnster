@@ -3,4 +3,20 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+desc 'stop rails'
+task :stop do
+
+  pid_file = 'tmp/pids/server.pid'
+  if File.exist?(pid_file)
+    pid = File.read(pid_file).to_i
+    puts "Killing Server: #{pid.to_s}"  
+    Process.kill 9, pid
+    File.delete pid_file 
+    puts "Deleted: #{pid_file}"
+  else
+    puts "Cannot seem to find a rails process"
+  end
+end
+
+
 Learnster::Application.load_tasks

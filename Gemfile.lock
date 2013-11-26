@@ -205,23 +205,6 @@ GEM
       spreadsheet (> 0.6.4)
     rsolr (1.0.9)
       builder (>= 2.1.2)
-    rspec-collection_matchers (0.0.2)
-      rspec-expectations (>= 2.99.0.beta1)
-    rspec-core (3.0.0.beta1)
-    rspec-expectations (3.0.0.beta1)
-      diff-lcs (>= 1.1.3, < 2.0)
-      rspec-support (= 3.0.0.beta1)
-    rspec-mocks (3.0.0.beta1)
-    rspec-rails (3.0.0.beta1)
-      actionpack (>= 3.0)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-collection_matchers
-      rspec-core (= 3.0.0.beta1)
-      rspec-expectations (= 3.0.0.beta1)
-      rspec-mocks (= 3.0.0.beta1)
-    rspec-support (3.0.0.beta1)
     ruby-ole (1.2.11.7)
     rubyzip (0.9.9)
     sass (3.2.12)
@@ -293,7 +276,6 @@ DEPENDENCIES
   acts_as_xlsx
   axlsx_rails
   bootstrap-sass-rails (= 2.3.2.1)
-  capybara
   coffee-rails (= 4.0.0)
   coffee-rails-source-maps
   cucumber-rails
@@ -318,7 +300,6 @@ DEPENDENCIES
   rails_12factor (= 0.0.2)
   rb-fsevent
   roo
-  rspec-rails (~> 3.0.0.beta)
   rubyzip (~> 0.9.9)
   sass-rails (= 4.0.0)
   sdoc (= 0.3.20)

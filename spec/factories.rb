@@ -7,6 +7,8 @@ FactoryGirl.define do
     surname "Blogs"
     sequence(:email) { |n| "foo#{n}@example.com" }
     type "AppAdmin"
+    salt "asdasdastr4325234324sdfds"
+    crypted_password Sorcery::CryptoProviders::BCrypt.encrypt("foobar", "asdasdastr4325234324sdfds")
     password "foobar"
     password_confirmation "foobar"
     
