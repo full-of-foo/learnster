@@ -9,9 +9,6 @@
 		showLogin: ->
 			new SessionApp.Show.Controller()
 
-		destroySession: ->
-			new SessionApp.Show.Controller()
-
 		getDestroyIconView: ->
 			new SessionApp.Destroy.Icon()
 

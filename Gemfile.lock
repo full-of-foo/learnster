@@ -51,6 +51,8 @@ GEM
       xpath (~> 2.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    childprocess (0.3.9)
+      ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.0)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -61,6 +63,18 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    cucumber (1.3.10)
+      builder (>= 2.1.2)
+      diff-lcs (>= 1.1.3)
+      gherkin (~> 2.12)
+      multi_json (>= 1.7.5, < 2.0)
+      multi_test (>= 0.0.2)
+    cucumber-rails (1.4.0)
+      capybara (>= 1.1.2)
+      cucumber (>= 1.2.0)
+      nokogiri (>= 1.5.0)
+      rails (>= 3.0.0)
+    database_cleaner (1.2.0)
     datejs-rails (2.0.1)
       railties (>= 3.1)
     diff-lcs (1.2.5)
@@ -85,6 +99,8 @@ GEM
     font-awesome-rails (4.0.3.0)
       railties (>= 3.2, < 5.0)
     formatador (0.2.4)
+    gherkin (2.12.2)
+      multi_json (~> 1.3)
     gon (4.1.1)
       actionpack (>= 2.3.0)
       json
@@ -94,9 +110,6 @@ GEM
       lumberjack (~> 1.0)
       pry (>= 0.9.12)
       thor (>= 0.18.1)
-    guard-rspec (3.1.0)
-      guard (>= 1.8)
-      rspec (~> 2.13)
     guard-teaspoon (0.0.4)
       guard (>= 1.6.1)
       teaspoon (>= 0.5.3)
@@ -128,6 +141,7 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.2)
+    multi_test (0.0.2)
     multipart-post (1.2.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
@@ -141,6 +155,9 @@ GEM
     oj (2.2.3)
     options (2.3.0)
       fattr
+    parallel (0.9.1)
+    parallel_tests (0.16.5)
+      parallel
     pg (0.15.1)
     phantomjs (1.9.2.0)
     polyglot (0.3.3)
@@ -188,21 +205,23 @@ GEM
       spreadsheet (> 0.6.4)
     rsolr (1.0.9)
       builder (>= 2.1.2)
-    rspec (2.13.0)
-      rspec-core (~> 2.13.0)
-      rspec-expectations (~> 2.13.0)
-      rspec-mocks (~> 2.13.0)
-    rspec-core (2.13.1)
-    rspec-expectations (2.13.0)
+    rspec-collection_matchers (0.0.2)
+      rspec-expectations (>= 2.99.0.beta1)
+    rspec-core (3.0.0.beta1)
+    rspec-expectations (3.0.0.beta1)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.13.1)
-    rspec-rails (2.13.1)
+      rspec-support (= 3.0.0.beta1)
+    rspec-mocks (3.0.0.beta1)
+    rspec-rails (3.0.0.beta1)
       actionpack (>= 3.0)
+      activemodel (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 2.13.0)
-      rspec-expectations (~> 2.13.0)
-      rspec-mocks (~> 2.13.0)
+      rspec-collection_matchers
+      rspec-core (= 3.0.0.beta1)
+      rspec-expectations (= 3.0.0.beta1)
+      rspec-mocks (= 3.0.0.beta1)
+    rspec-support (3.0.0.beta1)
     ruby-ole (1.2.11.7)
     rubyzip (0.9.9)
     sass (3.2.12)
@@ -213,6 +232,11 @@ GEM
     sdoc (0.3.20)
       json (>= 1.1.3)
       rdoc (~> 3.10)
+    selenium-webdriver (2.35.1)
+      childprocess (>= 0.2.5)
+      multi_json (~> 1.0)
+      rubyzip (< 1.0.0)
+      websocket (~> 1.0.4)
     slop (3.4.7)
     sorcery (0.8.4)
       bcrypt-ruby (~> 3.0.0)
@@ -256,6 +280,9 @@ GEM
     uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    watir-webdriver (0.6.4)
+      selenium-webdriver (>= 2.18.0)
+    websocket (1.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -269,18 +296,20 @@ DEPENDENCIES
   capybara
   coffee-rails (= 4.0.0)
   coffee-rails-source-maps
+  cucumber-rails
+  database_cleaner
   datejs-rails
   eco
   factory_girl_rails
   faker
   font-awesome-rails
   gon
-  guard-rspec
   guard-teaspoon
   jbuilder (= 1.0.2)
   jquery-rails (~> 3.0.4)
   js-routes
   oj
+  parallel_tests
   pg (= 0.15.1)
   populator
   progress_bar
@@ -289,7 +318,7 @@ DEPENDENCIES
   rails_12factor (= 0.0.2)
   rb-fsevent
   roo
-  rspec-rails (= 2.13.1)
+  rspec-rails (~> 3.0.0.beta)
   rubyzip (~> 0.9.9)
   sass-rails (= 4.0.0)
   sdoc (= 0.3.20)
@@ -301,3 +330,4 @@ DEPENDENCIES
   teaspoon
   terminal-notifier-guard
   uglifier (= 2.1.1)
+  watir-webdriver
