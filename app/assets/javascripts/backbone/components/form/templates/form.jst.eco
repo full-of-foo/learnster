@@ -5,7 +5,7 @@
 	<% if @buttons: %>
 		<div id="form-btn-wrapper">
 			<% for button in @buttons: %>
-				<button data-form-button="<%= button.type %>" class="<%= button.className %>"><%= button.text %></button>
+				<button id="<%= button.text %>" data-form-button="<%= button.type %>" class="<%= button.className %>"><%= button.text %></button>
 			<% end %>
 		</div>
 		<% end %>
