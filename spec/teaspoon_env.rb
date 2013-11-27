@@ -14,7 +14,7 @@ require File.expand_path("../../config/environment", __FILE__)
 # rake teaspoon DRIVER=selenium SUPPRESS_LOG=false
 Teaspoon.setup do |config|
   # Driver / Server
-  #config.driver              = "phantomjs" # available: phantomjs, selenium
+  config.driver              = "phantomjs" # available: phantomjs, selenium
   #config.server              = nil # defaults to Rack::Server
 
   # Behaviors
@@ -25,7 +25,7 @@ Teaspoon.setup do |config|
   # Output
   #config.formatters          = "dot" # available: dot, tap, tap_y, swayze_or_oprah
   #config.suppress_log        = false # suppress logs coming from console[log/error/debug]
-  #config.color               = true
+  config.color               = true
 
   # Coverage (requires istanbul -- https://github.com/gotwarlost/istanbul)
   #config.coverage            = true

@@ -7,11 +7,13 @@ gem "rails", "4.0.1"
 group :development, :test do
   gem "coffee-rails-source-maps"
   gem "sqlite3", "1.3.7"
+  gem "teaspoon"
+  gem "guard-teaspoon"
+  gem 'guard-cucumber'
+  gem "ruby_gntp"
 end
 
 group :test do
-  gem "teaspoon"
-  gem "guard-teaspoon"
   gem "rb-fsevent"
   gem "terminal-notifier-guard"
   gem "factory_girl_rails"

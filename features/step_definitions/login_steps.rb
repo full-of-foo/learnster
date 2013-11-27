@@ -31,6 +31,8 @@ Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
     raise "invalid user type"
   end
 
+  Log.debug User.all.to_a.inspect
+
   page.attempt_login(user.email, "foobar")
   sleep 1
 end
