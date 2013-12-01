@@ -19,7 +19,6 @@ Learnster::Application.configure do
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
   # config.action_dispatch.rack_cache = true
 
-  # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS.
@@ -79,5 +78,5 @@ Learnster::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Precompile additional assets
-  config.assets.precompile += %w( .svg .eot .woff .ttf )
+  config.assets.precompile += %w( .svg .eot .ttf )
 end
