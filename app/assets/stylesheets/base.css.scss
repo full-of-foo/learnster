@@ -105,17 +105,17 @@ html, body {
 /* base table sorting styles */
 .tablesorter {
 	 .header:hover {
-		background-image: url("/assets/bg.gif");
+		background-image: url("/images/bg.gif");
 		background-repeat: no-repeat;
 		background-position: top right;
 		padding-top: 8px;
 		height: auto;
 	}
 	.headerSortUp:hover {
-		background-image: url("/assets/asc.gif");
+		background-image: url("/images/asc.gif");
 	}
 	.headerSortDown:hover {
-		background-image: url("/assets/desc.gif");
+		background-image: url("/images/desc.gif");
 	}
 }
 

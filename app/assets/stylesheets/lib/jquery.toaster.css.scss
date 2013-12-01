@@ -38,10 +38,10 @@
 }
 
 .toast-none:before    { display: none; }
-.toast-info:before    { background: url("/assets/success.png"); }
-.toast-notice:before  { background: url("/assets/notice.png"); }
-.toast-warn:before    { background: url("/assets/warning.png"); }
-.toast-error:before   { background: url("/assets/error.png"); }
+.toast-info:before    { background: url("/images/success.png"); }
+.toast-notice:before  { background: url("/images/notice.png"); }
+.toast-warn:before    { background: url("/images/warning.png"); }
+.toast-error:before   { background: url("/images/error.png"); }
 
 .toast > a[href="#close"]/*:after*/ {
     content: 'X';

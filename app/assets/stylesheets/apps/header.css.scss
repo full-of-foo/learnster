@@ -8,13 +8,13 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 400;
-  src: local('Montserrat-Regular'), url("/assets/reg.woff") format('woff');
+  src: local('Montserrat-Regular'), asset-url("reg.woff") format('woff');
 }
 @font-face {
   font-family: 'Montserrat-Bold';
   font-style: normal;
   font-weight: 700;
-  src: local('Montserrat-Bold'), url("/assets/bold.woff") format('woff');
+  src: local('Montserrat-Bold'), asset-url("bold.woff") format('woff');
 }
 
 .logo {

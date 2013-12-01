@@ -43,7 +43,7 @@
 					""
 
 			dockerItemElement: (elemId, imageName, caption) ->
-				"<li id='#{@escape(elemId)}' class='dock-item'><img src='/assets/nav/#{@escape(imageName)}' /><span>#{@escape(caption)}</span></li>"
+				"<li id='#{@escape(elemId)}' class='dock-item'><img src='/images/#{@escape(imageName)}' /><span>#{@escape(caption)}</span></li>"
 
 			currentUser: ->
 				user = App.request("get:current:user")
