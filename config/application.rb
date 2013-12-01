@@ -28,6 +28,7 @@ module Learnster
     config.assets.enabled = true
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
     config.assets.paths << "#{Rails.root}/app/assets/docs"
+    config.assets.paths << "#{Rails.root}/app/assets/images/nav"
     config.filter_parameters += [:password, :password_confirmation]
   end
 end

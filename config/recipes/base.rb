@@ -11,6 +11,6 @@ namespace :deploy do
   desc "Install everything onto the server"
   task :install do
     run "#{sudo} apt-get -y update"
-    run "#{sudo} apt-get -y install python-software-properties openjdk-6-jdk"
+    run "#{sudo} apt-get -y install python-software-properties openjdk-6-jdk solr-tomcat"
   end
 end

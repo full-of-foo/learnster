@@ -20,7 +20,7 @@ Learnster::Application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -77,9 +77,6 @@ Learnster::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-
-  # Add the fonts path
-  config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
   # Precompile additional assets
   config.assets.precompile += %w( .svg .eot .woff .ttf )
