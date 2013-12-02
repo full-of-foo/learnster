@@ -4,16 +4,6 @@ class Student < User
   belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org" 
   validates_presence_of :attending_org
 
-  searchable do
-    text :first_name, :boost => 2
-    text :surname, :boost => 5 
-    text :email
-    date :created_at
-    date :updated_at
-    integer :org_id
-    text :org_title, :boost => 2
-  end
-
   def org_id
     self.attending_org ? self.attending_org.id : nil 
   end

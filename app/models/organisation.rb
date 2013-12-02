@@ -8,9 +8,15 @@ class Organisation < ActiveRecord::Base
   validates_uniqueness_of :title
   validates_presence_of :title, :description
 
-  searchable do
-		text :title, :boost => 5 
-		text :description
-	end
+  generate_scopes
+
+
+  def self.search_term(search)
+    if search 
+      self.title_matches("%#{search}%") | self.description_matches("%#{search}%")
+    else
+      self.all
+    end
+  end
 
 end
