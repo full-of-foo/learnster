@@ -5,14 +5,11 @@ class Api::V1::StudentController < ApplicationController
 
 	def index
 		if search_request?
-			@search = Student.search do
-				fulltext params[:search]
-				with(:org_id).equal_to(params[:organisation_id]) if nested_org_request?(params)
-				with(:created_at, Time.zone.now.ago((params[:created_months_ago].to_i).months)..Time.zone.now) if params[:created_months_ago]
-				with(:updated_at, Time.zone.now.ago((params[:updated_months_ago].to_i).months)..Time.zone.now) if params[:updated_months_ago]
-				paginate :page => 1, :per_page => 10000
-			end
-			return (@students = @search.results)
+			@students = Student.search_term(params[:search]) 								if not nested_org_request?(params)
+			@students = Student.search_term(params[:search], @org) 					if nested_org_request?(params)
+			@students = Student.search_range(params[:created_months_ago]) 	if params[:created_months_ago]
+			@students = Student.search_range(params[:updated_months_ago]) 	if params[:updated_months_ago]
+			return @students
 		end
 		
 		@students = nested_org_request?(params) ? @org.students() : Student.all()
@@ -80,6 +77,7 @@ class Api::V1::StudentController < ApplicationController
 			 :preventRetry => true }, :status => :unauthorized
 		end
 	end
+	
 
 	private
 

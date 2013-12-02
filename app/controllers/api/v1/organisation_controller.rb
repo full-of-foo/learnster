@@ -3,11 +3,9 @@ class Api::V1::OrganisationController < ApplicationController
 	before_filter :require_login
 
 	def index
-		if params[:search]
-			@search = Organisation.search do
-				fulltext params[:search]
-			end
-			return (@organisations = @search.results)
+		if search_request?
+			@organisations = Organisation.search_term(params[:search]) 
+			return @organisations
 		end
 
 		@organisations = Organisation.all
@@ -19,9 +17,8 @@ class Api::V1::OrganisationController < ApplicationController
 				vnd.openxmlformates-officedocument.spreadsheetml.sheet"
 			 }
 			end	
-		else
-		  @organisations
 		end
+		@organisations
 	end
 
 	def show

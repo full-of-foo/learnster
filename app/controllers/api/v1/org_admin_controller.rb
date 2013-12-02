@@ -6,14 +6,11 @@ class Api::V1::OrgAdminController < ApplicationController
 
 	def index
 		if search_request?
-			@search = OrgAdmin.search do
-				fulltext params[:search]
-				with(:org_id).equal_to(params[:organisation_id]) if nested_org_request?(params)
-				with(:created_at, Time.zone.now.ago((params[:created_months_ago].to_i).months)..Time.zone.now) if params[:created_months_ago]
-				with(:updated_at, Time.zone.now.ago((params[:updated_months_ago].to_i).months)..Time.zone.now) if params[:updated_months_ago]
-				paginate :page => 1, :per_page => 10000
-			end
-			return (@org_admins = @search.results)
+			@org_admins = OrgAdmin.search_term(params[:search]) 							if not nested_org_request?(params)
+			@org_admins = OrgAdmin.search_term(params[:search], @org) 				if nested_org_request?(params)
+			@org_admins = OrgAdmin.search_range(params[:created_months_ago]) 	if params[:created_months_ago]
+			@org_admins = OrgAdmin.search_range(params[:updated_months_ago]) 	if params[:updated_months_ago]
+			return @org_admins
 		end
 		
 		@org_admins = nested_org_request?(params) ? @org.admins() : OrgAdmin.all()

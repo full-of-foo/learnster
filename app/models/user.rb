@@ -20,14 +20,4 @@ class User < ActiveRecord::Base
       "#{first_name} #{surname}"
   end
 
-  def self.search_term(search, nested_org = nil)
-    if search and not nested_org
-      self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")
-    elsif search and nested_org 
-      (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")) & self.attending_org_eq(nested_org.id)
-    else
-      self.all
-    end
-  end
-
 end

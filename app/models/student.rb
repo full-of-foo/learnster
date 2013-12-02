@@ -54,5 +54,17 @@ class Student < User
     else raise "Unknown file type: #{file.original_filename}"
     end
   end
+
+  def self.search_term(search, nested_org = nil)
+    if not search.empty? and not nested_org
+      self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")
+    elsif not search.empty? and nested_org 
+      (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")) & self.attending_org_eq(nested_org.id)
+    elsif search.empty? and nested_org
+      self.attending_org_eq(nested_org.id)
+    else
+      self.all
+    end
+  end
   
 end

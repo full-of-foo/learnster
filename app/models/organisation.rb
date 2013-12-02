@@ -12,7 +12,7 @@ class Organisation < ActiveRecord::Base
 
 
   def self.search_term(search)
-    if search 
+    if not search.empty?
       self.title_matches("%#{search}%") | self.description_matches("%#{search}%")
     else
       self.all
