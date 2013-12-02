@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
-	protect_from_forgery with: :exception
+	protect_from_forgery with: :null_session
 	before_filter :authorize
 	before_filter proc { |controller| controller.response.headers['x-url'] = controller.request.fullpath } 
+	# skip_before_filter :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
 
 
 	def index
