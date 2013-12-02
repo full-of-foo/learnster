@@ -66,5 +66,12 @@ class Student < User
       self.all
     end
   end
+
+  def self.search_range(months_ago, date_attr_key)
+    date_attr_str = date_attr_key == :created_at ? "created_at" : "updated_at"
+    if ["3", "6", "9", "12", "24", "36", "48", "60"].include? months_ago
+      (Student.send("#{date_attr_str}_lteq", Time.zone.now) & Student.send("#{date_attr_str}_gteq", Time.zone.now.ago((months_ago.to_i).months))) 
+    end   
+  end
   
 end
