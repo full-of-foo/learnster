@@ -18,9 +18,13 @@ BASHRC
     run %q{export PATH="$HOME/.rbenv/bin:$PATH"}
     run %q{eval "$(rbenv init -)"}
     run "rbenv #{rbenv_bootstrap}"
-    run "rbenv install #{ruby_version}"
-    run "rbenv global #{ruby_version}"
-    run "gem install bundler --no-ri --no-rdoc"
+    if not capture("rbenv version").include?("2.0.0-p247")
+      run "rbenv install #{ruby_version}"
+      run "rbenv global #{ruby_version}"
+      run "gem install bundler --no-ri --no-rdoc"
+    else
+      run "echo 'Ruby 2 already installed'"
+    end
     run "rbenv rehash"
   end
   after "deploy:install", "rbenv:install"
