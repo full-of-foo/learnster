@@ -1,7 +1,7 @@
 class Api::V1::OrgAdminController < ApplicationController
   respond_to :json
   before_filter :find_org
-  before_filter :require_login
+  # before_filter :require_login
   
 
   def index
