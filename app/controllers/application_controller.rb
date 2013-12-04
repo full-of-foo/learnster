@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def track_activity(trackable, action = params[:action], user = nil)
-		user ||= current_user
+		user ||= AppAdmin.first
   	user.activities.create! action: action, trackable: trackable
 	end
 
