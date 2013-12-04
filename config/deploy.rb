@@ -18,7 +18,7 @@ set :use_sudo, false
 
 set :scm, "git"
 set :repository, "git@github.com:full-of-foo/#{application}.git"
-set :branch, "master"
+set :branch, fetch(:branch, "master")
 set :scm_verbose, true
 
 default_run_options[:pty] = true

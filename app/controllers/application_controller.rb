@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 	end
 	
 	def permitted_params
-		@permitted_params ||= PermittedParams.new(params, current_user)
+		@permitted_params ||= PermittedParams.new(params, AppAdmin.first)
 	end
 
 	def track_activity(trackable, action = params[:action], user = nil)
