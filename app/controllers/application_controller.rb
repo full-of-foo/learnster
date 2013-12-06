@@ -1,6 +1,10 @@
+require "token_header_authenticable"
+
 class ApplicationController < ActionController::Base
+	include TokenHeaderAuthenticable
+
 	protect_from_forgery with: :null_session
-	before_filter :authorize
+	before_filter :authenticate_and_authorize
 	before_filter proc { |controller| controller.response.headers['x-url'] = controller.request.fullpath } 
 	skip_before_filter :verify_authenticity_token, :if => proc { |c| c.request.format == 'application/json' }
 
@@ -20,10 +24,6 @@ class ApplicationController < ActionController::Base
 		else
 		  render json: {}
 		end
-	end
-	
-	def permitted_params
-		@permitted_params ||= PermittedParams.new(params, current_user)
 	end
 
 	def track_activity(trackable, action = params[:action], user = nil)
@@ -48,21 +48,29 @@ class ApplicationController < ActionController::Base
 	end
 
 	def current_user
-  	@current_user ||= User.find(session[:user_id]) if session[:user_id]
+  	@current_user
 	end
 	helper_method :current_user
+
+
+	# Auth and permissions
+
+	def permitted_params
+		@permitted_params ||= PermittedParams.new(params, current_user)
+	end
 
 	def current_permission
 	  @current_permission ||= Permission.new(current_user)
 	end
 
-	def require_login
-		render json: { error: "Not authorized" }, status: 401 if current_user.nil?
-	end
-
-	def authorize
-	  if !current_permission.allow?(params[:controller], params[:action], params)
-	    render json: { error: "Not authorized" }, status: 401
-	  end
+	def authenticate_and_authorize
+		authenticated_user = authenticate_with_http_token { |t, o| User.authenticated_user(t) }
+		if authenticated_user
+			@current_user = authenticated_user
+			has_permission = current_permission.allow?(params[:controller], params[:action], params)
+			render(json: { error: "Not authorized" }, status: 401) if !has_permission
+		else
+      request_http_token_authentication
+		end
 	end
 end

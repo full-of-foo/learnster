@@ -2,6 +2,8 @@ class ApiKey < ActiveRecord::Base
   belongs_to :user
   before_create :generate_access_token
 
+  generate_scopes
+
   private
 
   def generate_access_token
@@ -10,3 +12,4 @@ class ApiKey < ActiveRecord::Base
     end while self.class.exists?(access_token: access_token)
   end
 end
+
