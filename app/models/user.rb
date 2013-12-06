@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  authenticates_with_sorcery!
+  has_secure_password
+  
   belongs_to :created_by, class_name: "User", foreign_key: "created_by"
   has_many :users, class_name: "User", foreign_key: "created_by"
   has_many :activities

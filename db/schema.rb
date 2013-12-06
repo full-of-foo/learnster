@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131123172441) do
+ActiveRecord::Schema.define(version: 20131205154831) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -25,6 +25,17 @@ ActiveRecord::Schema.define(version: 20131123172441) do
   add_index "activities", ["trackable_id"], name: "index_activities_on_trackable_id"
   add_index "activities", ["user_id"], name: "index_activities_on_user_id"
 
+  create_table "api_keys", force: true do |t|
+    t.string   "access_token",                null: false
+    t.boolean  "active",       default: true, null: false
+    t.string   "expires_at"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id"
+
   create_table "organisations", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -35,6 +46,7 @@ ActiveRecord::Schema.define(version: 20131123172441) do
 
   create_table "users", force: true do |t|
     t.string   "email"
+    t.string   "password_digest"
     t.string   "first_name"
     t.string   "surname"
     t.string   "type"
@@ -45,12 +57,6 @@ ActiveRecord::Schema.define(version: 20131123172441) do
     t.integer  "created_by"
     t.integer  "admin_for"
     t.integer  "attending_org"
-    t.string   "crypted_password"
-    t.string   "salt"
-    t.string   "remember_me_token"
-    t.datetime "remember_me_token_expires_at"
   end
-
-  add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token"
 
 end

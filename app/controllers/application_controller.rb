@@ -47,8 +47,17 @@ class ApplicationController < ActionController::Base
 	  @org = Organisation.find(params[:organisation_id]) if params[:organisation_id]
 	end
 
+	def current_user
+  	@current_user ||= User.find(session[:user_id]) if session[:user_id]
+	end
+	helper_method :current_user
+
 	def current_permission
 	  @current_permission ||= Permission.new(current_user)
+	end
+
+	def require_login
+		render json: { error: "Not authorized" }, status: 401 if current_user.nil?
 	end
 
 	def authorize

@@ -6,8 +6,10 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   def create
-    @user = login(params[:email], params[:password], params[:remember_me])
-    if @user
+    @user = User.find_by_email(params[:email])
+    
+    if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
       @user.update(last_login: Time.zone.now, is_active: true)
       render "application/show_current_user.json.rabl"
     else
@@ -20,7 +22,7 @@ class Api::V1::SessionsController < ApplicationController
   def destroy
     if current_user
       current_user.update(is_active: false)
-      logout
+      session[:user_id] = nil
       render :json => {
         'csrfParam' => request_forgery_protection_token,
         'csrfToken' => form_authenticity_token

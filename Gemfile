@@ -27,9 +27,9 @@ gem "jbuilder", "1.0.2"
 gem "progress_bar"
 gem "acts_as_xlsx"
 gem "axlsx_rails"
-gem "sorcery"
 gem "rubyzip",  "~> 0.9.9"
 gem "roo"
+gem "bcrypt-ruby", "~> 3.1.2"
 
 group :development do
   gem "populator"
