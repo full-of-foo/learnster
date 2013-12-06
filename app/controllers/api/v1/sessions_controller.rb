@@ -9,7 +9,7 @@ class Api::V1::SessionsController < ApplicationController
     @user = User.find_by_email(params[:email])
     
     if @user && @user.authenticate(params[:password])
-      session[:user_id] = @user.id
+      @current_user = @user
       @user.update(last_login: Time.zone.now, is_active: true)
       render "application/show_current_user.json.rabl"
     else

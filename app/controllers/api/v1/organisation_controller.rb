@@ -1,5 +1,5 @@
 class Api::V1::OrganisationController < ApplicationController
-  respond_to :json
+  before_filter :authenticate_and_authorize
 
   def index
     if search_request?

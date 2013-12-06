@@ -25,6 +25,11 @@
 				# reset csrf token
 				xhr.setRequestHeader "X-CSRF-Token", resp.csrfToken
 
+		_removeAuthHeader: ->
+			$.ajaxSetup
+        headers:
+          'Authorization': ''
+
 
 	App.reqres.setHandler "destroy:session", ->
 		new Destroy.Controller()

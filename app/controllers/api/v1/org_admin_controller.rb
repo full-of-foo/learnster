@@ -1,5 +1,5 @@
 class Api::V1::OrgAdminController < ApplicationController
-  respond_to :json
+  before_filter :authenticate_and_authorize
   before_filter :find_org
 
   def index

@@ -12,7 +12,6 @@
 		getDestroyIconView: ->
 			new SessionApp.Destroy.Icon()
 
-
 	App.vent.on "session:created session:destroyed", (currentUser = null) ->
 		App.execute "reset:regions"
 

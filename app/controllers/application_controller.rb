@@ -4,16 +4,15 @@ class ApplicationController < ActionController::Base
 	include TokenHeaderAuthenticable
 
 	protect_from_forgery with: :null_session
-	before_filter :authenticate_and_authorize
 	before_filter proc { |controller| controller.response.headers['x-url'] = controller.request.fullpath } 
 	skip_before_filter :verify_authenticity_token, :if => proc { |c| c.request.format == 'application/json' }
+	respond_to :json
 
 
 	def index
 		@user ||= current_user
-		if @user
-		  gon.rabl
-		end
+
+		gon.rabl if @user
 		render "application/index.html.erb" 
 	end
 
@@ -73,4 +72,5 @@ class ApplicationController < ActionController::Base
       request_http_token_authentication
 		end
 	end
+
 end
