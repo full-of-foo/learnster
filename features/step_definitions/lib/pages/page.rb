@@ -19,6 +19,10 @@ module Pages
       def resize_window
         @browser.window.resize_to(1300, 960)
       end
+
+      def url(client_url)
+        TestConfig.sut << client_url
+      end
       
     end
 

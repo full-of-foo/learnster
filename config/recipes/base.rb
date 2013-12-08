@@ -16,14 +16,13 @@ namespace :deploy do
   end
 end
 
-namespace :deploy do
+namespace :sake do
 
-  desc "Reload the database with seed data"
-  task :seed do
-    run "cd #{current_path}; bundle exec rake db:seed RAILS_ENV=#{rails_env}"
+  desc "Run a task on a remote server."
+  task :invoke do
+    run("cd #{current_path} && bundle exec rake #{ENV['task']} RAILS_ENV=#{rails_env}")
   end
 end
-
 
 namespace :logs do
 

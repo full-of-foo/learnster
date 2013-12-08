@@ -2,13 +2,13 @@ require 'cucumber/rails'
 require "logger"
 require "parallel_tests"
 require "watir-webdriver"
-require "factory_girl_rails"
 require_relative "../step_definitions/lib/pages/page"
+require_relative "./test_config"
 
-include Sorcery::TestHelpers::Rails
 include Test::Unit::Assertions
+include TestConfig
 
-ENV["RAILS_ENV"] ||= 'test'
+ENV["RAILS_ENV"] ||= 'production'
 
 
 # Logging config
@@ -30,13 +30,13 @@ Log.debug "Rails ENV: #{ENV['RAILS_ENV']}"
 
 
 # DB and JS config
-ActionController::Base.allow_rescue = false
-begin
-  DatabaseCleaner.strategy = :truncation
-rescue NameError
-  raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
-end
-Cucumber::Rails::Database.javascript_strategy = :truncation
+# ActionController::Base.allow_rescue = false
+# begin
+#   DatabaseCleaner.strategy = :truncation
+# rescue NameError
+#   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+# end
+# Cucumber::Rails::Database.javascript_strategy = :truncation
 
 
 # Watir config
@@ -51,22 +51,22 @@ WEBDRIVER = true
  
 
 # Browser setup and teardown hooks
-system 'bundle exec sunspot-solr stop'
-system 'RAILS_ENV="test" rake db:test:prepare'
-system 'rm log/test.log'
-system "rake stop"
-system 'bundle exec sunspot-solr start -p 8983'
-system 'RAILS_ENV="test" rails s -p 4000 -e test -d'
+# system 'bundle exec sunspot-solr stop'
+# system 'RAILS_ENV="test" rake db:test:prepare'
+# system 'rm log/test.log'
+# system "rake stop"
+# system 'bundle exec sunspot-solr start -p 8983'
+# system 'RAILS_ENV="test" rails s -p 4000 -e test -d'
 
 Before do
-  Log.debug "Cleaning DB....."
-  DatabaseCleaner.clean
+  # Log.debug "Cleaning DB....."
+  # DatabaseCleaner.clean
   @browser = browser
 end
 
 at_exit do 
-  system "rake stop"
-  system 'bundle exec sunspot-solr stop'
+  # system "rake stop"
+  # system 'bundle exec sunspot-solr stop'
   if ENV["KILL_ON_EXIT"] == "1" and (!ENV['HEADLESS'] or ENV['HEADLESS'] == "0")
     Log.debug "Killing all processes named: firefox-bin"
     browser.close

@@ -1,7 +1,4 @@
-require "token_header_authenticable"
-
 class ApplicationController < ActionController::Base
-	include TokenHeaderAuthenticable
 
 	protect_from_forgery with: :null_session
 	before_filter proc { |controller| controller.response.headers['x-url'] = controller.request.fullpath } 

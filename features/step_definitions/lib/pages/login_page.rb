@@ -6,11 +6,9 @@ module Pages
     attr_accessor :password_field
     attr_accessor :login_button
 
-    URLS = { :development => "http://localhost:4000/" }
-
     def initialize(browser)
       super(browser)
-      @url = URLS[:development]
+      @url = url("/#/login")
 
       @email_field    = @browser.text_field(name: 'email')
       @password_field = @browser.text_field(name: 'password')
