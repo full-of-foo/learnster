@@ -11,7 +11,8 @@
         userAttrs       = userSession.attributes
         currentUser     = App.request "set:current:user", userAttrs
 
-        @_addTokenHeaderToRequests(currentUser)
+        @_setUserCookies(currentUser)
+        @_setTokenHeaderToRequests(currentUser)
         App.vent.trigger "session:created", currentUser
 
       @listenTo @layout, "show", ->
@@ -39,7 +40,11 @@
     getLayoutView: ->
       new Show.Layout()
 
-    _addTokenHeaderToRequests: (currentUser) ->
+    _setUserCookies: (currentUser) ->
+      $.cookie('user_id', currentUser.get('id'))
+      $.cookie('user_type', currentUser.get('type'))
+
+    _setTokenHeaderToRequests: (currentUser) ->
       $.ajaxSetup
         headers:
           'Authorization': "Token token=\"#{currentUser.get('access_token')}\""

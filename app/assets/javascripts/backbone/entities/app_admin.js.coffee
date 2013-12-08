@@ -10,7 +10,7 @@
             new Entities.AppAdmin attrs
 
         getAppAdminEntity: (id) ->
-            AppAdmin = Entities.AppAmin.findOrCreate
+            AppAdmin = Entities.AppAdmin.findOrCreate
                 id: id
             AppAdmin.fetch
                 reset: true
@@ -25,3 +25,6 @@
 
     App.reqres.setHandler "init:current:appAdmin", (attrs) ->
         API.setCurrentAppAdmin attrs
+
+    App.reqres.setHandler "appAdmin:entity", (id) ->
+        API.getAppAdminEntity id

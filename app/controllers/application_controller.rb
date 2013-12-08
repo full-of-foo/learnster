@@ -63,6 +63,10 @@ class ApplicationController < ActionController::Base
 		authenticated_user = authenticate_with_http_token { |t, o| User.authenticated_user(t) }
 		if authenticated_user
 			@current_user = authenticated_user
+			cookies['auth_header'] = request.headers['Authorization']
+			cookies['user_id']		 = @current_user.id
+			cookies['user_type'] 	 = @current_user.type
+			
 			has_permission = current_permission.allow?(params[:controller], params[:action], params)
 			render(json: { error: "Not authorized" }, status: 401) if !has_permission
 		else
