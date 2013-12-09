@@ -1,4 +1,4 @@
-@Learnster = do ($, Backbone, Marionette) ->
+@Learnster = do ($, Backbone, Marionette, _) ->
 
   App = new Marionette.Application()
 
@@ -8,12 +8,13 @@
       userType = gon.type[0].toLowerCase() + gon.type.slice(1)
       App.currentUser = App.reqres.request("init:current:#{userType}", gon)
       App.execute "set:root:route"
+
     else if $.cookie('user_id') and $.cookie('user_type')
       App.currentUser = App.reqres.request("fetch:current:user", $.cookie('user_id'), $.cookie('user_type'))
-      App.commands.execute("when:fetched", App.currentUser,
-        ->
-          App.commands.execute("reset:regionstonav", App.getCurrentRoute())
-          App.commands.execute("set:root:route"))
+      App.commands.execute("when:fetched", App.currentUser, ->
+        App.execute("set:root:route")
+        route = if App.getCurrentRoute() then App.getCurrentRoute() else App.rootRoute
+        App.commands.execute("reset:regionstonav", route))
 
     else
       App.currentUser = false
@@ -86,7 +87,6 @@
     App.execute "redirect:home"
 
   App.commands.setHandler "reset:regionstonav", (route) ->
-    App.execute "set:root:route"
     App.execute "show:sidebar"
     App.execute "show:header"
     App.navigate(route)

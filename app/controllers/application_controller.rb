@@ -31,6 +31,30 @@ class ApplicationController < ActionController::Base
 		!!params[:organisation_id]
 	end
 
+	def nested_org_term_search?(params)
+		!!params[:organisation_id] && !!params[:search]
+	end
+
+	def nested_org_created_at_search?(params)
+		!!params[:created_months_ago] && nested_org_request?(params)
+	end
+
+	def nested_org_updated_at_search?(params)
+		!!params[:updated_months_ago] && nested_org_request?(params)
+	end
+
+	def updated_at_search?(params)
+		!!params[:updated_months_ago] && !nested_org_request?(params)
+	end
+
+	def created_at_search?(params)
+		!!params[:created_months_ago] && !nested_org_request?(params)
+	end
+
+	def search_term_request?(params)
+		 params[:search].length > 0 && !params[:organisation_id]
+	end
+
 	def search_request?
 		!!params[:search]
 	end

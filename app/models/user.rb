@@ -23,10 +23,19 @@ class User < ActiveRecord::Base
     "#{first_name} #{surname}"
   end
 
-  def self.search_range(months_ago, date_attr_key)
+  def self.search_range(months_ago, date_attr_key, nested_org = nil)
     date_attr_str = date_attr_key == :created_at ? "created_at" : "updated_at"
+    (user_org_attr_str = self.name == "OrgAdmin" ? "admin_for" : "attending_org") if not nested_org.nil?
+
     if ["3", "6", "9", "12", "24", "36", "48", "60"].include? months_ago
-      (self.send("#{date_attr_str}_lteq", Time.zone.now) & self.send("#{date_attr_str}_gteq", Time.zone.now.ago((months_ago.to_i).months))) 
+      if nested_org.nil?
+        (self.send("#{date_attr_str}_lteq", Time.zone.now) & self
+          .send("#{date_attr_str}_gteq", Time.zone.now.ago((months_ago.to_i).months))) 
+      else
+        (self.send("#{date_attr_str}_lteq", Time.zone.now) & self
+          .send("#{date_attr_str}_gteq", Time.zone.now.ago((months_ago.to_i).months)) & self
+          .send("#{user_org_attr_str}_eq", nested_org.id)) 
+      end
     end   
   end
 
