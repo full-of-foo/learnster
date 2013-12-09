@@ -1,20 +1,6 @@
 
 # operations
 
-Given(/^I navigate to the "(.+)" page$/) do  |page|
-  raise "No page name supplied" if page.blank? or page.nil?
-  
-  case page
-  when "login"
-    page = Pages::LoginPage.new(@browser)
-  else
-    raise "invalid page name"
-  end
-
-  page.visit
-  page.resize_window  
-end
-
 Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
   raise "No user type supplied" if user_type_str.blank? or user_type_str.nil?
   page = Pages::LoginPage.new(@browser)

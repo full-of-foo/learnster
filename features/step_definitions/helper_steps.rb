@@ -1,5 +1,20 @@
 
 # Operations
+
+Given(/^I navigate to the "(.+)" page$/) do  |page|
+  raise "No page name supplied" if page.blank? or page.nil?
+  
+  case page
+  when "login"
+    page = Pages::LoginPage.new(@browser)
+  else
+    raise "invalid page name"
+  end
+
+  page.visit
+  page.resize_window  
+end
+
 Given(/^I click the "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
   element = ElementHelper.get_element(@browser, element_type, attribute, value)
 
