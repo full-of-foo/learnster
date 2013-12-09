@@ -13,6 +13,7 @@
           endpoint: Routes.api_organisation_import_users_path(@model.get('id'))
           customHeaders:
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr 'content'
+            'Authorization': $.cookie('auth_header') if $.cookie('auth_header')
           validation:
             allowedExtensions: ["csv", "xls", "xlsx"]
             sizeLimit: 5000000
