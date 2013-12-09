@@ -4,12 +4,22 @@
     urlRoot: Routes.api_activities_path()
 
   class Entities.NotificationsCollection extends Entities.Collections
-    url: Routes.api_activities_path()
     model: Entities.Notification
+
+    initialize: (options = {}) =>
+      @url = if not options.url then Routes.api_activities_path() else options.url
+      super
 
   API =
     getNotificationEntities: ->
       notifications = new Entities.NotificationsCollection
+      notifications.fetch
+        reset: true
+      notifications
+
+    getOrgNotificationEntities: (id) ->
+      notifications = new Entities.NotificationsCollection
+        url: Routes.api_organisation_activities_path(id)
       notifications.fetch
         reset: true
       notifications

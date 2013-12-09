@@ -2,17 +2,22 @@
 
   App = new Marionette.Application()
 
-
   App.on "initialize:before", (options) ->
     App.environment = options.environment
     if not _.isEmpty(gon)
       userType = gon.type[0].toLowerCase() + gon.type.slice(1)
       App.currentUser = App.reqres.request("init:current:#{userType}", gon)
+      App.execute "set:root:route"
     else if $.cookie('user_id') and $.cookie('user_type')
       App.currentUser = App.reqres.request("fetch:current:user", $.cookie('user_id'), $.cookie('user_type'))
-      App.commands.execute("when:fetched", App.currentUser, ->  App.commands.execute("reset:regionstonav", App.getCurrentRoute()))
+      App.commands.execute("when:fetched", App.currentUser,
+        ->
+          App.commands.execute("reset:regionstonav", App.getCurrentRoute())
+          App.commands.execute("set:root:route"))
+
     else
       App.currentUser = false
+      App.execute("set:root:route")
 
 
   App.reqres.setHandler "get:current:user", ->
@@ -21,7 +26,7 @@
   App.reqres.setHandler "fetch:current:user", (id, type) ->
     switch type
       when "AppAdmin" then App.currentUser = App.request("appAdmin:entity", id)
-      when "OrgAdmin" then App.currentUser = App.request("orgAdmin:entity", id)
+      when "OrgAdmin" then App.currentUser = App.request("org_admin:entity", id)
       when "Student"  then App.currentUser = App.request("student:entity", id)
       else throw new Error "Attributes supplied do not have correct user type"
     App.currentUser
@@ -49,7 +54,6 @@
     App.module("SidebarApp").start()
     App.module("FooterApp").start()
 
-
   App.commands.setHandler "unregister:instance", (instance, id) ->
     App.unregister instance, id if App.environment is "development"
 
@@ -68,8 +72,8 @@
     App.rootRoute = "/organisations"  if App.currentUser     instanceof Learnster.Entities.AppAdmin
     App.rootRoute = "/login"          if Object(App.currentUser) instanceof Boolean
 
-  App.commands.setHandler "redirect:home", =>
-    App.execute "set:root:route"
+  App.commands.setHandler "redirect:home", ->
+    App.execute("set:root:route")
     App.navigate(App.rootRoute)
 
   App.commands.setHandler "refresh:current:route", ->
@@ -88,7 +92,6 @@
     App.navigate(route)
 
   App.on "initialize:after", ->
-      App.execute "set:root:route"
       App.startHistory()
       if App.getCurrentRoute() isnt null and Object(App.currentUser) not instanceof Boolean
         App.navigate(App.getCurrentRoute())

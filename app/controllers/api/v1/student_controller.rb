@@ -6,7 +6,7 @@ class Api::V1::StudentController < ApplicationController
     if search_request?
       @students = Student.search_term(params[:search])                            if not nested_org_request?(params)
       @students = Student.search_term(params[:search], @org)                      if nested_org_request?(params)
-      @students = Student.search_range(params[:created_months_ago], :created_at)   if params[:created_months_ago]
+      @students = Student.search_range(params[:created_months_ago], :created_at)  if params[:created_months_ago]
       @students = Student.search_range(params[:updated_months_ago], :updated_at)  if params[:updated_months_ago]
       return @students
     end

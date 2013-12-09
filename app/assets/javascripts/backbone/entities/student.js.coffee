@@ -25,7 +25,7 @@
 
 		getOrgStudentEntities: (orgId) ->
 			students = new Entities.StudentsCollection
-											url: Routes.api_organisation_student_index_path(orgId)
+				url: Routes.api_organisation_student_index_path(orgId)
 			students.fetch
 				reset: true
 			students
@@ -44,7 +44,7 @@
 			{ term, nestedId } = searchOpts
 			if nestedId
 				students = new Entities.StudentsCollection
-										 url: Routes.api_organisation_student_index_path(nestedId)
+					url: Routes.api_organisation_student_index_path(nestedId)
 			else
 				students = new Entities.StudentsCollection
 

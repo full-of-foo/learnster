@@ -22,7 +22,7 @@
         App.navigate "/statistics"
 
       @listenTo dockView, "notifications:dockItem:clicked", ->
-        App.navigate "/notifications"
+        App.vent.trigger("notifications:link:clicked")
 
       @show dockView,
           region: @layout.dockRegion

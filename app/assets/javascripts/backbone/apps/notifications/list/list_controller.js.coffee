@@ -3,7 +3,9 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
-      notifications = App.request "notification:entities"
+      @_nestingOrg = if options.id then App.request("org:entity", options.id) else false
+
+      notifications = if not @_nestingOrg then App.request("notification:entities") else App.request("org:notification:entities", options.id)
 
       @layout = @getLayoutView()
       console.log @layout

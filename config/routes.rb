@@ -27,6 +27,7 @@ Learnster::Application.routes.draw do
         resources :student, :type => "Student"
         post '/import_users' => 'student#import', as: :import_users
         resources :org_admin, :type => "OrgAdmin", as: :admin
+        resources :activities
       end
 
       # Standard routes
