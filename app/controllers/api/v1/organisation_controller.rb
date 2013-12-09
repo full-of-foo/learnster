@@ -9,11 +9,11 @@ class Api::V1::OrganisationController < ApplicationController
 
     @organisations = Organisation.all
     
-    if params[:format] == "xlsx"        
+    if params[:format] == "xlsx"
+      type = "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"        
       respond_to do |format|
       format.xlsx {
-        send_data @organisations.to_xlsx.to_stream.read, :filename => 'organisations.xlsx', :type => "application/\
-        vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+        send_data @organisations.to_xlsx.to_stream.read, :filename => 'organisations.xlsx', :type => type
        }
       end 
     end

@@ -22,7 +22,12 @@ class Api::V1::SessionsController < ApplicationController
   def destroy
     if current_user
       current_user.update(is_active: false)
-      session[:user_id] = nil
+
+      @current_user = nil
+      cookies.delete('auth_header') if !!cookies['auth_header']
+      cookies.delete('user_id')     if !!cookies['user_id']
+      cookies.delete('user_type')   if !!cookies['user_type']
+
       render :json => {
         'csrfParam' => request_forgery_protection_token,
         'csrfToken' => form_authenticity_token

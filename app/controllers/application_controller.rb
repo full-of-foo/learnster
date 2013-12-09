@@ -60,6 +60,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def authenticate_and_authorize
+		request.headers['Authorization'] = cookies['auth_header'] if xlsx_request?
 		authenticated_user = authenticate_with_http_token { |t, o| User.authenticated_user(t) }
 		if authenticated_user
 			@current_user = authenticated_user
