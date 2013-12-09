@@ -8,8 +8,7 @@
                 "organisation/:id/admins"     : "listOrgAdmins"
                 "organisations"               : "listOrgs"
 
-
-    API =  
+    API =
         newOrg: (region) ->
             new OrgsApp.New.Controller
                             region: region
@@ -32,7 +31,7 @@
         get_org_id: (id_org) ->
             id = if id_org.id then id_org.id else id_org
 
-    
+
     App.commands.setHandler "new:org:view", (region) ->
         API.newOrg(region)
 
@@ -41,12 +40,12 @@
         API.edit id
 
     App.vent.on "link-org-students:clicked list-org-students:clicked", (id) ->
-        App.navigate Routes.api_organisation_student_index_path(id).split("/api")[1] + "s"
-        API.listOrgStudents id
+        App.navigate(Routes.api_organisation_student_index_path(id).split("/api")[1] + "s")
+        API.listOrgStudents(id)
 
     App.vent.on "link-org-admins:clicked list-org-admins:clicked", (id) ->
-        App.navigate Routes.api_organisation_admin_index_path(id).split("/api")[1] + "s"
-        API.listOrgAdmins id
+        App.navigate("/organisation/#{API.get_org_id(id)}/admins")
+        API.listOrgAdmins(id)
 
     App.vent.on "org:cancelled org:updated", (org) ->
         App.navigate Routes.api_organisation_index_path().split("/api")[1] + "s"
@@ -55,5 +54,5 @@
 
 
     App.addInitializer ->
-        new OrgsApp.Router 
+        new OrgsApp.Router
                 controller: API

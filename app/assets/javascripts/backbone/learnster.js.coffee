@@ -10,7 +10,7 @@
       App.currentUser = App.reqres.request("init:current:#{userType}", gon)
     else if $.cookie('user_id') and $.cookie('user_type')
       App.currentUser = App.reqres.request("fetch:current:user", $.cookie('user_id'), $.cookie('user_type'))
-      App.commands.execute("when:fetched", App.currentUser, ->  App.commands.execute("reset:regions"))
+      App.commands.execute("when:fetched", App.currentUser, ->  App.commands.execute("reset:regionstonav", App.getCurrentRoute()))
     else
       App.currentUser = false
 
@@ -73,7 +73,7 @@
     App.navigate(App.rootRoute)
 
   App.commands.setHandler "refresh:current:route", ->
-    @refreshCurrentRoute()
+    App.refreshCurrentRoute()
 
   App.commands.setHandler "reset:regions", ->
     App.execute "set:root:route"
@@ -81,11 +81,17 @@
     App.execute "show:header"
     App.execute "redirect:home"
 
+  App.commands.setHandler "reset:regionstonav", (route) ->
+    App.execute "set:root:route"
+    App.execute "show:sidebar"
+    App.execute "show:header"
+    App.navigate(route)
+
   App.on "initialize:after", ->
       App.execute "set:root:route"
-      @startHistory()
-      if @getCurrentRoute() isnt null and Object(App.currentUser) not instanceof Boolean
-        @navigate(@getCurrentRoute())
+      App.startHistory()
+      if App.getCurrentRoute() isnt null and Object(App.currentUser) not instanceof Boolean
+        App.navigate(App.getCurrentRoute())
       else
         App.execute "redirect:home"
 
