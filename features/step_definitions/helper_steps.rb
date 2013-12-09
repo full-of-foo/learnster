@@ -1,5 +1,5 @@
 
-# Operations
+# operations
 
 Given(/^I navigate to the "(.+)" page$/) do  |page|
   raise "No page name supplied" if page.blank? or page.nil?
@@ -7,6 +7,8 @@ Given(/^I navigate to the "(.+)" page$/) do  |page|
   case page
   when "login"
     page = Pages::LoginPage.new(@browser)
+  when "organisations"
+    page = Pages::OrganisationsPage.new(@browser)
   else
     raise "invalid page name"
   end
@@ -24,11 +26,18 @@ Given(/^I click the "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attrib
 end
 
 
-# Assertions 
+# assertions 
+
 Then(/^I should see a "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
   element = ElementHelper.get_element(@browser, element_type, attribute, value)
   
   raise "Cannot find: #{element_type}, #{attribute}, #{value}" if !(element.visible? and element.exists?)
+end
+
+Then(/^I should not see a "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
+  element = ElementHelper.get_element(@browser, element_type, attribute, value)
+  
+  raise "Found: #{element_type}, #{attribute}, #{value}" if element.exists?
 end
 
 Then(/^I should see the text "(.+)"$/) do |text|

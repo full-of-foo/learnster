@@ -18,11 +18,11 @@ class Api::V1::OrgAdminController < ApplicationController
     if xlsx_request?
       respond_to do |format|
         format.xlsx {
-          send_data @org_admins.to_xlsx.to_stream.read, :filename => 'admins.xlsx', :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+          send_data @org_admins.to_xlsx.to_stream.read, :filename => 'admins.xlsx', 
+          :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
          }
       end 
     end
-
     @org_admins   
    end
 

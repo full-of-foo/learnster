@@ -37,11 +37,15 @@ else
   browser = Watir::Browser.new :firefox
 end
 
-INDEX_OFFSET = -1
-WEBDRIVER = true
- 
+# Run hooks 
 Before do
   @browser = browser
+end
+
+After do
+  Log.debug browser.url
+  browser.cookies.clear
+  browser.refresh
 end
 
 at_exit do 

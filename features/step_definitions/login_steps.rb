@@ -17,12 +17,17 @@ Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
   end
 
   page.attempt_login(user[:email], user[:password])
+  
+  StepsDataCache.current_user_email = user[:email]
+  StepsDataCache.current_user_pass = user[:password]
   sleep 1
 end
 
 Given(/^I attempt to logout$/) do
   nav = Pages::HeaderNav.new(@browser)
   nav.attempt_logout
+
+  StepsDataCache.current_user_email, StepsDataCache.current_user_pass = nil, nil
   sleep 0.3
 end
 
