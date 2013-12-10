@@ -55,6 +55,21 @@ class Api::V1::OrgAdminController < ApplicationController
     render json: {}
   end
 
+  def import
+    if nested_org_request?(params) and ['.csv', '.xls', '.xlsx'].include? File.extname(params[:qqfilename])
+      import_status_data = OrgAdmin.import_with_validation(params[:qqfile], @org, current_user)
+      if import_status_data.values.all? { |value| value == true } and not import_status_data.empty?
+        render :json => { :success => true }  
+      else
+        render :json => { :success => false, :error => import_status_data,
+         :preventRetry => true }, :status => 422
+      end
+    else
+      render :json => { :success => false, :error => { "File Type Error" => "Invalid file uploaded" },
+       :preventRetry => true }, :status => :unauthorized
+    end
+  end
+
 
   private
 

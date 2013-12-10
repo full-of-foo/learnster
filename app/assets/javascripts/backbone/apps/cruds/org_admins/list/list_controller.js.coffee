@@ -3,7 +3,8 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      @_nestingOrg = if options.id then App.request("org:entity", options.id) else false
+      @_nestingOrgId = if options.id then options.id else false
+      @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
       org_admins = if not @_nestingOrg then App.request("org_admin:entities") else App.request("org:org_admin:entities", options.id)
 
@@ -25,6 +26,12 @@
 
       @listenTo panelView, "new:org_admin:button:clicked", =>
           @showNewRegion()
+
+      if @_nestingOrg
+        @listenTo panelView, "import:dropdown:clicked", =>
+          App.vent.trigger("open:admin:import:dialog", @_nestingOrg)
+          App.vent.on "admin:import:success", (dialogView) =>
+            @showFetchedAdmins()
 
       @listenTo panelView, "settings:button:clicked", =>
           @showSettings()
@@ -98,6 +105,12 @@
       @colCollection = null
       @showSettings() if not @layout.listSettingsRegion.currentView?.isClosed and @layout.listSettingsRegion.currentView
       @showOrgAdmins(org_admins)
+
+    showFetchedAdmins: ->
+      admins = if not @_nestingOrg then App.request("org_admin:entities") else App.request("org:org_admin:entities", @_nestingOrgId)
+      @colCollection = null
+      @showSettings() if not @layout.listSettingsRegion?.currentView?.isClosed and @layout.listSettingsRegion?.currentView
+      @showOrgAdmins(admins)
 
     getPanelView: (org_admins) ->
       new List.Panel

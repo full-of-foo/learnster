@@ -20,6 +20,7 @@
       triggers:
         "click #new-org-admin-button" : "new:org_admin:button:clicked"
         "click #list-settings-button" : "settings:button:clicked"
+        "click #import-dropdown-item" : "import:dropdown:clicked"
 
     class List.SearchPanel extends App.Views.ItemView
       template: "org_admins/list/templates/_search_panel"

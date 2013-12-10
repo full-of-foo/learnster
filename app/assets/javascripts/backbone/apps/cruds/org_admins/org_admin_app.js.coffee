@@ -7,19 +7,25 @@
 
 
   API =
-      listOrgAdmins: ->
-        new OrgAdminsApp.List.Controller()
+    listOrgAdmins: ->
+      new OrgAdminsApp.List.Controller()
 
-      newOrgAdmin: (region) ->
-        new OrgAdminsApp.New.Controller
-          region: region
+    newOrgAdmin: (region) ->
+      new OrgAdminsApp.New.Controller
+        region: region
 
-      edit: (id) ->
-        new OrgAdminsApp.Edit.Controller
-          id: @get_org_admin_id(id)
+    edit: (id) ->
+      new OrgAdminsApp.Edit.Controller
+        id: @get_org_admin_id(id)
 
-      get_org_admin_id: (id_org_admin) ->
-        id = if id_org_admin.id then id_org_admin.id else id_org_admin
+    get_org_admin_id: (id_org_admin) ->
+      id = if id_org_admin.id then id_org_admin.id else id_org_admin
+
+    openImportDialog: (organisation) ->
+      new OrgAdminsApp.Import.Controller
+        region: App.dialogRegion
+        model: organisation
+
 
   App.commands.setHandler "new:org_admin:view", (region) ->
     API.newOrgAdmin(region)
@@ -31,6 +37,9 @@
   App.vent.on "org_admin:cancelled org_admin:updated", (org_admin) ->
     App.navigate Routes.api_org_admin_index_path().split("/api")[1] + "s"
     API.listOrgAdmins()
+
+  App.vent.on "open:admin:import:dialog", (organisation) ->
+    API.openImportDialog organisation
 
 
 

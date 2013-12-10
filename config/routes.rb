@@ -26,6 +26,7 @@ Learnster::Application.routes.draw do
       resources :organisation do
         resources :student, :type => "Student"
         post '/import_users' => 'student#import', as: :import_users
+        post '/import_admins' => 'org_admin#import', as: :import_admins
         resources :org_admin, :type => "OrgAdmin", as: :admin
         resources :activities
       end

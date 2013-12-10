@@ -1,4 +1,4 @@
-do (Backbone, $, _) ->
+do (Backbone, $, _, window) ->
 
   _.extend Backbone.Marionette.Application::,
 
