@@ -33,7 +33,7 @@ end
 Then(/^I should see a "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
   element = ElementHelper.get_element(@browser, element_type, attribute, value)
   
-  raise "Cannot find: #{element_type}, #{attribute}, #{value}" if !(element.visible? and element.exists?)
+  raise "Cannot find: #{element_type}, #{attribute}, #{value}" if !(element.when_present.visible? and element.exists?)
 end
 
 Then(/^I should not see a "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
