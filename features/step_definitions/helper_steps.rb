@@ -1,6 +1,5 @@
 
 # operations
-
 Given(/^I navigate to the "(.+)" page$/) do  |page|
   raise "No page name supplied" if page.blank? or page.nil?
   
@@ -14,7 +13,7 @@ Given(/^I navigate to the "(.+)" page$/) do  |page|
   end
 
   page.visit
-  page.resize_window  
+  page.resize_window
 end
 
 Given(/^I click the "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
@@ -25,9 +24,12 @@ Given(/^I click the "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attrib
   element.click
 end
 
+Given(/^I wait "(.+)" seconds while the spinner is present$/) do |duration_str|
+  @browser.div(id: "loading-container").wait_while_present(duration_str.to_i)
+end
+
 
 # assertions 
-
 Then(/^I should see a "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
   element = ElementHelper.get_element(@browser, element_type, attribute, value)
   
@@ -46,6 +48,9 @@ Then(/^I should see the text "(.+)"$/) do |text|
   raise "The text '#{text}' is not on screen" if not @browser.text.include?(text)
 end
 
+
+
+# helper objs
 class ElementHelper
 
   def self.get_element(browser, element_type, attribute, value)

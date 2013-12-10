@@ -22,6 +22,13 @@ Given(/^I create an Organisation/) do
   page.submit_new_organisation_form(title, description)
 end
 
+Given(/^I search the organisation title$/) do
+  page = Pages::OrganisationsPage.new(@browser)
+  title = StepsDataCache.organisation_title
+
+  page.search_organisations_grid(title)
+end
+
 
 # assertions
 
@@ -38,9 +45,20 @@ Then(/^I can open and close the add-organisation well$/) do
 end
 
 Then(/^the Organisation is in the grid-list$/) do
+  step("I wait \"5\" seconds while the spinner is present")  
+
   title       = StepsDataCache.organisation_title       
   description = StepsDataCache.organisation_description
 
-  step("I should not see a \"td\" with the \"text\" of \"#{title}\"")
-  step("I should not see a \"td\" with the \"text\" of \"#{description}\"")
+  step("I should see a \"td\" with the \"text\" of \"#{title}\"")
+
+  step("I should see a \"td\" with the \"text\" of \"#{description}\"")
+end
+
+Then(/^I see the Organisation edit page title$/) do
+  sleep(0.4)
+  title = StepsDataCache.organisation_title       
+
+  step("I should see a \"p\" with the \"text\" of \"Editing Organisation: #{title}\"")
+
 end

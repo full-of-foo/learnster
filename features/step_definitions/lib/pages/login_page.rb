@@ -16,8 +16,6 @@ module Pages
     end
 
     def visit
-      Log.debug(@url)
-      Log.debug(@browser.inspect)
       @browser.goto @url
     end
 
