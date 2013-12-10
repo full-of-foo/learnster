@@ -1,4 +1,4 @@
-do (Backbone, $) ->
+do (Backbone, $, _) ->
 
   _.extend Backbone.Marionette.Application::,
 
@@ -42,10 +42,12 @@ do (Backbone, $) ->
 
 
     makeToast: (options = {}) ->
-      $("<div>").toaster
-              position:
-                top: 110, right: 0
-      $("<div>#{options.text}</div>").toast
-                        type: options.type
+      toast = new Notify 'Learnser',
+        body:                 options.text
+        permissionGranted: -> toast.show()
+        notifyShow: ->        _.delay( ( -> toast.myNotify.close() ), 2500)
+        icon:                 "images/learnster-toast.png"
 
-
+      if toast.needsPermission()
+        toast.requestPermission()
+      toast.show()
