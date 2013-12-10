@@ -21,7 +21,7 @@ module Pages
 
     # operations
     def attempt_login(email, password)
-      self.email_field.set email
+      self.email_field.when_present.set email
       self.password_field.set password
       self.login_button.click
     end
