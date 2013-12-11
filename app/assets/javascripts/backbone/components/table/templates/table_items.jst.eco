@@ -1,3 +1,5 @@
+	<small id="collection-count-span" class="text-info">
+	</small>
 	<div class="scroll-hor-wrapper pull-right span9">
 		<table id="app-table">
 		    <thead>
@@ -6,5 +8,5 @@
 		    </thead>
 		    <tbody></tbody>
 		</table>
-		<div class="pagination-area"></div>
+		<div class="pagination-area">&nbsp;</div>
 	</div>

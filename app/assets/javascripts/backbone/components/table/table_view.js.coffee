@@ -64,9 +64,8 @@
       { @columns, @config } = options
       @columns = @columns.models
       @defaultColumns = @getDefaultColumns @columns
-      @bindInfiniteScroll() if @config.isPaginable
-
       @setInstancePropertiesFor "itemViewOptions"
+      @bindInfiniteScroll() if @config.isPaginable
 
     onShow: ->
       @drawColumnHeaders @columns
@@ -105,7 +104,8 @@
 
     $setColumnHeader: (column) ->
       colIndex = @columns.indexOf(column)
-      $column = if column.get('htmlHeader') then $("<th>" + column.get('htmlHeader') + "</th>") else $("<th>" + column.get('title') + "</th>")
+      $column = if column.get('htmlHeader') then $("<th>" + column
+        .get('htmlHeader') + "</th>") else $("<th>" + column.get('title') + "</th>")
       $column.addClass "col-#{colIndex}"
       $column.addClass "{sorter: false}" if not column.get('isSortable')
       $column.addClass column.get('className') if column.get('className')
@@ -161,25 +161,30 @@
       (col for col in columns when col.get('default'))
 
     bindInfiniteScroll: =>
+      App.execute "when:fetched", @collection, =>
+        $('#collection-count-span')
+          .html("Viewing Page: #{@collection.get('next_link')} of #{@collection.get('last_link')}")
+        @_setScrollableCollection(@collection)
+
+    _setScrollableCollection: (collection) ->
       pageNumber = 1
+
       $(window).scroll =>
-        if @collection.get('next_link')
-          if (Number(@collection.get('next_link')) == pageNumber + 1) and ($(window)
+        if collection.get('next_link')
+          if (Number(collection.get('next_link')) == pageNumber + 1) and ($(window)
               .scrollTop() > $(document).height() - $(window).height() - 50)
             pageNumber += 1
             $('.pagination-area').addClass('pagination-loader')
-            $('.pagination-area').html("")
-
-            @collection.fetch
+            collection.fetch
               data: $.param
-                page: @collection.get('next_link')
-                add : true
+                page: collection.get('next_link')
+            collection.on "add", =>
+              if collection.get('next_link') ==  collection.get('last_link')
+                @_finishScroll(collection)
 
-            @collection.on "add", =>
-              $('.pagination-area').removeClass('pagination-loader')
-              $('.pagination-area')
-                .html("<span class='text-info'>Viewing: #{@collection
-                  .size()} out of #{@collection.size()} records</span>") if  @collection
-                    .get('next_link') ==  @collection.get('last_link')
-              $(window).scroll()
+    _finishScroll: (collection) ->
+      $('.pagination-area').removeClass('pagination-loader')
+      $('.pagination-area')
+        .html("<span class='text-info'>Viewing: #{collection
+          .size()} out of #{collection.size()} records</span>")
 

@@ -29,5 +29,7 @@
         false
 
     _formatLastLinkHeader: (linksHeader) ->
-      @_meta['last_link'] = (/(\d+)>; rel="last"/i
-          .exec(linksHeader))[1] if /rel="last"/i.test(linksHeader)
+      if /rel="last"/i.test(linksHeader)
+        @_meta['last_link'] = (/(\d+)>; rel="last"/i.exec(linksHeader))[1]
+      else
+        @_meta['last_link'] = @_meta['next_link']

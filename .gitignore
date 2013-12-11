@@ -1,3 +1,4 @@
+features/downloads/*
 public/assets/*
 /.bundle
 /db/*.sqlite3
