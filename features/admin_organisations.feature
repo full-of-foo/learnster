@@ -31,10 +31,8 @@ Scenario: Delete the Organisation and it is no longer listed
 	Given I navigate to the "login" page
 	And I attempt to login with a known "super admin"
 	Then I navigate to the "organisations" page
-	And I open the Organisation from the grid
-	Then I edit the Organisation
-	Then I navigate to the "organisations" page
-	And the Organisation is in the grid-list
+	And I delete the Organisation from the grid
+	And the Organisation is not in the grid-list
 
 @admin-organisations-2
 Scenario: Export Organisations and the file is downloaded

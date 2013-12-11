@@ -52,6 +52,13 @@ Given(/^I export the Organisations$/) do
   sleep 1
 end
 
+Given(/^I delete the Organisation from the grid$/) do
+  page = Pages::OrganisationsPage.new(@browser)
+  title = StepsDataCache.organisation_title
+
+  page.delete_organisation(title)
+end
+
 
 # assertions
 
@@ -77,6 +84,18 @@ Then(/^the Organisation is in the grid-list$/) do
   step("I should see a \"td\" with the \"text\" of \"#{title}\"")
 
   step("I should see a \"td\" with the \"text\" of \"#{description}\"")
+end
+
+Then(/^the Organisation is not in the grid-list$/) do
+  step("I wait \"5\" seconds while the spinner is present")  
+
+  title       = StepsDataCache.organisation_title       
+  description = StepsDataCache.organisation_description
+  sleep 0.4
+
+  step("I should not see a \"td\" with the \"text\" of \"#{title}\"")
+
+  step("I should not see a \"td\" with the \"text\" of \"#{description}\"")
 end
 
 Then(/^I see the Organisation edit page title$/) do

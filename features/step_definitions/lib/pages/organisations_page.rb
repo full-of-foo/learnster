@@ -18,6 +18,8 @@ module Pages
 
     attr_accessor :grid_title_cell
 
+    attr_accessor :delete_organisation_button
+
     def initialize(browser)
       super(browser)
       @url = url("/#/organisations")
@@ -35,6 +37,8 @@ module Pages
       @export_link              = @browser.link(text: 'Export All')
       @search_term_field        = @browser.text_field(id: 'search')
       @search_button            = @browser.button(text: 'Search')
+
+      @delete_organisation_button = @browser.button(id: 'delete-organisation-button')
     end
 
     def visit 
@@ -82,6 +86,23 @@ module Pages
     def export_organisations
       self.drop_down_link.when_present.click
       self.export_link.click
+    end
+
+    def select_delete_icon_from_grid(title)
+      e = grid_title_cell(title)
+      e.wd.location_once_scrolled_into_view
+      e.when_present.hover
+      sleep 0.3
+
+      @browser.execute_script("$('.scroll-hor-wrapper').scrollLeft(200);")
+      sleep 0.2
+      e.parent.tds.last.div(class: "delete-icon").i.when_present.click
+    end
+
+    def delete_organisation(title)
+      select_delete_icon_from_grid(title)
+      self.delete_organisation_button.when_present.click
+      sleep 1.2
     end
     
   end

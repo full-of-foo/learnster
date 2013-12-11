@@ -20,6 +20,7 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem "database_cleaner"
   gem "watir-webdriver"
+  gem 'watir-scroll'
   gem "parallel_tests"
 end
 

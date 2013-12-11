@@ -258,6 +258,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    watir-scroll (0.1.0)
+      watir-webdriver
     watir-webdriver (0.6.4)
       selenium-webdriver (>= 2.18.0)
     websocket (1.0.7)
@@ -308,4 +310,5 @@ DEPENDENCIES
   terminal-notifier-guard
   uglifier (= 2.1.1)
   unicorn (~> 4.7.0)
+  watir-scroll
   watir-webdriver
