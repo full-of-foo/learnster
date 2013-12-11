@@ -1,12 +1,33 @@
 @Learnster.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
-	class Entities.Collections extends Backbone.Collection
+  class Entities.Collections extends Backbone.Collection
 
-		initialize: ->
-			@on "all", (e) -> console.log e if App.enviornment is "development"
-			@on "unpermitted:entity", (entity) ->
-					App.execute "redirect:home"
+    initialize: ->
+      @_meta = {}
+      @on "all", (e) -> console.log e if App.enviornment is "development"
+      @on "unpermitted:entity", (collection) ->
+          App.execute "redirect:home"
 
-		fetch: (options = {}) ->
-			# options.reset = true
-			super options
+      @on "synced:pagninable:collection", (collection, linksHeader) ->
+        @_meta['next_link'] = @_formatNextLinkHeader(linksHeader)
+        @_meta['last_link'] = @_formatLastLinkHeader(linksHeader)
+
+    put: (prop, value) ->
+      @_meta[prop] = value
+
+    get: (prop) ->
+      @_meta[prop]
+
+    fetch: (options = {}) ->
+      # options.reset = true
+      super options
+
+    _formatNextLinkHeader: (linksHeader) ->
+      if /rel="next"/i.test(linksHeader)
+        @_meta['next_link'] = (/(\d+)>; rel="next"/i.exec(linksHeader))[1]
+      else
+        false
+
+    _formatLastLinkHeader: (linksHeader) ->
+      @_meta['last_link'] = (/(\d+)>; rel="last"/i
+          .exec(linksHeader))[1] if /rel="last"/i.test(linksHeader)

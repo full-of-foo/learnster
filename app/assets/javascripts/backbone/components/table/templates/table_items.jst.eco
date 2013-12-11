@@ -6,4 +6,5 @@
 		    </thead>
 		    <tbody></tbody>
 		</table>
+		<div class="pagination-area"></div>
 	</div>

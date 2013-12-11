@@ -31,6 +31,8 @@ gem "axlsx_rails"
 gem "rubyzip",  "~> 0.9.9"
 gem "roo"
 gem "bcrypt-ruby", "~> 3.1.2"
+gem 'will_paginate', '~> 3.0.5'
+gem 'api-pagination'
 
 group :development do
   gem "populator"

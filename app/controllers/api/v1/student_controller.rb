@@ -1,19 +1,23 @@
 class Api::V1::StudentController < ApplicationController
+  after_filter only: [:index] { paginate(:students) }
+
   before_filter :authenticate_and_authorize
   before_filter :find_org
 
   def index
+    sleep 3
     if search_request?
-      @students = Student.search_term(params[:search])                                  if search_term_request?(params)
-      @students = Student.search_term(params[:search], @org)                            if nested_org_term_search?(params)
-      @students = Student.search_range(params[:created_months_ago], :created_at)        if created_at_search?(params)
-      @students = Student.search_range(params[:updated_months_ago], :updated_at)        if updated_at_search?(params)
-      @students = Student.search_range(params[:created_months_ago], :created_at, @org)  if nested_org_created_at_search?(params)
-      @students = Student.search_range(params[:updated_months_ago], :updated_at, @org)  if nested_org_updated_at_search?(params)
+      @students = Student.search_term(params[:search]).page(params[:page]).per_page(20)         if search_term_request?(params)
+      @students = Student.search_term(params[:search], @org).page(params[:page]).per_page(20)   if nested_org_term_search?(params)
+      @students = Student.search_range(params[:created_months_ago], :created_at)                if created_at_search?(params)
+      @students = Student.search_range(params[:updated_months_ago], :updated_at)                if updated_at_search?(params)
+      @students = Student.search_range(params[:created_months_ago], :created_at, @org)          if nested_org_created_at_search?(params)
+      @students = Student.search_range(params[:updated_months_ago], :updated_at, @org)          if nested_org_updated_at_search?(params)
       return @students
     end
     
-    @students = nested_org_request?(params) ? @org.students() : Student.all()
+    @students = nested_org_request?(params) ? @org.students()
+      .page(params[:page]).per_page(20) : Student.all.page(params[:page]).per_page(20)
 
     if xlsx_request?
       respond_to do |format|

@@ -35,6 +35,21 @@ html, body {
 	}
 }
 
+.pagination-area {
+	text-align: center;
+}
+
+.pagination-loader {
+	background-size: 100%;
+	text-align: center;
+	margin-left:auto;
+	margin-right:auto;
+	vertical-align: middle;
+	height: 1pc;
+	width: 1pc;
+	background:url('/images/loading.gif') no-repeat;
+}
+
 .sidenav.affix {
   	top: 10px;
 }
