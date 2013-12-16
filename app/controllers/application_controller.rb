@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def search_term_request?(params)
-		 params[:search].length > 0 && !params[:organisation_id]
+		 params[:search] && !params[:organisation_id]
 	end
 
 	def search_request?

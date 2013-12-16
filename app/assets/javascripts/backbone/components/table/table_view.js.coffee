@@ -102,6 +102,11 @@
       $column = @$setColumnHeader column
       @ui.headerRow.append($column)
 
+    drawCollectionCount: (collection) ->
+      $('.pagination-area')
+        .html("<span class='text-info'>Viewing: #{collection
+          .size()} out of #{collection.size()} records</span>")
+
     $setColumnHeader: (column) ->
       colIndex = @columns.indexOf(column)
       $column = if column.get('htmlHeader') then $("<th>" + column
@@ -162,8 +167,6 @@
 
     bindInfiniteScroll: =>
       App.execute "when:fetched", @collection, =>
-        $('#collection-count-span')
-          .html("Viewing Page: #{@collection.get('next_link')} of #{@collection.get('last_link')}")
         @_setScrollableCollection(@collection)
 
     _setScrollableCollection: (collection) ->
@@ -177,14 +180,13 @@
             $('.pagination-area').addClass('pagination-loader')
             collection.fetch
               data: $.param
-                page: collection.get('next_link')
+                page:   collection.get('next_link')
+                search: collection.get('search') if collection.get('search')
             collection.on "add", =>
               if collection.get('next_link') ==  collection.get('last_link')
                 @_finishScroll(collection)
 
     _finishScroll: (collection) ->
       $('.pagination-area').removeClass('pagination-loader')
-      $('.pagination-area')
-        .html("<span class='text-info'>Viewing: #{collection
-          .size()} out of #{collection.size()} records</span>")
+      @drawCollectionCount(collection)
 

@@ -24,12 +24,15 @@
 
     _formatNextLinkHeader: (linksHeader) ->
       if /rel="next"/i.test(linksHeader)
-        @_meta['next_link'] = (/(\d+)>; rel="next"/i.exec(linksHeader))[1]
+        @_meta['next_link'] = (/"last",.*?page=(\d+).*?>; rel="next"/i.exec(linksHeader))[1]
       else
         false
 
     _formatLastLinkHeader: (linksHeader) ->
       if /rel="last"/i.test(linksHeader)
-        @_meta['last_link'] = (/(\d+)>; rel="last"/i.exec(linksHeader))[1]
+        if /rel="prev"/i.test(linksHeader)
+          @_meta['last_link'] = (/"prev".+page=(\d+).*?>; rel="last"/i.exec(linksHeader))[1]
+        else
+          @_meta['last_link'] = (/page=(\d+).*?>; rel="last"/i.exec(linksHeader))[1]
       else
         @_meta['last_link'] = @_meta['next_link']

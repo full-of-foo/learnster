@@ -57,4 +57,15 @@ li.dock-item {
 
 #destroy-session-icon {
 	cursor: pointer;
+
+	.fa.fa-sign-out {
+		-webkit-transition: font 0.3s ease;
+		-moz-transition: font 0.3s ease;
+		-o-transition: font 0.3s ease;
+		-ms-transition: font 0.3s ease;
+	}
+	
+	.fa.fa-sign-out:hover {
+	    font-size: 15px;
+	}
 }

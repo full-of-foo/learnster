@@ -47,10 +47,10 @@
 					url: Routes.api_organisation_student_index_path(nestedId)
 			else
 				students = new Entities.StudentsCollection
-
 			students.fetch
 				reset: true
 				data: $.param(term)
+			students.put('search', term['search'])
 			students
 
 	App.reqres.setHandler "new:student:entity", ->
