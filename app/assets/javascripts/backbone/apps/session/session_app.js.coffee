@@ -1,6 +1,6 @@
 @Learnster.module "SessionApp", (SessionApp, App, Backbone, Marionette, $, _) ->
 
-	class SessionApp.Router extends Marionette.AppRouter
+	class SessionApp.Router extends App.Routers.AppRouter
 		appRoutes:
 			"login": "showLogin"
 

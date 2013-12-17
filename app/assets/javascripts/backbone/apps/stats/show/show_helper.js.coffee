@@ -14,9 +14,9 @@
 		constructor: (id, type = "enrollment-trend", range = 3) ->
 			id = Number(id)
 			range = Number(range)
-			throw new Error "Statistic type '#{type}' is not available" if not @_isStandardType(type)
-			throw new Error "Invalid data types suppled" 				if not @_isValidNumber(id) and not @_isValidNumber(range)
-			throw new Error "Is not valid range" 						if not @_isValidRange(range)
+			throw new Error if not @_isStandardType(type)
+			throw new Error if not @_isValidNumber(id) and not @_isValidNumber(range)
+			throw new Error if not @_isValidRange(range)
 
 			@id = id
 			@type = type

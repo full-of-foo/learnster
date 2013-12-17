@@ -1,6 +1,6 @@
 @Learnster.module "OrgAdminsApp", (OrgAdminsApp, App, Backbone, Marionette, $, _) ->
 
-  class OrgAdminsApp.Router extends Marionette.AppRouter
+  class OrgAdminsApp.Router extends App.Routers.AppRouter
     appRoutes:
       "org_admin/:id/edit"    : "edit"
       "admins"                : "listOrgAdmins"

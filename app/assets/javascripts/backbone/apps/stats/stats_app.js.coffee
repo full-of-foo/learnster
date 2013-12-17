@@ -1,6 +1,6 @@
 @Learnster.module "StatsApp", (StatsApp, App, Backbone, Marionette, $, _) ->
 
-	class StatsApp.Router extends Marionette.AppRouter
+	class StatsApp.Router extends App.Routers.AppRouter
 		appRoutes:
 			"statistic/:orgId/:title/:range"      : "showStat"
 			"statistics"    		 			  : "listStats"

@@ -1,7 +1,7 @@
 @Learnster.module "OrgsApp", (OrgsApp, App, Backbone, Marionette, $, _) ->
 
 
-  class OrgsApp.Router extends Marionette.AppRouter
+  class OrgsApp.Router extends App.Routers.AppRouter
     appRoutes:
       "organisation/:id/edit"             : "edit"
       "organisation/:id/students"         : "listOrgStudents"

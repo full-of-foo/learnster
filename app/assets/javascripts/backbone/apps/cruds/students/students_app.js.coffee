@@ -1,6 +1,6 @@
 @Learnster.module "StudentsApp", (StudentsApp, App, Backbone, Marionette, $, _) ->
 
-  class StudentsApp.Router extends Marionette.AppRouter
+  class StudentsApp.Router extends App.Routers.AppRouter
     appRoutes:
       "student/:id/edit"    : "edit"
       "students"            : "listStudents"

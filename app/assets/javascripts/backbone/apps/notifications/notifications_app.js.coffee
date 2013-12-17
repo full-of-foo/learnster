@@ -1,6 +1,6 @@
 @Learnster.module "NotificationsApp", (NotificationsApp, App, Backbone, Marionette, $, _) ->
 
-  class NotificationsApp.Router extends Marionette.AppRouter
+  class NotificationsApp.Router extends App.Routers.AppRouter
     appRoutes:
       "notifications" : "listNotifications"
 
