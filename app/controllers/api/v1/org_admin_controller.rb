@@ -1,19 +1,22 @@
 class Api::V1::OrgAdminController < ApplicationController
+  after_filter only: [:index] { paginate(:org_admins) }
+
   before_filter :authenticate_and_authorize
   before_filter :find_org
 
   def index
     if search_request?
-      @org_admins = OrgAdmin.search_term(params[:search])                                  if search_term_request?(params)
-      @org_admins = OrgAdmin.search_term(params[:search], @org)                            if nested_org_term_search?(params)
-      @org_admins = OrgAdmin.search_range(params[:created_months_ago], :created_at)        if created_at_search?(params)
-      @org_admins = OrgAdmin.search_range(params[:updated_months_ago], :updated_at)        if updated_at_search?(params)
-      @org_admins = OrgAdmin.search_range(params[:created_months_ago], :created_at, @org)  if nested_org_created_at_search?(params)
-      @org_admins = OrgAdmin.search_range(params[:updated_months_ago], :updated_at, @org)  if nested_org_updated_at_search?(params)
+      @org_admins = OrgAdmin.search_term(params[:search]).page(params[:page]).per_page(20)        if search_term_request?(params)
+      @org_admins = OrgAdmin.search_term(params[:search], @org).page(params[:page]).per_page(20)  if nested_org_term_search?(params)
+      @org_admins = OrgAdmin.search_range(params[:created_months_ago], :created_at)               if created_at_search?(params)
+      @org_admins = OrgAdmin.search_range(params[:updated_months_ago], :updated_at)               if updated_at_search?(params)
+      @org_admins = OrgAdmin.search_range(params[:created_months_ago], :created_at, @org)         if nested_org_created_at_search?(params)
+      @org_admins = OrgAdmin.search_range(params[:updated_months_ago], :updated_at, @org)         if nested_org_updated_at_search?(params)
       return @org_admins
     end
     
-    @org_admins = nested_org_request?(params) ? @org.admins() : OrgAdmin.all()
+    @org_admins = nested_org_request?(params) ? @org.admins()
+    .page(params[:page]).per_page(20) : OrgAdmin.all().page(params[:page]).per_page(20)
 
     if xlsx_request?
       respond_to do |format|

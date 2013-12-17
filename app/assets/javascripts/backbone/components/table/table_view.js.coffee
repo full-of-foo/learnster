@@ -65,11 +65,15 @@
       @columns = @columns.models
       @defaultColumns = @getDefaultColumns @columns
       @setInstancePropertiesFor "itemViewOptions"
-      @bindInfiniteScroll() if @config.isPaginable
+      @bindInfiniteScroll()  if @config.isPaginable
 
     onShow: ->
       @drawColumnHeaders @columns
       @styleTable @config.tableClassName
+      @drawCollectionCount()
+
+    onClose: ->
+      $(window).unbind('scroll') if @config.isPaginable
 
     toggleColumn: (filterItemView, filterColumn) ->
       $li = filterItemView.$el
@@ -102,10 +106,10 @@
       $column = @$setColumnHeader column
       @ui.headerRow.append($column)
 
-    drawCollectionCount: (collection) ->
+    drawCollectionCount: ->
       $('.pagination-area')
-        .html("<span class='text-info'>Viewing: #{collection
-          .size()} out of #{collection.size()} records</span>")
+        .html("<span class='text-info'>Viewing: #{@collection
+          .size()} out of #{@collection.size()} records</span>")
 
     $setColumnHeader: (column) ->
       colIndex = @columns.indexOf(column)
@@ -166,27 +170,33 @@
       (col for col in columns when col.get('default'))
 
     bindInfiniteScroll: =>
-      App.execute "when:fetched", @collection, =>
-        @_setScrollableCollection(@collection)
-
-    _setScrollableCollection: (collection) ->
       pageNumber = 1
 
+      App.execute "when:fetched", @collection, =>
+        @_setScrollableCollection(pageNumber)
+
+    _setScrollableCollection: (pageNumber) ->
+
       $(window).scroll =>
-        if collection.get('next_link')
-          if (Number(collection.get('next_link')) == pageNumber + 1) and ($(window)
+        if @collection.get('next_link')
+          $('.pagination-area').html('')
+
+          if (Number(@collection.get('next_link')) == pageNumber + 1) and ($(window)
               .scrollTop() > $(document).height() - $(window).height() - 50)
             pageNumber += 1
-            $('.pagination-area').addClass('pagination-loader')
-            collection.fetch
-              data: $.param
-                page:   collection.get('next_link')
-                search: collection.get('search') if collection.get('search')
-            collection.on "add", =>
-              if collection.get('next_link') ==  collection.get('last_link')
-                @_finishScroll(collection)
+            console.log @collection.get('search')
 
-    _finishScroll: (collection) ->
+            $('.pagination-area').addClass('pagination-loader')
+            @collection.fetch
+              data: $.param
+                page:   @collection.get('next_link')
+                search: @collection.get('search')
+
+            @collection.on "add", =>
+              if @collection.get('next_link') ==  @collection.get('last_link')
+                @_finishScroll()
+
+    _finishScroll: ->
       $('.pagination-area').removeClass('pagination-loader')
-      @drawCollectionCount(collection)
+      @drawCollectionCount()
 

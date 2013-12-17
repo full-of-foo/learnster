@@ -23,14 +23,14 @@
 
     getOrgAdminOrgEntities: (orgId) ->
       org_admins = new Entities.OrgAdminCollection
-                                  url: Routes.api_organisation_admin_index_path(orgId)
+                          url: Routes.api_organisation_admin_index_path(orgId)
       org_admins.fetch
         reset: true
       org_admins
 
     getOrgAdminEntity: (id) ->
       org_admin = Entities.OrgAdmin.findOrCreate
-                                            id: id
+                                      id: id
       org_admin.fetch
         reset: true
       org_admin
@@ -48,6 +48,7 @@
       org_admins.fetch
         reset: true
         data: $.param(term)
+      org_admins.put('search', term['search'])
       org_admins
 
 
