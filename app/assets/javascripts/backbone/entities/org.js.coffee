@@ -37,6 +37,7 @@
             orgs.fetch
                 reset: true
                 data: $.param(searchTerm)
+            orgs.put('search', searchTerm['search'])
             orgs
 
     App.reqres.setHandler "new:org:entity", ->
