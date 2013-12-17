@@ -1,6 +1,8 @@
 class Api::V1::OrgAdminController < ApplicationController
-  after_filter only: [:index] { paginate(:org_admins) }
-
+  after_filter only: [:index] { 
+    paginate(:org_admins) if not params[:created_months_ago] and not params[:updated_months_ago]
+  }
+  
   before_filter :authenticate_and_authorize
   before_filter :find_org
 

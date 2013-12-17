@@ -1,5 +1,7 @@
 class Api::V1::StudentController < ApplicationController
-  after_filter only: [:index] { paginate(:students) }
+  after_filter only: [:index] { 
+    paginate(:students) if not params[:created_months_ago] and not params[:updated_months_ago]
+  }
 
   before_filter :authenticate_and_authorize
   before_filter :find_org

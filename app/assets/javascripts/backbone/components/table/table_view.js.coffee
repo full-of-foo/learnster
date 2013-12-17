@@ -184,7 +184,6 @@
           if (Number(@collection.get('next_link')) == pageNumber + 1) and ($(window)
               .scrollTop() > $(document).height() - $(window).height() - 50)
             pageNumber += 1
-            console.log @collection.get('search')
 
             $('.pagination-area').addClass('pagination-loader')
             @collection.fetch
