@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205154831) do
+ActiveRecord::Schema.define(version: 20140120232143) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -35,6 +35,52 @@ ActiveRecord::Schema.define(version: 20131205154831) do
   end
 
   add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id"
+
+  create_table "course_sections", force: true do |t|
+    t.string   "section"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "course_id"
+    t.integer  "provisioned_by"
+  end
+
+  add_index "course_sections", ["course_id"], name: "index_course_sections_on_course_id"
+  add_index "course_sections", ["provisioned_by"], name: "index_course_sections_on_provisioned_by"
+
+  create_table "courses", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "organisation_id"
+    t.integer  "managed_by"
+    t.string   "description"
+  end
+
+  add_index "courses", ["managed_by"], name: "index_courses_on_managed_by"
+  add_index "courses", ["organisation_id"], name: "index_courses_on_organisation_id"
+  add_index "courses", ["title"], name: "index_courses_on_title"
+
+  create_table "current_course_sections", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "course_section_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "current_course_sections", ["course_section_id"], name: "index_current_course_sections_on_course_section_id"
+  add_index "current_course_sections", ["student_id"], name: "index_current_course_sections_on_student_id"
+
+  create_table "learning_modules", force: true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "educator_id"
+    t.integer  "course_section_id"
+  end
+
+  add_index "learning_modules", ["course_section_id"], name: "index_learning_modules_on_course_section_id"
+  add_index "learning_modules", ["educator_id"], name: "index_learning_modules_on_educator_id"
 
   create_table "organisations", force: true do |t|
     t.string   "title"

@@ -1,15 +1,18 @@
 class OrgAdmin < User
 	acts_as_xlsx
-	
+
 	validates_presence_of :admin_for
-  belongs_to :admin_for, class_name: "Organisation", foreign_key: "admin_for" 
-  
+  belongs_to :admin_for, class_name: "Organisation", foreign_key: "admin_for"
+  has_many :managed_courses, class_name: "Course", foreign_key: "managed_by"
+  has_many :provisioned_courses, class_name: "CourseSection", foreign_key: "provisioned_by"
+  has_many :teaching_courses, class_name: "LearningModule", foreign_key: "educator_id"
+
   def org_id
-    self.admin_for ? self.admin_for.id : nil 
+    self.admin_for ? self.admin_for.id : nil
   end
 
   def org_title
-    self.admin_for ? self.admin_for.title : nil 
+    self.admin_for ? self.admin_for.title : nil
   end
 
 	def self.model_name
@@ -36,8 +39,8 @@ class OrgAdmin < User
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
 
-      params = row.to_hash.slice "email", "first_name", "surname", "password" 
-      params['id'] = find_by_id(row["id"]) ? row["id"] : nil if row["id"]    
+      params = row.to_hash.slice "email", "first_name", "surname", "password"
+      params['id'] = find_by_id(row["id"]) ? row["id"] : nil if row["id"]
       params['password_confirmation'] = params['password']
       params['created_by'] = created_by
       params['admin_for'] = admin_for
@@ -45,7 +48,7 @@ class OrgAdmin < User
 
       admin = OrgAdmin.new(params.symbolize_keys)
 
-      import_status_data["Row #{i}"] = admin.save ? true : admin.errors  
+      import_status_data["Row #{i}"] = admin.save ? true : admin.errors
     end
     import_status_data
   end
@@ -54,7 +57,7 @@ class OrgAdmin < User
   def self.search_term(search, nested_org = nil)
     if not search.empty? and not nested_org
       self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")
-    elsif not search.empty? and nested_org 
+    elsif not search.empty? and nested_org
       (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")) & self.admin_for_eq(nested_org.id)
     elsif search.empty? and nested_org
       self.admin_for_eq(nested_org.id)
@@ -62,6 +65,6 @@ class OrgAdmin < User
       self.all
     end
   end
-	
-	
+
+
 end

@@ -19,7 +19,7 @@ namespace :deploy do
         logger.info "Skipping asset pre-compilation because there were no asset changes"
       end
     end
-    
+
   end
 
 end
@@ -41,14 +41,22 @@ namespace :sake do
   end
 end
 
+namespace :cmd do
+
+  desc "Run a task on a remote server."
+  task :invoke do
+    run("cd #{current_path} && #{ENV['cmd']}")
+  end
+end
+
 namespace :logs do
 
-  desc "tail production log files" 
+  desc "tail production log files"
   task :tail, :roles => :app do
     trap("INT") { puts 'Interupted'; exit 0; }
     run "tail -f #{shared_path}/log/unicorn.log" do |channel, stream, data|
       puts  # for an extra line break before the host name
-      puts "#{channel[:host]}: #{data}" 
+      puts "#{channel[:host]}: #{data}"
       break if stream == :err
     end
   end

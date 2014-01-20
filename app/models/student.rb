@@ -1,15 +1,14 @@
 class Student < User
   acts_as_xlsx
-
-  belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org" 
+  belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org"
   validates_presence_of :attending_org
 
   def org_id
-    self.attending_org ? self.attending_org.id : nil 
+    self.attending_org ? self.attending_org.id : nil
   end
 
   def org_title
-    self.attending_org ? self.attending_org.title : nil 
+    self.attending_org ? self.attending_org.title : nil
   end
 
   def app_admin?
@@ -32,8 +31,8 @@ class Student < User
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
 
-      params = row.to_hash.slice "email", "first_name", "surname", "password" 
-      params['id'] = find_by_id(row["id"]) ? row["id"] : nil if row["id"]    
+      params = row.to_hash.slice "email", "first_name", "surname", "password"
+      params['id'] = find_by_id(row["id"]) ? row["id"] : nil if row["id"]
       params['password_confirmation'] = params['password']
       params['created_by'] = created_by
       params['attending_org'] = attending_organisation
@@ -41,7 +40,7 @@ class Student < User
 
       student = Student.new(params.symbolize_keys)
 
-      import_status_data["Row #{i}"] = student.save ? true : student.errors  
+      import_status_data["Row #{i}"] = student.save ? true : student.errors
     end
     import_status_data
   end
@@ -49,7 +48,7 @@ class Student < User
   def self.search_term(search, nested_org = nil)
     if not search.empty? and not nested_org
       self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")
-    elsif not search.empty? and nested_org 
+    elsif not search.empty? and nested_org
       (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")) & self
         .attending_org_eq(nested_org.id)
     elsif search.empty? and nested_org
@@ -58,5 +57,5 @@ class Student < User
       self.all
     end
   end
-  
+
 end
