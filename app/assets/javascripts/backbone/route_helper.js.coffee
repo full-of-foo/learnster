@@ -4,9 +4,10 @@ do (Learnster, $, Backbone, Marionette, _) ->
 
     _userRoutes:
         shared: [
-          /^organisation\/(\.+?)\/students$/,
+          /^organisation\/(.+?)\/students$/,
           /^login$/,
-          /^statistics$/
+          /^statistics$/,
+          /^404$/
         ]
 
         student: [
@@ -14,18 +15,19 @@ do (Learnster, $, Backbone, Marionette, _) ->
         ],
 
         orgAdmin: [
-          /^organisation\/(\.+?)\/admins$/,
-          /^student\/(\.+?)\/edit$/,
-          /^org_admin\/(\.+?)\/edit$/,
-          /^organisation\/(\.+?)\/edit$/,
-          /^statistic\/(.+?)\/(.+?)-trend\/(\.+?)$/,
-          /^organisation\/(\.+?)\/notifications$/
+          /^organisation\/(.+?)\/admins$/,
+          /^student\/(.+?)\/edit$/,
+          /^org_admin\/(.+?)\/edit$/,
+          /^organisation\/(.+?)\/edit$/,
+          /^statistic\/(.+)\/(.+)\/(.+)$/,
+          /^organisation\/(.+?)\/notifications$/
         ],
 
         appAdmin: [
           /^organisations$/,
           /^students$/,
-          /^admins$/
+          /^admins$/,
+          /^notifications$/
         ]
 
     getAppAdminRoutes: ->

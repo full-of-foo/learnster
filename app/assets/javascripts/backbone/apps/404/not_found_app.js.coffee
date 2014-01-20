@@ -4,9 +4,6 @@
     appRoutes:
       '404'  : 'showNotFound'
 
-    initialize: ->
-      @listenTo(Backbone.history, 'routeNotFound', @onRouteNotFound);
-
     onRouteNotFound: ->
       if App.getCurrentRoute() isnt "/404" and App.getCurrentRoute()
         App.navigate "/404",

@@ -15,7 +15,7 @@
 		show: (view, options = {}) ->
 			@_setMainView view
 
-			if (@contentView?.model instanceof App.Entities.UserSession) and App.request("get:current:user")
+			if (@contentView?.model instanceof App.Entities.UserSession) and App.reqres.request("get:current:user")
 				@close
 				App.execute "reset:regions"
 

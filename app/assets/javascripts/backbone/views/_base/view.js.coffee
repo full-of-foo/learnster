@@ -46,14 +46,14 @@
 				"<li id='#{@escape(elemId)}' class='dock-item'><img src='/images/#{@escape(imageName)}' /><span>#{@escape(caption)}</span></li>"
 
 			currentUser: ->
-				user = App.request("get:current:user")
+				user = App.reqres.request("get:current:user")
 				if Object(user) not instanceof Boolean
 					user.toJSON()
 				else
 					false
 
 			isCreatedByUser: (created_by) ->
-				user = App.request("get:current:user")
+				user = App.reqres.request("get:current:user")
 				if Object(user) not instanceof Boolean
 					created_by.id is user.get('id') or user instanceof App.Entities.AppAdmin
 				else

@@ -10,7 +10,6 @@ Please note that such has been tested only on OS X 10.8+
  - Rails 4.0.1
  - ruby 2.0.0p247 (or above)
  - bundler
- - JRE (for Solr)
 
 ### Development Bootstrapping
 
@@ -20,7 +19,10 @@ Please note that such has been tested only on OS X 10.8+
  - rake sunspot:solr:start
  - rake sunspot:solr:reindex
 
- ### Deployment Instruction
+### Regression Testing
+
+ - SUT=myip.com KILL_ON_EXIT=1 HEADLESS=1 cucumber
+
 
 
 TODO:

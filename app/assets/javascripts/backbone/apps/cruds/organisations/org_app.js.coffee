@@ -42,19 +42,15 @@
 
   App.vent.on "org:clicked org:created", (id) ->
     App.navigate Routes.edit_api_organisation_path(id).split("/api")[1]
-    API.edit id
 
   App.vent.on "link-org-students:clicked list-org-students:clicked", (id) ->
     App.navigate(Routes.api_organisation_student_index_path(id).split("/api")[1] + "s")
-    API.listOrgStudents(id)
 
   App.vent.on "link-org-admins:clicked list-org-admins:clicked", (id) ->
     App.navigate("/organisation/#{API.get_org_id(id)}/admins")
-    API.listOrgAdmins(id)
 
   App.vent.on "org:cancelled org:updated", (org) ->
-    App.navigate Routes.api_organisation_index_path().split("/api")[1] + "s"
-    API.listOrgs()
+    App.goBack()
 
   App.vent.on "notifications:link:clicked", ->
     user = App.reqres.request("get:current:user")

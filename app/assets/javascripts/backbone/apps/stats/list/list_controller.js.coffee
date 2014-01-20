@@ -4,11 +4,12 @@
 
 		initialize: (options = {}) ->
 			statSummaries = App.request "stat:summary:entities"
+			user = 					App.request "get:current:user"
 
 			@layout = @getLayoutView()
 
 			@listenTo @layout, "show", =>
-				@showPanel(statSummaries)
+				@showPanel(user)
 				@showSummaries(statSummaries)
 
 			@show @layout
@@ -25,8 +26,8 @@
 							loadingType: "spinner"
 						region:  @layout.statSummariesRegion
 
-		showPanel: (summaries) ->
-			panelView = @getPanelView summaries
+		showPanel: (user) ->
+			panelView = @getPanelView user
 
 			@show panelView,
 						loading:

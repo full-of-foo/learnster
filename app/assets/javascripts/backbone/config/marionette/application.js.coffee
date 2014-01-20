@@ -16,6 +16,9 @@ do (Backbone, $, _, window) ->
       frag = Backbone.history.fragment
       if _.isEmpty(frag) then null else frag
 
+    goBack: ->
+      Backbone.history.history.back()
+
     refreshCurrentRoute: ->
       @navigate(@getCurrentRoute())
 

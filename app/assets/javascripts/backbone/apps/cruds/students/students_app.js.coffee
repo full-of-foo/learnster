@@ -30,11 +30,9 @@
 
   App.vent.on "student:clicked student:created", (id) ->
     App.navigate Routes.edit_api_student_path(id).split("/api")[1]
-    API.edit id
 
   App.vent.on "student:cancelled student:updated", (student) ->
-    App.navigate Routes.api_student_index_path().split("/api")[1] + "s"
-    API.listStudents()
+    App.goBack()
 
   App.vent.on "open:student:import:dialog", (organisation) ->
     API.openImportDialog organisation

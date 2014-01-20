@@ -1,4 +1,5 @@
 <% u = @currentUser() %>
+
 <span class="content">
 	<% if u.full_name is @user.full_name: %>
 		You

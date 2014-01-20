@@ -33,10 +33,10 @@ gem "roo"
 gem "bcrypt-ruby", "~> 3.1.2"
 gem 'will_paginate', '~> 3.0.5'
 gem 'api-pagination'
+gem "faker"
 
 group :development do
   gem "populator"
-  gem "faker"
 end
 
 gem "sass-rails", "4.0.0"
@@ -58,7 +58,6 @@ group :doc do
 end
 
 group :production do
-  gem "faker"
   gem "pg", "0.15.1"
   gem "rails_12factor", "0.0.2"
   gem 'capistrano', "2.15.5"

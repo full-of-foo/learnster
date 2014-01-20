@@ -1,11 +1,11 @@
-<% u = @currentUser() %>
+<% u = @items %>
 <blockquote>
     <p class="text-info">
     <% if u.type is "AppAdmin": %>
     Application Statistics
     <% else if u.type is "OrgAdmin": %>
     Organisation Statistics
-	<% else: %>
+	<% else if u.type is "Student":%>
 	Grades
 	<% end %>
     </p>          

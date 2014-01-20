@@ -87,12 +87,11 @@
         App.vent.trigger "org:clicked", args.model.get('attending_org').id
 
       @listenTo @studentsView, "childview:student:delete:clicked", (child, args) ->
-        model = args.model
-        dialogView = @getDialogView model
+        dialogView = @getDialogView args.model
 
         @listenTo dialogView, "dialog:delete:student:clicked", =>
           dialogView.$el.modal "hide"
-          model.destroy()
+          args.model.destroy()
 
         @show dialogView,
           loading:

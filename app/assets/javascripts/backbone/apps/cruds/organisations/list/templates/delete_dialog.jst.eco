@@ -5,7 +5,7 @@
         <h4 class="modal-title">Delete Organisation</h4>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delelte <%= @title %>&hellip;</p>
+        <p>Are you sure you want to delete <%= @title %>&hellip;</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
