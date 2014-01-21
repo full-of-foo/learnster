@@ -3,6 +3,7 @@ class Student < User
 
   belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org"
   has_many :enrolled_course_sections
+  has_many :course_sections, through: :enrolled_course_sections
 
   validates_presence_of :attending_org
 
