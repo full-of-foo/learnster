@@ -1,6 +1,9 @@
 class Student < User
   acts_as_xlsx
+
   belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org"
+  has_many :enrolled_course_sections
+
   validates_presence_of :attending_org
 
   def org_id

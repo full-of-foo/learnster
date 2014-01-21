@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140120232143) do
+ActiveRecord::Schema.define(version: 20140121163705) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -54,21 +54,24 @@ ActiveRecord::Schema.define(version: 20140120232143) do
     t.integer  "organisation_id"
     t.integer  "managed_by"
     t.string   "description"
+    t.string   "identifier"
   end
 
+  add_index "courses", ["identifier"], name: "index_courses_on_identifier"
   add_index "courses", ["managed_by"], name: "index_courses_on_managed_by"
   add_index "courses", ["organisation_id"], name: "index_courses_on_organisation_id"
   add_index "courses", ["title"], name: "index_courses_on_title"
 
-  create_table "current_course_sections", force: true do |t|
+  create_table "enrolled_course_sections", force: true do |t|
     t.integer  "student_id"
     t.integer  "course_section_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_active"
   end
 
-  add_index "current_course_sections", ["course_section_id"], name: "index_current_course_sections_on_course_section_id"
-  add_index "current_course_sections", ["student_id"], name: "index_current_course_sections_on_student_id"
+  add_index "enrolled_course_sections", ["course_section_id"], name: "index_enrolled_course_sections_on_course_section_id"
+  add_index "enrolled_course_sections", ["student_id"], name: "index_enrolled_course_sections_on_student_id"
 
   create_table "learning_modules", force: true do |t|
     t.string   "title"
