@@ -14,7 +14,7 @@ Learnster::Application.routes.draw do
 
   # API routes
   namespace "api", defaults: {format: 'json'} do
-    
+
     # Default API version
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
 
@@ -34,10 +34,10 @@ Learnster::Application.routes.draw do
       # Standard routes
       resources :org_admin, :type => "OrgAdmin"
       resources :app_admin, :type => "AppAdmin"
-      resources :student, :type => "Student" 
+      resources :student, :type => "Student"
       resources :activities
 
     end
-    
+
   end
 end

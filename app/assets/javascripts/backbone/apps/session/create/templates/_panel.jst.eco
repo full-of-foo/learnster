@@ -1,0 +1,5 @@
+<div id="welcome-panel" class="modal-header">
+            <blockquote>
+                <p class="muted well-small">Test panel...</p>
+            </blockquote>
+</div>

@@ -1,24 +1,27 @@
 @Learnster.module "SessionApp", (SessionApp, App, Backbone, Marionette, $, _) ->
 
-	class SessionApp.Router extends App.Routers.AppRouter
-		appRoutes:
-			"login": "showLogin"
+  class SessionApp.Router extends App.Routers.AppRouter
+    appRoutes:
+      "login" : "showLogin"
+      "signup": "showSignUp"
 
 
-	API =
-		showLogin: ->
-			new SessionApp.Show.Controller()
+  API =
+    showLogin: ->
+      new SessionApp.Show.Controller()
 
-		getDestroyIconView: ->
-			new SessionApp.Destroy.Icon()
+    showSignUp: ->
+      new SessionApp.Create.Controller()
 
-	App.vent.on "session:created session:destroyed", (currentUser = null) ->
-		App.execute "reset:regions"
+    getDestroyIconView: ->
+      new SessionApp.Destroy.Icon()
 
-	App.reqres.setHandler "new:destroy:icon:view", ->
-    	API.getDestroyIconView()
+  App.vent.on "session:created session:destroyed", (currentUser = null) ->
+    App.execute "reset:regions"
 
-	App.addInitializer ->
-		new SessionApp.Router
-			controller: API
+  App.reqres.setHandler "new:destroy:icon:view", ->
+    API.getDestroyIconView()
 
+  App.addInitializer ->
+    new SessionApp.Router
+      controller: API
