@@ -117,6 +117,26 @@ html, body {
 	}
 }
 
+.RETROtxt {
+  color: #707070;
+  text-shadow: 4px 4px 0 #eee,6px 7px 0 #707070;
+  font-family: League Gothic,"league-gothic",sans-serif;
+  font-size: 75px;
+}
+
+.copy {
+  margin-top: 1pc;
+  font: 1.2em Georgia, Serif;
+  text-align: justify;
+  -moz-column-count: 2;
+  -moz-column-gap: 20px;
+  -webkit-column-count: 2;
+  -webkit-column-gap: 20px;
+}
+.copy p {
+  margin: 0 0 1em 0;
+}
+
 /* base table sorting styles */
 .tablesorter {
 	 .header:hover {

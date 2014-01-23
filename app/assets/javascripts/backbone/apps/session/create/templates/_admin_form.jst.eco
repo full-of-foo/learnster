@@ -1,0 +1,25 @@
+<blockquote>
+            <p class="text-info">Foooo...</p>
+            <small class="text-info">hover over fields for help</small>
+        </blockquote>
+
+    <fieldset>
+
+        <div class="control-group">
+            <!-- First Name -->
+            <label class="control-label" for="title">Fooooo</label>
+            <div class="controls">
+                <input type="text" id="title" name="title" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Last Name -->
+            <label class="control-label" for="description">Barrrrr</label>
+            <div class="controls">
+                <input type="text" id="description" name="description" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+
+    </fieldset>

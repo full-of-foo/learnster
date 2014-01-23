@@ -1,0 +1,16 @@
+.singup-panel {
+  text-align: center;
+  margin-bottom: -1pc;
+  margin-top: 1pc;
+
+  .breadcrumb {
+    background-color: white;
+    li {
+      color: #0088cc;
+    }
+    li.active {
+      color: #999999 !important;
+    }
+
+  }
+}

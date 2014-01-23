@@ -1,11 +1,9 @@
 <div id="panel-region"></div>
 
-<div class="login-modal">
-    <div class="modal-body">
+<div class="signup-modal">
 
       <div class="well">
-        <div id="form-region"></div>
+        <div id="current-form-region"></div>
       </div>
 
-  </div>
 </div>

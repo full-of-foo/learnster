@@ -1,0 +1,25 @@
+
+    <div>
+        <div id="legend">
+            <h1 style="font-family: 'Montserrat', sans-serif;">Lets get started, eh?</h1>
+        </div>
+
+                     <div class="copy">
+                        <p>Bacon ipsum dolor sit amet pancetta meatloaf eiusmod laborum commodo officia ex exercitation bacon. Sunt magna duis ex prosciutto nostrud.
+                        Tri-tip ball tip sausage spare ribs sirloin sunt officia anim magna eiusmod turducken sint velit meatball ham hock. Exercitation culpa pork chop rump, short loin meatball ut aute tenderloin.</p>
+
+                        <p>Cillum pariatur ground round filet mignon capicola ad ham id doner sirloin beef ribs qui mollit pork chop. Laboris bacon officia tenderloin tempor, tongue excepteur tail occaecat
+                         meatloaf consectetur ham hock consequat ut. Frankfurter jerky enim irure salami aliqua. In pork loin meatball, ut ad in nisi turkey turducken mollit.</p>
+
+                        <p>Filet mignon capicola aute short loin pork belly qui ball tip spare ribs do short ribs sint. Commodo dolore rump nostrud ball tip. Veniam in hamburger tail, sunt culpa beef ribs ham hock irure. Ut bresaola flank consectetur p
+                        astrami sirloin short ribs meatball pork officia sausage in doner pork loin sed. Pastrami duis non pork loin magna, pig quis bresaola. Esse t-bone laborum, ex turkey proident flank aliquip occaecat
+                        qui sint non eiusmod strip steak spare ribs. Anim kielbasa pork chop id ut dolore commodo prosciutto doner magna.</p>
+                    </div>
+
+        <ul class="pager">
+          <li class="next" id="intro-next-link"><a href="#">Continue &rarr;</a></li>
+        </ul>
+    </div>
+
+
+

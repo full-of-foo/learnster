@@ -18,4 +18,3 @@
                 primaryClass: "btn btn-primary"
             toast: false
 
-
