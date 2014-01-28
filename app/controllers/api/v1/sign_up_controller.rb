@@ -22,7 +22,7 @@ class Api::V1::SignUpController < ApplicationController
     @org_admin = OrgAdmin.new
     params = permitted_params.sign_up_params.merge create_params
     if @org_admin.update params
-      # TODO - email
+      UserMailer.signup_confirmation(@org_admin).deliver
       render "api/v1/org_admin/show"
     else
       respond_with @org_admin

@@ -1,0 +1,6 @@
+<%= @admin.full_name %>,
+
+Thank you for signing up.
+
+To return to Learnster and complete your registration please go to:
+<%= api_confirm_administrator_account_url(@admin.id, @admin.confirmation_code) %>

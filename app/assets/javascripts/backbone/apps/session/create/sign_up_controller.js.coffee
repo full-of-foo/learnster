@@ -39,7 +39,7 @@
       @layout.currentFormRegion.show adminFormView
 
     showConfirmationForm: () ->
-      confirm_org_admin = App.request "new:confirm_org_admin:entity"
+      confirm_org_admin = App.request "new:org_admin:entity"
       confirmForm = @getConfirmationForm(confirm_org_admin)
       confirmForm = App.request "form:wrapper", confirmForm
 

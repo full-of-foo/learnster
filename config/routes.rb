@@ -24,8 +24,8 @@ Learnster::Application.routes.draw do
 
       post "sign_up_account_manager" => "sign_up#sign_up_account_manager",
          :as => "sign_up_account_manager"
-      put "confirm_administrator_account" => "sign_up#confirm_administrator_account",
-         :as => "confirm_administrator_account"
+      get "admin/:id/confirm/:code" => "sign_up#confirm_administrator_account",
+        :as => "confirm_administrator_account"
 
      	# Nested Org routes
       resources :organisation do
