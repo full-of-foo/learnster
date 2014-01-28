@@ -1,25 +1,53 @@
 <blockquote>
-            <p class="text-info">Foooo...</p>
-            <small class="text-info">hover over fields for help</small>
-        </blockquote>
+    <p class="text-info">Create your administrator account...</p>
+    <small class="text-info">hover over fields for help</small>
+</blockquote>
 
+<p>Once registered, this account enables you to create and manage your account. foo
+ fof fdfos sdfsdf sdfs dfs dfsd fds f dsfds fds fds fsdf</p>
+
+<div class="form-horizontal">
     <fieldset>
 
         <div class="control-group">
             <!-- First Name -->
-            <label class="control-label" for="title">Fooooo</label>
+            <label class="control-label" for="first_name">First Name</label>
             <div class="controls">
-                <input type="text" id="title" name="title" placeholder="" class="input-xlarge">
+                <input type="text" id="first_name" name="first_name" placeholder="" class="input-xlarge">
             </div>
         </div>
 
         <div class="control-group">
             <!-- Last Name -->
-            <label class="control-label" for="description">Barrrrr</label>
+            <label class="control-label" for="surname">Last Name</label>
             <div class="controls">
-                <input type="text" id="description" name="description" placeholder="" class="input-xlarge">
+                <input type="text" id="surname" name="surname" placeholder="" class="input-xlarge">
             </div>
         </div>
 
+        <div class="control-group">
+            <!-- E-mail -->
+            <label class="control-label" for="email">E-mail</label>
+            <div class="controls">
+                <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Password-->
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Password -->
+            <label class="control-label" for="password_confirmation">Password (Confirm)</label>
+            <div class="controls">
+                <input type="password" id="password_confirmation" name="password_confirmation" placeholder="" class="input-xlarge">
+            </div>
+        </div>
 
     </fieldset>
+</div>

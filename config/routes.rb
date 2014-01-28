@@ -22,6 +22,11 @@ Learnster::Application.routes.draw do
       delete "logout" => "sessions#destroy", :as => "logout"
       post "login" => "sessions#create", :as => "login"
 
+      post "sign_up_account_manager" => "sign_up#sign_up_account_manager",
+         :as => "sign_up_account_manager"
+      put "confirm_administrator_account" => "sign_up#confirm_administrator_account",
+         :as => "confirm_administrator_account"
+
      	# Nested Org routes
       resources :organisation do
         resources :student, :type => "Student"

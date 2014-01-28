@@ -8,10 +8,10 @@ class Permission < Struct.new(:user)
       if user.org_admin?
         @org = user.admin_for
 
-        return true if controller.end_with?("student")                  && action == "create"
-        return true if controller.end_with?("org_admin")                && action == "create"
-        return true if organisation_request?(controller, params)        && action.in?(%w[show edit])
-        
+        return true if controller.end_with?("student") && action == "create"
+        return true if controller.end_with?("org_admin") && action == "create"
+        return true if organisation_request?(controller, params) && action.in?(%w[show edit])
+
         if action.in?(%w[index show])
           return true if organisation_students_request?(controller, params)
           return true if fellow_admins_request?(controller, params)
@@ -24,14 +24,14 @@ class Permission < Struct.new(:user)
         end
 
         if action.in?(%w[show edit])
-          return true if fellow_admin_request?(controller, params)        
+          return true if fellow_admin_request?(controller, params)
           return true if organisation_student_request?(controller, params)
         end
       end
       if user.student?
         @org = user.attending_org
 
-        return true if organisation_request?(controller, params)        && action == "show"
+        return true if organisation_request?(controller, params) && action == "show"
 
         if action.in?(%w[index show])
           return true if organisation_students_request?(controller, params)

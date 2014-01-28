@@ -4,9 +4,9 @@
 Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
   raise "No user type supplied" if user_type_str.blank? or user_type_str.nil?
   page = Pages::LoginPage.new(@browser)
-  
+
   case user_type_str
-  when "super admin"
+  when "app admin"
     user = { email: "lightweightdevelopment@gmail.com", password: "foobar" }
   when "admin"
     user = { email: "admin@foo.com", password: "foobar" }
@@ -17,7 +17,7 @@ Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
   end
 
   page.attempt_login(user[:email], user[:password])
-  
+
   StepsDataCache.current_user_email = user[:email]
   StepsDataCache.current_user_pass = user[:password]
   sleep 1

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140121163705) do
+ActiveRecord::Schema.define(version: 20140128164317) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -106,6 +106,11 @@ ActiveRecord::Schema.define(version: 20140121163705) do
     t.integer  "created_by"
     t.integer  "admin_for"
     t.integer  "attending_org"
+    t.string   "role"
+    t.string   "confirmation_code"
+    t.boolean  "confirmed",         default: false
   end
+
+  add_index "users", ["role"], name: "index_users_on_role"
 
 end

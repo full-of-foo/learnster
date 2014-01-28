@@ -23,6 +23,14 @@
           primaryClass: "btn btn-primary"
         toast: false
 
+    class Create.ConfirmForm extends App.Views.ItemView
+      template: "session/create/templates/_confirm_form"
+      form:
+        buttons:
+          primary: "Confirm"
+          primaryClass: "btn btn-primary"
+        toast: false
+
     class Create.OrgForm extends App.Views.ItemView
       template: "session/create/templates/_org_form"
       form:

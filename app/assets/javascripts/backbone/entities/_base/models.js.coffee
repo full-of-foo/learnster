@@ -4,7 +4,7 @@
 
 		initialize: ->
 			@on "all", (e) -> console.log e if App.enviornment is "development"
-			@on "unpermitted:entity", (entity) -> App.execute "redirect:home"
+			@on "unpermitted:entity", (entity) -> App.commands.execute("show:not:found")
 
 		fetch: (options = {}) ->
 			# options.reset = true

@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password
   before_create :add_api_key
-  
+  before_create :set_default_attributes
+
   belongs_to :created_by, class_name: "User", foreign_key: "created_by"
   has_many :users, class_name: "User", foreign_key: "created_by"
   has_many :activities
@@ -19,10 +20,6 @@ class User < ActiveRecord::Base
 
   generate_scopes
 
-  def full_name
-    "#{first_name} #{surname}"
-  end
-
   def self.search_range(months_ago, date_attr_key, nested_org = nil)
     date_attr_str = date_attr_key == :created_at ? "created_at" : "updated_at"
     (user_org_attr_str = self.name == "OrgAdmin" ? "admin_for" : "attending_org") if not nested_org.nil?
@@ -30,18 +27,18 @@ class User < ActiveRecord::Base
     if ["3", "6", "9", "12", "24", "36", "48", "60"].include? months_ago
       if nested_org.nil?
         (self.send("#{date_attr_str}_lteq", Time.zone.now) & self
-          .send("#{date_attr_str}_gteq", Time.zone.now.ago((months_ago.to_i).months))) 
+          .send("#{date_attr_str}_gteq", Time.zone.now.ago((months_ago.to_i).months)))
       else
         (self.send("#{date_attr_str}_lteq", Time.zone.now) & self
           .send("#{date_attr_str}_gteq", Time.zone.now.ago((months_ago.to_i).months)) & self
-          .send("#{user_org_attr_str}_eq", nested_org.id)) 
+          .send("#{user_org_attr_str}_eq", nested_org.id))
       end
-    end   
+    end
   end
 
   def self.authenticated_user(token, options = nil)
     keys = ApiKey.access_token_eq(token)
-    keys.size > 0 ? keys.first.user : false 
+    keys.size > 0 ? keys.first.user : false
   end
 
   def self.open_spreadsheet(file)
@@ -53,11 +50,25 @@ class User < ActiveRecord::Base
     end
   end
 
-  private 
-
-  def add_api_key
-    key = ApiKey.create
-    self.api_keys.push key
+  def authenticate_and_confirm(password)
+    authenticate(password) && self.confirmed
   end
+
+  def full_name
+    "#{first_name} #{surname}"
+  end
+
+
+  private
+    def add_api_key
+      key = ApiKey.create
+      self.api_keys.push key
+    end
+
+    def set_default_attributes
+      self.confirmation_code ||= SecureRandom.hex
+      self.confirmed ||= true
+    end
+
 
 end

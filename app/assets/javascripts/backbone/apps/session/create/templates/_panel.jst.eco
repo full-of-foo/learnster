@@ -2,6 +2,7 @@
      <ul class="breadcrumb">
       <li id="intro-crumb">Intro <span class="divider">/</span></li>
       <li id="admin-crumb">Administrator <span class="divider">/</span></li>
+      <li id="register-crumb">Register <span class="divider">/</span></li>
       <li id="org-crumb">Organisation <span class="divider">/</span></li>
       <li id="upload-admins-crumb">Add Administrators <span class="divider">/</span></li>
       <li id="upload-students-crumb">Add Students </li>

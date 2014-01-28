@@ -1,35 +1,20 @@
 class OrgAdmin < User
-	acts_as_xlsx
+  extend Enumerize
 
-	validates_presence_of :admin_for
+  acts_as_xlsx
+
   belongs_to :admin_for, class_name: "Organisation", foreign_key: "admin_for"
+
   has_many :managed_courses, class_name: "Course", foreign_key: "managed_by"
   has_many :provisioned_courses, class_name: "CourseSection", foreign_key: "provisioned_by"
   has_many :teaching_courses, class_name: "LearningModule", foreign_key: "educator_id"
 
-  def org_id
-    self.admin_for ? self.admin_for.id : nil
+  enumerize :role, in: [:account_manager, :course_manager, :module_manager], default: :module_manager
+
+
+  def self.model_name
+    User.model_name
   end
-
-  def org_title
-    self.admin_for ? self.admin_for.title : nil
-  end
-
-	def self.model_name
-  	User.model_name
-	end
-
-	def app_admin?
-		false
-	end
-
-	def org_admin?
-		true
-	end
-
-	def student?
-		false
-	end
 
   def self.import_with_validation(file, admin_for, created_by)
     spreadsheet = open_spreadsheet(file)
@@ -64,6 +49,26 @@ class OrgAdmin < User
     else
       self.all
     end
+  end
+
+  def app_admin?
+    false
+  end
+
+  def org_admin?
+    true
+  end
+
+  def student?
+    false
+  end
+
+  def org_id
+    self.admin_for ? self.admin_for.id : nil
+  end
+
+  def org_title
+    self.admin_for ? self.admin_for.title : nil
   end
 
 

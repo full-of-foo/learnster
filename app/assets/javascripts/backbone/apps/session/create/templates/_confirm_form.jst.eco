@@ -1,0 +1,29 @@
+<blockquote>
+    <p class="text-info">Account Registration...</p>
+    <small class="text-info">hover over fields for help</small>
+</blockquote>
+
+<p>Our team has sent you a registration email, please first confirm
+your account via this email to proceed</p>
+
+<div class="form-horizontal">
+    <fieldset>
+
+        <div class="control-group">
+            <!-- First Name -->
+            <label class="control-label" for="email">Email</label>
+            <div class="controls">
+                <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Last Name -->
+            <label class="control-label" for="password">Password</label>
+            <div class="controls">
+                <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+    </fieldset>
+</div>

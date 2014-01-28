@@ -6,7 +6,7 @@
       @_meta = {}
       @on "all", (e) -> console.log e if App.enviornment is "development"
       @on "unpermitted:entity", (collection) ->
-          App.execute "redirect:home"
+          App.commands.execute("show:not:found")
 
       @on "synced:pagninable:collection", (collection, linksHeader) ->
         @_meta['next_link'] = @_formatNextLinkHeader(linksHeader)

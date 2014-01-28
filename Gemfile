@@ -34,6 +34,7 @@ gem "bcrypt-ruby", "~> 3.1.2"
 gem 'will_paginate', '~> 3.0.5'
 gem 'api-pagination'
 gem "faker"
+gem 'enumerize'
 
 group :development do
   gem "populator"

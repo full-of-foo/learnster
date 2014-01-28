@@ -26,11 +26,27 @@
 
 
     showAdminForm: () ->
-      adminFormView = @getAdminFormView()
+      new_org_admin = App.request "new:new_org_admin:entity"
+      adminFormView = @getAdminFormView(new_org_admin)
+      adminFormView = App.request "form:wrapper", adminFormView
+
       @listenTo adminFormView, "show", ->
         @_completeCrumbItem("admin-crumb")
 
+      @listenTo new_org_admin, "created", ->
+        @showConfirmationForm()
+
       @layout.currentFormRegion.show adminFormView
+
+    showConfirmationForm: () ->
+      confirm_org_admin = App.request "new:confirm_org_admin:entity"
+      confirmForm = @getConfirmationForm(confirm_org_admin)
+      confirmForm = App.request "form:wrapper", confirmForm
+
+      @listenTo confirmForm, "show", ->
+        @_completeCrumbItem("register-crumb")
+
+      @layout.currentFormRegion.show confirmForm
 
     showOrgForm: () ->
       orgFormView = @getOrgFormView()
@@ -45,8 +61,13 @@
     getIntroView: ->
       new Create.Intro()
 
-    getAdminFormView: ->
-      new Create.AdminForm()
+    getAdminFormView: (new_org_admin) ->
+      new Create.AdminForm
+        model: new_org_admin
+
+    getConfirmationForm: (confirm_org_admin) ->
+      new Create.ConfirmForm
+        model: confirm_org_admin
 
     getOrgFormView: ->
       new Create.OrgForm()

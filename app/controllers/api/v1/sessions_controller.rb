@@ -1,14 +1,14 @@
 class Api::V1::SessionsController < ApplicationController
   skip_before_filter :authenticate_and_authorize, :except => [:destroy]
 
-  def new   
+  def new
     @user = User.new
   end
 
   def create
     @user = User.find_by_email(params[:email])
-    
-    if @user && @user.authenticate(params[:password])
+
+    if @user && @user.authenticate_and_confirm(params[:password])
       @current_user = @user
       @user.update(last_login: Time.zone.now, is_active: true)
       render "application/show_current_user.json.rabl"
