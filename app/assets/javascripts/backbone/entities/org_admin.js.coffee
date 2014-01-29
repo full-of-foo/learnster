@@ -60,6 +60,11 @@
     admin['urlRoot'] = Routes.api_sign_up_account_manager_path()
     admin
 
+  App.reqres.setHandler "valid_org_admin:entity", (id, code) ->
+    admin = API.newOrgAdmin()
+    admin['urlRoot'] = Routes.api_show_valid_admin_path(id, code)
+    admin
+
   App.reqres.setHandler "init:current:orgAdmin", (attrs) ->
     API.setCurrentOrgAdmin(attrs)
 

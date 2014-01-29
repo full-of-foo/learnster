@@ -42,21 +42,28 @@
       @layout.currentFormRegion.show adminFormView
 
     showConfirmationForm: (id = null, code = null) ->
-      confirm_org_admin = App.request "new:org_admin:entity"
-      confirmForm = @getConfirmationForm(confirm_org_admin)
-      confirmForm = App.request "form:wrapper", confirmForm
-
       if id and code
-        admin = App.reqres.request("org_admin:entity", id)
+        admin = App.reqres.request("valid_org_admin:entity", id, code)
         is_confirmed = admin.get('confirmed')
         has_org = admin.get('admin_for')
-        has_correct_code = admin.get('confirmation_code') is code
+      else
+        admin = App.request "new:org_admin:entity"
+
+      confirmForm = @getConfirmationForm(admin)
+      confirmForm = App.request "form:wrapper", confirmForm
+
+
 
       @listenTo confirmForm, "show", ->
-        @_completeCrumbItem("intro-crumb")
+        @_completeCrumbItem("register-crumb")
+
         if id and code
+          $('#email').val admin.get('email')
+          @_completeCrumbItem("intro-crumb")
           @_completeCrumbItem("admin-crumb")
-          @_completeCrumbItem("register-crumb")
+
+          if is_confirmed and not has_org
+            alert 'confirmed'
 
       @layout.currentFormRegion.show confirmForm
 

@@ -70,7 +70,7 @@
       orgId = App.currentUser.get('admin_for').id
       App.rootRoute = "/organisation/#{orgId}/students"
 
-    App.rootRoute = "/organisations"  if App.currentUser     instanceof Learnster.Entities.AppAdmin
+    App.rootRoute = "/organisations"  if App.currentUser instanceof Learnster.Entities.AppAdmin
     App.rootRoute = "/login"          if Object(App.currentUser) instanceof Boolean
 
   App.commands.setHandler "redirect:home", ->
@@ -93,9 +93,7 @@
 
   App.on "initialize:after", ->
       App.startHistory()
-      if App.getCurrentRoute() isnt null and Object(App.currentUser) not instanceof Boolean
-        App.navigate(App.getCurrentRoute())
-      else
-        App.execute "redirect:home"
+      isEmptyRoute = App.getCurrentRoute() is null
+      App.execute "redirect:home" if isEmptyRoute
 
   App

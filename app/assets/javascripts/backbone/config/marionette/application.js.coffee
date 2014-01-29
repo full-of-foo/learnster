@@ -3,9 +3,6 @@ do (Backbone, $, _, window) ->
   _.extend Backbone.Marionette.Application::,
 
     navigate: (route, options = {}) ->
-      # cannot nav to login when logged in
-      route = @rootRoute  if ( ( route.indexOf("login") isnt -1 and
-       @rootRoute isnt "/login" ) or route is null)
       # add pound is invalid route
       route = "#" + route if route.charAt(0) is "/"
       # always trigger route

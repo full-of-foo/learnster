@@ -6,6 +6,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
         shared: [
           /^organisation\/(.+?)\/students$/,
           /^login$/,
+          /^signu(.+)$/,
           /^statistics$/,
           /^404$/
         ]

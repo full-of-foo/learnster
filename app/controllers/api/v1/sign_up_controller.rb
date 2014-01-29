@@ -1,21 +1,13 @@
 class Api::V1::SignUpController < ApplicationController
 
-  def confirm_administrator_account
-    @org_admin = OrgAdmin.find(params[:id])
-    valid_confirm = @org_admin.confirmation_code == params[:code]
-    has_registered = !@org_admin.admin_for.nil?
-    has_confirmed = @org_admin.confirmed
+  def show_valid_admin
+    @org_admin = OrgAdmin.where(id: params[:id], confirmation_code: params[:code])
 
-    if !has_confirmed && valid_confirm && !has_registered
-      @org_admin.update! confirmed: true
+    if @org_admin
       render "api/v1/org_admin/show"
     else
       respond_with @org_admin
     end
-  end
-
-  def validate_email_confirmation
-    # TODO
   end
 
   def sign_up_account_manager
@@ -27,6 +19,20 @@ class Api::V1::SignUpController < ApplicationController
         .id}/confirm/#{@org_admin.confirmation_code}"
       UserMailer.signup_confirmation(@org_admin, @confirmation_url).deliver
 
+      render "api/v1/org_admin/show"
+    else
+      respond_with @org_admin
+    end
+  end
+
+  def confirm_administrator_account
+    @org_admin = OrgAdmin.find(params[:id])
+    valid_confirm = @org_admin.confirmation_code == params[:code]
+    has_registered = !@org_admin.admin_for.nil?
+    has_confirmed = @org_admin.confirmed
+
+    if !has_confirmed && valid_confirm && !has_registered
+      @org_admin.update! confirmed: true
       render "api/v1/org_admin/show"
     else
       respond_with @org_admin
