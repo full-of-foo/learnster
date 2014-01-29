@@ -51,7 +51,8 @@ class User < ActiveRecord::Base
   end
 
   def authenticate_and_confirm(password)
-    authenticate(password) && self.confirmed
+    is_set_up = self.type == "OrgAdmin" ? !self.admin_for.nil? : true
+    authenticate(password) && self.confirmed && is_set_up
   end
 
   def full_name
@@ -67,7 +68,7 @@ class User < ActiveRecord::Base
 
     def set_default_attributes
       self.confirmation_code ||= SecureRandom.hex
-      self.confirmed ||= true
+      self.confirmed = true if self.confirmed == false && (self.type != "OrgAdmin" || !self.role.account_manager?)
     end
 
 

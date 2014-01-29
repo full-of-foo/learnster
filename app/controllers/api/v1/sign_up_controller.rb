@@ -2,7 +2,6 @@ class Api::V1::SignUpController < ApplicationController
 
   def show_valid_admin
     @org_admin = OrgAdmin.where(id: params[:id], confirmation_code: params[:code])
-
     if @org_admin
       render "api/v1/org_admin/show"
     else
@@ -18,7 +17,6 @@ class Api::V1::SignUpController < ApplicationController
       @confirmation_url = root_url + "#/signup/#{@org_admin
         .id}/confirm/#{@org_admin.confirmation_code}"
       UserMailer.signup_confirmation(@org_admin, @confirmation_url).deliver
-
       render "api/v1/org_admin/show"
     else
       respond_with @org_admin
@@ -26,16 +24,15 @@ class Api::V1::SignUpController < ApplicationController
   end
 
   def confirm_administrator_account
-    @org_admin = OrgAdmin.find(params[:id])
-    valid_confirm = @org_admin.confirmation_code == params[:code]
+    @org_admin = OrgAdmin.where(id: params[:id],
+     confirmation_code: params[:code]).first
     has_registered = !@org_admin.admin_for.nil?
-    has_confirmed = @org_admin.confirmed
 
-    if !has_confirmed && valid_confirm && !has_registered
+    if !has_registered
       @org_admin.update! confirmed: true
       render "api/v1/org_admin/show"
     else
-      respond_with @org_admin
+      respond_with @org_admin, :location => root_url
     end
   end
 

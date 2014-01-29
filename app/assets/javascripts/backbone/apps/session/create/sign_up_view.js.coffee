@@ -27,7 +27,7 @@
       template: "session/create/templates/_confirm_form"
       form:
         buttons:
-          primary: "Confirm"
+          primary: "Continue"
           primaryClass: "btn btn-primary"
         toast: false
 
@@ -52,3 +52,17 @@
         buttons:
           primary: "Next"
           primaryClass: "btn btn-primary"
+
+    class Create.AlreadyRegisteredDialog extends App.Views.ItemView
+      template: 'session/create/templates/already_registered_dialog'
+      tagName: 'div'
+      className: 'modal fade'
+      onShow: ->
+        @$el.modal()
+
+    class Create.EmailSentDialog extends App.Views.ItemView
+      template: 'session/create/templates/email_sent_dialog'
+      tagName: 'div'
+      className: 'modal fade'
+      onShow: ->
+        @$el.modal()

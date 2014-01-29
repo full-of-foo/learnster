@@ -52,7 +52,11 @@
 		getFormDataType: ->
 			user = App.request "get:current:user"
 			isNew = @model.isNew()
-			createdByUser = if !isNew then (@model.get('created_by').id is user.get('id') or user instanceof App.Entities.AppAdmin) else false
+			if Object(user) not instanceof Boolean
+				createdByUser = if !isNew then (@model
+					.get('created_by')?.id is user?.get('id') or user instanceof App.Entities.AppAdmin) else false
+			else
+				createdByUser = false
 
 			if @model.isNew()
 				"new"
