@@ -4,6 +4,7 @@
     appRoutes:
       "login" : "showLogin"
       "signup": "showSignUp"
+      "signup/:id/confirm/:code" : "showSignUpFromRegister"
 
 
   API =
@@ -12,6 +13,11 @@
 
     showSignUp: ->
       new SessionApp.Create.Controller()
+
+    showSignUpFromRegister: (admin_id, reg_code) ->
+      new SessionApp.Create.Controller
+        admin_id: admin_id
+        code: reg_code
 
     getDestroyIconView: ->
       new SessionApp.Destroy.Icon()

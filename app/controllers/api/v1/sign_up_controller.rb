@@ -21,8 +21,12 @@ class Api::V1::SignUpController < ApplicationController
   def sign_up_account_manager
     @org_admin = OrgAdmin.new
     params = permitted_params.sign_up_params.merge create_params
+
     if @org_admin.update params
-      UserMailer.signup_confirmation(@org_admin).deliver
+      @confirmation_url = root_url + "#/signup/#{@org_admin
+        .id}/confirm/#{@org_admin.confirmation_code}"
+      UserMailer.signup_confirmation(@org_admin, @confirmation_url).deliver
+
       render "api/v1/org_admin/show"
     else
       respond_with @org_admin

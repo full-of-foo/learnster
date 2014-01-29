@@ -2,12 +2,15 @@
 
   class Create.Controller extends App.Controllers.Base
 
-    initialize: ->
+    initialize: (options = {}) ->
       @layout = @getLayoutView()
 
       @listenTo @layout, "show", ->
         @showPanel()
-        @showIntro()
+        if options.admin_id and options.code
+          @showConfirmationForm(options.admin_id, options.code)
+        else
+          @showIntro()
 
       @show @layout
 
@@ -38,13 +41,22 @@
 
       @layout.currentFormRegion.show adminFormView
 
-    showConfirmationForm: () ->
+    showConfirmationForm: (id = null, code = null) ->
       confirm_org_admin = App.request "new:org_admin:entity"
       confirmForm = @getConfirmationForm(confirm_org_admin)
       confirmForm = App.request "form:wrapper", confirmForm
 
+      if id and code
+        admin = App.reqres.request("org_admin:entity", id)
+        is_confirmed = admin.get('confirmed')
+        has_org = admin.get('admin_for')
+        has_correct_code = admin.get('confirmation_code') is code
+
       @listenTo confirmForm, "show", ->
-        @_completeCrumbItem("register-crumb")
+        @_completeCrumbItem("intro-crumb")
+        if id and code
+          @_completeCrumbItem("admin-crumb")
+          @_completeCrumbItem("register-crumb")
 
       @layout.currentFormRegion.show confirmForm
 
