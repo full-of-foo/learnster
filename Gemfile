@@ -36,7 +36,7 @@ gem 'api-pagination'
 gem "faker"
 gem 'enumerize'
 gem 'daemons'
-gem 'delayed_job_active_record'
+gem 'delayed_job_active_record', :git => 'https://github.com/panter/delayed_job_active_record.git'
 
 group :development do
   gem "populator"

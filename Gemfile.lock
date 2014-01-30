@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/panter/delayed_job_active_record.git
+  revision: d4e53f3560de68928ab5be4d981a7643cdd88181
+  specs:
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -87,9 +95,6 @@ GEM
       railties (>= 3.1)
     delayed_job (4.0.0)
       activesupport (>= 3.0, < 4.1)
-    delayed_job_active_record (4.0.0)
-      activerecord (>= 3.0, < 4.1)
-      delayed_job (>= 3.0, < 4.1)
     diff-lcs (1.2.5)
     eco (1.0.0)
       coffee-script
@@ -292,7 +297,7 @@ DEPENDENCIES
   daemons
   database_cleaner
   datejs-rails
-  delayed_job_active_record
+  delayed_job_active_record!
   eco
   enumerize
   factory_girl_rails
