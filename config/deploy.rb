@@ -31,3 +31,4 @@ set :gmail_user, ENV["GMAIL_USERNAME"]
 set :gmail_pass, ENV["GMAIL_PASSWORD"]
 
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
+after "deploy", "restart_daemons"

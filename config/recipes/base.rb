@@ -35,7 +35,7 @@ namespace :deploy do
   task :restart_daemons, :roles => :app do
     # run %Q{cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bin/delayed_job start}
     run %Q{cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bundle exec rake jobs:clear}
-    run %Q{cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bundle exec rake jobs:work}
+    run %Q{& cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bundle exec rake jobs:work}
   end
 end
 
