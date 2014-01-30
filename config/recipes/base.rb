@@ -10,7 +10,6 @@ end
 namespace :deploy do
 
   namespace :assets do
-
     task :precompile, :roles => :web, :except => { :no_release => true } do
       from = source.next_revision(current_revision)
       if capture("cd #{latest_release} && #{source.local.log(from)} vendor/assets/ app/assets/ | wc -l").to_i > 0
@@ -30,6 +29,12 @@ namespace :deploy do
   task :install do
     run "#{sudo} apt-get -y update"
     run "#{sudo} apt-get -y install python-software-properties"
+  end
+
+  desc "Restart all daemons"
+  task :restart_daemons, :roles => :app do
+    run %Q{cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bin/delayed_job stop}
+    run %Q{cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bin/delayed_job start}
   end
 end
 

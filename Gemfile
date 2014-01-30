@@ -35,6 +35,8 @@ gem 'will_paginate', '~> 3.0.5'
 gem 'api-pagination'
 gem "faker"
 gem 'enumerize'
+gem 'daemons'
+gem 'delayed_job_active_record'
 
 group :development do
   gem "populator"

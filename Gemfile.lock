@@ -81,9 +81,15 @@ GEM
       cucumber (>= 1.2.0)
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
+    daemons (1.1.9)
     database_cleaner (1.2.0)
     datejs-rails (2.0.1)
       railties (>= 3.1)
+    delayed_job (4.0.0)
+      activesupport (>= 3.0, < 4.1)
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
     diff-lcs (1.2.5)
     eco (1.0.0)
       coffee-script
@@ -283,8 +289,10 @@ DEPENDENCIES
   coffee-rails (= 4.0.0)
   coffee-rails-source-maps
   cucumber-rails
+  daemons
   database_cleaner
   datejs-rails
+  delayed_job_active_record
   eco
   enumerize
   factory_girl_rails

@@ -51,6 +51,17 @@ class OrgAdmin < User
     end
   end
 
+  def self.deliver_confirmation_mail(id, confirm_url)
+    find(id).deliver_confirmation_mail(confirm_url)
+  end
+
+
+  def deliver_confirmation_mail(confirm_url)
+    UserMailer.signup_confirmation(self, confirm_url).deliver
+    logger.info "Sending confirm email for user[id:#{self.id}, \
+    email:'#{self.full_name}']; confirm url: #{confirm_url}"
+  end
+
   def app_admin?
     false
   end

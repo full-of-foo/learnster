@@ -16,7 +16,8 @@ class Api::V1::SignUpController < ApplicationController
     if @org_admin.update params
       @confirmation_url = root_url + "#/signup/#{@org_admin
         .id}/confirm/#{@org_admin.confirmation_code}"
-      UserMailer.signup_confirmation(@org_admin, @confirmation_url).deliver
+
+      OrgAdmin.delay(queue: "confirm_email").deliver_confirmation_mail(@org_admin.id, @confirmation_url)
       render "api/v1/org_admin/show"
     else
       respond_with @org_admin
