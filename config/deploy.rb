@@ -1,5 +1,4 @@
 require "bundler/capistrano"
-require "delayed/recipes"
 
 raise "Supply all ENV params: gmail, etc" if ENV["GMAIL_USERNAME"]
   .nil? || ENV["GMAIL_PASSWORD"].nil?
@@ -36,3 +35,4 @@ after "deploy", "deploy:cleanup" # keep only the last 5 releases
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
 after "deploy:restart", "delayed_job:restart"
+

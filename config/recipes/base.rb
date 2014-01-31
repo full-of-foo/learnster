@@ -23,19 +23,30 @@ namespace :deploy do
 
 end
 
+
+namespace :delayed_job do
+
+  desc "Restart all daemons"
+  task :restart, :roles => :app do
+    run %Q{cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bin/delayed_job restart}
+  end
+  desc "Start all daemons"
+  task :start, :roles => :app do
+    run %Q{cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bin/delayed_job start}
+  end
+  desc "Stop all daemons"
+  task :stop, :roles => :app do
+    run %Q{cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bin/delayed_job stop}
+  end
+
+end
+
 namespace :deploy do
 
   desc "Install everything onto the server"
   task :install do
     run "#{sudo} apt-get -y update"
     run "#{sudo} apt-get -y install python-software-properties"
-  end
-
-  desc "Restart all daemons"
-  task :restart_daemons, :roles => :app do
-    # run %Q{cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bin/delayed_job start}
-    run %Q{cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bundle exec rake jobs:clear}
-    run %Q{& cd #{latest_release} && GMAIL_USERNAME=#{gmail_user} GMAIL_PASSWORD=#{gmail_pass} RAILS_ENV=#{rails_env} bundle exec rake jobs:work}
   end
 end
 
