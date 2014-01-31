@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+require "delayed/recipes"
 
 raise "Supply all ENV params: gmail, etc" if ENV["GMAIL_USERNAME"]
   .nil? || ENV["GMAIL_PASSWORD"].nil?
@@ -13,6 +14,7 @@ load "config/recipes/check"
 
 server "109.74.204.118", :web, :app, :db, primary: true
 
+set :rails_env, "production" #added for delayed job
 set :user, "deployer"
 set :application, "learnster"
 set :deploy_to, "/home/#{user}/apps/#{application}"
@@ -31,4 +33,6 @@ set :gmail_user, ENV["GMAIL_USERNAME"]
 set :gmail_pass, ENV["GMAIL_PASSWORD"]
 
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
-after "deploy", "restart_daemons"
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
