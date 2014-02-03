@@ -42,11 +42,17 @@ do (Backbone, $, _, window) ->
 
 
     makeToast: (options = {}) ->
-      toast = new Notify 'Learnser',
-        body:                 options.text
-        permissionGranted: -> toast.show()
-        notifyShow: ->        _.delay( ( -> toast.myNotify.close() ), 200)
-        icon:                 "images/learnster-toast.png"
+      _closeToast = ->
+        console.log "closing"
+        _.delay((=> @myNotify.close()), 2200)
+      _showToast = ->
+        @show()
+
+      toast = new Notify 'Learnster',
+        body: options.text
+        permissionGranted: _showToast
+        icon: "images/learnster-toast.png"
+        notifyShow: _closeToast
 
       if toast.needsPermission()
         toast.requestPermission()
