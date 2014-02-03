@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140130125707) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "activities", force: true do |t|
     t.integer  "user_id"
     t.string   "action"
@@ -22,8 +25,8 @@ ActiveRecord::Schema.define(version: 20140130125707) do
     t.datetime "updated_at"
   end
 
-  add_index "activities", ["trackable_id"], name: "index_activities_on_trackable_id"
-  add_index "activities", ["user_id"], name: "index_activities_on_user_id"
+  add_index "activities", ["trackable_id"], name: "index_activities_on_trackable_id", using: :btree
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "api_keys", force: true do |t|
     t.string   "access_token",                null: false
@@ -34,7 +37,7 @@ ActiveRecord::Schema.define(version: 20140130125707) do
     t.datetime "updated_at"
   end
 
-  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id"
+  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
 
   create_table "course_sections", force: true do |t|
     t.string   "section"
@@ -44,8 +47,8 @@ ActiveRecord::Schema.define(version: 20140130125707) do
     t.integer  "provisioned_by"
   end
 
-  add_index "course_sections", ["course_id"], name: "index_course_sections_on_course_id"
-  add_index "course_sections", ["provisioned_by"], name: "index_course_sections_on_provisioned_by"
+  add_index "course_sections", ["course_id"], name: "index_course_sections_on_course_id", using: :btree
+  add_index "course_sections", ["provisioned_by"], name: "index_course_sections_on_provisioned_by", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "title"
@@ -57,10 +60,10 @@ ActiveRecord::Schema.define(version: 20140130125707) do
     t.string   "identifier"
   end
 
-  add_index "courses", ["identifier"], name: "index_courses_on_identifier"
-  add_index "courses", ["managed_by"], name: "index_courses_on_managed_by"
-  add_index "courses", ["organisation_id"], name: "index_courses_on_organisation_id"
-  add_index "courses", ["title"], name: "index_courses_on_title"
+  add_index "courses", ["identifier"], name: "index_courses_on_identifier", using: :btree
+  add_index "courses", ["managed_by"], name: "index_courses_on_managed_by", using: :btree
+  add_index "courses", ["organisation_id"], name: "index_courses_on_organisation_id", using: :btree
+  add_index "courses", ["title"], name: "index_courses_on_title", using: :btree
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -76,7 +79,7 @@ ActiveRecord::Schema.define(version: 20140130125707) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "enrolled_course_sections", force: true do |t|
     t.integer  "student_id"
@@ -86,8 +89,8 @@ ActiveRecord::Schema.define(version: 20140130125707) do
     t.boolean  "is_active"
   end
 
-  add_index "enrolled_course_sections", ["course_section_id"], name: "index_enrolled_course_sections_on_course_section_id"
-  add_index "enrolled_course_sections", ["student_id"], name: "index_enrolled_course_sections_on_student_id"
+  add_index "enrolled_course_sections", ["course_section_id"], name: "index_enrolled_course_sections_on_course_section_id", using: :btree
+  add_index "enrolled_course_sections", ["student_id"], name: "index_enrolled_course_sections_on_student_id", using: :btree
 
   create_table "learning_modules", force: true do |t|
     t.string   "title"
@@ -98,8 +101,8 @@ ActiveRecord::Schema.define(version: 20140130125707) do
     t.integer  "course_section_id"
   end
 
-  add_index "learning_modules", ["course_section_id"], name: "index_learning_modules_on_course_section_id"
-  add_index "learning_modules", ["educator_id"], name: "index_learning_modules_on_educator_id"
+  add_index "learning_modules", ["course_section_id"], name: "index_learning_modules_on_course_section_id", using: :btree
+  add_index "learning_modules", ["educator_id"], name: "index_learning_modules_on_educator_id", using: :btree
 
   create_table "organisations", force: true do |t|
     t.string   "title"
@@ -127,6 +130,6 @@ ActiveRecord::Schema.define(version: 20140130125707) do
     t.boolean  "confirmed",         default: false
   end
 
-  add_index "users", ["role"], name: "index_users_on_role"
+  add_index "users", ["role"], name: "index_users_on_role", using: :btree
 
 end

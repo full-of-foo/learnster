@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 ruby "2.0.0"
 
+gem "coffee-rails", "4.0.0" #gemfile hack
 gem "rails", "4.0.1"
 
 
@@ -36,7 +37,9 @@ gem 'api-pagination'
 gem "faker"
 gem 'enumerize'
 gem 'daemons'
-gem 'delayed_job_active_record', :git => 'https://github.com/panter/delayed_job_active_record.git'
+gem 'delayed_job_active_record',
+  :git => 'https://github.com/panter/delayed_job_active_record.git',
+  :branch => 'master'
 
 group :development do
   gem "populator"
@@ -47,21 +50,20 @@ gem "bootstrap-sass-rails", "2.3.2.1"
 gem "jquery-rails", "~> 3.0.4"
 gem "eco", :require => "eco"
 gem "uglifier", "2.1.1"
-gem "coffee-rails", "4.0.0"
 gem "font-awesome-rails"
 gem "rabl"
 gem "oj"
-gem "gon"
+gem "gon", '4.1.1'
 gem "js-routes"
 gem "spinjs-rails"
 gem "datejs-rails"
+gem "pg", "0.15.1"
 
 group :doc do
   gem "sdoc", "0.3.20", require: false
 end
 
 group :production do
-  gem "pg", "0.15.1"
   gem "rails_12factor", "0.0.2"
   gem 'capistrano', "2.15.5"
   gem "unicorn", "~> 4.7.0"

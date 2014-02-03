@@ -8,9 +8,14 @@ class PermittedParams < Struct.new(:params, :user)
     params.require(:org_admin).permit(*user_attributes)
   end
 
-  def sign_up_params
-    params.require(:sign_up).permit(*sign_up_attributes)
+  def sign_up_org_params
+    params.require(:sign_up).permit(*sign_up_org_attributes)
   end
+
+  def sign_up_admin_params
+    params.require(:sign_up).permit(*sign_up_admin_attributes)
+  end
+
 
   def org_params
     params.require(:organisation).permit(*org_attributes)
@@ -27,8 +32,12 @@ class PermittedParams < Struct.new(:params, :user)
       attrs
     end
 
-    def sign_up_attributes
+    def sign_up_admin_attributes
       [:email, :first_name, :surname, :password, :password_confirmation]
+    end
+
+    def sign_up_org_attributes
+      [:title, :description]
     end
 
     def org_attributes

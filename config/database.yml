@@ -1,25 +1,25 @@
-
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: learnster_development
   pool: 5
-  timeout: 5000
+  username: anthonytroy
+  password:
 
-test: &test
-  adapter: sqlite3
-  database: db/test.sqlite3
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: learnster_test
   pool: 5
-  timeout: 5000
+  username: anthonytroy
+  password:
 
-# Used for testing the compiling of assets
-#
-# Capistrano generates a database.yml file
+# Capistrano generates a seperate database.yml file
 # on deploys
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: learnster_production
   pool: 5
-  timeout: 5000
-
-cucumber:
-  <<: *test
+  username: anthonytroy
+  password:
