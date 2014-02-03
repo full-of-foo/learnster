@@ -20,16 +20,21 @@
 
       @show sideBarView
 
+    navToSignIn: ->
+      @_removeAllSideItemHighlights()
+      @_addHighlightToElem "side-item-sign-in"
 
     sideNavToSignIn: (itemView) ->
-      @_removeAllSideItemHighlights()
       App.navigate "/login"
-      @_addHighlightToElem itemView.model.get('id')
+      @navToSignIn()
+
+    navToSignUp: ->
+      @_removeAllSideItemHighlights()
+      @_addHighlightToElem "side-item-sign-up"
 
     sideNavToSignUp: (itemView) ->
-      @_removeAllSideItemHighlights()
       App.navigate "/signup"
-      @_addHighlightToElem itemView.model.get('id')
+      @navToSignUp()
 
     getAppAdminBarItems: ->
       [

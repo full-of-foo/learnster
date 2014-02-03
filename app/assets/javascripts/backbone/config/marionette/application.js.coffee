@@ -45,7 +45,7 @@ do (Backbone, $, _, window) ->
       toast = new Notify 'Learnser',
         body:                 options.text
         permissionGranted: -> toast.show()
-        notifyShow: ->        _.delay( ( -> toast.myNotify.close() ), 2500)
+        notifyShow: ->        _.delay( ( -> toast.myNotify.close() ), 200)
         icon:                 "images/learnster-toast.png"
 
       if toast.needsPermission()

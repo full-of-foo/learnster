@@ -5,13 +5,13 @@
     showSidebar: ->
       user = App.request "get:current:user"
       if user instanceof Learnster.Entities.AppAdmin
-        @listAppAdminSidebar()
+        @sidebar = @listAppAdminSidebar()
       else if user instanceof Learnster.Entities.OrgAdmin
-        @listOrgAdminSidebar()
+        @sidebar = @listOrgAdminSidebar()
       else if user instanceof Learnster.Entities.Student
-        @listStudentSidebar()
+        @sidebar = @listStudentSidebar()
       else
-        @listLoginSidebar()
+        @sidebar = @listLoginSidebar()
 
     listAppAdminSidebar: ->
       new SidebarApp.List.Controller
@@ -35,6 +35,9 @@
 
   App.commands.setHandler "show:sidebar", ->
     API.showSidebar()
+
+  App.reqres.setHandler "get:sidebar:controller", ->
+    API.sidebar
 
   SidebarApp.on "start", ->
     API.showSidebar()
