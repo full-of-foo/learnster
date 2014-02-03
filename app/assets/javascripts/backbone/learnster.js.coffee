@@ -20,7 +20,6 @@
       App.currentUser = false
       App.execute("set:root:route")
 
-
   App.reqres.setHandler "get:current:user", ->
     App.currentUser
 
@@ -61,7 +60,7 @@
   App.commands.setHandler "register:instance", (instance, id) ->
     App.register instance, id if App.environment is "development"
 
-  App.commands.setHandler "set:root:route", =>
+  App.commands.setHandler "set:root:route", ->
     if App.currentUser instanceof Learnster.Entities.Student
       orgId = App.currentUser.get('attending_org').id
       App.rootRoute = "/organisation/#{orgId}/students"
@@ -72,6 +71,7 @@
 
     App.rootRoute = "/organisations"  if App.currentUser instanceof Learnster.Entities.AppAdmin
     App.rootRoute = "/login"          if Object(App.currentUser) instanceof Boolean
+
 
   App.commands.setHandler "redirect:home", ->
     App.execute("set:root:route")

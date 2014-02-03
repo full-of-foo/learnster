@@ -18,12 +18,18 @@ class Api::V1::SignUpController < ApplicationController
     @org_admin = OrgAdmin.where(id: params[:id],
      confirmation_code: params[:code]).first
     has_registered = @org_admin && !@org_admin.admin_for.nil?
+    has_confirmed = @org_admin && @org_admin.confirmed
 
-    if !has_registered
-      @org_admin.update! confirmed: true
+    if @org_admin && !has_registered
+      @org_admin.update!(confirmed: true) if !has_confirmed
       render "api/v1/org_admin/show"
     else
-      respond_with @org_admin, :location => root_url
+      errors = []
+      errors << "Admin no longer exists" if !@org_admin
+      errors << "Already registered"     if has_registered
+      render json: {
+          errors: { email: "", password: errors }
+        }, status: 401 # redirect
     end
   end
 

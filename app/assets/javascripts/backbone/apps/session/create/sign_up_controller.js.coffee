@@ -49,37 +49,32 @@
         auth_org_admin = App.request "new:auth:org_admin"
         @listenTo auth_org_admin, "created", ->
           @showOrgForm(auth_org_admin)
-
         confirmForm = @getConfirmationForm(auth_org_admin)
         confirmForm = App.request "form:wrapper", confirmForm
+        @listenTo confirmForm, "show", ->
+          _.delay((-> $('input#email').val(email_text)) , 400)
+          @_completeCrumbItem("register-crumb")
+          @_completeCrumbItem("intro-crumb")
+          @_completeCrumbItem("admin-crumb")
         @layout.currentFormRegion.show confirmForm
 
-      @listenTo confirmForm, "show", ->
-        _.delay((-> $('input#email').val(email_text)) , 400)
-        @_completeCrumbItem("register-crumb")
-        @_completeCrumbItem("intro-crumb")
-        @_completeCrumbItem("admin-crumb")
-
-      App.execute "show:loading", @layout.currentFormRegion.currentView,
-        loading:
-              loadingType: "spinner"
-        region:  @layout.currentFormRegion
 
     showConfirmationForm: (new_org_admin) ->
       email_text = new_org_admin.get('email')
+      @showEmailSentDialog new_org_admin
       new_org_admin.clear()
 
       auth_org_admin = App.request "new:auth:org_admin"
       confirmForm = @getConfirmationForm(auth_org_admin)
       confirmForm = App.request "form:wrapper", confirmForm
 
-      @listenTo auth_org_admin, "created", ->
-        @showOrgForm(auth_org_admin)
-
       @listenTo confirmForm, "show", ->
         _.delay((-> $('input#email').val(email_text)) , 500)
         @_completeCrumbItem("register-crumb")
-        @showEmailSentDialog new_org_admin
+
+
+      @listenTo auth_org_admin, "created", ->
+        @showOrgForm(auth_org_admin)
 
       @layout.currentFormRegion.show confirmForm
 
@@ -93,6 +88,10 @@
       @listenTo orgFormView, "show", ->
         @_completeCrumbItem("org-crumb")
 
+      @listenTo new_org, "created", ->
+        App.navigate "/login"
+        @showRegistrationCompleteDialog org_admin
+
       @show orgFormView,
         loading:
           loadingType: "spinner"
@@ -100,9 +99,6 @@
 
     showAlreadyRegDialog: (admin) ->
       dialogView = @getAlreadyRegDialog admin
-      @listenTo dialogView, "todo:close:event", =>
-        dialogView.$el.modal "hide"
-
       @show dialogView,
           loading:
             loadingType: "spinner"
@@ -110,9 +106,14 @@
 
     showEmailSentDialog: (admin) ->
       dialogView = @getEmailSentDialog admin
-      @listenTo dialogView, "todo:close:event", =>
-        dialogView.$el.modal "hide"
 
+      @show dialogView,
+          loading:
+            loadingType: "spinner"
+          region: App.dialogRegion
+
+    showRegistrationCompleteDialog: (admin) ->
+      dialogView = @getRegistrationCompleteDialog admin
       @show dialogView,
           loading:
             loadingType: "spinner"
@@ -143,6 +144,10 @@
 
     getEmailSentDialog: (admin) ->
       new Create.EmailSentDialog
+        model: admin
+
+    getRegistrationCompleteDialog: (admin) ->
+      new Create.RegistrationCompleteDialog
         model: admin
 
     getLayoutView: ->

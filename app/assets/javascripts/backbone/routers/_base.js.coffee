@@ -5,12 +5,14 @@
     before: (route, params) ->
       console.log "Before route hook - #{route}: #{params}" if App.environment is "development"
       user = App.reqres.request "get:current:user"
+      rootRoute = if App.rootRoute then App.rootRoute.replace('/', '') else ""
+
       isLoggedIn = user instanceof Object
       isEmptyRoute = App.getCurrentRoute() is null
       isSignUpRoute = /.?signup/.test(App.getCurrentRoute())
       isLoginRoute = /.?signup/.test(App.getCurrentRoute())
       isSessionRoute = not isSignUpRoute and not isLoginRoute
-      isRootRoute = App.getCurrentRoute() is App.rootRoute.replace('/', '')
+      isRootRoute = App.getCurrentRoute() is rootRoute
       isLegalUserRoot = ((not isEmptyRoute and isLoggedIn and isSessionRoute) or
                          (not isSessionRoute and not isLoggedIn))
 

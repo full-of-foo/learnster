@@ -21,6 +21,7 @@
         buttons:
           primary: "Next"
           primaryClass: "btn btn-primary"
+          cancel: false
         toast: false
 
     class Create.ConfirmForm extends App.Views.ItemView
@@ -28,6 +29,7 @@
       form:
         buttons:
           primary: "Continue"
+          cancel: false
           primaryClass: "btn btn-primary"
         toast: false
 
@@ -35,23 +37,10 @@
       template: "session/create/templates/_org_form"
       form:
         buttons:
-          primary: "Next"
+          primary: "Complete Registration"
+          cancel: false
           primaryClass: "btn btn-primary"
         toast: false
-
-    class Create.AdminUploadForm extends App.Views.ItemView
-      template: "session/create/templates/_admin_upload_form"
-      form:
-        buttons:
-          primary: "Next"
-          primaryClass: "btn btn-primary"
-
-    class Create.StudentUploadForm extends App.Views.ItemView
-      template: "session/create/templates/_student_upload_form"
-      form:
-        buttons:
-          primary: "Next"
-          primaryClass: "btn btn-primary"
 
     class Create.AlreadyRegisteredDialog extends App.Views.ItemView
       template: 'session/create/templates/already_registered_dialog'
@@ -62,6 +51,13 @@
 
     class Create.EmailSentDialog extends App.Views.ItemView
       template: 'session/create/templates/email_sent_dialog'
+      tagName: 'div'
+      className: 'modal fade'
+      onShow: ->
+        @$el.modal()
+
+    class Create.RegistrationCompleteDialog extends App.Views.ItemView
+      template: 'session/create/templates/registration_complete_dialog'
       tagName: 'div'
       className: 'modal fade'
       onShow: ->
