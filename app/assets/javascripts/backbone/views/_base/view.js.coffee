@@ -30,6 +30,8 @@
 			else
 				_remove.apply @, args
 
+			@model.clear() if @model
+
 
 		templateHelpers: ->
 

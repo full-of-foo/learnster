@@ -1,14 +1,5 @@
 class Api::V1::SignUpController < ApplicationController
 
-  def show_valid_admin
-    @org_admin = OrgAdmin.where(id: params[:id], confirmation_code: params[:code])
-    if @org_admin
-      render "api/v1/org_admin/show"
-    else
-      respond_with @org_admin
-    end
-  end
-
   def sign_up_account_manager
     @org_admin = OrgAdmin.new
     params = permitted_params.sign_up_admin_params.merge create_params
@@ -26,7 +17,7 @@ class Api::V1::SignUpController < ApplicationController
   def confirm_administrator_account
     @org_admin = OrgAdmin.where(id: params[:id],
      confirmation_code: params[:code]).first
-    has_registered = !@org_admin.admin_for.nil?
+    has_registered = @org_admin && !@org_admin.admin_for.nil?
 
     if !has_registered
       @org_admin.update! confirmed: true
@@ -37,13 +28,18 @@ class Api::V1::SignUpController < ApplicationController
   end
 
   def auth_administrator_account
-    @admin = OrgAdmin.find_by_email(params[:email])
-    errors = ["Invalid email or password"]
-    errors << "Account not confirmed" if !@admin.confirmed
+    @org_admin = OrgAdmin.find_by_email(params[:email])
+    has_auth = @org_admin && @org_admin.authenticate(params[:password])
+    has_confirmed = @org_admin && @org_admin.confirmed
+    has_registered = @org_admin && !@org_admin.admin_for.nil?
 
-    if @admin && @admin.authenticate(params[:password]) && @admin.confirmed
-      render "application/show_current_user.json.rabl"
+    if has_auth && has_confirmed
+      render "api/v1/org_admin/show"
     else
+      errors = []
+      errors << "Invalid email or password" if !has_auth
+      errors << "Already registered" if has_registered
+      errors << "Account not confirmed" if !has_confirmed
       render json: {
           errors: { email: "", password: errors }
         }, status: 422
@@ -51,18 +47,23 @@ class Api::V1::SignUpController < ApplicationController
   end
 
   def sign_up_organisation
-    @org_admin = OrgAdmin.where(id: params[:id], confirmation_code: params[:code])
-    has_registered = !@org_admin.admin_for.nil?
+    @org_admin = OrgAdmin
+      .where(id: params[:id], confirmation_code: params[:code]).first
 
+    has_registered = @org_admin && !@org_admin.admin_for.nil?
     @organisation = Organisation.new
     params = permitted_params.sign_up_org_params
+    params[:created_by] = @org_admin
 
     if !has_registered && @organisation.update(params)
         @organisation.admins << @org_admin
         render "api/v1/organisation/show"
     else
-      @organisation.errors.add(:title, { message: "You have already created \
-        an organisation" }) if !has_registered
+      if has_registered
+        @organisation.errors.add(:description, "You have already created \
+          an organisation")
+        @organisation.errors.add(:title, "")
+      end
       respond_with @organisation, :location => root_url
     end
   end

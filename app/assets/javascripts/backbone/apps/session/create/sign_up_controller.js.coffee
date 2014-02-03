@@ -27,7 +27,6 @@
 
       @layout.currentFormRegion.show introView
 
-
     showAdminForm: () ->
       new_org_admin = App.request "new:new_org_admin:entity"
       adminFormView = @getAdminFormView(new_org_admin)
@@ -42,48 +41,62 @@
       @layout.currentFormRegion.show adminFormView
 
     showConfirmationFormFromMail: (id, code) ->
-      admin = App.reqres.request("validate_org_admin:entity", id, code)
-      confirmForm = @getConfirmationForm(admin)
-      confirmForm = App.request "form:wrapper", confirmForm
+      validate_admin = App.reqres.request("validate_org_admin:entity", id, code)
+      email_text = validate_admin.get('email')
 
-      @listenTo admin, "created", ->
+      @listenTo validate_admin, "created", ->
+        validate_admin.clear()
+        auth_org_admin = App.request "new:auth:org_admin"
+        @listenTo auth_org_admin, "created", ->
+          @showOrgForm(auth_org_admin)
+
+        confirmForm = @getConfirmationForm(auth_org_admin)
+        confirmForm = App.request "form:wrapper", confirmForm
         @layout.currentFormRegion.show confirmForm
 
       @listenTo confirmForm, "show", ->
-        _.delay((-> $('input#email').val(admin.get('email'))) , 400)
+        _.delay((-> $('input#email').val(email_text)) , 400)
         @_completeCrumbItem("register-crumb")
         @_completeCrumbItem("intro-crumb")
         @_completeCrumbItem("admin-crumb")
-        is_confirmed = admin.get('confirmed')
-        has_org = admin.get('admin_for')
-        if is_confirmed and not has_org
-          console.log('confirmed')
-          console.log admin
-        else if is_confirmed and has_org
-          @showAlreadyRegDialog(admin)
 
       App.execute "show:loading", @layout.currentFormRegion.currentView,
         loading:
               loadingType: "spinner"
         region:  @layout.currentFormRegion
 
-
-
-
     showConfirmationForm: (new_org_admin) ->
-      confirmForm = @getConfirmationForm(new_org_admin)
+      email_text = new_org_admin.get('email')
+      new_org_admin.clear()
+
+      auth_org_admin = App.request "new:auth:org_admin"
+      confirmForm = @getConfirmationForm(auth_org_admin)
       confirmForm = App.request "form:wrapper", confirmForm
 
+      @listenTo auth_org_admin, "created", ->
+        @showOrgForm(auth_org_admin)
+
       @listenTo confirmForm, "show", ->
-        _.delay((-> $('input#email').val(new_org_admin.get('email'))) , 500)
+        _.delay((-> $('input#email').val(email_text)) , 500)
         @_completeCrumbItem("register-crumb")
         @showEmailSentDialog new_org_admin
 
       @layout.currentFormRegion.show confirmForm
 
-    showOrgForm: () ->
-      orgFormView = @getOrgFormView()
-      @layout.currentFormRegion.show orgFormView
+    showOrgForm: (org_admin) ->
+      id = org_admin.get('id')
+      code = org_admin.get('confirmation_code')
+      new_org = App.reqres.request("new:signup:org:entity", id, code)
+      orgFormView = @getOrgFormView(new_org)
+      orgFormView = App.request "form:wrapper", orgFormView
+
+      @listenTo orgFormView, "show", ->
+        @_completeCrumbItem("org-crumb")
+
+      @show orgFormView,
+        loading:
+          loadingType: "spinner"
+        region: @layout.currentFormRegion
 
     showAlreadyRegDialog: (admin) ->
       dialogView = @getAlreadyRegDialog admin
@@ -105,7 +118,6 @@
             loadingType: "spinner"
           region: App.dialogRegion
 
-    # TODO - upload views
 
     getPanelView: ->
       new Create.Panel()
@@ -121,8 +133,9 @@
       new Create.ConfirmForm
         model: confirm_org_admin
 
-    getOrgFormView: ->
-      new Create.OrgForm()
+    getOrgFormView: (org_admin) ->
+      new Create.OrgForm
+        model: org_admin
 
     getAlreadyRegDialog: (admin) ->
       new Create.AlreadyRegisteredDialog

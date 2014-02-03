@@ -66,6 +66,11 @@
     admin.save()
     admin
 
+  App.reqres.setHandler "new:auth:org_admin", ->
+    admin = API.newOrgAdmin()
+    admin['urlRoot'] = Routes.api_auth_administrator_account_path()
+    admin
+
   App.reqres.setHandler "init:current:orgAdmin", (attrs) ->
     API.setCurrentOrgAdmin(attrs)
 
