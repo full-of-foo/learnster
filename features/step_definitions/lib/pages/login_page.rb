@@ -12,7 +12,7 @@ module Pages
 
       @email_field    = @browser.text_field(name: 'email')
       @password_field = @browser.text_field(name: 'password')
-      @login_button   = @browser.button(text: 'Login')
+      @login_button   = @browser.button(text: 'Sign in')
     end
 
     def visit
@@ -25,7 +25,7 @@ module Pages
       self.password_field.set password
       self.login_button.click
     end
-    
+
   end
-  
+
 end
