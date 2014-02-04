@@ -54,6 +54,9 @@
     App.module("SidebarApp").start()
     App.module("FooterApp").start()
 
+  App.reqres.setHandler "app:environment", ->
+    App.environment
+
   App.commands.setHandler "unregister:instance", (instance, id) ->
     App.unregister instance, id if App.environment is "development"
 

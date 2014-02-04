@@ -3,7 +3,8 @@
 	class Entities.Models extends Backbone.RelationalModel
 
 		initialize: ->
-			@on "all", (e) -> console.log e if App.enviornment is "development"
+			if App.request("app:environment") is "development"
+				@on "all", (e) -> console.log e
 			@on "unpermitted:entity", (entity) -> App.commands.execute("show:not:found")
 			@on "not:found:entity", (entity) -> App.commands.execute("show:not:found")
 

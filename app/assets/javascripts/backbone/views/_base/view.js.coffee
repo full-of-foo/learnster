@@ -15,7 +15,7 @@
 
 
 		remove: (args...) ->
-			# console.log "removing", @
+			console.log("removing", @) if App.request("app:environment") is "development"
 
 			if @model?.isDestroyed?()
 				wrapper = @$el.toggleWrapper
