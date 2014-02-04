@@ -1,4 +1,4 @@
-do (Backbone, Marionette) ->
+do ($, Backbone, Marionette) ->
 
   class Marionette.Region.Dialog extends Marionette.Region
 
@@ -11,7 +11,13 @@ do (Backbone, Marionette) ->
 
     setupBindings: (view) ->
       @listenTo view, "hidden.bs.modal", @closeDialog
+      $(window).on 'hashchange', @closeDialogAndBg
 
-    closeDialog: ->
+    closeDialog: =>
       @stopListening()
       @close()
+
+    closeDialogAndBg: =>
+      @$el.modal('hide')
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
