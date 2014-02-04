@@ -12,6 +12,8 @@
       @on "synced:pagninable:collection", (collection, linksHeader) ->
         @_meta['next_link'] = @_formatNextLinkHeader(linksHeader)
         @_meta['last_link'] = @_formatLastLinkHeader(linksHeader)
+        console.log @_meta['next_link']
+        console.log @_meta['last_link']
 
     put: (prop, value) ->
       @_meta[prop] = value

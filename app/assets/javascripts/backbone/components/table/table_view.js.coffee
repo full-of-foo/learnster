@@ -192,7 +192,7 @@
                 page:   @collection.get('next_link')
                 search: @collection.get('search')
 
-            @collection.on "add", =>
+            @collection.on "synced:pagninable:collection", =>
               if @collection.get('next_link') ==  @collection.get('last_link')
                 @_finishScroll()
 
