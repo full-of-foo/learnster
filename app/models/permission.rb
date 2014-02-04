@@ -6,6 +6,7 @@ class Permission < Struct.new(:user)
     if user
       return true if user.app_admin?
       if user.org_admin?
+        # TODO - tidy
         @org = user.admin_for
 
         return true if controller.end_with?("student") && action == "create"
@@ -27,6 +28,12 @@ class Permission < Struct.new(:user)
           return true if fellow_admin_request?(controller, params)
           return true if organisation_student_request?(controller, params)
         end
+
+        if user.role.account_manager?
+          return true if controller.end_with?("student") && action == "import"
+          return true if controller.end_with?("org_admin") && action == "import"
+        end
+
       end
       if user.student?
         @org = user.attending_org
@@ -36,7 +43,7 @@ class Permission < Struct.new(:user)
         if action.in?(%w[index show])
           return true if organisation_students_request?(controller, params)
         end
-        #TODO
+        #TODO - implement
       end
     end
     false
@@ -79,5 +86,4 @@ class Permission < Struct.new(:user)
     def student_is_owned?(controller, params)
       controller.end_with?("student") && user.id == Student.find(params[:id]).created_by.id
     end
-
 end

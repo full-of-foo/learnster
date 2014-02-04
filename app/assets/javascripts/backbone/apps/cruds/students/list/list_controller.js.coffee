@@ -35,7 +35,6 @@
           App.vent.trigger "open:student:import:dialog", @_nestingOrg
 
           App.vent.on "students:import:success", (dialogView) =>
-            console.log "here!!!!"
             @showFetchedStudents()
 
       @show panelView,
@@ -112,6 +111,8 @@
       @showStudents(students)
 
     showFetchedStudents: ->
+      console.log @_nestingOrg
+      console.log @_nestingOrgId
       students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", @_nestingOrgId)
       @colCollection = null
       @showSettings() if not @layout.listSettingsRegion?.currentView?.isClosed and @layout.listSettingsRegion?.currentView

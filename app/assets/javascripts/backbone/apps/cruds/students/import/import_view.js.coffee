@@ -26,6 +26,7 @@
 
       $('#student-upload-area').fineUploader(options).on 'error', (event, id, name, errorReason, xhrOrXdr) ->
         import_status_data = errorReason
+        console.log errorReason
         successfulRows = (row for row, val of import_status_data when val is true)
         errorRows = (row for row, val of import_status_data when val isnt true)
         errorData = {}
@@ -53,19 +54,22 @@
               <ul id="error-row-list" class="fa-ul"></ul></div>')
             .appendTo('#upload-results')
           $('#upload-results').hide()
-
-          errorRows.forEach (row) ->
-            row_id = row.replace(/\s+/g, '')
+          if import_status_data is "Not authorized"
             $('#error-row-list')
-              .append('<li id="' + row_id + '"><i class="fa-li fa fa-thumbs-o-down"></i>' + row + '</li></br>')
-            if errorData[row] instanceof Object
-              for own field, errors of errorData[row]
-                fieldErrorListId = row_id + field
-                $('li#' + row_id)
-                  .append('<p class="text-warning">' + field + '</p><ul id="' + fieldErrorListId + '"></ul>')
-                errors.forEach (error) ->
-                  $('ul#' + fieldErrorListId)
-                    .append('<li>' + error + '</li>')
+                .append('<li><i class="fa-li fa fa-thumbs-o-down"></i> Your account is not authorized for importing!</li></br>')
+          else
+            errorRows.forEach (row) ->
+              row_id = row.replace(/\s+/g, '')
+              $('#error-row-list')
+                .append('<li id="' + row_id + '"><i class="fa-li fa fa-thumbs-o-down"></i>' + row + '</li></br>')
+              if errorData[row] instanceof Object
+                for own field, errors of errorData[row]
+                  fieldErrorListId = row_id + field
+                  $('li#' + row_id)
+                    .append('<p class="text-warning">' + field + '</p><ul id="' + fieldErrorListId + '"></ul>')
+                  errors.forEach (error) ->
+                    $('ul#' + fieldErrorListId)
+                      .append('<li>' + error + '</li>')
 
 
         if _.isEmpty(import_status_data)
