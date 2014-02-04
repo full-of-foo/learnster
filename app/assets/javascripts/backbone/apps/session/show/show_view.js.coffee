@@ -14,7 +14,8 @@
         template: "session/show/templates/_login_form"
         form:
             buttons:
-                primary:      "Login"
-                primaryClass: "btn btn-primary"
+                primary:      "Sign in"
+                primaryClass: "login-button span"
+                cancel: false
             toast: false
 
