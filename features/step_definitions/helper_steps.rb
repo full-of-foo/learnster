@@ -2,7 +2,7 @@
 # operations
 Given(/^I navigate to the "(.+)" page$/) do  |page|
   raise "No page name supplied" if page.blank? or page.nil?
-  
+
   case page
   when "login"
     page = Pages::LoginPage.new(@browser)
@@ -29,21 +29,21 @@ Given(/^I wait "(.+)" seconds while the spinner is present$/) do |duration_str|
 end
 
 
-# assertions 
+# assertions
 Then(/^I should see a "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
   element = ElementHelper.get_element(@browser, element_type, attribute, value)
-  
-  raise "Cannot find: #{element_type}, #{attribute}, #{value}" if !(element.when_present.visible? and element.exists?)
+
+  raise "Cannot find: #{element_type}, #{attribute}, #{value}" if !(element.when_present(40).visible? and element.exists?)
 end
 
 Then(/^I should not see a "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
   element = ElementHelper.get_element(@browser, element_type, attribute, value)
-  
+
   raise "Found: #{element_type}, #{attribute}, #{value}" if element.exists?
 end
 
 Then(/^I should see the text "(.+)"$/) do |text|
-  sleep(0.2)
+  sleep(1)
 
   raise "The text '#{text}' is not on screen" if not @browser.text.include?(text)
 end
@@ -56,5 +56,5 @@ class ElementHelper
   def self.get_element(browser, element_type, attribute, value)
     browser.send(element_type, { attribute.to_sym => value })
   end
-  
+
 end
