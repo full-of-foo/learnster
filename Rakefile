@@ -28,5 +28,4 @@ task :start do
   system "rails s"
 end
 
-
 Learnster::Application.load_tasks

@@ -61,10 +61,6 @@
       "reset": "render"
       "destroy": "removeItemView"
 
-    # itemRemoved: (item) ->
-    #   console.log "Yayyyyyyy", item
-    #   @.trigger "item:removed", item
-
     initialize: (options) ->
       { @columns, @config } = options
       @columns = @columns.models

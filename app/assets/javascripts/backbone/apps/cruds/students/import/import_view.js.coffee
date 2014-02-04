@@ -21,6 +21,9 @@
       $('#student-upload-area').fineUploader(options).on 'submit', (id, name) ->
         $('#upload-results').html('');
 
+      $('#student-upload-area').fineUploader(options).on 'complete', (event, id, name, res) ->
+        App.vent.trigger 'students:import:success', @ if res['success']
+
       $('#student-upload-area').fineUploader(options).on 'error', (event, id, name, errorReason, xhrOrXdr) ->
         import_status_data = errorReason
         successfulRows = (row for row, val of import_status_data when val is true)
