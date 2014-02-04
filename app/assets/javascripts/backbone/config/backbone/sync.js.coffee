@@ -24,4 +24,6 @@ do (Backbone) ->
 
 			if options.xhr.status is 401
 				@trigger "unpermitted:entity", @
+			if options.xhr.status is 404
+				@trigger "not:found:entity", @
 			@trigger "sync:stop", @
