@@ -11,8 +11,16 @@
 
   class List.Panel extends App.Views.ItemView
     template: "organisations/list/templates/_panel"
+
+    _closeDropdown: ->
+      $('#list-panel .dropdown-toggle').dropdown('toggle')
+
+    events:
+      "click ul.dropdown-menu li" : "_closeDropdown"
+
     collectionEvents:
       "reset": "render"
+
     triggers:
       "click #new-org-button" : "new:org:button:clicked"
       "click #list-settings-button" : "settings:button:clicked"

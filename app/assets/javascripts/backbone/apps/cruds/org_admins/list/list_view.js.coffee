@@ -15,6 +15,12 @@
       initialize: (options) ->
         @setInstancePropertiesFor "templateHelpers"
 
+      _closeDropdown: ->
+        $('#list-panel .dropdown-toggle').dropdown('toggle')
+
+      events:
+        "click ul.dropdown-menu li" : "_closeDropdown"
+
       collectionEvents:
         "reset": "render"
       triggers:
