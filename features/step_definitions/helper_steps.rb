@@ -8,6 +8,8 @@ Given(/^I navigate to the "(.+)" page$/) do  |page|
     page = Pages::LoginPage.new(@browser)
   when "organisations"
     page = Pages::OrganisationsPage.new(@browser)
+  when "sign up"
+    page = Pages::SignUpPage.new(@browser)
   else
     raise "invalid page name"
   end
