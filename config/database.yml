@@ -1,5 +1,6 @@
 development:
   adapter: postgresql
+  host: localhost
   encoding: unicode
   database: learnster_development
   pool: 5
@@ -8,8 +9,9 @@ development:
 
 test:
   adapter: postgresql
+  host: localhost
   encoding: unicode
-  database: learnster_test
+  database: learnster_development
   pool: 5
   username: anthonytroy
   password:

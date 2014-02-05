@@ -7,38 +7,57 @@ GIT
       activerecord (>= 3.0, < 4.1)
       delayed_job (>= 3.0, < 4.1)
 
-GEM
-  remote: https://rubygems.org/
+GIT
+  remote: https://github.com/rails/rails
+  revision: 9369486c71a6a330eb6aff07f3f46122dafca114
+  branch: 4-0-stable
   specs:
-    actionmailer (4.0.1)
-      actionpack (= 4.0.1)
+    actionmailer (4.0.2)
+      actionpack (= 4.0.2)
       mail (~> 2.5.4)
-    actionpack (4.0.1)
-      activesupport (= 4.0.1)
+    actionpack (4.0.2)
+      activesupport (= 4.0.2)
       builder (~> 3.1.0)
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    activemodel (4.0.1)
-      activesupport (= 4.0.1)
+    activemodel (4.0.2)
+      activesupport (= 4.0.2)
       builder (~> 3.1.0)
-    activerecord (4.0.1)
-      activemodel (= 4.0.1)
+    activerecord (4.0.2)
+      activemodel (= 4.0.2)
       activerecord-deprecated_finders (~> 1.0.2)
-      activesupport (= 4.0.1)
+      activesupport (= 4.0.2)
       arel (~> 4.0.0)
-    activerecord-deprecated_finders (1.0.3)
-    activesupport (4.0.1)
-      i18n (~> 0.6, >= 0.6.4)
+    activesupport (4.0.2)
+      i18n (~> 0.6, >= 0.6.9)
       minitest (~> 4.2)
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
+    rails (4.0.2)
+      actionmailer (= 4.0.2)
+      actionpack (= 4.0.2)
+      activerecord (= 4.0.2)
+      activesupport (= 4.0.2)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 4.0.2)
+      sprockets-rails (~> 2.0.0)
+    railties (4.0.2)
+      actionpack (= 4.0.2)
+      activesupport (= 4.0.2)
+      rake (>= 0.8.7)
+      thor (>= 0.18.1, < 2.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activerecord-deprecated_finders (1.0.3)
     acts_as_xlsx (1.0.6)
       activerecord (>= 2.3.9)
       axlsx (>= 1.0.13)
       i18n (>= 0.4.1)
-    api-pagination (2.0.1)
+    api-pagination (2.1.0)
     arel (4.0.1)
     atomic (1.1.14)
     axlsx (2.0.0)
@@ -91,7 +110,6 @@ GEM
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
     daemons (1.1.9)
-    database_cleaner (1.2.0)
     datejs-rails (2.0.1)
       railties (>= 3.1)
     delayed_job (4.0.0)
@@ -106,11 +124,6 @@ GEM
       activesupport (>= 3.2)
     erubis (2.7.0)
     execjs (2.0.2)
-    factory_girl (4.3.0)
-      activesupport (>= 3.0.0)
-    factory_girl_rails (4.3.0)
-      factory_girl (~> 4.3.0)
-      railties (>= 3.0.0)
     faker (1.2.0)
       i18n (~> 0.5)
     fattr (2.2.1)
@@ -147,7 +160,7 @@ GEM
     js-routes (0.9.6)
       rails (>= 3.2)
     json (1.8.1)
-    kgio (2.8.1)
+    kgio (2.9.0)
     listen (2.4.0)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -166,7 +179,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.7.0)
+    net-ssh (2.8.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     nokogiri (1.6.1)
@@ -192,24 +205,11 @@ GEM
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (4.0.1)
-      actionmailer (= 4.0.1)
-      actionpack (= 4.0.1)
-      activerecord (= 4.0.1)
-      activesupport (= 4.0.1)
-      bundler (>= 1.3.0, < 2.0)
-      railties (= 4.0.1)
-      sprockets-rails (~> 2.0.0)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
     rails_serve_static_assets (0.0.2)
     rails_stdout_logging (0.0.3)
-    railties (4.0.1)
-      actionpack (= 4.0.1)
-      activesupport (= 4.0.1)
-      rake (>= 0.8.7)
-      thor (>= 0.18.1, < 2.0)
     raindrops (0.12.0)
     rake (10.1.1)
     rb-fsevent (0.9.4)
@@ -240,7 +240,7 @@ GEM
     slop (3.4.7)
     spinjs-rails (1.3)
       rails (>= 3.1)
-    spreadsheet (0.9.6)
+    spreadsheet (0.9.7)
       ruby-ole (>= 1.0)
     sprockets (2.10.1)
       hike (~> 1.2)
@@ -251,7 +251,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    sqlite3 (1.3.7)
     teaspoon (0.7.9)
       railties (>= 3.2.5, < 5)
     terminal-notifier-guard (1.5.3)
@@ -271,9 +270,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    watir-scroll (0.1.0)
-      watir-webdriver
-    watir-webdriver (0.6.6)
+    watir-webdriver (0.6.7)
       selenium-webdriver (>= 2.18.0)
     websocket (1.0.7)
     will_paginate (3.0.5)
@@ -294,12 +291,10 @@ DEPENDENCIES
   coffee-rails-source-maps
   cucumber-rails
   daemons
-  database_cleaner
   datejs-rails
   delayed_job_active_record!
   eco
   enumerize
-  factory_girl_rails
   faker
   font-awesome-rails
   gon (= 4.1.1)
@@ -314,7 +309,7 @@ DEPENDENCIES
   populator
   progress_bar
   rabl
-  rails (= 4.0.1)
+  rails!
   rails_12factor (= 0.0.2)
   rb-fsevent
   roo
@@ -323,11 +318,9 @@ DEPENDENCIES
   sass-rails (= 4.0.0)
   sdoc (= 0.3.20)
   spinjs-rails
-  sqlite3 (= 1.3.7)
   teaspoon
   terminal-notifier-guard
   uglifier (= 2.1.1)
   unicorn (~> 4.7.0)
-  watir-scroll
   watir-webdriver
   will_paginate (~> 3.0.5)

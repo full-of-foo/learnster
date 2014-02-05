@@ -1,5 +1,5 @@
 class Api::V1::StudentController < ApplicationController
-  after_filter only: [:index] { 
+  after_filter only: [:index] {
     paginate(:students) if not params[:created_months_ago] and not params[:updated_months_ago]
   }
 
@@ -17,17 +17,21 @@ class Api::V1::StudentController < ApplicationController
       @students = Student.search_range(params[:updated_months_ago], :updated_at, @org)          if nested_org_updated_at_search?(params)
       return @students
     end
-    
-    @students = nested_org_request?(params) ? @org.students()
-      .page(params[:page]).per_page(20) : Student.all.page(params[:page]).per_page(20)
+
+    if params[:page]
+      @students = nested_org_request?(params) ? @org.students()
+        .page(params[:page]).per_page(20) : Student.all.page(params[:page]).per_page(20)
+    else
+      @students = nested_org_request?(params) ? @org.students : Student.all
+    end
 
     if xlsx_request?
       respond_to do |format|
         format.xlsx {
-          send_data @students.to_xlsx.to_stream.read, :filename => 'students.xlsx', 
+          send_data @students.to_xlsx.to_stream.read, :filename => 'students.xlsx',
           :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
          }
-      end 
+      end
     end
     @students
   end
@@ -61,7 +65,7 @@ class Api::V1::StudentController < ApplicationController
 
   def destroy
     @student = Student.find(params[:id])
-    
+
     if @student.destroy()
       track_activity @student
       render json: {}
@@ -74,7 +78,7 @@ class Api::V1::StudentController < ApplicationController
     if nested_org_request?(params) and ['.csv', '.xls', '.xlsx'].include? File.extname(params[:qqfilename])
       import_status_data = Student.import_with_validation(params[:qqfile], @org, current_user)
       if import_status_data.values.all? { |value| value == true } and not import_status_data.empty?
-        render :json => { :success => true }  
+        render :json => { :success => true }
       else
         render :json => { :success => false, :error => import_status_data,
          :preventRetry => true }, :status => 422
@@ -84,7 +88,7 @@ class Api::V1::StudentController < ApplicationController
        :preventRetry => true }, :status => :unauthorized
     end
   end
-  
+
 
   private
 
@@ -98,8 +102,8 @@ class Api::V1::StudentController < ApplicationController
       org = Organisation.find_by(title: params[:attending_org]) if current_user.app_admin?
       org = current_user.admin_for if current_user.org_admin?
 
-      { created_by: current_user, attending_org: org, is_active: false, 
-        last_login: Time.zone.now, password: params[:password], 
+      { created_by: current_user, attending_org: org, is_active: false,
+        last_login: Time.zone.now, password: params[:password],
         password_confirmation: params[:password_confirmation] }
     end
 end

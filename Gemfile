@@ -1,13 +1,12 @@
 source "https://rubygems.org"
-ruby "2.0.0"
+ruby "2.1.0"
 
 gem "coffee-rails", "4.0.0" #gemfile hack
-gem "rails", "4.0.2", github: "rails/rails", branch: "4-0-stable"
-
+# gem "rails", "4.0.2"
+gem 'rails', git: 'https://github.com/rails/rails', branch: '4-0-stable'
 
 group :development, :test do
   gem "coffee-rails-source-maps"
-  gem "sqlite3", "1.3.7"
   gem "teaspoon"
   gem "guard-teaspoon"
   gem 'guard-cucumber'
@@ -17,11 +16,8 @@ end
 group :test do
   gem "rb-fsevent"
   gem "terminal-notifier-guard"
-  gem "factory_girl_rails"
   gem 'cucumber-rails', :require => false
-  gem "database_cleaner"
   gem "watir-webdriver"
-  gem 'watir-scroll'
   gem "parallel_tests"
 end
 

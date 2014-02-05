@@ -20,6 +20,8 @@
 		getStudentEntities: ->
 			students = new Entities.StudentsCollection
 			students.fetch
+				data:
+					page: 1
 				reset: true
 			students
 
@@ -27,6 +29,8 @@
 			students = new Entities.StudentsCollection
 				url: Routes.api_organisation_student_index_path(orgId)
 			students.fetch
+				data:
+						page: 1
 				reset: true
 			students
 
