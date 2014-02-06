@@ -7,9 +7,9 @@ namespace :rbenv do
     run "#{sudo} apt-get -y install curl git-core"
     run "curl -L https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash"
     bashrc = <<-BASHRC
-if [ -d $HOME/.rbenv ]; then 
-  export PATH="$HOME/.rbenv/bin:$PATH" 
-  eval "$(rbenv init -)" 
+if [ -d $HOME/.rbenv ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
 fi
 BASHRC
     put bashrc, "/tmp/rbenvrc"
@@ -19,7 +19,7 @@ BASHRC
     run %q{eval "$(rbenv init -)"}
     run "rbenv #{rbenv_bootstrap}"
     if not capture("rbenv version").include?("2.0.0-p247")
-      run "rbenv install #{ruby_version}"
+      run "rbenv install #{ruby_version} -v"
       run "rbenv global #{ruby_version}"
       run "gem install bundler --no-ri --no-rdoc"
     else

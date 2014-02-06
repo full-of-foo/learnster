@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby "2.1.0"
+# ruby "2.0.0"
 
 gem "coffee-rails", "4.0.0" #gemfile hack
 # gem "rails", "4.0.2"
