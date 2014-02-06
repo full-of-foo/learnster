@@ -1,6 +1,8 @@
 <% u = @currentUser() %>
 
 <span class="content">
+	<% console.log  @user %>
+	<% console.log  @ %>
 	<% if u.full_name is @user.full_name: %>
 		You
 	<% else: %>

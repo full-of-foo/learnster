@@ -5,7 +5,7 @@
 #
 
 # teardown
-[ApiKey, LearningModule, User, Organisation,
+[ApiKey, LearningModule, User, Organisation, Activity,
   EnrolledCourseSection, CourseSection, Course].each(&:delete_all)
 
 ########################
@@ -64,7 +64,7 @@ count = 0
 
   oa = OrgAdmin.new(params)
   oa.save
-  AppAdmin.first.activities.create! action: "create", trackable: oa
+  # AppAdmin.first.activities.create! action: "create", trackable: oa
 end
 
 Organisation.all.each_with_index do |o, i|
@@ -74,7 +74,7 @@ Organisation.all.each_with_index do |o, i|
     index = OrgAdmin.first.id + i
   end
   o.update created_by: OrgAdmin.find(index)
-  AppAdmin.first.activities.create! action: "update", trackable: o
+  # AppAdmin.first.activities.create! action: "update", trackable: o
 end
 
 

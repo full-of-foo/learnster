@@ -7,19 +7,19 @@ Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
 
   case user_type_str
   when "app admin"
-    user = { email: "lightweightdevelopment@gmail.com", password: "foobar" }
+    @user = { email: "lightweightdevelopment@gmail.com", password: "foobar" }
   when "admin"
-    user = { email: "admin@foo.com", password: "foobar" }
+    @user = { email: "admin@foo.com", password: "foobar" }
   when "student"
-    user = { email: "student@foo.com", password: "foobar" }
+    @user = { email: "student@foo.com", password: "foobar" }
   else
     raise "invalid user type"
   end
 
-  page.attempt_login(user[:email], user[:password])
+  page.attempt_login(@user[:email], @user[:password])
 
-  StepsDataCache.current_user_email = user[:email]
-  StepsDataCache.current_user_pass = user[:password]
+  StepsDataCache.current_user_email = @user[:email]
+  StepsDataCache.current_user_pass = @user[:password]
   sleep 1
 end
 
