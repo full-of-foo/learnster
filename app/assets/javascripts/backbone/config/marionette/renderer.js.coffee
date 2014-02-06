@@ -2,7 +2,7 @@ do (Marionette) ->
     _.extend Marionette.Renderer,
 
         lookups: [
-            "backbone/apps/", "backbone/apps/cruds/", "backbone/apps/dashboards/",
+            "backbone/apps/", "backbone/apps/cruds/", "backbone/apps/dashboard/",
             "backbone/apps/layout/", "backbone/apps/session/", "backbone/components/",
             "backbone/stats/", "backbone/notifications/"
         ]

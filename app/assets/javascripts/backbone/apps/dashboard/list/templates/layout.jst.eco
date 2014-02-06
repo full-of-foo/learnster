@@ -1,0 +1,8 @@
+<div class="row span">
+  <div id="courses-block-region" class="span4"></div>
+  <div id="modules-block-region" class="span4"></div>
+</div>
+<div class="row span">
+  <div id="files-block-region" class="span4"></div>
+  <div id="notifications-block-region" class="span4"></div>
+</div>

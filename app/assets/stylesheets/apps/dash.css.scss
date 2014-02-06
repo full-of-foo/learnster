@@ -1,0 +1,81 @@
+.dash-block {
+  position: relative;
+  width: auto;
+  min-width: 19pc;
+  margin-bottom: 1pc;
+
+  border-bottom-color: rgb(170, 170, 170);
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: rgb(170, 170, 170);
+  border-left-style: solid;
+  border-right-color: rgb(170, 170, 170);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: rgb(170, 170, 170);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top-width: 1px;
+  border-left-width: 1px;
+
+  box-shadow:white(0.8) 0 1px 0, inset black(0.5) 0 1px 0;
+
+
+  .dash-block-content {
+    overflow-y: scroll;
+    outline: none;
+    max-height: 16pc;
+    font-size: 0.9em;
+  }
+
+  .dash-block-header:hover {
+    h1 {
+      text-decoration: underline;
+    }
+  }
+
+  .dash-block-header {
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1em;
+      line-height: 13px;
+    }
+
+    -webkit-background-clip: border-box;
+    -webkit-background-origin: padding-box;
+    -webkit-background-size: auto;
+    -webkit-font-smoothing: antialiased;
+    background-clip: border-box;
+    background-color: rgb(204, 204, 204);
+    background-origin: padding-box;
+    background-size: auto;
+    border-bottom-color: rgb(170, 170, 170);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgb(170, 170, 170);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgb(170, 170, 170);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgb(170, 170, 170);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-sizing: border-box;
+    color: rgb(34, 34, 34);
+
+  }
+}
+
+.dash-block:hover {
+  .dash-block-header {
+    background-color: lighten(rgb(204, 204, 204), 4%);
+  }
+  background-color: lighten(#E6F9FF, 3%);
+}

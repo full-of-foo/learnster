@@ -24,8 +24,29 @@
         reset: true
       notifications
 
+    getSearchNotificationEntities: (searchOpts) ->
+      { term, nestedId, page } = searchOpts
+      opts = {}
+      opts['page'] = page if page
+      opts['search'] = term if term
+
+      if nestedId
+        notifications = new Entities.NotificationsCollection
+          url: Routes.api_organisation_activities_path(nestedId)
+      else
+        notifications = new Entities.NotificationsCollection()
+      notifications.fetch
+        reset: true
+        data: $.param(opts)
+
+      notifications.put('search', term['search']) if term
+      notifications
+
   App.reqres.setHandler "org:notification:entities", (orgId) ->
     API.getOrgNotificationEntities(orgId)
 
   App.reqres.setHandler "notification:entities", ->
     API.getNotificationEntities()
+
+  App.reqres.setHandler "search:notifications:entities", (searchOpts) ->
+    API.getSearchNotificationEntities searchOpts

@@ -7,6 +7,7 @@
       "organisation/:id/students"         : "listOrgStudents"
       "organisation/:id/admins"           : "listOrgAdmins"
       "organisation/:id/notifications"    : "listOrgNotifications"
+      "organisation/:id/dashboard"        : "listDashBlocks"
       "organisations"                     : "listOrgs"
 
   API =
@@ -16,6 +17,10 @@
 
     listOrgs: ->
       new OrgsApp.List.Controller()
+
+    listDashBlocks: (id) ->
+      new App.DashApp.List.Controller
+        id: @get_org_id(id)
 
     listOrgStudents: (id) ->
       new App.StudentsApp.List.Controller
