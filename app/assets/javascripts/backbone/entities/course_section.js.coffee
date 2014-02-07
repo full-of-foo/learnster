@@ -34,7 +34,7 @@
     newCourseSection: ->
       new Entities.CourseSection
 
-  App.reqres.setHandler "course_section:entities", (orgId) ->
+  App.reqres.setHandler "org:course_section:entities", (orgId) ->
     API.getOrgCourseSectionEntities(orgId)
 
   App.reqres.setHandler "new:course_section:entity", ->

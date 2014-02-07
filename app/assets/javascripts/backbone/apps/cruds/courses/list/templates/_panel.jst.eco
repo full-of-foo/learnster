@@ -1,0 +1,33 @@
+<div id="list-panel" class="modal-header">
+
+    <div class="btn-group pull-right">
+
+        <a id="new-course-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i><% if @nestingOrg: %>
+        Add
+        <% else: %>
+        New
+        <% end %>
+         Course</a>
+        <a class="btn" id="list-settings-button" href="#"><i class="fa fa-cog"></i></a>
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href=<% if @nestingOrg: %>"/api/organisation/<%= @nestingOrg.get('id') %>/course.xlsx"<% else: %>"api/course.xlsx"<% end %>><i class="fa fa-fixed-width fa-level-down"></i>
+            Export All</a>
+            </li>
+            <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
+            </li>
+            <% if @nestingOrg: %>
+            <li><a href="#" id="import-dropdown-item"><i class="fa fa-fixed-width fa-upload"></i> Import...</a>
+            </li>
+            <% end %>
+        </ul>
+
+    </div>
+
+    <blockquote>
+        <p class="muted well-small">Organisation Courses<% if @nestingOrg: %> for <%= @nestingOrg.get('title') %><% end %>...</p>
+    </blockquote>
+
+</div>

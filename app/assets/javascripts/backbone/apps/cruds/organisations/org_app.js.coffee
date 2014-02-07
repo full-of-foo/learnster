@@ -8,6 +8,7 @@
       "organisation/:id/admins"           : "listOrgAdmins"
       "organisation/:id/notifications"    : "listOrgNotifications"
       "organisation/:id/dashboard"        : "listDashBlocks"
+      "organisation/:id/courses"          : "listOrgCourses"
       "organisations"                     : "listOrgs"
 
   API =
@@ -32,6 +33,10 @@
 
     listOrgNotifications: (id) ->
       new App.NotificationsApp.List.Controller
+        id: @get_org_id(id)
+
+    listOrgCourses: (id) ->
+      new App.CoursesApp.List.Controller
         id: @get_org_id(id)
 
      edit: (id) ->

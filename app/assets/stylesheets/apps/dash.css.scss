@@ -1,5 +1,4 @@
 .dash-block {
-  position: relative;
   width: auto;
   min-width: 19pc;
   min-height: 20pc;
@@ -32,6 +31,7 @@
   }
 
   .dash-block-header:hover {
+    cursor: pointer;
     h1 {
       text-decoration: underline;
     }
@@ -42,6 +42,7 @@
       font-family: 'Montserrat', sans-serif;
       font-size: 1em;
       line-height: 13px;
+      margin-left: 0.4pc;
     }
 
     -webkit-background-clip: border-box;

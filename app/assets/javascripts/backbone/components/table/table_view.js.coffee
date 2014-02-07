@@ -143,7 +143,12 @@
 
       if col.get('attrName')
         attr = col.get('attrName')
-        $row.append($cell.append(model.get(attr)))
+        attrArray = attr.split /\./
+        attrString = if attrArray.length is 1 then model.
+          get(attrArray[0]) else model.get(attrArray[0])[attrArray[1]]
+        attrString = @_elipTrim(attrString) if attr is 'description'
+
+        $row.append($cell.append(attrString))
 
       if col.get('htmlContent')
         user = App.request "get:current:user"
@@ -199,4 +204,7 @@
     _finishScroll: ->
       $('.pagination-area').removeClass('pagination-loader')
       @drawCollectionCount()
+
+    _elipTrim: (string, maxSize = 30) ->
+      if string.length >= maxSize then string.substring(0, maxSize) + "..." else string
 
