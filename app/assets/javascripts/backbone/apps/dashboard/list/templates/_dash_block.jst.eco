@@ -23,3 +23,10 @@
 
 
 <!-- Courses template -->
+<% if  @managed_by:  %>
+   <span class="content">
+       <%= @title %>
+  </span>
+  <span class="timestamp">created on <%= @created_at_formatted %></span>
+
+<% end %>

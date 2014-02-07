@@ -38,6 +38,7 @@ Learnster::Application.routes.draw do
         post '/import_admins' => 'org_admin#import', as: :import_admins
         resources :org_admin, :type => "OrgAdmin", as: :admin
         resources :activities
+        resources :course
       end
 
       # Standard routes
@@ -45,6 +46,7 @@ Learnster::Application.routes.draw do
       resources :app_admin, :type => "AppAdmin"
       resources :student, :type => "Student"
       resources :activities
+      resources :course
 
     end
 

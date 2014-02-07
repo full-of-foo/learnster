@@ -15,7 +15,7 @@
         nestedId: @_nestingOrg.get('id')
         page:     1
 
-      courses = App.request "search:notifications:entities", opts
+      courses = App.request "course:entities", opts.nestedId
       modules = App.request "search:notifications:entities", opts
       files = App.request "search:notifications:entities", opts
       notifications = App.request "search:notifications:entities", opts

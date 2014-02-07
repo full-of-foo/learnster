@@ -25,5 +25,6 @@ module Learnster
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
     config.filter_parameters += [:password, :password_confirmation]
+
   end
 end

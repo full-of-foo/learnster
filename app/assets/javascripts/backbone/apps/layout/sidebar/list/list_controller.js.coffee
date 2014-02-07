@@ -45,7 +45,7 @@
 
     getOrgAdminBarItems: ->
       [
-        { text: "Org Students", default:  true },
+        { text: "Dashboard", default:  true },
         { text: "My Students" },
         { text: "Org Admins"  },
         { text: "My Admins"   }
@@ -53,7 +53,7 @@
 
     getStudentBarItems: ->
       [
-        { text: "Course mates", default:  true },
+        { text: "Dashboard", default:  true },
         { text: "Educators" },
         { text: "Modules"  }
       ]

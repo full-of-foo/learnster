@@ -66,11 +66,11 @@
   App.commands.setHandler "set:root:route", ->
     if App.currentUser instanceof Learnster.Entities.Student
       orgId = App.currentUser.get('attending_org').id
-      App.rootRoute = "/organisation/#{orgId}/students"
+      App.rootRoute = "/organisation/#{orgId}/dashboard"
 
     else if App.currentUser instanceof Learnster.Entities.OrgAdmin
       orgId = App.currentUser.get('admin_for').id
-      App.rootRoute = "/organisation/#{orgId}/students"
+      App.rootRoute = "/organisation/#{orgId}/dashboard"
 
     App.rootRoute = "/organisations"  if App.currentUser instanceof Learnster.Entities.AppAdmin
     App.rootRoute = "/login"          if Object(App.currentUser) instanceof Boolean

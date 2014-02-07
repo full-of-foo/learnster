@@ -20,7 +20,7 @@
     password_confirmation: "foobar",
     surname: "Troy"
   }
-  AppAdmin.new(params).save
+  AppAdmin.new(params).save!
 end
 
 10.times do |i|
@@ -31,7 +31,7 @@ end
     # created_by: OrgAdmin.first
   }
   o = Organisation.new(params)
-  o.save
+  o.save!
   # OrgAdmin.first.activities.create! action: "create", trackable: o
 end
 
@@ -63,7 +63,7 @@ count = 0
   count = 0 if count == 10
 
   oa = OrgAdmin.new(params)
-  oa.save
+  oa.save!
   # AppAdmin.first.activities.create! action: "create", trackable: oa
 end
 
@@ -95,7 +95,7 @@ end
     created_at: rand(5.years).ago,
   }
   s = Student.new(params)
-  s.save
+  s.save!
   s.activities.create! action: "update", trackable: rand_org
 end
 
@@ -121,6 +121,7 @@ OrgAdmin.first.update(email: "admin@foo.com", password: "foobar",
 
 course_org = Organisation.first
 course_mgr = course_org.admins.first
+course_mgr.update! role: "course_manager"
 course_provisioner = course_org.admins.last
 course_students = course_org.students[0..4]
 
@@ -134,7 +135,7 @@ params = {
   identifier: "DT354"
 }
 course = Course.new(params)
-course.save
+course.save!
 
 
 params = {
@@ -143,7 +144,7 @@ params = {
   section: "first year - semester 1"
 }
 course_section = CourseSection.new(params)
-course_section.save
+course_section.save!
 
 # Enroll students
 course_students.each { |s| EnrolledCourseSection
@@ -159,7 +160,19 @@ course_students.each { |s| EnrolledCourseSection
     course_section: course_section
   }
   m = LearningModule.new(params)
-  m.save
+  m.save!
+end
+
+21.times do |i|
+    params = {
+    organisation: course_org,
+    managed_by: course_mgr,
+    title: Faker::Company.name + "#{i}",
+    description: Faker::Lorem.sentence,
+    identifier: Faker::Lorem.word + "#{i}"
+  }
+  course = Course.new(params)
+  course.save!
 end
 
 

@@ -6,4 +6,6 @@ class Course < ActiveRecord::Base
   validates_presence_of :title, :description, :managed_by, :organisation_id, :identifier
   validates_uniqueness_of :title, :scope => [:organisation_id]
 
+  generate_scopes
+
 end
