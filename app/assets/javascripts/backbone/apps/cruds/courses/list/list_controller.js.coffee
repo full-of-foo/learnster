@@ -56,7 +56,7 @@
       @listenTo @coursesView, "childview:course:delete:clicked", (child, args) ->
         model = args.model
         dialogView = @getDialogView model
-        @listenTo dialogView, "dialog:delete:admin:clicked", =>
+        @listenTo dialogView, "dialog:delete:course:clicked", =>
           dialogView.$el.modal "hide"
           model.destroy()
 

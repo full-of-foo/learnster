@@ -29,4 +29,15 @@ class Api::V1::CourseController < ApplicationController
     @course = Course.find(params[:id])
   end
 
+  def destroy
+    @course = Course.find(params[:id])
+
+    if @course.destroy()
+      track_activity @course
+      render json: {}
+    else
+      respond_with @course
+    end
+  end
+
 end
