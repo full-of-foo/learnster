@@ -22,8 +22,8 @@
 <% end %>
 
 
-<!-- Courses template -->
-<% if  @managed_by:  %>
+<!-- Course and Module template -->
+<% if  @managed_by or @educator_id:  %>
    <span class="content">
        <%= @title %>
   </span>

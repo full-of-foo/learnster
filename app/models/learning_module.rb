@@ -6,4 +6,8 @@ class LearningModule < ActiveRecord::Base
   validates_uniqueness_of :title, scope: :course_section,
     message: "Module title already exists in this section"
 
+  def self.organisation_modules(organisation_id)
+    self.joins(course_section: [{course: :organisation}]).where("courses.organisation_id = ?", organisation_id)
+  end
+
 end

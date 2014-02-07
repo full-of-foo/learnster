@@ -39,6 +39,7 @@ Learnster::Application.routes.draw do
         resources :org_admin, :type => "OrgAdmin", as: :admin
         resources :activities
         resources :course
+        resources :learning_module
       end
 
       # Standard routes
@@ -47,7 +48,7 @@ Learnster::Application.routes.draw do
       resources :student, :type => "Student"
       resources :activities
       resources :course
-
+      resources :learning_module
     end
 
   end
