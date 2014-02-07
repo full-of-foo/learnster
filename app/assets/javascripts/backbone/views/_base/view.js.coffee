@@ -67,7 +67,7 @@
 					"<span id='#{@escape(id)}'>#{@escape(value)}</span>"
 
 			elipTrim: (string, maxSize = 30) ->
-				if string.length >= maxSize then string.substring(0, maxSize) + "..." else string
+				if string.length >= maxSize then string.trimRight().substring(0, maxSize) + "..." else string
 
 			linkTo: (name, url, options = {}) ->
 				options.external = false unless options.external

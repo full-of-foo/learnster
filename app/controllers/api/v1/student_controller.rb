@@ -7,7 +7,6 @@ class Api::V1::StudentController < ApplicationController
   before_filter :find_org
 
   def index
-    sleep 3
     if search_request?
       @students = Student.search_term(params[:search]).page(params[:page]).per_page(20)         if search_term_request?(params)
       @students = Student.search_term(params[:search], @org).page(params[:page]).per_page(20)   if nested_org_term_search?(params)

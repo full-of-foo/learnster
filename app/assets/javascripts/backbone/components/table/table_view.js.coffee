@@ -206,5 +206,5 @@
       @drawCollectionCount()
 
     _elipTrim: (string, maxSize = 30) ->
-      if string.length >= maxSize then string.substring(0, maxSize) + "..." else string
+      if string.length >= maxSize then string.trimRight().substring(0, maxSize) + "..." else string
 

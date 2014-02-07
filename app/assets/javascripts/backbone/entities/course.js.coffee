@@ -34,8 +34,25 @@
     newCourse: ->
       new Entities.Course
 
+    getSearchCourseEntities: (searchOpts) ->
+      { term, nestedId } = searchOpts
+      if nestedId
+        courses = new Entities.CourseCollection
+          url: Routes.api_organisation_course_index_path(nestedId)
+      else
+        courses = new Entities.CourseCollection
+      courses.fetch
+        reset: true
+        data: $.param(term)
+      courses.put('search', term['search'])
+      courses
+
+
   App.reqres.setHandler "org:course:entities", (orgId) ->
     API.getOrgCourseEntities(orgId)
+
+  App.reqres.setHandler "search:courses:entities", (searchOpts) ->
+    API.getSearchCourseEntities searchOpts
 
   App.reqres.setHandler "new:course:entity", ->
     API.newCourse()

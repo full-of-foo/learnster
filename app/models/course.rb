@@ -8,4 +8,17 @@ class Course < ActiveRecord::Base
 
   generate_scopes
 
+  def self.search_term(search, nested_org = nil)
+    if not search.empty? and not nested_org
+      self.title_matches("%#{search}%") | self.description_matches("%#{search}%")
+    elsif not search.empty? and nested_org
+      (self.title_matches("%#{search}%") | self.description_matches("%#{search}%")) & self
+        .organisation_id_eq(nested_org.id)
+    elsif search.empty? and nested_org
+      self.organisation_id_eq(nested_org.id)
+    else
+      self.all
+    end
+  end
+
 end

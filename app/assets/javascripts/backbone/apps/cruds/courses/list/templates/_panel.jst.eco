@@ -8,7 +8,6 @@
         New
         <% end %>
          Course</a>
-        <a class="btn" id="list-settings-button" href="#"><i class="fa fa-cog"></i></a>
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="fa fa-caret-down"></i>
         </a>
@@ -18,10 +17,6 @@
             </li>
             <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
             </li>
-            <% if @nestingOrg: %>
-            <li><a href="#" id="import-dropdown-item"><i class="fa fa-fixed-width fa-upload"></i> Import...</a>
-            </li>
-            <% end %>
         </ul>
 
     </div>
