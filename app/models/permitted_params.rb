@@ -16,9 +16,12 @@ class PermittedParams < Struct.new(:params, :user)
     params.require(:sign_up).permit(*sign_up_admin_attributes)
   end
 
-
   def org_params
     params.require(:organisation).permit(*org_attributes)
+  end
+
+  def course_params
+    params.require(:course).permit(*course_attributes)
   end
 
   private
@@ -42,6 +45,10 @@ class PermittedParams < Struct.new(:params, :user)
 
     def org_attributes
         (user.app_admin? or user.org_admin?) ? [:title, :description]  : []
+    end
+
+    def course_attributes
+      [:title, :description, :identifier]
     end
 
 end

@@ -29,6 +29,19 @@ class Api::V1::CourseController < ApplicationController
     @course = Course.find(params[:id])
   end
 
+  def create
+    @course = Course.new
+    logger.debug @org.inspect
+    params = permitted_params.course_params().merge create_params
+
+    if @course.update params
+      track_activity @course
+      render "api/v1/course/show"
+    else
+      respond_with @course
+    end
+  end
+
   def destroy
     @course = Course.find(params[:id])
 
@@ -39,5 +52,13 @@ class Api::V1::CourseController < ApplicationController
       respond_with @course
     end
   end
+
+  private
+    # virtual params on create
+    def create_params
+      @org = current_user.admin_for
+
+      { managed_by: current_user, organisation_id: @org.id }
+    end
 
 end

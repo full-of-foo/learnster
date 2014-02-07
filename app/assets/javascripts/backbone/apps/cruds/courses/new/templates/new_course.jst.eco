@@ -1,0 +1,36 @@
+<button type="button" class="close cancel-new-course" data-dismiss="alert">&times;</button>
+
+<blockquote>
+    <p class="text-info">New Course...</p>
+    <small class="text-info">hover over fields for help</small>
+</blockquote>
+
+<div class="form-horizontal">
+    <fieldset>
+
+        <div class="control-group">
+            <!-- Title -->
+            <label class="control-label" for="title">Title</label>
+            <div class="controls">
+                <input type="text" id="title" name="title" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Description -->
+            <label class="control-label" for="description">Description</label>
+            <div class="controls">
+                <input type="text" id="description" name="description" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Identifier -->
+            <label class="control-label" for="identifier">Identifier</label>
+            <div class="controls">
+                <input type="text" id="identifier" name="identifier" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+    </fieldset>
+</div>
