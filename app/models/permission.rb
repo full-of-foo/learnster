@@ -34,11 +34,13 @@ class Permission < Struct.new(:user)
           return true if controller.end_with?("org_admin") && action == "import"
           return true if controller.end_with?("course") && action.in?(%w[index show edit update destroy])
           return true if controller.end_with?("learning_module") && action.in?(%w[index show edit update destroy])
+          return true if controller.end_with?("course_section") && action.in?(%w[index show edit update destroy])
         end
 
         if user.role.course_manager?
           return true if controller.end_with?("course") && action.in?(%w[index show edit update destroy])
           return true if controller.end_with?("learning_module") && action.in?(%w[index show edit update destroy])
+          return true if controller.end_with?("course_section") && action.in?(%w[index show edit update destroy])
         end
 
         if user.role.module_manager?

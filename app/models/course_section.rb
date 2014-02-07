@@ -8,4 +8,8 @@ class CourseSection < ActiveRecord::Base
   validates_presence_of :section, :provisioned_by, :course_id
   validates_uniqueness_of :section, :scope => [:course_id]
 
+  def self.organisation_course_sections(organisation_id)
+    self.joins(:course => :organisation).where("courses.organisation_id = ?", organisation_id)
+  end
+
 end

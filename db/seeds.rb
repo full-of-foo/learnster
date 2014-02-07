@@ -151,10 +151,10 @@ course_students.each { |s| EnrolledCourseSection
   .create!(course_section: course_section, student: s) }
 
 
-4.times do
+4.times do |i|
   module_educator = course_org.admins.order("RANDOM()").first
   params = {
-    title: Faker::Lorem.word,
+    title: Faker::Lorem.word + "#{i}",
     description: Faker::Lorem.sentence,
     educator: module_educator,
     course_section: course_section
@@ -175,12 +175,21 @@ end
   course.save!
 end
 
+course_count = Course.count
+12.times do |i|
 
+  if(i == 0)
+    index = Course.first.id
+  else
+    index = Course.first.id + i
+  end
 
+  params = {
+    course: Course.find(index),
+    provisioned_by: course_provisioner,
+    section: Faker::Lorem.word + "#{i}"
+  }
 
-
-
-
-
-
-
+  cs = CourseSection.new(params)
+  cs.save!
+end
