@@ -8,6 +8,5 @@
         title: title
         allText: "See all #{title}..."
 
-
   App.reqres.setHandler "dash:block:entity", (title) ->
     API.getBlockEntity title

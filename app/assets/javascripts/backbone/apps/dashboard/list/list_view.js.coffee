@@ -16,3 +16,5 @@
       itemView: List.DashBlock
       itemViewContainer: 'ul'
       className: 'dash-block'
+      triggers:
+        "click div#Courses" : "dash:courses:block:clicked"

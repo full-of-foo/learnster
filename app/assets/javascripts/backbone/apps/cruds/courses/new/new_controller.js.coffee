@@ -16,7 +16,6 @@
 
       @show @layout
 
-
     getLayoutView: (course) ->
       new New.Layout
         model: course

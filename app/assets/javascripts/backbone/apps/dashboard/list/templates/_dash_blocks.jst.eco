@@ -1,8 +1,7 @@
-<div class="dash-block-header">
+<div id="<%= @title %>" class="dash-block-header">
   <h1><%= @title %></h1>
 </div>
 
 <div class="dash-block-content">
   <ul></ul>
 </div>
-

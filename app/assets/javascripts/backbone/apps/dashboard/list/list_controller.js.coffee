@@ -38,6 +38,9 @@
         model: coursesDashBlock
         collection: courses
 
+      @listenTo blockView, "dash:courses:block:clicked", ->
+        App.vent.trigger "courses:block:clicked", @_nestingOrg
+
       @show blockView,
         loading:
           loadingType: "spinner"

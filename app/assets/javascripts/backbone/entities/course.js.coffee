@@ -22,9 +22,8 @@
     setCurrentCourse: (attrs) ->
       new Entities.Course attrs
 
-    getCourseEntity: (orgId, id) ->
+    getCourseEntity: (id) ->
       course = new Entities.Course
-        url: api_organisation_course_index_path(orgId)
       course = Entities.Course.findOrCreate
                                       id: id
       course.fetch
@@ -60,5 +59,5 @@
   App.reqres.setHandler "init:current:course", (attrs) ->
     API.setCurrentCourse attrs
 
-  App.reqres.setHandler "course:entity", (orgId, id) ->
-    API.getCourseEntity orgId, id
+  App.reqres.setHandler "course:entity", (id) ->
+    API.getCourseEntity id
