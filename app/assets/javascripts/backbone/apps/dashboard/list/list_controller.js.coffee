@@ -39,7 +39,7 @@
         collection: courses
 
       @listenTo blockView, "dash:courses:block:clicked", ->
-        App.vent.trigger "courses:block:clicked",
+        App.vent.trigger "courses:block:clicked", @_nestingOrg
 
       @listenTo blockView, "childview:clicked:add:course:link", (arg, model) ->
         App.vent.trigger "clicked:add:course", @_nestingOrg

@@ -37,7 +37,7 @@
     App.navigate "/course/#{id}/show"
 
   App.vent.on "courses:block:clicked", (org) ->
-    orgId = org.id
+    orgId = org.get('id')
     App.navigate "/organisation/#{orgId}/courses"
 
   App.vent.on "edit:course:clicked", (view) ->
