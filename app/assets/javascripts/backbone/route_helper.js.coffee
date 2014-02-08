@@ -25,6 +25,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^organisation\/(.+?)\/dashboard$/,
           /^organisation\/(.+?)\/courses$/,
           /^course\/(.+?)\/edit$/
+          /^course\/(.+?)\/show$/
         ],
 
         appAdmin: [

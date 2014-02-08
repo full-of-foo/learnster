@@ -1,0 +1,29 @@
+<% isEditableForm = false %>
+
+ <div class="span6">
+      <div class="pull-right">
+        <span id="edit-course-button" class="btn btn-success">Edit</span>
+        <span id="delete-course-button" class="btn btn-danger">Delete</span>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="title">Title</label>
+        <div class="controls">
+          <%- @editOrShowField( "title", @title, isEditableForm ) %>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="description">Description</label>
+        <div class="controls">
+          <%- @editOrShowField( "description", @description, isEditableForm ) %>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="identifier">Identifier</label>
+        <div class="controls">
+          <%- @editOrShowField( "identifier", @identifier, isEditableForm ) %>
+        </div>
+      </div>
+
+      <div>Other data...</div>
+
+</div>

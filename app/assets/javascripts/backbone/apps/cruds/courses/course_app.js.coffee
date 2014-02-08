@@ -3,6 +3,7 @@
   class CoursesApp.Router extends App.Routers.AppRouter
     appRoutes:
       "course/:id/edit" : "edit"
+      "course/:id/show" : "show"
 
   API =
     listCourses: ->
@@ -14,6 +15,10 @@
 
     edit: (id) ->
       new CoursesApp.Edit.Controller
+        id: @get_org_id(id)
+
+    show: (id) ->
+      new CoursesApp.Show.Controller
         id: @get_org_id(id)
 
     get_org_id: (id_org) ->
@@ -28,11 +33,17 @@
     API.newCourse(region)
 
   App.vent.on "course:clicked course:created", (id) ->
-    App.navigate Routes.edit_api_course_path(id).split("/api")[1]
+    id = API.get_org_id(id)
+    App.navigate "/course/#{id}/show"
 
   App.vent.on "courses:block:clicked", (org) ->
     orgId = org.id
-    App.navigate "organisation/#{orgId}/courses"
+    App.navigate "/organisation/#{orgId}/courses"
+
+  App.vent.on "edit:course:clicked", (view) ->
+    course = view.model
+    id = course.get('id')
+    App.navigate "/course/#{id}/edit"
 
   App.vent.on "course:cancelled course:updated", (course) ->
     App.goBack()

@@ -13,11 +13,11 @@
 
   API =
     getOrgCourseSectionEntities: (orgId) ->
-      course_section = new Entities.CourseSectionCollection
+      course_sections = new Entities.CourseSectionCollection
         url: Routes.api_organisation_course_section_index_path(orgId)
-      course_section.fetch
+      course_sections.fetch
         reset: true
-      course_section
+      course_sections
 
     setCurrentCourseSection: (attrs) ->
       new Entities.CourseSection attrs
@@ -31,11 +31,24 @@
         reset: true
       course_section
 
+    getCourseSectionEntities: (orgId, courseId) ->
+      course_sections = new Entities.CourseSectionCollection
+        url: Routes.api_organisation_course_section_index_path(orgId)
+      course_sections.fetch
+        reset: true
+        data: $.param
+          course_id: courseId 
+
+      course_sections
+
     newCourseSection: ->
       new Entities.CourseSection
 
   App.reqres.setHandler "org:course_section:entities", (orgId) ->
     API.getOrgCourseSectionEntities(orgId)
+
+  App.reqres.setHandler "course:course_section:entities", (orgId, courseId) ->
+    API.getCourseSectionEntities(orgId, courseId)
 
   App.reqres.setHandler "new:course_section:entity", ->
     API.newCourseSection()

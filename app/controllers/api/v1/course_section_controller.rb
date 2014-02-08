@@ -6,8 +6,15 @@ class Api::V1::CourseSectionController < ApplicationController
 
 
   def index
-    @course_sections = nested_org_request?(params) ? CourseSection.organisation_course_sections(@org.id)
-        .page(params[:page]).per_page(20) : CourseSection.all.page(params[:page]).per_page(20)
+    if !params[:course_id]
+      @course_sections = nested_org_request?(params) ? CourseSection.organisation_course_sections(@org.id)
+          .page(params[:page]).per_page(20) : CourseSection.all.page(params[:page]).per_page(20)
+    else
+      @course_sections = CourseSection.organisation_course_sections(nil, params[:course_id])
+        .page(params[:page]).per_page(20)
+    end
+
+    @course_sections
   end
 
   def show
