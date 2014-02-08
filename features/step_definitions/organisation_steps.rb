@@ -79,6 +79,7 @@ Then(/^the Organisation is in the grid-list$/) do
 
   title       = StepsDataCache.organisation_title       
   description = StepsDataCache.organisation_description
+  description = description[0..29] << '...' if description.size >= 30
   sleep 0.3
 
   step("I should see a \"td\" with the \"text\" of \"#{title}\"")

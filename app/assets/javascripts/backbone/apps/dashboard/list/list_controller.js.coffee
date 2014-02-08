@@ -39,7 +39,10 @@
         collection: courses
 
       @listenTo blockView, "dash:courses:block:clicked", ->
-        App.vent.trigger "courses:block:clicked", @_nestingOrg
+        App.vent.trigger "courses:block:clicked",
+
+      @listenTo blockView, "childview:clicked:add:course:link", (arg, model) ->
+        App.vent.trigger "clicked:add:course", @_nestingOrg
 
       @show blockView,
         loading:
@@ -50,6 +53,9 @@
       blockView = new List.DashBlockComposite
         model: modulesDashBlock
         collection: modules
+
+      @listenTo blockView, "childview:clicked:add:course:link", (arg, model) ->
+        App.vent.trigger "clicked:add:course", @_nestingOrg
 
       @show blockView,
         loading:

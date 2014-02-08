@@ -73,6 +73,17 @@
     color: rgb(34, 34, 34);
 
   }
+
+  .empty-dash-block {
+    text-align: center;
+    margin-left: -2pc;
+    margin-top: 2pc;
+
+    p {
+      vertical-align: middle;
+    }
+  }
+
 }
 
 .dash-block:hover {

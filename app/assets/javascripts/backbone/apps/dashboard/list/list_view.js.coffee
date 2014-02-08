@@ -8,6 +8,22 @@
         filesBlockRegion: "#files-block-region"
         notificationsBlockRegion: "#notifications-block-region"
 
+    class List.EmptyCourseBlock extends App.Views.ItemView
+      template: 'dashboard/list/templates/_empty_courses'
+      triggers:
+        "click a#add-course-link" : "clicked:add:course:link"
+
+    class List.EmptyModuleBlock extends App.Views.ItemView
+      template: 'dashboard/list/templates/_empty_modules'
+      triggers:
+        "click a#add-course-link" : "clicked:add:course:link"
+
+    class List.EmptyFileBlock extends App.Views.ItemView
+      template: 'dashboard/list/templates/_empty_files'
+
+    class List.EmptyNotificationBlock extends App.Views.ItemView
+      template: 'dashboard/list/templates/_empty_notification'
+
     class List.DashBlock extends App.Views.ItemView
       template: 'dashboard/list/templates/_dash_block'
 
@@ -16,5 +32,13 @@
       itemView: List.DashBlock
       itemViewContainer: 'ul'
       className: 'dash-block'
+
+      initialize: (options = {}) ->
+        @['emptyView'] = List.EmptyCourseBlock if @collection instanceof App.Entities.CourseCollection
+        @['emptyView'] = List.EmptyModuleBlock if @collection instanceof App.Entities.LearningModuleCollection
+        # TODO - update w/ file entity
+        @['emptyView'] = List.EmptyFileBlock if @collection instanceof App.Entities.NotificationsCollection
+        @['emptyView'] = List.EmptyNotificationBlock if @collection instanceof App.Entities.NotificationsCollection
+
       triggers:
         "click div#Courses" : "dash:courses:block:clicked"

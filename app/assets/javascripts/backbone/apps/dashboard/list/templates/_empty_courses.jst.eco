@@ -1,0 +1,6 @@
+<div class="empty-dash-block">
+  <p class="muted">no courses</p>
+  <p class="muted">please <a id="add-course-link" href="#">add</a> one to get started</p>
+  <h1 class="muted">:(</h1>
+</div>
+

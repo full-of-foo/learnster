@@ -8,22 +8,32 @@
       <div class="control-group">
         <label class="control-label" for="title">Title</label>
         <div class="controls">
-          <%- @editOrShowField( "title", @title, isEditableForm ) %>
+         <p class="text-info"> <%- @editOrShowField( "title", @title, isEditableForm ) %> </p>
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="description">Description</label>
         <div class="controls">
-          <%- @editOrShowField( "description", @description, isEditableForm ) %>
+         <p class="text-info"> <%- @editOrShowField( "description", @description, isEditableForm ) %> </p>
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="identifier">Identifier</label>
         <div class="controls">
-          <%- @editOrShowField( "identifier", @identifier, isEditableForm ) %>
+        <p class="text-info"> <%- @editOrShowField( "identifier", @identifier, isEditableForm ) %> </p>
         </div>
       </div>
 
-      <div>Other data...</div>
+      <div class="control-group">
+        <label class="control-label" for="section_count">Section Amount: 
+        <p class="text-info"> <%- @editOrShowField( "section_count", @section_count, isEditableForm ) %> </p> </label> 
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="managed_by">Manager</label>
+        <div class="controls">
+          <p class="text-info"> <%- @editOrShowField( "managed_by", @managed_by.full_name, isEditableForm ) %> </p>
+        </div>
+      </div>
 
 </div>
