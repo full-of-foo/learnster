@@ -9,6 +9,7 @@
 
       @listenTo @layout, "show", =>
         @showCourse(course)
+        @showSectionPanel(course)
 
       @show @layout
 
@@ -21,26 +22,29 @@
       @listenTo courseView, "delete:course:button:clicked", (view) ->
         model = view.model
         @showDeleteDialog(model)
-        
-      @listenTo courseView, "show", ->
-        courseId = course.get('id')
-        orgId = course.get('organisation').id
-        courseSections = App.request("course:course_section:entities", orgId, courseId)
-        courseSectionsView = @getCourseSectionsView(courseSections)
 
-        @show courseSectionsView,
-          loading:
-            loadingType: "spinner"
-          region: @layout.courseSectionsRegion
+      @listenTo courseView, "show", ->
+        @showCourseSections(course)
 
       @show courseView,
         loading:
           loadingType: "spinner"
         region: @layout.courseRegion
 
+    showCourseSections: (course) ->
+      courseId = course.get('id')
+      orgId = course.get('organisation').id
+      courseSections = App.request("course:course_section:entities", orgId, courseId)
+      courseSectionsView = @getCourseSectionsView(courseSections)
+
+      @show courseSectionsView,
+        loading:
+          loadingType: "spinner"
+        region: @layout.courseSectionsRegion
+
     showDeleteDialog: (course) ->
       dialogView = @getDialogView course
-      
+
       @listenTo dialogView, "dialog:delete:course:clicked", =>
         orgId = course.get('organisation').id
         dialogView.$el.modal "hide"
@@ -52,6 +56,14 @@
           loadingType: "spinner"
         region: App.dialogRegion
 
+    showSectionPanel: (course) ->
+      panelView = @getPanelView(course)
+      @show panelView,
+        loading:
+          loadingType: "spinner"
+        region: @layout.courseSectionPanelRegion
+
+
     getLayoutView: (course) ->
       new Show.Layout
         model: course
@@ -62,6 +74,10 @@
 
     getDialogView: (course) ->
       new Show.DeleteDialog
+        model: course
+
+    getPanelView: (course) ->
+      new Show.Panel
         model: course
 
     getCourseSectionsView: (sections) ->

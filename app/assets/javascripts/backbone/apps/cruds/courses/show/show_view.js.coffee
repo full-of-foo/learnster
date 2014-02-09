@@ -3,8 +3,9 @@
   class Show.Layout extends App.Views.Layout
     template: "courses/show/templates/show_layout"
     regions:
-      courseRegion:         "#show-course-region"
-      courseSectionsRegion: "#list-course-section-region"
+      courseRegion:             "#show-course-region"
+      courseSectionsRegion:     "#list-course-section-region"
+      courseSectionPanelRegion: "#course-section-panel-region"
 
 
   class Show.Course extends App.Views.ItemView
@@ -22,3 +23,6 @@
 
     onShow: ->
       @$el.modal()
+
+  class Show.Panel extends App.Views.ItemView
+    template: 'courses/show/templates/panel'

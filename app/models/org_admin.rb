@@ -38,23 +38,27 @@ class OrgAdmin < User
     import_status_data
   end
 
-
-  def self.search_term(search, nested_org = nil)
+  def self.search_term(search, nested_org = nil, role = nil)
+    admins = nil
     if not search.empty? and not nested_org
-      self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")
+      admins = self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")
     elsif not search.empty? and nested_org
-      (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")) & self.admin_for_eq(nested_org.id)
+      admins = (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")) & self.admin_for_eq(nested_org.id)
     elsif search.empty? and nested_org
-      self.admin_for_eq(nested_org.id)
+      admins = self.admin_for_eq(nested_org.id)
     else
-      self.all
+      admins = self.all
     end
+    if role
+      admins = (admins & (self.role_eq('course_manager'))) if(role == 'course_manager' || role == 'account_manager')
+      admins = (admins & (self.role_eq('module_manager'))) if(role == 'module_manager' || role == 'course_manager' || role == 'account_manager')
+    end
+    admins
   end
 
   def self.deliver_confirmation_mail(id, confirm_url)
     find(id).deliver_confirmation_mail(confirm_url)
   end
-
 
   def deliver_confirmation_mail(confirm_url)
     UserMailer.signup_confirmation(self, confirm_url).deliver

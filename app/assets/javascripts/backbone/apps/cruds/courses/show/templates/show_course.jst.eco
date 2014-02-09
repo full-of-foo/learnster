@@ -25,8 +25,8 @@
       </div>
 
       <div class="control-group">
-        <label class="control-label" for="section_count">Section Amount: 
-        <p class="text-info"> <%- @editOrShowField( "section_count", @section_count, isEditableForm ) %> </p> </label> 
+        <label class="control-label" for="section_count">Section Amount:
+        <p class="text-info"> <%- @editOrShowField( "section_count", @section_count, isEditableForm ) %> </p> </label>
       </div>
 
       <div class="control-group">
