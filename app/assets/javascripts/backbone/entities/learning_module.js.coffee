@@ -12,6 +12,15 @@
 
 
   API =
+    getSectionLearningModuleEntities: (sectionId) ->
+      learning_modules = new Entities.LearningModuleCollection
+        url: Routes.api_learning_module_index_path()
+      learning_modules.fetch
+        reset: true
+        data: $.param
+          course_section_id: sectionId
+      learning_modules
+
     getOrgLearningModuleEntities: (orgId) ->
       learning_modules = new Entities.LearningModuleCollection
         url: Routes.api_organisation_learning_module_index_path(orgId)
@@ -36,6 +45,9 @@
 
   App.reqres.setHandler "learning_module:entities", (orgId) ->
     API.getOrgLearningModuleEntities(orgId)
+
+  App.reqres.setHandler "section:learning_module:entities", (sectionId) ->
+    API.getSectionLearningModuleEntities(sectionId)
 
   App.reqres.setHandler "new:learning_module:entity", ->
     API.newLearningModule()

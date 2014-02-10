@@ -37,6 +37,13 @@
       courseSections = App.request("course:course_section:entities", orgId, @courseId)
       courseSectionsView = @getCourseSectionsView(courseSections)
 
+      @listenTo courseSectionsView, "childview:course_section:clicked", (child, args) ->
+        App.vent.trigger "course_section:clicked", args.model
+
+      @listenTo courseSectionsView, "childview:course_section:delete:clicked", (child, args) ->
+        model = args.model
+        @showDeleteSectionDialog(model)
+
       @show courseSectionsView,
         loading:
           loadingType: "spinner"
@@ -50,6 +57,17 @@
         dialogView.$el.modal "hide"
         course.destroy()
         course.on "destroy", -> App.navigate "organisation/#{orgId}/courses"
+
+      @show dialogView,
+        loading:
+          loadingType: "spinner"
+        region: App.dialogRegion
+
+    showDeleteSectionDialog: (courseSection) ->
+      dialogView = @getSectionDialogView courseSection
+      @listenTo dialogView, "dialog:delete:course_section:clicked", =>
+        dialogView.$el.modal "hide"
+        courseSection.destroy()
 
       @show dialogView,
         loading:
@@ -84,6 +102,10 @@
       new Show.DeleteDialog
         model: course
 
+    getSectionDialogView: (courseSection) ->
+      new App.CourseSectionsApp.Show.DeleteDialog
+        model: courseSection
+
     getPanelView: (course) ->
       new Show.Panel
         model: course
@@ -100,11 +122,7 @@
        { title: "# Modules", htmlContent: '<%= model.get("module_count") %>', default: true,  isSortable: true, isRemovable: false },
        { title: "Provisioner", attrName: "provisioned_by.full_name", isSortable: true, isRemovable: false, default: true },
        { title: "Created On", attrName: "created_at_formatted", isSortable: true, default: true, isRemovable: false },
-       { htmlContent: '<% if ( model.get("created_by") && model.get("created_by").id === currentUser.get("id")
-        || currentUser.get("type") ===  "AppAdmin" ) { %>
-        <div class="delete-icon"><i class="icon-remove-sign"></i></div>
-        <% } %>
-      ', className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
+       { htmlContent: '<div class="delete-icon"><i class="icon-remove-sign"></i></div>', className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
       ]
 
     getTableOptions: (columns) ->

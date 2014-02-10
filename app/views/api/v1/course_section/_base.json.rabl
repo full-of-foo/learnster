@@ -1,4 +1,4 @@
-attributes :id, :section, :created_at, :updated_at, :provisioned_by, :course_id
+attributes :id, :section, :created_at, :updated_at, :provisioned_by, :course
 
 node do |course_section|
     {
@@ -11,4 +11,8 @@ end
 
 child :provisioned_by => :provisioned_by do
   attributes :id, :email, :first_name, :surname, :full_name, :type, :is_active
+end
+
+child :course => :course do
+  attributes :id, :title, :organisation_id
 end

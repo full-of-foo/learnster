@@ -1,0 +1,20 @@
+<div id="list-panel" class="modal-header">
+    <div class="btn-group pull-right">
+
+        <a id="new-module-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+        Add Module</a>
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="/api/organisation/<%= @course.organisation_id %>/module.xlsx"<i class="fa fa-fixed-width fa-level-down"></i>
+            Export All</a>
+            </li>
+            <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+<div id="push"></div>

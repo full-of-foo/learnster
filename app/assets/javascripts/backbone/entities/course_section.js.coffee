@@ -22,9 +22,8 @@
     setCurrentCourseSection: (attrs) ->
       new Entities.CourseSection attrs
 
-    getCourseSectionEntity: (orgId, id) ->
+    getCourseSectionEntity: (id) ->
       course_section = new Entities.CourseSection
-        url: api_organisation_course_section_index_path(orgId)
       course_section = Entities.CourseSection.findOrCreate
                                       id: id
       course_section.fetch
@@ -37,7 +36,7 @@
       course_sections.fetch
         reset: true
         data: $.param
-          course_id: courseId 
+          course_id: courseId
 
       course_sections
 
@@ -56,5 +55,5 @@
   App.reqres.setHandler "init:current:course_section", (attrs) ->
     API.setCurrentCourseSection attrs
 
-  App.reqres.setHandler "course_section:entity", (orgId, id) ->
-    API.getCourseSectionEntity orgId, id
+  App.reqres.setHandler "course_section:entity", (id) ->
+    API.getCourseSectionEntity id

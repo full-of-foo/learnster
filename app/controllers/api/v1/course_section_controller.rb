@@ -18,7 +18,7 @@ class Api::V1::CourseSectionController < ApplicationController
   end
 
   def show
-    @course_sections = CourseSection.find(params[:id])
+    @course_section = CourseSection.includes(:course).where(id: params[:id]).first
   end
 
   def create
@@ -33,10 +33,21 @@ class Api::V1::CourseSectionController < ApplicationController
     end
   end
 
+  def destroy
+    @course_section = CourseSection.find(params[:id])
+
+    if @course_section.destroy()
+      track_activity @course_section
+      render json: {}
+    else
+      respond_with @course_section
+    end
+  end
+
   private
     #virtual params on create
     def create_params
-      provisioned_by = OrgAdmin.where(email: params[:provisioned_by]).first    
+      provisioned_by = OrgAdmin.where(email: params[:provisioned_by]).first
       { provisioned_by: provisioned_by }
     end
 

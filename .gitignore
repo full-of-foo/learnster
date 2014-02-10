@@ -45,3 +45,4 @@ solr/data
 kill_server.sh
 csv_examples/*.csv
 config/unicorn.rb
+erd.pdf

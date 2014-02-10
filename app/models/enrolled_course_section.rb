@@ -7,7 +7,6 @@ class EnrolledCourseSection < ActiveRecord::Base
     message: "student already enrolled"
   before_save :default_values
 
-
   protected
     def default_values
       self.is_active = true if self.is_active.nil?

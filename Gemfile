@@ -11,6 +11,7 @@ group :development, :test do
   gem "guard-teaspoon"
   gem 'guard-cucumber'
   gem "ruby_gntp"
+  gem "rails-erd"
 end
 
 group :test do

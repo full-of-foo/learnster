@@ -5,8 +5,13 @@ class Api::V1::LearningModuleController < ApplicationController
 
 
   def index
-    @learning_modules = nested_org_request?(params) ? LearningModule.organisation_modules(@org.id)
-        .page(params[:page]).per_page(20) : LearningModule.all.page(params[:page]).per_page(20)
+    if params[:course_section_id]
+      @learning_modules = CourseSection.find(params[:course_section_id]).learning_modules
+        .page(params[:page]).per_page(20)
+    else
+      @learning_modules = nested_org_request?(params) ? LearningModule.organisation_modules(@org.id)
+          .page(params[:page]).per_page(20) : LearningModule.all.page(params[:page]).per_page(20)
+    end
   end
 
   def show

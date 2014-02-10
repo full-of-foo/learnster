@@ -1,0 +1,10 @@
+<div class="hero-unit inline-block">
+    <div id="course-section-region"></div>
+</div>
+
+<div id="module-panel-region"></div>
+<div id="add-module-region"></div>
+
+<div>
+  <div id="list-module-region"></div>
+</div>

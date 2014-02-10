@@ -10,4 +10,8 @@ class LearningModule < ActiveRecord::Base
     self.joins(course_section: [{course: :organisation}]).where("courses.organisation_id = ?", organisation_id)
   end
 
+  def self.course_modules(course_id)
+    self.joins(course_section: :course).where("course_sections.course_id = ?", course_id)
+  end
+
 end

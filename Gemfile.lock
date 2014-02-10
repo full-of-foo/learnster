@@ -88,6 +88,7 @@ GEM
       timers (~> 1.1.0)
     childprocess (0.4.0)
       ffi (~> 1.0, >= 1.0.11)
+    choice (0.1.6)
     coderay (1.1.0)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -205,6 +206,11 @@ GEM
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
+    rails-erd (1.1.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      choice (~> 0.1.6)
+      ruby-graphviz (~> 1.0.4)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -221,6 +227,7 @@ GEM
       nokogiri
       rubyzip
       spreadsheet (> 0.6.4)
+    ruby-graphviz (1.0.9)
     ruby-ole (1.2.11.7)
     ruby_gntp (0.3.4)
     rubyzip (0.9.9)
@@ -310,6 +317,7 @@ DEPENDENCIES
   progress_bar
   rabl
   rails!
+  rails-erd
   rails_12factor (= 0.0.2)
   rb-fsevent
   roo
