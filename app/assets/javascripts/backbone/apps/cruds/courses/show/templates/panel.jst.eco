@@ -2,7 +2,7 @@
 
     <div class="btn-group pull-right">
 
-        <a id="new-course_section-section-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i><% if @nestingOrg: %>
+        <a id="new-course-section-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i><% if @nestingOrg: %>
         Add
         <% else: %>
         New

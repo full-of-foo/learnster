@@ -1,4 +1,4 @@
-<button type="button" class="close cancel-new-course" data-dismiss="alert">&times;</button>
+<button type="button" class="close cancel-new-course-section" data-dismiss="alert">&times;</button>
 
 <blockquote>
     <p class="text-info">New Section...</p>

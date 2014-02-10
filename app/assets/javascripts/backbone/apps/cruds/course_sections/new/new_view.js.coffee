@@ -6,15 +6,15 @@
       formRegion: "#form-region"
 
 
-    class New.View extends App.Views.Layout
-      template: "course_sections/new/templates/new_section"
-      regions:
-        orgSelectRegion: "#provisioner-select-region"
+  class New.Section extends App.Views.Layout
+    template: "course_sections/new/templates/new_section"
+    regions:
+      provisionerSelectRegion: "#provisioner-select-region"
 
-      triggers:
-        "click .cancel-new-course-section" : "form:cancel"
+    triggers:
+      "click .cancel-new-course-section" : "form:cancel"
 
-      form:
-        buttons:
-          primary:    "Add Section"
-          primaryClass: "btn btn-primary"
+    form:
+      buttons:
+        primary:    "Add Section"
+        primaryClass: "btn btn-primary"

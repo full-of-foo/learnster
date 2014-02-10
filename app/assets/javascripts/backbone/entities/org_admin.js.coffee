@@ -71,6 +71,14 @@
     admin['urlRoot'] = Routes.api_auth_administrator_account_path()
     admin
 
+  App.reqres.setHandler "org_admin:from:role:entities", (orgId, fromRole) ->
+    App.request "search:org_admins:entities",
+      term:
+        search:     ""
+        from_role: fromRole
+      nestedId: orgId
+
+
   App.reqres.setHandler "init:current:orgAdmin", (attrs) ->
     API.setCurrentOrgAdmin(attrs)
 

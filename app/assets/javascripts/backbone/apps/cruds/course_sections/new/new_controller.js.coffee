@@ -3,9 +3,12 @@
   class New.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
-      @_nestingOrg = options.region?._nestingOrg
+      @_nestingOrgId = options.region?._nestingOrgId
+      @_nestingCourseId = options.courseId
 
       courseSection = App.request "new:course_section:entity"
+      courseSection.set('course_id', @_nestingCourseId)
+      
       @layout = @getLayoutView courseSection
 
       @listenTo courseSection, "created", ->
@@ -21,27 +24,33 @@
         model: courseSection
 
     getNewView: (courseSection) ->
-      new New.View
+      new New.Section
         model: courseSection
 
     setFormRegion: (courseSection) ->
-      newView = @getNewView courseSection
-      formView = App.request "form:wrapper", newView
-      @setProvisionerSelector()
+      @newView = @getNewView courseSection
+      formView = App.request "form:wrapper", @newView
 
-      @listenTo newView, "form:cancel", =>
+      @listenTo formView, "show", ->
+        @setProvisionerSelector(formView)
+
+      @listenTo @newView, "form:cancel", =>
         @region.close()
 
-      @layout.formRegion.show formView
+      @show formView,
+        loading:
+            loadingType: "spinner"
+        region:  @layout.formRegion
 
-
-    setProvisionerSelector: ->
-      admins = App.request("org_admin:entities")
+    setProvisionerSelector: (newLayout) ->
+      orgId = @_nestingOrgId
+      admins = App.request("org_admin:from:role:entities", orgId, "course_manager")
       selectView = App.request "selects:wrapper",
-                    collection: admins
-                    itemViewId: "provisioned_by"
-                    itemView:   App.Components.Selects.UserOption
+        collection: admins
+        itemViewId: "provisioned_by"
+        itemView:   App.Components.Selects.UserOption
+
       @show selectView,
-                            loading:
-                                loadingType: "spinner"
-                            region:  @newView.orgSelectRegion
+        loading:
+            loadingType: "spinner"
+        region:  @newView.provisionerSelectRegion

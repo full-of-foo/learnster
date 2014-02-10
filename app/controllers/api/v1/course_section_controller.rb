@@ -21,4 +21,23 @@ class Api::V1::CourseSectionController < ApplicationController
     @course_sections = CourseSection.find(params[:id])
   end
 
+  def create
+    @course_section = CourseSection.new
+    params = permitted_params.course_secion_params.merge(create_params())
+
+    if @course_section.update params
+      track_activity @course_section
+      render "api/v1/course_section/show"
+    else
+      respond_with @course_section
+    end
+  end
+
+  private
+    #virtual params on create
+    def create_params
+      provisioned_by = OrgAdmin.where(email: params[:provisioned_by]).first    
+      { provisioned_by: provisioned_by }
+    end
+
 end

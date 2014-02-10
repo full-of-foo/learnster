@@ -9,7 +9,7 @@
       @layout = @getLayoutView course
 
       @listenTo course, "created", ->
-        App.vent.trigger "course:created", course
+        App.vent.trigger "course:created", @_nestingOrg, course
 
       @listenTo @layout, "show", =>
         @setFormRegion course

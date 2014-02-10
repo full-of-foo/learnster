@@ -26,7 +26,7 @@ class Api::V1::CourseController < ApplicationController
   end
 
   def show
-    @course = Course.find(params[:id])
+    @course = Course.includes(:organisation).where(id: params[:id]).first
   end
 
   def update

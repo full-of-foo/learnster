@@ -5,6 +5,7 @@
     regions:
       courseRegion:             "#show-course-region"
       courseSectionsRegion:     "#list-course-section-region"
+      newCourseSectionRegion:   "#new-course-section-region"
       courseSectionPanelRegion: "#course-section-panel-region"
 
 
@@ -26,3 +27,5 @@
 
   class Show.Panel extends App.Views.ItemView
     template: 'courses/show/templates/panel'
+    triggers:
+      "click #new-course-section-button" : "new:course:section:button:clicked"

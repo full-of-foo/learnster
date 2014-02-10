@@ -38,7 +38,7 @@ class OrgAdmin < User
     import_status_data
   end
 
-  def self.search_term(search, nested_org = nil, role = nil)
+  def self.search_term(search, nested_org = nil, from_role = nil)
     admins = nil
     if not search.empty? and not nested_org
       admins = self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")
@@ -49,11 +49,26 @@ class OrgAdmin < User
     else
       admins = self.all
     end
-    if role
-      admins = (admins & (self.role_eq('course_manager'))) if(role == 'course_manager' || role == 'account_manager')
-      admins = (admins & (self.role_eq('module_manager'))) if(role == 'module_manager' || role == 'course_manager' || role == 'account_manager')
+    if from_role
+        is_account_mgr_search = from_role == 'account_manager'
+        is_course_mgr_search = from_role == 'course_manager'
+        is_module_mgr_search = from_role == 'module_manager'
+        admins = (admins & (self.search_role(from_role) | self.search_role("course_manager") | self.search_role("account_manager"))) if is_module_mgr_search
+        admins = (admins & (self.search_role(from_role) | self.search_role("account_manager"))) if is_course_mgr_search
+        admins = (admins & (self.search_role(from_role))) if is_account_mgr_search
     end
     admins
+  end
+
+  def self.search_role(role)
+    is_course_mgr_search = role == 'course_manager'
+    is_account_mgr_search = role == 'account_manager'
+    is_module_mgr_search = role == 'module_manager'
+    is_valid_role = is_course_mgr_search || is_account_mgr_search || is_module_mgr_search
+
+    if is_valid_role
+      self.role_eq role
+    end
   end
 
   def self.deliver_confirmation_mail(id, confirm_url)
@@ -85,6 +100,5 @@ class OrgAdmin < User
   def org_title
     self.admin_for ? self.admin_for.title : nil
   end
-
 
 end

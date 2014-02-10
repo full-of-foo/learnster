@@ -32,9 +32,9 @@
         region: @layout.courseRegion
 
     showCourseSections: (course) ->
-      courseId = course.get('id')
+      @courseId = course.get('id')
       orgId = course.get('organisation').id
-      courseSections = App.request("course:course_section:entities", orgId, courseId)
+      courseSections = App.request("course:course_section:entities", orgId, @courseId)
       courseSectionsView = @getCourseSectionsView(courseSections)
 
       @show courseSectionsView,
@@ -58,11 +58,19 @@
 
     showSectionPanel: (course) ->
       panelView = @getPanelView(course)
+
+      @listenTo panelView, "new:course:section:button:clicked", =>
+        orgId = course.get('organisation').id
+        @showNewRegion(orgId)
+
       @show panelView,
         loading:
           loadingType: "spinner"
         region: @layout.courseSectionPanelRegion
 
+    showNewRegion: (orgId) ->
+      @layout.newCourseSectionRegion['_nestingOrgId'] = orgId
+      App.execute "new:course:section:view", @layout.newCourseSectionRegion, @courseId
 
     getLayoutView: (course) ->
       new Show.Layout
@@ -89,6 +97,7 @@
       [
        { title: "Section", attrName: "section", isSortable: true, default: true, isRemovable: false },
        { title: "# Students", htmlContent: '<%= model.get("student_count") %>', default: true,  isSortable: true, isRemovable: false },
+       { title: "# Modules", htmlContent: '<%= model.get("module_count") %>', default: true,  isSortable: true, isRemovable: false },
        { title: "Provisioner", attrName: "provisioned_by.full_name", isSortable: true, isRemovable: false, default: true },
        { title: "Created On", attrName: "created_at_formatted", isSortable: true, default: true, isRemovable: false },
        { htmlContent: '<% if ( model.get("created_by") && model.get("created_by").id === currentUser.get("id")
