@@ -13,7 +13,7 @@
         </a>
         <ul class="dropdown-menu">
         <% console.log @ %>
-            <li><a href="/api/organisation/<%= @organisation.id %>/course_section/<%= @id %>/course_section.xlsx"><i class="fa fa-fixed-width fa-level-down"></i>
+            <li><a href="/api/organisation/<%= @organisation.id %>/course/<%= @id %>/course_section.xlsx"><i class="fa fa-fixed-width fa-level-down"></i>
             Export All</a>
             </li>
             <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>

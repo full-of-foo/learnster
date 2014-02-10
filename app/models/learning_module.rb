@@ -1,4 +1,6 @@
 class LearningModule < ActiveRecord::Base
+  acts_as_xlsx
+
   belongs_to :educator, class_name: "OrgAdmin", foreign_key: "educator_id"
   belongs_to :course_section
 

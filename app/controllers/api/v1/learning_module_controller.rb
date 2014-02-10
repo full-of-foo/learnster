@@ -12,6 +12,16 @@ class Api::V1::LearningModuleController < ApplicationController
       @learning_modules = nested_org_request?(params) ? LearningModule.organisation_modules(@org.id)
           .page(params[:page]).per_page(20) : LearningModule.all.page(params[:page]).per_page(20)
     end
+
+    if xlsx_request?
+      respond_to do |format|
+        format.xlsx {
+          send_data @learning_modules.to_xlsx.to_stream.read, :filename => 'learning_modules.xlsx',
+          :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+         }
+      end
+    end
+    return @learning_modules
   end
 
   def show

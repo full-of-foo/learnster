@@ -7,7 +7,8 @@
             <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu">
-            <li><a href="/api/organisation/<%= @course.organisation_id %>/module.xlsx"<i class="fa fa-fixed-width fa-level-down"></i>
+            <li><a href="/api/organisation/<%= @course.organisation_id %>/course_section/<%= @id %>/learning_module.xlsx"
+            <i class="fa fa-fixed-width fa-level-down"></i>
             Export All</a>
             </li>
             <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
