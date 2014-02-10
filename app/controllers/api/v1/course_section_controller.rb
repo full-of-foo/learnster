@@ -21,9 +21,20 @@ class Api::V1::CourseSectionController < ApplicationController
     @course_section = CourseSection.includes(:course).where(id: params[:id]).first
   end
 
+  def update
+    @course_section = CourseSection.find(params[:id])
+
+    if @course_section.update permitted_params.course_section_params
+      track_activity @course_section
+      render "api/v1/course_section/show"
+    else
+      respond_with @course_section
+    end
+  end
+
   def create
     @course_section = CourseSection.new
-    params = permitted_params.course_secion_params.merge(create_params())
+    params = permitted_params.course_section_params.merge(create_params())
 
     if @course_section.update params
       track_activity @course_section

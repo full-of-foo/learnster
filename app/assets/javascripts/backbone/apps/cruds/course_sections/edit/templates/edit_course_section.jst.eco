@@ -1,0 +1,19 @@
+<!-- TODO - if org admin has permission -->
+<% isEditableForm = true %>
+
+ <div class="span6">
+			<div class="control-group">
+        <label class="control-label" for="title">Title</label>
+        <div class="controls">
+         <p class="text-info"> <%- @editOrShowField( "section", @section, isEditableForm ) %> </p>
+        </div>
+			</div>
+			<div class="control-group">
+        <label class="control-label" for="managed_by">Provisioner</label>
+        <div class="controls">
+          <p class="text-info"> <%- @editOrShowField( "provisioned_by", @provisioned_by.full_name, false ) %> </p>
+        </div>
+      </div>
+
+
+</div>

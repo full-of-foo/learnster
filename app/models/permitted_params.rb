@@ -24,8 +24,8 @@ class PermittedParams < Struct.new(:params, :user)
     params.require(:course).permit(*course_attributes)
   end
 
-  def course_secion_params
-    params.require(:course_section).permit(*course_secion_attributes)
+  def course_section_params
+    params.require(:course_section).permit(*course_section_attributes)
   end
 
   private
@@ -55,7 +55,7 @@ class PermittedParams < Struct.new(:params, :user)
       [:title, :description, :identifier]
     end
 
-    def course_secion_attributes
+    def course_section_attributes
       [:course_id, :provisioned_by, :section]
     end
 
