@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140130125707) do
+ActiveRecord::Schema.define(version: 20140210232826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,11 +98,11 @@ ActiveRecord::Schema.define(version: 20140130125707) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "educator_id"
-    t.integer  "course_section_id"
+    t.integer  "organisation_id"
   end
 
-  add_index "learning_modules", ["course_section_id"], name: "index_learning_modules_on_course_section_id", using: :btree
   add_index "learning_modules", ["educator_id"], name: "index_learning_modules_on_educator_id", using: :btree
+  add_index "learning_modules", ["organisation_id"], name: "index_learning_modules_on_organisation_id", using: :btree
 
   create_table "organisations", force: true do |t|
     t.string   "title"
@@ -111,6 +111,16 @@ ActiveRecord::Schema.define(version: 20140130125707) do
     t.datetime "updated_at"
     t.integer  "created_by"
   end
+
+  create_table "section_modules", force: true do |t|
+    t.integer  "learning_module_id"
+    t.integer  "course_section_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "section_modules", ["course_section_id"], name: "index_section_modules_on_course_section_id", using: :btree
+  add_index "section_modules", ["learning_module_id"], name: "index_section_modules_on_learning_module_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email"

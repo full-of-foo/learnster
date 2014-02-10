@@ -157,10 +157,12 @@ course_students.each { |s| EnrolledCourseSection
     title: Faker::Lorem.word + "#{i}",
     description: Faker::Lorem.sentence,
     educator: module_educator,
-    course_section: course_section
+    organisation: course_org
   }
   m = LearningModule.new(params)
   m.save!
+  # enroll students
+  m.course_sections << course_section
 end
 
 21.times do |i|

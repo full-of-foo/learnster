@@ -2,18 +2,21 @@ class LearningModule < ActiveRecord::Base
   acts_as_xlsx
 
   belongs_to :educator, class_name: "OrgAdmin", foreign_key: "educator_id"
-  belongs_to :course_section
+  belongs_to :organisation
 
-  validates_presence_of :title, :description, :educator, :course_section
-  validates_uniqueness_of :title, scope: :course_section,
-    message: "Module title already exists in this section"
+  has_many :section_modules
+  has_many :course_sections, through: :section_modules
+
+  validates_presence_of :title, :description, :educator, :organisation
+  validates_uniqueness_of :title, scope: :organisation,
+    message: "Module title already exists"
 
   def self.organisation_modules(organisation_id)
-    self.joins(course_section: [{course: :organisation}]).where("courses.organisation_id = ?", organisation_id)
+    Organisation.find(organisation_id).learning_modules
   end
 
   def self.course_modules(course_id)
-    self.joins(course_section: :course).where("course_sections.course_id = ?", course_id)
+    CourseSection.where(course_id: course_id).first.learning_modules
   end
 
 end
