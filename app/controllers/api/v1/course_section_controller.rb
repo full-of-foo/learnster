@@ -14,7 +14,15 @@ class Api::V1::CourseSectionController < ApplicationController
         .page(params[:page]).per_page(20)
     end
 
-    @course_sections
+    if xlsx_request?
+      respond_to do |format|
+        format.xlsx {
+          send_data @course_sections.to_xlsx.to_stream.read, :filename => 'course_sections.xlsx',
+          :type => "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
+         }
+      end
+    end
+    return @course_sections
   end
 
   def show

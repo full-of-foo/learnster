@@ -12,7 +12,8 @@
             <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu">
-            <li><a href=<% if @nestingOrg: %>"/api/organisation/<%= @nestingOrg.get('id') %>/course_section.xlsx"<% else: %>"api/course_section.xlsx"<% end %>><i class="fa fa-fixed-width fa-level-down"></i>
+        <% console.log @ %>
+            <li><a href="/api/organisation/<%= @organisation.id %>/course_section/<%= @id %>/course_section.xlsx"><i class="fa fa-fixed-width fa-level-down"></i>
             Export All</a>
             </li>
             <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>

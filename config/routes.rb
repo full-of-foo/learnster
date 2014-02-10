@@ -41,6 +41,7 @@ Learnster::Application.routes.draw do
         resources :course
         resources :course_section
         resources :learning_module
+        get '/course_section/:course_id/course_section' => 'course_section#index'
       end
 
       # Standard routes
