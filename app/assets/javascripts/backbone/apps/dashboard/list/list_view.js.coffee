@@ -27,6 +27,9 @@
 
     class List.DashBlock extends App.Views.ItemView
       template: 'dashboard/list/templates/_dash_block'
+      tagName: 'li'
+      triggers:
+        "click span" : "dash:block:clicked"
 
     class List.DashBlockComposite extends App.Views.CompositeView
       template: 'dashboard/list/templates/_dash_blocks'
@@ -42,6 +45,6 @@
         @['emptyView'] = List.EmptyNotificationBlock if @collection instanceof App.Entities.NotificationsCollection
 
       triggers:
-        "click div#Courses" : "dash:courses:block:clicked"
-        "click div#Modules" : "dash:modules:block:clicked"
-        "click div#Notifications" : "dash:notifications:block:clicked"
+        "click #Courses" : "dash:courses:block:clicked"
+        "click #Modules" : "dash:modules:block:clicked"
+        "click #Notifications" : "dash:notifications:block:clicked"

@@ -8,4 +8,8 @@
     orgId = org.id
     App.navigate "/organisation/#{orgId}/modules"
 
+  App.vent.on "dash:block:clicked", (model, org) ->
+    App.vent.trigger("course:clicked", model) if model instanceof App.Entities.Course
+    App.vent.trigger("module:clicked", model) if model instanceof App.Entities.LearningModule
+
 

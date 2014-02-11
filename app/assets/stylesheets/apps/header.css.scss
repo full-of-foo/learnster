@@ -23,8 +23,8 @@
 }
 
 .dock {
-	position: relative; 
-	height: 50px; 
+	position: relative;
+	height: 50px;
 	text-align: center;
 }
 .dock-container {
@@ -46,13 +46,15 @@ li.dock-item {
 	cursor: pointer;
 }
 .dock-item img {
-	border: none; 
-	margin: 5px 10px 0px; 
-	width: 100%; 
+	border: none;
+	margin: 5px 10px 0px;
+	width: 100%;
 }
 .dock-item span {
-	display: none; 
+	display: none;
 	padding-left: 20px;
+	position: absolute;
+	z-index: 1;
 }
 
 #destroy-session-icon {
@@ -64,7 +66,7 @@ li.dock-item {
 		-o-transition: font 0.3s ease;
 		-ms-transition: font 0.3s ease;
 	}
-	
+
 	.fa.fa-sign-out:hover {
 	    font-size: 15px;
 	}

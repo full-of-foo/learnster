@@ -5,3 +5,9 @@
 <div class="dash-block-content">
   <ul></ul>
 </div>
+
+<div class="dash-block-header dash-block-footer">
+    <small id="<%= @title %>" class="text-info">
+      <%= @allText %>
+    </small>
+</div>

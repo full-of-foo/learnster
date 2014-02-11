@@ -1,4 +1,5 @@
 .dash-block {
+  position: relative;
   width: auto;
   min-width: 19pc;
   min-height: 20pc;
@@ -24,6 +25,23 @@
 
 
   .dash-block-content {
+    ul {
+      list-style: none;
+      margin: 10px 0 0 0;
+    }
+    li {
+      border-top: 1px solid #e8e8e8;
+    }
+    li span {
+      cursor: pointer;
+      margin-left: 1pc
+    }
+    li:hover {
+      background-color: #F3FFFF;
+      border-left: 1.5px solid #06F0FF;
+    }
+    display: inline-block;
+    width: 99%;
     overflow-y: scroll;
     outline: none;
     max-height: 16pc;
@@ -84,6 +102,18 @@
     }
   }
 
+}
+
+.dash-block-footer {
+    right: 0;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+
+    small:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
 }
 
 .dash-block:hover {

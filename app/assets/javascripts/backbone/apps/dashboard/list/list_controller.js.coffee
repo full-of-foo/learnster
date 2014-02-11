@@ -44,6 +44,9 @@
       @listenTo blockView, "childview:clicked:add:course:link", (arg, model) ->
         App.vent.trigger "clicked:add:course", @_nestingOrg
 
+      @listenTo blockView, "childview:dash:block:clicked", (child, args) ->
+        App.vent.trigger "dash:block:clicked", args.model, @_nestingOrg
+
       @show blockView,
         loading:
           loadingType: "spinner"
@@ -59,6 +62,9 @@
 
       @listenTo blockView, "childview:clicked:add:module:link", (arg, model) ->
         App.vent.trigger "clicked:add:module", @_nestingOrg
+
+      @listenTo blockView, "childview:dash:block:clicked", (child, args) ->
+        App.vent.trigger "dash:block:clicked", args.model, @_nestingOrg
 
       @show blockView,
         loading:
