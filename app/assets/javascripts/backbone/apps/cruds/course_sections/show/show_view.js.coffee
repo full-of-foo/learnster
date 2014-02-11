@@ -28,4 +28,5 @@
   class Show.Panel extends App.Views.ItemView
     template: 'course_sections/show/templates/panel'
     triggers:
-      "click #add-module-button" : "add:module:button:clicked"
+      "click #add-module-button"    : "add:module:button:clicked"
+      "click #remove-module-button" : "remove:module:button:clicked"

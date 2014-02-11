@@ -65,6 +65,10 @@
         orgId = courseSection.get('course').organisation_id
         @showNewRegion(orgId, @courseSectionId)
 
+      @listenTo panelView, "remove:module:button:clicked", =>
+        orgId = courseSection.get('course').organisation_id
+        @showRemoveRegion(orgId, @courseSectionId)
+
       @show panelView,
         loading:
           loadingType: "spinner"
@@ -74,6 +78,11 @@
       @layout.addModuleRegion['_nestingOrgId'] = orgId
       @layout.addModuleRegion['_nestingCourseSectionId'] = courseSectionId
       App.execute "new:section:module:view", @layout.addModuleRegion, orgId, courseSectionId
+
+    showRemoveRegion: (orgId, courseSectionId) ->
+      @layout.addModuleRegion['_nestingOrgId'] = orgId
+      @layout.addModuleRegion['_nestingCourseSectionId'] = courseSectionId
+      App.execute "remove:section:module:view", @layout.addModuleRegion, orgId, courseSectionId
 
     getLayoutView: (courseSection) ->
       new Show.Layout

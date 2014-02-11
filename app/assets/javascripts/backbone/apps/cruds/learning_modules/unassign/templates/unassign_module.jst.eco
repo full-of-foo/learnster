@@ -1,0 +1,22 @@
+<button type="button" class="close cancel-unassign-module" data-dismiss="alert">&times;</button>
+
+<blockquote>
+    <p class="text-info">Remove Module...</p>
+    <small class="text-info">hover over fields for help</small>
+</blockquote>
+
+<div class="form-horizontal">
+    <fieldset>
+
+        <div class="control-group">
+            <!-- Module -->
+            <label class="control-label">Module</label>
+            <div id="module-select-region" class="controls"></div>
+        </div>
+
+        <div class="pull-right offset1">
+          <span id="remove-module-button" class="btn btn-danger">Remove</span>
+        </div>
+
+
+</div>

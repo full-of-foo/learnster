@@ -24,6 +24,12 @@
         orgId: orgId
         courseId: courseId
 
+    removeSectionModule: (region, orgId, courseId) ->
+      new LearningModulesApp.Unassign.Controller
+        region: region
+        orgId: orgId
+        courseId: courseId
+
     get_module_id: (id_module) ->
       id = if id_module.id then id_module.id else id_module
 
@@ -33,6 +39,9 @@
 
   App.commands.setHandler "new:section:module:view", (region, orgId, courseSectionId) ->
     API.newSectionModule(region, orgId, courseSectionId)
+
+  App.commands.setHandler "remove:section:module:view", (region, orgId, courseSectionId) ->
+    API.removeSectionModule(region, orgId, courseSectionId)
 
   App.commands.setHandler "new:module:view", (region) ->
     API.newModuleView(region)

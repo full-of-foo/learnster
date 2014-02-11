@@ -28,7 +28,19 @@ class Api::V1::SectionModuleController < ApplicationController
     else
       respond_with @section_module
     end
+  end
 
+  def destroy
+    @section_module = SectionModule
+      .where(learning_module_id: params[:learning_module_id], course_section_id: params[:course_section_id])
+        .first
+
+    if @section_module && @section_module.destroy()
+      track_activity @section_module
+      render json: {}
+    else
+      respond_with @section_module
+    end
   end
 
   private

@@ -3,6 +3,8 @@
 
         <a id="add-module-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
         Add Module</a>
+        <a id="remove-module-button" class="btn" href="#"><i class="fa fa-fixed-width fa-times-circle"></i>
+        Remove Module</a>
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="fa fa-caret-down"></i>
         </a>
