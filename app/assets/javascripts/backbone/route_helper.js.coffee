@@ -24,6 +24,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^organisation\/(.+?)\/notifications$/,
           /^organisation\/(.+?)\/dashboard$/,
           /^organisation\/(.+?)\/courses$/,
+          /^organisation\/(.+?)\/modules$/,
           /^course\/(.+?)\/edit$/
           /^course\/(.+?)\/show$/
           /^course_section\/(.+?)\/edit$/

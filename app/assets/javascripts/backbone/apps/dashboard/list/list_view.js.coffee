@@ -42,3 +42,5 @@
 
       triggers:
         "click div#Courses" : "dash:courses:block:clicked"
+        "click div#Modules" : "dash:modules:block:clicked"
+        "click div#Notifications" : "dash:notifications:block:clicked"

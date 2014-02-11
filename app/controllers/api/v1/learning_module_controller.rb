@@ -5,6 +5,13 @@ class Api::V1::LearningModuleController < ApplicationController
 
 
   def index
+    if search_request?
+      @learning_modules = LearningModule.search_term(params[:search]).page(params[:page]).per_page(20)       if search_term_request?(params)
+      @learning_modules = LearningModule.search_term(params[:search], @org).page(params[:page]).per_page(20) if nested_org_term_search?(params)
+      return @learning_modules
+    end
+
+
     if params[:course_section_id]
       @learning_modules = CourseSection.find(params[:course_section_id]).learning_modules
         .page(params[:page]).per_page(20)

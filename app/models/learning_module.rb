@@ -11,6 +11,9 @@ class LearningModule < ActiveRecord::Base
   validates_uniqueness_of :title, scope: :organisation,
     message: "Module title already exists"
 
+  generate_scopes
+
+
   def self.organisation_modules(organisation_id)
     Organisation.find(organisation_id).learning_modules
   end
@@ -20,7 +23,24 @@ class LearningModule < ActiveRecord::Base
   end
 
   def self.find_by_org_and_title(organisation_id, title)
-    LearningModule.where(organisation_id: organisation_id, title: title).first
+    self.where(organisation_id: organisation_id, title: title).first
+  end
+
+  def self.search_term(search, nested_org = nil)
+    if not search.empty? and not nested_org
+      self.title_matches("%#{search}%") | self.description_matches("%#{search}%")
+    elsif not search.empty? and nested_org
+      (self.title_matches("%#{search}%") | self.description_matches("%#{search}%")) & self
+        .organisation_id_eq(nested_org.id)
+    elsif search.empty? and nested_org
+      self.organisation_id_eq(nested_org.id)
+    else
+      self.all
+    end
+  end
+
+  def shared_on_course_section_count
+    SectionModule.where(learning_module: self).count
   end
 
 end
