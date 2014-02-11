@@ -35,4 +35,34 @@ class Api::V1::LearningModuleController < ApplicationController
     @learning_module = LearningModule.find(params[:id])
   end
 
+  def create
+    @learning_module = LearningModule.new
+    params = permitted_params.learning_module_params().merge create_params
+
+    if @learning_module.update params
+      track_activity @learning_module
+      render "api/v1/learning_module/show"
+    else
+      respond_with @learning_module
+    end
+  end
+
+  def destroy
+    @learning_module = LearningModule.find(params[:id])
+
+    if @learning_module.destroy()
+      track_activity @learning_module
+      render json: {}
+    else
+      respond_with @learning_module
+    end
+  end
+
+  private
+    def create_params
+      educator = OrgAdmin.where(admin_for: params[:organisation_id], email: params[:educator]).first
+
+      { educator: educator }
+    end
+
 end

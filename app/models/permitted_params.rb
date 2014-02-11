@@ -32,6 +32,10 @@ class PermittedParams < Struct.new(:params, :user)
     params.require(:section_module).permit(*section_module_attributes)
   end
 
+  def learning_module_params
+    params.require(:learning_module).permit(*learning_module_attributes)
+  end
+
   private
     def user_attributes
       attrs = [:email, :first_name, :surname]
@@ -67,6 +71,8 @@ class PermittedParams < Struct.new(:params, :user)
       [:course_section_id, :learning_module]
     end
 
-
+    def learning_module_attributes
+      [:organisation_id, :title, :description, :educator]
+    end
 
 end

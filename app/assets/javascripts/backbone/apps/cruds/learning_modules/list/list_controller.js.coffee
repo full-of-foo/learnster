@@ -18,7 +18,7 @@
       @show @layout
 
     showNewRegion: ->
-      @layout.newRegion['_nestingOrg'] = @_nestingOrg
+      @layout.newRegion['_nestingOrgId'] = @_nestingOrgId
       App.execute "new:module:view", @layout.newRegion
 
     showPanel: (modules) ->

@@ -6,6 +6,10 @@
   #     # "course/:id/show" : "show"
 
   API =
+    newModuleView: (region) ->
+      new LearningModulesApp.New.Controller
+        region: region
+
     newSectionModule: (region, orgId, courseId) ->
       new LearningModulesApp.Assign.Controller
         region: region
@@ -15,6 +19,9 @@
   App.commands.setHandler "new:section:module:view", (region, orgId, courseSectionId) ->
     API.newSectionModule(region, orgId, courseSectionId)
 
+  App.commands.setHandler "new:module:view", (region) ->
+    API.newModuleView(region)
+
   App.vent.on "section_module:created", (sectionModule) ->
     sectionId = sectionModule.get('course_section_id')
     App.navigate "/course_section/#{sectionId}/show" if sectionId
@@ -22,3 +29,6 @@
   App.vent.on "modules:block:clicked", (org) ->
     orgId = org.get('id')
     App.navigate "/organisation/#{orgId}/modules"
+
+  App.vent.on "learning_module:created", (learning_module) ->
+    console.log "should nav to show module"

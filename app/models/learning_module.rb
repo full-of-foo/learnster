@@ -9,7 +9,7 @@ class LearningModule < ActiveRecord::Base
 
   validates_presence_of :title, :description, :educator, :organisation
   validates_uniqueness_of :title, scope: :organisation,
-    message: "Module title already exists"
+    message: "module title already exists"
 
   generate_scopes
 
