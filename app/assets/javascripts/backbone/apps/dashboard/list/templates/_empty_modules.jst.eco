@@ -1,6 +1,6 @@
 <div class="empty-dash-block">
   <p class="muted">no modules</p>
-  <p class="muted">please <a id="add-course-link" href="#">add</a> one to a course</p>
+  <p class="muted">please <a id="add-module-link" href="#">add</a> one</p>
   <h1 class="muted">:(</h1>
 </div>
 

@@ -17,6 +17,7 @@
       template: 'dashboard/list/templates/_empty_modules'
       triggers:
         "click a#add-course-link" : "clicked:add:course:link"
+        "click a#add-module-link" : "clicked:add:module:link"
 
     class List.EmptyFileBlock extends App.Views.ItemView
       template: 'dashboard/list/templates/_empty_files'

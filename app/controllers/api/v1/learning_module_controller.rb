@@ -37,7 +37,19 @@ class Api::V1::LearningModuleController < ApplicationController
 
   def create
     @learning_module = LearningModule.new
-    params = permitted_params.learning_module_params().merge create_params
+    params = permitted_params.learning_module_params().merge create_and_update_params
+
+    if @learning_module.update params
+      track_activity @learning_module
+      render "api/v1/learning_module/show"
+    else
+      respond_with @learning_module
+    end
+  end
+
+  def update
+    @learning_module = LearningModule.find(params[:id])
+    params = permitted_params.learning_module_params().merge create_and_update_params
 
     if @learning_module.update params
       track_activity @learning_module
@@ -59,7 +71,7 @@ class Api::V1::LearningModuleController < ApplicationController
   end
 
   private
-    def create_params
+    def create_and_update_params
       educator = OrgAdmin.where(admin_for: params[:organisation_id], email: params[:educator]).first
 
       { educator: educator }

@@ -37,6 +37,11 @@
   App.commands.setHandler "new:module:view", (region) ->
     API.newModuleView(region)
 
+  App.vent.on "edit:module:clicked", (view) ->
+    module = view.model
+    moduleId = module.get('id')
+    App.navigate "/module/#{moduleId}/edit"
+
   App.vent.on "section_module:created", (sectionModule) ->
     sectionId = sectionModule.get('course_section_id')
     App.navigate "/course_section/#{sectionId}/show" if sectionId
@@ -45,6 +50,6 @@
     orgId = org.get('id')
     App.navigate "/organisation/#{orgId}/modules"
 
-  App.vent.on "module:clicked learning_module:created", (learning_module) ->
+  App.vent.on "module:updated module:cancelled module:clicked learning_module:created", (learning_module) ->
     moduleId = learning_module.get('id')
     App.navigate "/module/#{moduleId}/show"

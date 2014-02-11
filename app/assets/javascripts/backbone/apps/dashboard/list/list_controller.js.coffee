@@ -57,8 +57,8 @@
       @listenTo blockView, "dash:modules:block:clicked", ->
         App.vent.trigger "modules:block:clicked", @_nestingOrg
 
-      @listenTo blockView, "childview:clicked:add:course:link", (arg, model) ->
-        App.vent.trigger "clicked:add:course", @_nestingOrg
+      @listenTo blockView, "childview:clicked:add:module:link", (arg, model) ->
+        App.vent.trigger "clicked:add:module", @_nestingOrg
 
       @show blockView,
         loading:
