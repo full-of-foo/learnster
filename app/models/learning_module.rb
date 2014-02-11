@@ -19,4 +19,8 @@ class LearningModule < ActiveRecord::Base
     CourseSection.where(course_id: course_id).first.learning_modules
   end
 
+  def self.find_by_org_and_title(organisation_id, title)
+    LearningModule.where(organisation_id: organisation_id, title: title).first
+  end
+
 end

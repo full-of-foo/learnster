@@ -1,4 +1,3 @@
-<% console.log @ %>
 <% u = @currentUser() %>
 
 <!-- Notification template -->

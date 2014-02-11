@@ -42,7 +42,6 @@ class Api::V1::CourseController < ApplicationController
 
   def create
     @course = Course.new
-    logger.debug @org.inspect
     params = permitted_params.course_params().merge create_params
 
     if @course.update params

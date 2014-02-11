@@ -58,18 +58,19 @@
     showModulePanel: (courseSection) ->
       panelView = @getPanelView(courseSection)
 
-      @listenTo panelView, "new:module:button:clicked", =>
-        courseId = courseSection.get('course').id
-        @showNewRegion(courseId)
+      @listenTo panelView, "add:module:button:clicked", =>
+        orgId = courseSection.get('course').organisation_id
+        @showNewRegion(orgId, @courseSectionId)
 
       @show panelView,
         loading:
           loadingType: "spinner"
         region: @layout.modulePanelRegion
 
-    showNewRegion: (courseId) ->
-      @layout.addModuleRegion['_nestingCourseId'] = courseId
-      App.execute "add:module:view", @layout.addModuleRegion, @courseSectionId
+    showNewRegion: (orgId, courseSectionId) ->
+      @layout.addModuleRegion['_nestingOrgId'] = orgId
+      @layout.addModuleRegion['_nestingCourseSectionId'] = courseSectionId
+      App.execute "new:section:module:view", @layout.addModuleRegion, orgId, courseSectionId
 
     getLayoutView: (courseSection) ->
       new Show.Layout

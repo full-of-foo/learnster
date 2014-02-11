@@ -16,7 +16,6 @@
         id: @get_section_id(id)
 
     show: (id) ->
-      console.log "here", id
       new CourseSectionsApp.Show.Controller
         id: @get_section_id(id)
 
