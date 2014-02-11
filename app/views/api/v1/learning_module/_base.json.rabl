@@ -1,4 +1,4 @@
-attributes :id, :title, :description, :created_at, :updated_at, :educator_id
+attributes :id, :title, :description, :created_at, :updated_at, :educator_id, :organisation_id
 
 
 node do |learning_module|

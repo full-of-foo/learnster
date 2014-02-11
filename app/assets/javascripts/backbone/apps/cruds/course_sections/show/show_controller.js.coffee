@@ -36,6 +36,9 @@
       modules = App.request("section:learning_module:entities", @courseSectionId)
       modulesView = @getModulesView(modules)
 
+      @listenTo modulesView, "childview:module:clicked", (child, args) ->
+        App.vent.trigger "module:clicked", args.model
+
       @show modulesView,
         loading:
           loadingType: "spinner"

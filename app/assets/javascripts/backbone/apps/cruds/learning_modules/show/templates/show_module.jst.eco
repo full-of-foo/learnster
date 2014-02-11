@@ -1,0 +1,32 @@
+<% isEditableForm = false %>
+
+ <div class="span6">
+      <div class="pull-right">
+        <span id="edit-module-button" class="btn btn-success">Edit</span>
+        <span id="delete-module-button" class="btn btn-danger">Delete</span>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="title">Title</label>
+        <div class="controls">
+         <p class="text-info"> <%- @editOrShowField( "title", @title, isEditableForm ) %> </p>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="section_count">Description
+        <p class="text-info"> <%- @editOrShowField( "description", @description, isEditableForm ) %> </p> </label>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="section_count">On Course(s) Amount:
+        <p class="text-info"> <%- @editOrShowField( "shared_on_course_section_count", @shared_on_course_section_count, isEditableForm ) %> </p> </label>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="managed_by">Educator</label>
+        <div class="controls">
+          <p class="text-info"> <%- @editOrShowField( "educator", @educator.full_name, isEditableForm ) %> </p>
+        </div>
+      </div>
+
+</div>

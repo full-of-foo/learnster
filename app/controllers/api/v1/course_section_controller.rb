@@ -26,7 +26,7 @@ class Api::V1::CourseSectionController < ApplicationController
   end
 
   def show
-    @course_section = CourseSection.includes(:course).where(id: params[:id]).first
+    @course_section = CourseSection.includes(:course).find(params[:id])
   end
 
   def update

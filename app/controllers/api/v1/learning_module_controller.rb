@@ -32,7 +32,7 @@ class Api::V1::LearningModuleController < ApplicationController
   end
 
   def show
-    @learning_module = LearningModule.find(params[:id])
+    @learning_module = LearningModule.includes(:educator).find(params[:id])
   end
 
   def create

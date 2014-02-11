@@ -31,9 +31,8 @@
     setCurrentLearningModule: (attrs) ->
       new Entities.LearningModule attrs
 
-    getLearningModuleEntity: (orgId, id) ->
-      learning_module = new Entities.LearningModule
-        url: api_organisation_learning_module_index_path(orgId)
+    getLearningModuleEntity: (id) ->
+      learning_module = new Entities.LearningModule()
       learning_module = Entities.LearningModule.findOrCreate
                                       id: id
       learning_module.fetch
@@ -72,5 +71,5 @@
   App.reqres.setHandler "init:current:learning_module", (attrs) ->
     API.setCurrentLearningModule attrs
 
-  App.reqres.setHandler "learning_module:entity", (orgId, id) ->
-    API.getLearningModuleEntity orgId, id
+  App.reqres.setHandler "learning_module:entity", (id) ->
+    API.getLearningModuleEntity id
