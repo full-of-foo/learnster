@@ -55,6 +55,7 @@ gem "js-routes"
 gem "spinjs-rails"
 gem "datejs-rails"
 gem "pg", "0.15.1"
+gem "carrierwave"
 
 group :doc do
   gem "sdoc", "0.3.20", require: false
