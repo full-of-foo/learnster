@@ -27,10 +27,13 @@
         model: supplement
 
     setFormRegion: (supplement) ->
-      newView = @getNewView supplement
-      formView = App.request "form:wrapper", newView
+      @newView = @getNewView supplement
+      formView = App.request "form:wrapper", @newView
 
-      @listenTo newView, "form:cancel", ->
+      @listenTo @newView, "form:cancel", ->
         @region.close()
 
-      @layout.formRegion.show formView
+      @show formView,
+        loading:
+            loadingType: "spinner"
+        region:  @layout.formRegion
