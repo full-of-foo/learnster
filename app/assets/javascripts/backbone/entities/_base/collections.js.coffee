@@ -15,6 +15,9 @@
         console.log @_meta['next_link']
         console.log @_meta['last_link']
 
+    comparator: (model) ->
+      (-Number(model.get('id')))
+
     put: (prop, value) ->
       @_meta[prop] = value
 

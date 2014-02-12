@@ -8,7 +8,6 @@ class Api::V1::EnrolledCourseSectionController < ApplicationController
     params = permitted_params.course_section_params.merge(create_params())
 
     if @course_section.update params
-      track_activity @course_section
       render "api/v1/course_section/show"
     else
       respond_with @course_section

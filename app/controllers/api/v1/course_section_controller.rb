@@ -33,6 +33,7 @@ class Api::V1::CourseSectionController < ApplicationController
     @course_section = CourseSection.find(params[:id])
 
     if @course_section.update permitted_params.course_section_params
+        .merge(create_and_update_params())
       track_activity @course_section
       render "api/v1/course_section/show"
     else
@@ -68,7 +69,7 @@ class Api::V1::CourseSectionController < ApplicationController
     @course_section = CourseSection.find(params[:id])
 
     if @course_section.destroy()
-      track_activity @course_section
+      untrack_trackable params[:id]
       render json: {}
     else
       respond_with @course_section
@@ -78,8 +79,12 @@ class Api::V1::CourseSectionController < ApplicationController
   private
     #virtual params on create
     def create_and_update_params
-      provisioned_by = OrgAdmin.where(email: params[:provisioned_by]).first
-      { provisioned_by: provisioned_by }
+      if params[:provisioned_by].is_a?(String)
+        provisioned_by = OrgAdmin.where(email: params[:provisioned_by]).first
+        { provisioned_by: provisioned_by }
+      else
+        {}
+      end
     end
 
 end

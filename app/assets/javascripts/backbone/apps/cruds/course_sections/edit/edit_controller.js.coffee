@@ -34,6 +34,7 @@
         App.vent.trigger "course_section:cancelled", courseSection
 
       formView = App.request "form:wrapper", editView
+      console.log formView
       @show formView,
         loading:
           loadingType: "spinner"

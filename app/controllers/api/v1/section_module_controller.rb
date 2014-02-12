@@ -21,9 +21,8 @@ class Api::V1::SectionModuleController < ApplicationController
   def create
     @section_module = SectionModule.new
     params = permitted_params.section_module_params.merge create_params
-    logger.debug params
+
     if @section_module.update params
-      track_activity @section_module
       render "api/v1/section_module/show"
     else
       respond_with @section_module
@@ -36,7 +35,6 @@ class Api::V1::SectionModuleController < ApplicationController
         .first
 
     if @section_module && @section_module.destroy()
-      track_activity @section_module
       render json: {}
     else
       respond_with @section_module

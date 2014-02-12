@@ -66,7 +66,7 @@ class Api::V1::StudentController < ApplicationController
     @student = Student.find(params[:id])
 
     if @student.destroy()
-      track_activity @student
+      untrack_trackable params[:id]
       render json: {}
     else
       respond_with @student

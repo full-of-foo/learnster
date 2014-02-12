@@ -27,6 +27,10 @@ class ApplicationController < ActionController::Base
     user.activities.create! action: action, trackable: trackable
   end
 
+  def untrack_trackable(trackable_id)
+    Activity.delete_all(trackable_id: trackable_id)
+  end
+
   def nested_org_request?(params)
     !!params[:organisation_id]
   end

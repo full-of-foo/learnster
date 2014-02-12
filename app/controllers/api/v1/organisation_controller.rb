@@ -5,20 +5,20 @@ class Api::V1::OrganisationController < ApplicationController
   def index
     if search_request?
       @organisations = Organisation.search_term(params[:search])
-        .page(params[:page]).per_page(20)  
+        .page(params[:page]).per_page(20)
       return @organisations
     end
 
-    @organisations = Organisation.all.page(params[:page]).per_page(20) 
-    
+    @organisations = Organisation.all.page(params[:page]).per_page(20)
+
     if params[:format] == "xlsx"
-      type = "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"        
+      type = "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
       respond_to do |format|
       format.xlsx {
         send_data @organisations.to_xlsx
           .to_stream.read, :filename => 'organisations.xlsx', :type => type
        }
-      end 
+      end
     end
     @organisations
   end
@@ -29,7 +29,7 @@ class Api::V1::OrganisationController < ApplicationController
 
   def update
     @organisation = Organisation.find(params[:id])
-    
+
     if @organisation.update permitted_params.org_params
       track_activity @organisation
       render "api/v1/organisation/show"
@@ -40,7 +40,7 @@ class Api::V1::OrganisationController < ApplicationController
 
   def create
     @organisation = Organisation.new
-    
+
     attrs = permitted_params.org_params.merge default_attrs
     if @organisation.update attrs
       track_activity @organisation
@@ -53,7 +53,7 @@ class Api::V1::OrganisationController < ApplicationController
   def destroy
     @organisation = Organisation.find(params[:id])
     if @organisation.destroy()
-      track_activity @organisation
+      untrack_trackable params[:id]
       render json: {}
     else
       respond_with @organisation

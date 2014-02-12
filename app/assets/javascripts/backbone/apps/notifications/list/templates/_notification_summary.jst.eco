@@ -7,12 +7,18 @@
 		<%= @user.full_name %>
 	<% end %>
 
+
 	  <%= @action_formatted %>
 
 	<% if @trackable: %>
-	 <%= @trackable.name %>
+
+	 	<%= @trackable.name if @trackable.name %>
+	 	<%= @trackable.section if @trackable.section %>
+	 	<%= @trackable.title if @trackable.title %>
+
 	<% else: %>
 	 <em>something</em>
 	<% end %>
+
 </span>
 <span class="timestamp"> <%= @created_at_formatted %> ago </span>

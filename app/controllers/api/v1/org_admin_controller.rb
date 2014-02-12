@@ -39,6 +39,7 @@ class Api::V1::OrgAdminController < ApplicationController
   def update
     @org_admin = OrgAdmin.find(params[:id])
     if @org_admin.update permitted_params.org_admin_params().merge update_params
+      track_activity @org_admin
       render "api/v1/org_admin/show"
     else
       respond_with @org_admin
@@ -49,6 +50,7 @@ class Api::V1::OrgAdminController < ApplicationController
     @org_admin = OrgAdmin.new
     params = permitted_params.org_admin_params().merge create_params
     if @org_admin.update params
+      track_activity @org_admin
       render "api/v1/org_admin/show"
     else
       respond_with @org_admin
@@ -56,9 +58,13 @@ class Api::V1::OrgAdminController < ApplicationController
   end
 
   def destroy
-    org_admin = OrgAdmin.find(params[:id])
-    org_admin.destroy()
-    render json: {}
+    @org_admin = OrgAdmin.find(params[:id])
+    if @org_admin.destroy()
+      untrack_trackable params[:id]
+      render json: {}
+    else
+      respond_with @org_admin
+    end
   end
 
   def import
