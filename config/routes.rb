@@ -43,6 +43,7 @@ Learnster::Application.routes.draw do
         resources :learning_module
         resources :section_module
         resources :module_supplement
+        resources :supplement_content
         get '/course/:course_id/course_section' => 'course_section#index'
         get '/course_section/:course_section_id/learning_module' => 'learning_module#index'
       end
@@ -57,6 +58,7 @@ Learnster::Application.routes.draw do
       resources :learning_module
       resources :section_module
       resources :module_supplement
+      resources :supplement_content
     end
 
   end

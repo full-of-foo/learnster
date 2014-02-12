@@ -1,6 +1,7 @@
 	<small id="collection-count-span" class="text-info">
 	</small>
-	<div class="scroll-hor-wrapper pull-right span9">
+
+	<div class="scroll-hor-wrapper pull-right <%= @spanClass %>">
 		<table id="app-table">
 		    <thead>
 		        <tr id="app-table-header-row">

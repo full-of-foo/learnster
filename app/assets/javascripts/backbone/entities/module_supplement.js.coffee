@@ -12,6 +12,13 @@
 
 
   API =
+    getModuleSupplement: (id) ->
+      supplement = Entities.ModuleSupplement.findOrCreate
+        id: id
+      supplement.fetch
+        reset: true
+      supplement
+
     getModuleSupplementEntities: (moduleId) ->
       section_modules = new Entities.ModuleSupplementCollection
         url: Routes.api_module_supplement_index_path()
@@ -33,6 +40,9 @@
 
   App.reqres.setHandler "new:module:supplement:entity", ->
     API.newModuleSupplement()
+
+  App.reqres.setHandler "module:supplement:entity", (id) ->
+    API.getModuleSupplement id
 
   App.reqres.setHandler "init:module:supplement", (attrs) ->
     API.setCurrentModuleSupplement attrs

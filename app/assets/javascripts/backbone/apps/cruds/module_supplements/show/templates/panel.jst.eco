@@ -1,0 +1,11 @@
+<div id="list-panel" class="modal-header">
+
+    <div class="btn-group pull-right">
+
+        <a id="new-supplement-content-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+        New Content</a>
+
+    </div>
+
+</div>
+<div id="push"></div>

@@ -46,7 +46,7 @@
       supplementsView = @getSupplementsView(supplements)
 
       @listenTo supplementsView, "childview:supplement:clicked", (child, args) ->
-        App.vent.trigger "supplement:clicked", args.model
+        @showSupplementRegion(args.model)
 
       @listenTo supplementsView, "childview:supplement:delete:clicked", (child, args) ->
         @showDeleteSupplementDialog(args.model)
@@ -86,6 +86,9 @@
 
     showNewRegion: (module) ->
       App.execute "new:supplement:view", @layout.supplementRegion, module.get('id')
+
+    showSupplementRegion: (supplement) ->
+      App.execute "show:supplement:view", @layout.supplementRegion, supplement
 
     getLayoutView: (module) ->
       new Show.Layout

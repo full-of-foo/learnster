@@ -1,0 +1,13 @@
+<div class="hero-unit inline-block">
+    <div id="show-supplement-region"></div>
+
+    <div id="push"></div>
+
+    <div id="supplement-contents-panel-region"></div>
+    <div id="new-supplement-content-region"></div>
+    <div class="span7">
+      <div id="supplement-contents-region"></div>
+    </div>
+
+</div>
+

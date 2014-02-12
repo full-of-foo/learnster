@@ -64,6 +64,7 @@
     initialize: (options) ->
       { @columns, @config } = options
       @columns = @columns.models
+      @model = new App.Entities.TableConfig(@config)
       @defaultColumns = @getDefaultColumns @columns
       @setInstancePropertiesFor "itemViewOptions"
       @bindInfiniteScroll()  if @config.isPaginable
