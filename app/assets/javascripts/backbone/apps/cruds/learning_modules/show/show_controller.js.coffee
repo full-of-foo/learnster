@@ -3,8 +3,8 @@
   class Show.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      id = options.id
-      module = App.request "learning_module:entity", id
+      @moduleId = options.id
+      module = App.request "learning_module:entity", @moduleId
       @layout = @getLayoutView module
 
       @listenTo @layout, "show", =>
@@ -32,6 +32,9 @@
     showPanel: (module) ->
       panelView = @getPanelView(module)
 
+      @listenTo panelView, "add:module:supplement:button:clicked", =>
+        @showNewRegion(module)
+
       @show panelView,
         loading:
           loadingType: "spinner"
@@ -44,6 +47,9 @@
 
       @listenTo supplementsView, "childview:supplement:clicked", (child, args) ->
         App.vent.trigger "supplement:clicked", args.model
+
+      @listenTo supplementsView, "childview:supplement:delete:clicked", (child, args) ->
+        @showDeleteSupplementDialog(args.model)
 
       @show supplementsView,
         loading:
@@ -65,6 +71,22 @@
           loadingType: "spinner"
         region: App.dialogRegion
 
+    showDeleteSupplementDialog: (supplement) ->
+      dialogView = @getSupplementDialogView supplement
+
+      @listenTo dialogView, "dialog:delete:supplement:clicked", =>
+        dialogView.$el.modal "hide"
+        supplement.destroy()
+        supplement.on "destroy", => App.navigate "/module/#{@moduleId}/show"
+
+      @show dialogView,
+        loading:
+          loadingType: "spinner"
+        region: App.dialogRegion
+
+    showNewRegion: (module) ->
+      App.execute "new:supplement:view", @layout.supplementRegion, module.get('id')
+
     getLayoutView: (module) ->
       new Show.Layout
         model: module
@@ -77,6 +99,10 @@
       new Show.DeleteDialog
         model: module
 
+    getSupplementDialogView: (supplement) ->
+      new Show.DeleteSupplementDialog
+        model: supplement
+
     getPanelView: (module) ->
       new Show.Panel
         model: module
@@ -86,11 +112,11 @@
       options = @getTableOptions cols
       App.request "table:wrapper", supplements, options
 
-
     getTableColumns: ->
       [
        { title: "Title", attrName: "title", isSortable: true, default: true, isRemovable: false },
-       { title: "Description", attrName: "description", default: true }
+       { title: "Description", attrName: "description", default: true },
+       { htmlContent: '<div class="delete-icon"><i class="icon-remove-sign"></i></div>', className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
       ]
 
     getTableOptions: (columns) ->

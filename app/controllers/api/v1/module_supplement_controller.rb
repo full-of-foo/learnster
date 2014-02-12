@@ -22,50 +22,42 @@ class Api::V1::ModuleSupplementController < ApplicationController
   end
 
   def show
-    @learning_module = ModuleSupplement.find(params[:id])
+    @module_supplement = ModuleSupplement.find(params[:id])
   end
 
   def create
-    @learning_module = ModuleSupplement.new
-    params = permitted_params.learning_module_params().merge create_and_update_params
+    @module_supplement = ModuleSupplement.new
+    params = permitted_params.module_supplement_params
 
-    if @learning_module.update params
-      track_activity @learning_module
-      render "api/v1/learning_module/show"
+    if @module_supplement.update params
+      track_activity @module_supplement
+      render "api/v1/module_supplement/show"
     else
-      respond_with @learning_module
+      respond_with @module_supplement
     end
   end
 
   def update
-    @learning_module = ModuleSupplement.find(params[:id])
-    params = permitted_params.learning_module_params().merge create_and_update_params
+    @module_supplement = ModuleSupplement.find(params[:id])
+    params = permitted_params.module_supplement_params
 
-    if @learning_module.update params
-      track_activity @learning_module
-      render "api/v1/learning_module/show"
+    if @module_supplement.update params
+      track_activity @module_supplement
+      render "api/v1/module_supplement/show"
     else
-      respond_with @learning_module
+      respond_with @module_supplement
     end
   end
 
   def destroy
-    @learning_module = ModuleSupplement.find(params[:id])
+    @module_supplement = ModuleSupplement.find(params[:id])
 
-    if @learning_module.destroy()
+    if @module_supplement.destroy()
       untrack_trackable params[:id]
       render json: {}
     else
-      respond_with @learning_module
+      respond_with @module_supplement
     end
   end
-
-  private
-    def create_and_update_params
-      # educator = OrgAdmin.where(admin_for: params[:organisation_id], email: params[:educator]).first
-
-      # { educator: educator }
-      {}
-    end
 
 end

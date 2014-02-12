@@ -27,17 +27,13 @@
     newModuleSupplement: ->
       new Entities.ModuleSupplement
 
-  App.reqres.setHandler "section_module:entities", (orgId) ->
-    API.getOrgModuleSupplementEntities(orgId)
 
   App.reqres.setHandler "module:supplement:entities", (moduleId) ->
     API.getModuleSupplementEntities(moduleId)
 
-  App.reqres.setHandler "new:section_module:entity", ->
+  App.reqres.setHandler "new:module:supplement:entity", ->
     API.newModuleSupplement()
 
-  App.reqres.setHandler "init:module_supplement", (attrs) ->
+  App.reqres.setHandler "init:module:supplement", (attrs) ->
     API.setCurrentModuleSupplement attrs
 
-  App.reqres.setHandler "module_supplement:entity", (id) ->
-    API.getModuleSupplementEntity id
