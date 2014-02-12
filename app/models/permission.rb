@@ -37,6 +37,7 @@ class Permission < Struct.new(:user)
           return true if controller.end_with?("learning_module") && action.in?(%w[create index show edit update destroy])
           return true if controller.end_with?("course_section") && action.in?(%w[create index show edit update destroy])
           return true if controller.end_with?("section_module") && action.in?(%w[create index show edit update destroy])
+          return true if controller.end_with?("module_supplement") && action.in?(%w[create index show edit update destroy])
         end
 
         if user.role.course_manager?
@@ -44,11 +45,13 @@ class Permission < Struct.new(:user)
           return true if controller.end_with?("learning_module") && action.in?(%w[create index show edit update destroy])
           return true if controller.end_with?("course_section") && action.in?(%w[create index show edit update destroy])
           return true if controller.end_with?("section_module") && action.in?(%w[create index show edit update destroy])
+          return true if controller.end_with?("module_supplement") && action.in?(%w[create index show edit update destroy])
         end
 
         if user.role.module_manager?
           return true if controller.end_with?("learning_module") && action.in?(%w[create index show edit update destroy])
           return true if controller.end_with?("section_module") && action.in?(%w[create index show edit update destroy])
+          return true if controller.end_with?("module_supplement") && action.in?(%w[create index show edit update destroy])
         end
 
       end

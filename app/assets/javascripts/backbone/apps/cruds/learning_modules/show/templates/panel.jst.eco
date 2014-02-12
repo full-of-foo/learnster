@@ -1,0 +1,18 @@
+<div id="list-panel" class="modal-header">
+    <div class="btn-group pull-right">
+
+        <a id="add-module-supplement-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+        Create Supplement</a>
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+
+            <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+<div id="push"></div>

@@ -3,5 +3,7 @@ class ModuleSupplement < ActiveRecord::Base
 
   has_many :supplement_contents
 
+  validates_presence_of :title, :learning_module
+
 
 end

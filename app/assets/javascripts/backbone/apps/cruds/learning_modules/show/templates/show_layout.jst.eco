@@ -1,3 +1,10 @@
 <div class="hero-unit inline-block">
     <div id="module-region"></div>
 </div>
+
+<div id="module-supplement-panel-region"></div>
+<div id="add-module-supplement-region"></div>
+
+<div>
+  <div id="list-module-supplement-region"></div>
+</div>

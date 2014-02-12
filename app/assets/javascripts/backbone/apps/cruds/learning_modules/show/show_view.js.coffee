@@ -4,6 +4,8 @@
     template: "learning_modules/show/templates/show_layout"
     regions:
       moduleRegion: "#module-region"
+      panelRegion: "#module-supplement-panel-region"
+      supplementsRegion: "#list-module-supplement-region"
 
   class Show.Module extends App.Views.ItemView
     template: "learning_modules/show/templates/show_module"
@@ -20,3 +22,9 @@
 
     onShow: ->
       @$el.modal()
+
+
+  class Show.Panel extends App.Views.ItemView
+    template: 'learning_modules/show/templates/panel'
+    triggers:
+      "click #add-module-supplement-button"    : "add:module:supplement:button:clicked"

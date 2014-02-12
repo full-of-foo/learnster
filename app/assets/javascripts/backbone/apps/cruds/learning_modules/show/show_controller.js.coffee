@@ -9,6 +9,8 @@
 
       @listenTo @layout, "show", =>
         @showModule(module)
+        @showPanel(module)
+        @showSupplements(module)
 
       @show @layout
 
@@ -26,6 +28,28 @@
         loading:
           loadingType: "spinner"
         region: @layout.moduleRegion
+
+    showPanel: (module) ->
+      panelView = @getPanelView(module)
+
+      @show panelView,
+        loading:
+          loadingType: "spinner"
+        region: @layout.panelRegion
+
+    showSupplements: (module) ->
+      @moduleId = module.get('id')
+      supplements = App.request("module:supplement:entities", @moduleId)
+      supplementsView = @getSupplementsView(supplements)
+
+      @listenTo supplementsView, "childview:supplement:clicked", (child, args) ->
+        App.vent.trigger "supplement:clicked", args.model
+
+      @show supplementsView,
+        loading:
+          loadingType: "spinner"
+        region: @layout.supplementsRegion
+
 
     showDeleteDialog: (module) ->
       dialogView = @getDialogView module
@@ -52,3 +76,29 @@
     getDialogView: (module) ->
       new Show.DeleteDialog
         model: module
+
+    getPanelView: (module) ->
+      new Show.Panel
+        model: module
+
+    getSupplementsView: (supplements) ->
+      cols = @getTableColumns()
+      options = @getTableOptions cols
+      App.request "table:wrapper", supplements, options
+
+
+    getTableColumns: ->
+      [
+       { title: "Title", attrName: "title", isSortable: true, default: true, isRemovable: false },
+       { title: "Description", attrName: "description", default: true }
+      ]
+
+    getTableOptions: (columns) ->
+      columns: columns
+      region: @layout.supplementsRegion
+      config:
+        emptyMessage: "No supplements added :("
+        itemProperties:
+          triggers:
+              "click .delete-icon i"   : "supplement:delete:clicked"
+              "click"                  : "supplement:clicked"

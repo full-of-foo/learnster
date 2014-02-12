@@ -6,6 +6,7 @@ class LearningModule < ActiveRecord::Base
 
   has_many :section_modules
   has_many :course_sections, through: :section_modules
+  has_many :module_supplements
 
   validates_presence_of :title, :description, :educator, :organisation
   validates_uniqueness_of :title, scope: :organisation,

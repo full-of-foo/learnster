@@ -6,7 +6,8 @@
 
 # teardown
 [ApiKey, LearningModule, User, Organisation, Activity,
-  EnrolledCourseSection, CourseSection, Course].each(&:delete_all)
+  EnrolledCourseSection, CourseSection, Course, SupplementContent,
+  ModuleSupplement].each(&:delete_all)
 
 ########################
 ## Users and Orgs
@@ -154,7 +155,7 @@ course_students.each { |s| EnrolledCourseSection
 4.times do |i|
   module_educator = course_org.admins.order("RANDOM()").first
   params = {
-    title: Faker::Lorem.word + "#{i}",
+    title: "Object Orientated Programming " + "#{i + 1}",
     description: Faker::Lorem.sentence,
     educator: module_educator,
     organisation: course_org
@@ -163,6 +164,22 @@ course_students.each { |s| EnrolledCourseSection
   m.save!
   # enroll students
   m.course_sections << course_section
+
+  params = {
+    title: "Week #{i + 1}",
+    description: Faker::Lorem.sentence,
+    learning_module: m
+  }
+  lesson = ModuleSupplement.new(params)
+  lesson.save!
+
+  params = {
+    title: "Lecture Slides - part #{i + 1}",
+    description: Faker::Lorem.sentence,
+    module_supplement: lesson
+  }
+  lesson_content = SupplementContent.new(params)
+  lesson_content.save!
 end
 
 21.times do |i|
