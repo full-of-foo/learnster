@@ -14,7 +14,9 @@ end
 
 child :trackable => :trackable do
   attributes :id
-  node(:name, :if => lambda { |object| object.class.name == "Organisation" ||  object.class.name == "Course" || object.class.name == "LearningModule" }) do |object|
+  node(:name, :if => lambda { |object| object.class.name == "Organisation" ||  object
+    .class.name == "Course" || object.class.name == "LearningModule" || object.class
+    .name == "ModuleSupplement" || object.class.name == "SupplementContent" }) do |object|
   	object.title
   end
   node(:name, :if => lambda { |object| object.class.name == "CourseSection" }) do |object|

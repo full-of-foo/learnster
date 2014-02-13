@@ -66,6 +66,7 @@
 				"edit"
 
 		changeErrors: (model, errors, options) ->
+			console.log model, errors, options
 			if @config.errors
 				if _.isEmpty(errors) then @removeErrors() else @addErrors errors
 

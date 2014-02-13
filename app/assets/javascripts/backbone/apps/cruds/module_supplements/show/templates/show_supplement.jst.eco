@@ -1,8 +1,8 @@
 <% isEditableForm = false %>
 
 <div class="pull-right">
-        <!-- <span id="edit-supplement-button" class="btn btn-success">Edit</span> -->
         <span id="delete-supplement-button" class="btn btn-danger">Delete</span>
+        <span id="cancel-show-supplement" class="btn btn-success">Close</span>
 </div>
 <blockquote id="edit-form-header">
     <p class="text-info">Showing Supplement: </p>

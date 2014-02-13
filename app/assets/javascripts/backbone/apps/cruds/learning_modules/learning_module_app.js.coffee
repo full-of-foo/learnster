@@ -4,6 +4,7 @@
     appRoutes:
       "module/:id/edit" : "edit"
       "module/:id/show" : "show"
+      "module/:id/supplement/:supplementId/show" : "showWithSupplement"
 
   API =
     newModuleView: (region) ->
@@ -17,6 +18,11 @@
     show: (id) ->
       new LearningModulesApp.Show.Controller
         id: @get_module_id(id)
+
+    showWithSupplement: (id, supplementId) ->
+      new LearningModulesApp.Show.Controller
+        id: @get_module_id(id)
+        supplementId: @get_module_id(supplementId)
 
     newSectionModule: (region, orgId, courseId) ->
       new LearningModulesApp.Assign.Controller

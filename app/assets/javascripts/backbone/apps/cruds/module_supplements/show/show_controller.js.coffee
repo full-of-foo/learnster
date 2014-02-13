@@ -3,14 +3,15 @@
   class Show.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      supplementId = options.supplement.get('id')
-      supplement = App.request "module:supplement:entity", supplementId
+      supplementId = if options.supplement instanceof App.Entities
+        .ModuleSupplement then options.supplement.get('id') else options.supplement
+      @supplement = App.request "module:supplement:entity", supplementId
 
-      @layout = @getLayoutView supplement
+      @layout = @getLayoutView @supplement
 
       @listenTo @layout, "show", =>
-        @showSupplement(supplement)
-        @showContentsPanel(supplement)
+        @showSupplement(@supplement)
+        @showContentsPanel(@supplement)
 
       @show @layout
 
@@ -23,6 +24,11 @@
       @listenTo supplementView, "delete:supplement:button:clicked", (view) ->
         model = view.model
         @showDeleteDialog(model)
+
+      @listenTo supplementView, "cancel:show:supplement:button:clicked", (view) ->
+        supplement = view.model
+        moduleId = supplement.get('learning_module').id
+        App.navigate "/module/#{moduleId}/show"
 
       @listenTo supplementView, "show", ->
         @showContents(supplement)
@@ -39,6 +45,9 @@
 
       @listenTo contentsView, "childview:content:clicked", (child, args) ->
         App.vent.trigger "supplement:content:clicked", args.model
+
+      @listenTo contentsView, "childview:content:link:clicked", (child, args, foo) ->
+        console.log foo, child, args
 
       @listenTo contentsView, "childview:content:delete:clicked", (child, args) ->
         model = args.model
@@ -77,18 +86,16 @@
     showContentsPanel: (supplement) ->
       panelView = @getPanelView(supplement)
 
-      # @listenTo panelView, "new:course:section:button:clicked", =>
-      #   orgId = course.get('organisation').id
-      #   @showNewRegion(orgId)
+      @listenTo panelView, "new:supplement:content:button:clicked", =>
+        @showNewRegion()
 
       @show panelView,
         loading:
           loadingType: "spinner"
         region: @layout.supplementContentsPanelRegion
 
-    # showNewRegion: (orgId) ->
-    #   @layout.newCourseSectionRegion['_nestingOrgId'] = orgId
-    #   App.execute "new:course:section:view", @layout.newCourseSectionRegion, @supplementId
+    showNewRegion: ->
+      App.execute "new:content:view", @layout.newSupplementContentRegion, @supplementId
 
     getLayoutView: (supplement) ->
       new Show.Layout
@@ -118,8 +125,11 @@
     getTableColumns: ->
       [
        { title: "Title", attrName: "title", isSortable: true, default: true, isRemovable: false },
-       { title: "Created On", attrName: "created_at_formatted", isSortable: true, default: true, isRemovable: false }
-       # { htmlContent: '<div class="delete-icon"><i class="icon-remove-sign"></i></div>', className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
+       { title: "Created On", attrName: "created_at_formatted", isSortable: true, default: true, isRemovable: false },
+       { title: "File", htmlContent: '<a class="file-link" target="_blank" href="<%= model.get("file_upload").url %>"><i class="fa fa-download"></i></a>'
+        , isSortable: true, default: true, isRemovable: false },
+       { htmlContent: '<div class="delete-icon"><i class="icon-remove-sign"></i></div>', className: "last-col-invisible"
+        ,default: true, isRemovable: false, hasData: false }
       ]
 
     getTableOptions: (columns) ->
@@ -132,3 +142,6 @@
           triggers:
               "click .delete-icon i"   : "content:delete:clicked"
               "click"                  : "content:clicked"
+              # "click .file-link"       : "content:link:clicked"
+          events:
+              "click .file-link" : ((e) -> $(body).trigger(e))

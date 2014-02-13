@@ -40,6 +40,10 @@ class PermittedParams < Struct.new(:params, :user)
     params.require(:module_supplement).permit(*module_supplement_attributes)
   end
 
+  def supplement_content_params
+    params.require(:supplement_content).permit(*supplement_content_attributes)
+  end
+
   private
     def user_attributes
       attrs = [:email, :first_name, :surname]
@@ -81,6 +85,10 @@ class PermittedParams < Struct.new(:params, :user)
 
     def module_supplement_attributes
       [:title, :description, :learning_module_id]
+    end
+
+    def supplement_content_attributes
+      [:title, :description, :module_supplement, :file_upload]
     end
 
 end

@@ -14,6 +14,7 @@
     triggers:
       "click #edit-supplement-button" : "edit:supplement:button:clicked"
       "click #delete-supplement-button" : "delete:supplement:button:clicked"
+      "click #cancel-show-supplement" : "cancel:show:supplement:button:clicked"
 
   class Show.DeleteDialog extends App.Views.ItemView
     template: 'module_supplements/show/templates/delete_supplement_dialog'

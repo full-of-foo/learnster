@@ -1,0 +1,60 @@
+<button type="button" class="close cancel-new-content" data-dismiss="alert">&times;</button>
+
+<blockquote>
+    <p class="text-info">New Content...</p>
+    <small class="text-info">hover over fields for help</small>
+</blockquote>
+
+<div class="form-horizontal">
+    <fieldset>
+
+        <div class="control-group">
+            <!-- Title -->
+            <label class="control-label" for="title">Title</label>
+            <div class="controls">
+                <input type="text" id="title" name="title" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Description -->
+            <label class="control-label" for="description">Description</label>
+            <div class="controls">
+                <input type="text" id="description" name="description" placeholder="" class="input-xlarge">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- File -->
+            <div id="upload-results"></div>
+
+            <div id="content-upload-area"></div>
+
+
+        </div>
+
+    </fieldset>
+</div>
+
+ <!-- fineupload template -->
+  <script type="text/template" id="qq-template">
+        <div class="qq-uploader-selector qq-uploader">
+         <ul class="qq-upload-list-selector qq-upload-list">
+                <li>
+                    <div class="qq-progress-bar-container-selector">
+                        <div class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <span class="qq-upload-file-selector qq-upload-file"></span>
+                    <input id="file_upload" class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                    <span class="qq-upload-size-selector qq-upload-size"></span>
+                    <span class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                </li>
+            </ul>
+            <div class="qq-upload-button-selector btn btn-success">
+                <div>Upload File and Create</div>
+            </div>
+        </div>
+    </script>
+
+

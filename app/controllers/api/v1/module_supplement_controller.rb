@@ -11,8 +11,8 @@ class Api::V1::ModuleSupplementController < ApplicationController
     end
 
 
-    if params[:module_id]
-      @module_supplements = LearningModule.find(params[:module_id]).module_supplements
+    if params[:learning_module_id]
+      @module_supplements = LearningModule.find(params[:learning_module_id]).module_supplements
         .page(params[:page]).per_page(20)
     else
       @module_supplements = ModuleSupplement.all.page(params[:page]).per_page(20)

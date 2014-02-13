@@ -1,4 +1,4 @@
-attributes :id, :title, :description, :created_at, :updated_at, :module_supplement_id
+attributes :id, :title, :description, :created_at, :updated_at, :file_upload, :module_supplement
 
 node do |supplement_content|
     {
@@ -7,3 +7,10 @@ node do |supplement_content|
     }
 end
 
+child :module_supplement => :module_supplement do
+  attributes :id, :title, :description, :created_at, :updated_at, :learning_module_id
+end
+
+child :file_upload => :file_upload do
+  attributes :url
+end

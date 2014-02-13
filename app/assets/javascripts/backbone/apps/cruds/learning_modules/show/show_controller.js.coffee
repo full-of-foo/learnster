@@ -4,13 +4,16 @@
 
     initialize: (options) ->
       @moduleId = options.id
+      @supplementId = options.supplementId if options.supplementId
       module = App.request "learning_module:entity", @moduleId
+
       @layout = @getLayoutView module
 
       @listenTo @layout, "show", =>
         @showModule(module)
         @showPanel(module)
         @showSupplements(module)
+        @showSupplementRegion(@supplementId) if @supplementId
 
       @show @layout
 
@@ -46,7 +49,11 @@
       supplementsView = @getSupplementsView(supplements)
 
       @listenTo supplementsView, "childview:supplement:clicked", (child, args) ->
-        @showSupplementRegion(args.model)
+        console.log args
+        supplement = args.model
+        moduleId = supplement.get('learning_module').id
+        supplementId = supplement.get('id')
+        App.navigate "/module/#{moduleId}/supplement/#{supplementId}/show"
 
       @listenTo supplementsView, "childview:supplement:delete:clicked", (child, args) ->
         @showDeleteSupplementDialog(args.model)
@@ -118,7 +125,8 @@
     getTableColumns: ->
       [
        { title: "Title", attrName: "title", isSortable: true, default: true, isRemovable: false },
-       { title: "Description", attrName: "description", default: true },
+       { title: "Description", attrName: "description",  isSortable: true, default: true, isRemovable: false },
+       { title: "# Uploads", attrName: "contents_counts",  isSortable: true, default: true, isRemovable: false },
        { htmlContent: '<div class="delete-icon"><i class="icon-remove-sign"></i></div>', className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
       ]
 

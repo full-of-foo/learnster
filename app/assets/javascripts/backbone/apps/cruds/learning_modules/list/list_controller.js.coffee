@@ -102,7 +102,7 @@
       [
        { title: "Title", attrName: "title", isSortable: true, isRemovable: false, default: true },
        { title: "Description", attrName: "description", default: true, isRemovable: false },
-       { title: "# Courses thought on", htmlContent: '<%= model.get("shared_on_course_section_count") %>', default: true,  isSortable: true, isRemovable: false },
+       { title: "# Supplements", htmlContent: '<%= model.get("supplement_count") %>', default: true,  isSortable: true, isRemovable: false },
        { title: "Manager", attrName: "educator.full_name", isSortable: true, isRemovable: false, default: true },
        { htmlContent: '<div class="delete-icon"><i class="icon-remove-sign"></i></div>', className: "last-col-invisible", default: true, isRemovable: false }
       ]

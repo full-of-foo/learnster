@@ -14,32 +14,35 @@ class Api::V1::SupplementContentController < ApplicationController
   end
 
   def show
-    @module_supplement = SupplementContent.find(params[:id])
+    @supplement_content = SupplementContent.find(params[:id])
   end
 
-  # def create
-  #   @module_supplement = SupplementContent.new
-  #   params = permitted_params.module_supplement_params
+  def create
+    file = params[:qqfile].is_a?(ActionDispatch::Http::UploadedFile) ? params[:qqfile] : params[:file]
+    @supplement_content = SupplementContent.new
+    @supplement_content.file_upload = file
+    params = permitted_params.supplement_content_params.merge(create_params)
 
-  #   if @module_supplement.update params
-  #     track_activity @module_supplement
-  #     render "api/v1/module_supplement/show"
-  #   else
-  #     respond_with @module_supplement
-  #   end
-  # end
+    if @supplement_content.update params
+      track_activity @supplement_content
+      # render :json => { :success => true, supplement_content: @supplement_content }
+      render "api/v1/supplement_content/show"
+    else
+      respond_with @supplement_content
+    end
+  end
 
-  # def update
-  #   @module_supplement = SupplementContent.find(params[:id])
-  #   params = permitted_params.module_supplement_params
+  def update
+    @supplement_content = SupplementContent.find(params[:id])
+    params = permitted_params.supplement_content_params()
 
-  #   if @module_supplement.update params
-  #     track_activity @module_supplement
-  #     render "api/v1/module_supplement/show"
-  #   else
-  #     respond_with @module_supplement
-  #   end
-  # end
+    if @supplement_content.update params
+      track_activity @supplement_content
+      render :json => { :success => true }
+    else
+      respond_with @supplement_content
+    end
+  end
 
   def destroy
     @module_supplement = SupplementContent.find(params[:id])
@@ -51,5 +54,10 @@ class Api::V1::SupplementContentController < ApplicationController
       respond_with @module_supplement
     end
   end
+
+  private
+    def create_params
+       params[:module_supplement] ? {module_supplement: ModuleSupplement.find(params[:module_supplement][:id])} : {}
+    end
 
 end
