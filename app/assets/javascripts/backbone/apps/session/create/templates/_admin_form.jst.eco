@@ -3,8 +3,10 @@
     <small class="text-info">hover over fields for help</small>
 </blockquote>
 
-<p>Once registered, this account enables you to create and manage your account. foo
- fof fdfos sdfsdf sdfs dfs dfsd fds f dsfds fds fds fsdf</p>
+<div class="alert alert-info">
+    <strong>Once registered</strong>, this account enables you to create and manage your account.
+    Being an <strong>'account manager'</strong> you can later update your account details
+</div>
 
 <div class="form-horizontal">
     <fieldset>

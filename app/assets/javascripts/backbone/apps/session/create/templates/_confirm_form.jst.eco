@@ -3,8 +3,11 @@
     <small class="text-info">hover over fields for help</small>
 </blockquote>
 
-<p>Our team has sent you a registration email, please first confirm
-your account via this email to proceed</p>
+<div class="alert alert-info">
+    Our team has sent you a registration email, please first <strong>confirm</strong>
+    your account via this email to proceed
+</div>
+
 
 <div class="form-horizontal">
     <fieldset>

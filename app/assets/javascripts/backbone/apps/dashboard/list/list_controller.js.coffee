@@ -84,8 +84,8 @@
         App.vent.trigger "dash:block:clicked", supplement, @_nestingOrg
 
       @listenTo blockView, "childview:file:link:clicked", (child, args) ->
-        $(child.$el).unbind('click')
-        $(child.$el).find('i').click()
+        child.$el.unbind('click')
+        child.$el.find('i').click()
 
       @show blockView,
         loading:

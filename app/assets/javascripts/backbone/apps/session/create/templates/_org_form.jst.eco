@@ -5,14 +5,10 @@
 
 <fieldset>
 
-<p>
-This represents your account, you add courses, students and administrators to
-your organisation
-</p>
-<p class="text-warning">
-Your title cannot be changed, so pick carefully
-</p>
-<br>
+<div class="alert alert-info">
+    You can add courses, learning modules, students and administrators to your organisation.
+    Being an <strong>'account manager'</strong> you can later update your organisation details
+</div>
 
 <div class="control-group">
     <!-- First Name -->

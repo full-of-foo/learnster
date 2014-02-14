@@ -46,8 +46,9 @@
       @listenTo contentsView, "childview:content:clicked", (child, args) ->
         App.vent.trigger "supplement:content:clicked", args.model
 
-      @listenTo contentsView, "childview:content:link:clicked", (child, args, foo) ->
-        console.log foo, child, args
+      # @listenTo contentsView, "childview:file:link:clicked", (child, args) ->
+      #   child.$el.unbind('click')
+      #   child.$el.find('i').click()
 
       @listenTo contentsView, "childview:content:delete:clicked", (child, args) ->
         model = args.model
@@ -143,4 +144,5 @@
               "click .delete-icon i"   : "content:delete:clicked"
               "click"                  : "content:clicked"
           events:
-              "click .file-link" : ((e) -> return true)
+              "click a.file-link i" : ((e) => e.stopImmediatePropagation())
+

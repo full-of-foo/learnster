@@ -5,7 +5,7 @@
         <h4 class="modal-title">Registration Email Sent</h4>
       </div>
       <div class="modal-body">
-        <p>Your registration email has been sent to <%= @email %>, please follow its instructions to continue with your
+        <p>Your <strong>registration email</strong> has been sent to <strong><%= @email %></strong>, please follow its instructions to continue with your
         set up&hellip;</p>
       </div>
       <div class="modal-footer">
