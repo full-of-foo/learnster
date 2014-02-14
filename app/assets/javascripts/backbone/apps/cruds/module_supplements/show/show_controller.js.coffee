@@ -142,6 +142,5 @@
           triggers:
               "click .delete-icon i"   : "content:delete:clicked"
               "click"                  : "content:clicked"
-              # "click .file-link"       : "content:link:clicked"
           events:
-              "click .file-link" : ((e) -> $(body).trigger(e))
+              "click .file-link" : ((e) -> return true)

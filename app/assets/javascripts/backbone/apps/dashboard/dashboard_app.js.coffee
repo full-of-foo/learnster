@@ -9,7 +9,9 @@
     App.navigate "/organisation/#{orgId}/modules"
 
   App.vent.on "dash:block:clicked", (model, org) ->
+    console.log model
     App.vent.trigger("course:clicked", model) if model instanceof App.Entities.Course
     App.vent.trigger("module:clicked", model) if model instanceof App.Entities.LearningModule
+    App.vent.trigger("open:supplement", model) if model instanceof App.Entities.ModuleSupplement
 
 

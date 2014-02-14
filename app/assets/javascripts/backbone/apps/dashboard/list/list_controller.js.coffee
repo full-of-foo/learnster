@@ -7,7 +7,7 @@
 
       coursesDashBlock = App.request("dash:block:entity", "Courses")
       modulesDashBlock = App.request("dash:block:entity", "Modules")
-      filesDashBlock = App.request("dash:block:entity", "Files")
+      filesDashBlock = App.request("dash:block:entity", "Module Files")
       notificationsDashBlock = App.request("dash:block:entity", "Notifications")
 
       #TODO = fetch type of entity
@@ -17,7 +17,7 @@
 
       courses = App.request "org:course:entities", opts.nestedId
       modules = App.request "learning_module:entities", opts.nestedId
-      files = App.request "search:notifications:entities", opts
+      files = App.request "org:supplement:content:entities", opts.nestedId
       notifications = App.request "search:notifications:entities", opts
 
 
@@ -75,6 +75,17 @@
       blockView = new List.DashBlockComposite
         model: filesDashBlock
         collection: files
+
+      @listenTo blockView, "dash:files:block:clicked", ->
+        App.vent.trigger "modules:block:clicked", @_nestingOrg
+
+      @listenTo blockView, "childview:dash:block:clicked", (child, args) ->
+        supplement = App.request "init:module:supplement", args.model.get('module_supplement')
+        App.vent.trigger "dash:block:clicked", supplement, @_nestingOrg
+
+      @listenTo blockView, "childview:file:link:clicked", (child, args) ->
+        $(child.$el).unbind('click')
+        $(child.$el).find('i').click()
 
       @show blockView,
         loading:

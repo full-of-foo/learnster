@@ -9,8 +9,8 @@
   App.commands.setHandler "new:content:view", (region, supplementId) ->
     API.newContent(region, supplementId)
 
-  App.vent.on "content:created", (content) ->
-    console.log content
+  App.vent.on "cotent:clicked content:created", (content) ->
+    console.log "clicked"
     supplementId = content.get('module_supplement').id
     moduleId = content.get('module_supplement').learning_module_id
     App.navigate "/module/#{moduleId}/supplement/#{supplementId}/show"

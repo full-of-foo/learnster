@@ -28,6 +28,13 @@
           module_supplement_id: supplementId
       contents
 
+    getOrgSupplementContentEntities: (orgId) ->
+      contents = new Entities.SupplementContentCollection
+        url: Routes.api_organisation_supplement_content_index_path(orgId)
+      contents.fetch
+        reset: true
+      contents
+
     setCurrentSupplementContent: (attrs) ->
       new Entities.SupplementContent attrs
 
@@ -37,6 +44,9 @@
 
   App.reqres.setHandler "supplement:content:entities", (supplementId) ->
     API.getSupplementContentEntities(supplementId)
+
+  App.reqres.setHandler "org:supplement:content:entities", (orgId) ->
+    API.getOrgSupplementContentEntities(orgId)
 
   App.reqres.setHandler "new:supplement:content:entity", ->
     API.newSupplementContent()

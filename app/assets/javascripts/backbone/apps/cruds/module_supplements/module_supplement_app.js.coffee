@@ -17,7 +17,8 @@
   App.commands.setHandler "show:supplement:view", (region, supplement) ->
     API.showSupplement(region, supplement)
 
-  App.vent.on "supplement:created", (supplement) ->
+  App.vent.on "supplement:created open:supplement", (supplement) ->
+    console.log supplement
     moduleId = supplement.get('learning_module_id')
     supplementId = supplement.get('id')
     App.navigate "/module/#{moduleId}/supplement/#{supplementId}/show"

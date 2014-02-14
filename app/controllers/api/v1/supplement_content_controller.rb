@@ -1,13 +1,16 @@
 class Api::V1::SupplementContentController < ApplicationController
   after_filter only: [:index] { paginate(:supplement_contents) }
   before_filter :authenticate_and_authorize
+  before_filter :find_org, only: [:index]
 
 
   def index
     if params[:module_supplement_id]
-      @supplement_contents = ModuleSupplement.find(params[:module_supplement_id]).supplement_contents
+      @supplement_contents = ModuleSupplement.find(params[:module_supplement_id])
+        .supplement_contents
     else
-      @supplement_contents = SupplementContent.all
+      @supplement_contents = nested_org_request?(params) ? SupplementContent
+        .organisation_contents(@org.id) : SupplementContent.all
     end
 
     return @supplement_contents

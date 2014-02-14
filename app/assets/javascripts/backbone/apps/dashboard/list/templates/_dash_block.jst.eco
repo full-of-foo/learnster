@@ -27,5 +27,14 @@
        <%= @title %>
   </span>
   <span class="timestamp">created on <%= @created_at_formatted %></span>
+<% end %>
+
+<!-- File upload template -->
+<% if  @file_upload:  %>
+<span class="content">
+  <%= @title %>
+  <a class="file-link" target="_blank" href="<%= @file_upload.url %>"><i class="fa fa-download"></i></a>
+</span>
+  <span class="timestamp">created on <%= @created_at_formatted %></span>
 
 <% end %>
