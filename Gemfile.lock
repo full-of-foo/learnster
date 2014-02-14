@@ -133,9 +133,6 @@ GEM
       i18n (~> 0.5)
     fattr (2.2.1)
     ffi (1.9.3)
-    fine-uploader-rails (3.2)
-      actionpack (>= 3.1)
-      railties (>= 3.1)
     font-awesome-rails (4.0.3.1)
       railties (>= 3.2, < 5.0)
     formatador (0.2.4)
@@ -311,7 +308,6 @@ DEPENDENCIES
   eco
   enumerize
   faker
-  fine-uploader-rails
   font-awesome-rails
   gon (= 4.1.1)
   guard-cucumber

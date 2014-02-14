@@ -25,7 +25,6 @@ class Api::V1::SupplementContentController < ApplicationController
 
     if @supplement_content.update params
       track_activity @supplement_content
-      # render :json => { :success => true, supplement_content: @supplement_content }
       render "api/v1/supplement_content/show"
     else
       respond_with @supplement_content
@@ -38,7 +37,7 @@ class Api::V1::SupplementContentController < ApplicationController
 
     if @supplement_content.update params
       track_activity @supplement_content
-      render :json => { :success => true }
+      render "api/v1/supplement_content/show"
     else
       respond_with @supplement_content
     end

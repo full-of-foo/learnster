@@ -176,6 +176,7 @@ course_students.each { |s| EnrolledCourseSection
   params = {
     title: "Lecture Slides - part #{i + 1}",
     description: Faker::Lorem.sentence,
+    remote_file_upload_url: "https://news.ycombinator.com/y18.gif",
     module_supplement: lesson
   }
   lesson_content = SupplementContent.new(params)
