@@ -1,0 +1,74 @@
+<div class="modal-header">
+  <blockquote class="blue-blockquote">
+      <p class="well-small">Free lightweight learning platform to educate the world...</p>
+  </blockquote>
+</div>
+
+
+<div id="push"></div>
+
+
+<div class="row">
+
+<div class="span2">
+  <div class="owl-image"></div>
+</div>
+
+<div class="span5">
+  <ul class="about-list">
+
+    <li>
+      <span>
+        Learnster is a GPL open-source Learning Platform.
+        See our community <a href="https://github.com/full-of-foo/learnster/">site</a> for more about our
+        hundreds of developers and educators globally
+      </span>
+    </li>
+
+    <li>
+      <span>
+        We offer a dynamic and rich learning experience for our users and educators.
+        Our design goals are centered around real-time usability. No page refreshes, ever
+      </span>
+    </li>
+
+    <li>
+      <span>
+        Our development community is led by Learnster HQ, based in Dublin, Ireland
+      </span>
+    </li>
+
+  </ul>
+
+</div>
+
+<div class="row">
+
+<div class="span5">
+  <ul class="about-list">
+
+    <li>
+      <span>
+        Our platform allows for the delivery of dynamic courses to extend learning. You can install
+        Learnster on your own server or sign up here
+      </span>
+    </li>
+
+    <li>
+      <span>
+        Setting up your Learnster platform is an uncomplicated and quick process. All that is
+        required is a valid email account and you are ready to go. Similarly, importing your educator
+        and student data is fast and painless
+      </span>
+    </li>
+
+  </ul>
+
+</div>
+
+<div class="span2">
+  <div class="lapbooks-image"></div>
+</div>
+
+</div>
+

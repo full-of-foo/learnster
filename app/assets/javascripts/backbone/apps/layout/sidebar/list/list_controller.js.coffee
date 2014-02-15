@@ -68,4 +68,4 @@
       $("##{elemIdStr}").parent().addClass('active')
 
     _removeAllSideItemHighlights: ->
-      $('#sidebar-region ul li').removeClass('active')
+      App.commands.execute "clear:sidebar:higlight"

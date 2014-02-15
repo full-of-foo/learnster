@@ -12,8 +12,12 @@
       isLoggedIn = user instanceof Object
       isEmptyRoute = App.getCurrentRoute() is null
       isSignUpRoute = /.?signup/.test(App.getCurrentRoute())
-      isLoginRoute = /.?signup/.test(App.getCurrentRoute())
-      isSessionRoute = not isSignUpRoute and not isLoginRoute
+      isLoginRoute = /.?login/.test(App.getCurrentRoute())
+      isAboutRoute = /.?about/.test(App.getCurrentRoute())
+      isTestimonialsRoute = /.?testimonials/.test(App.getCurrentRoute())
+
+      isSessionRoute = (not isSignUpRoute and not isLoginRoute and not isAboutRoute and
+                        not isTestimonialsRoute)
       isRootRoute = App.getCurrentRoute() is rootRoute
       isLegalUserRoot = ((not isEmptyRoute and isLoggedIn and isSessionRoute) or
                          (not isSessionRoute and not isLoggedIn))

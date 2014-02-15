@@ -22,7 +22,16 @@
         App.navigate "/statistics"
 
       @listenTo dockView, "notifications:dockItem:clicked", ->
-        App.vent.trigger("notifications:link:clicked")
+        App.vent.trigger "notifications:link:clicked"
+
+      @listenTo dockView, "about:dockItem:clicked", ->
+        App.navigate "/about"
+
+      @listenTo dockView, "testimonials:dockItem:clicked", ->
+        App.navigate "/testimonials"
+
+      @listenTo dockView, "join:dockItem:clicked", ->
+        App.navigate "/signup"
 
       @show dockView,
           region: @layout.dockRegion

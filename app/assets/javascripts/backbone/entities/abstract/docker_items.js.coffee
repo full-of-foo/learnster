@@ -43,10 +43,9 @@
 
     getLoginArr: ->
       [
-        { elemId: "home-dock-item", imageName: "lessons256.png", caption: "About" },
-        { elemId: "", imageName: "Teachers256.png", caption: "Testimonials" },
-        { elemId: "", imageName: "Graduate-female512.png", caption: "Tutorials" },
-        { elemId: "", imageName: "wizard256.png", caption: "How to Join" }
+        { elemId: "about-dock-item", imageName: "lessons256.png", caption: "About" },
+        { elemId: "testimonials-dock-item", imageName: "Teachers256.png", caption: "Testimonials" },
+        { elemId: "join-dock-item", imageName: "wizard256.png", caption: "How to Join" }
       ]
 
   App.reqres.setHandler "AppAdmin:docker:entities", ->

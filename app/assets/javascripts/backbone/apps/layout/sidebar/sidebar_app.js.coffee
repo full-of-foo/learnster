@@ -36,6 +36,9 @@
   App.commands.setHandler "show:sidebar", ->
     API.showSidebar()
 
+  App.commands.setHandler "clear:sidebar:higlight", ->
+    $('#sidebar-region ul li').removeClass('active')
+
   App.reqres.setHandler "get:sidebar:controller", ->
     API.sidebar
 
