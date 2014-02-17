@@ -46,10 +46,6 @@
       @listenTo contentsView, "childview:content:clicked", (child, args) ->
         App.vent.trigger "supplement:content:clicked", args.model
 
-      # @listenTo contentsView, "childview:file:link:clicked", (child, args) ->
-      #   child.$el.unbind('click')
-      #   child.$el.find('i').click()
-
       @listenTo contentsView, "childview:content:delete:clicked", (child, args) ->
         model = args.model
         @showDeleteContentDialog(model)
@@ -78,6 +74,7 @@
       @listenTo dialogView, "dialog:delete:supplement:content:clicked", =>
         dialogView.$el.modal "hide"
         content.destroy()
+        content.on "destroy", => @showContents(@supplement)
 
       @show dialogView,
         loading:

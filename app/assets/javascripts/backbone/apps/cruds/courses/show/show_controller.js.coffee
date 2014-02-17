@@ -4,12 +4,12 @@
 
     initialize: (options) ->
       id = options.id
-      course = App.request "course:entity", id
-      @layout = @getLayoutView course
+      @course = App.request "course:entity", id
+      @layout = @getLayoutView @course
 
       @listenTo @layout, "show", =>
-        @showCourse(course)
-        @showSectionPanel(course)
+        @showCourse(@course)
+        @showSectionPanel(@course)
 
       @show @layout
 
@@ -68,6 +68,7 @@
       @listenTo dialogView, "dialog:delete:course_section:clicked", =>
         dialogView.$el.modal "hide"
         courseSection.destroy()
+        courseSection.on "destroy", => @showCourseSections(@course)
 
       @show dialogView,
         loading:

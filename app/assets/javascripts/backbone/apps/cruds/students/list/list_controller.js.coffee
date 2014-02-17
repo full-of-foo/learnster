@@ -92,7 +92,11 @@
 
         @listenTo dialogView, "dialog:delete:student:clicked", =>
           dialogView.$el.modal "hide"
-          args.model.destroy()
+          student = args.model
+          student.destroy()
+          student.on "destroy", ( =>
+            students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", @_nestingOrgId)
+            @showStudents(students))
 
         @show dialogView,
           loading:

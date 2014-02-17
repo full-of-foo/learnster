@@ -13,16 +13,6 @@
       </div>
 
       <div class="control-group">
-        <label class="control-label" for="section_count">Student Amount:
-        <p class="text-info"> <%- @editOrShowField( "student_count", @student_count, isEditableForm ) %> </p> </label>
-      </div>
-
-      <div class="control-group">
-        <label class="control-label" for="section_count">Module Amount:
-        <p class="text-info"> <%- @editOrShowField( "module_count", @module_count, isEditableForm ) %> </p> </label>
-      </div>
-
-      <div class="control-group">
         <label class="control-label" for="managed_by">Provisioner</label>
         <div class="controls">
           <p class="text-info"> <%- @editOrShowField( "provisioned_by", @provisioned_by.full_name, isEditableForm ) %> </p>

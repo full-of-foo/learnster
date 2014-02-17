@@ -75,6 +75,9 @@
         @listenTo dialogView, "dialog:delete:org:clicked", =>
           dialogView.$el.modal "hide"
           model.destroy()
+          model.on "destroy", ( =>
+            orgs = App.request "org:entities"
+            @showOrgs(orgs))
 
         @show dialogView,
           loading:

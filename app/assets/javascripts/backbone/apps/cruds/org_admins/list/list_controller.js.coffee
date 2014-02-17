@@ -6,7 +6,7 @@
       @_nestingOrgId = if options.id then options.id else false
       @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
-      org_admins = if not @_nestingOrg then App.request("org_admin:entities") else App.request("org:org_admin:entities", options.id)
+      org_admins = if not @_nestingOrg then App.request("org_admin:entities") else App.request("org:org_admin:entities", @_nestingOrgId)
 
       @layout = @getLayoutView()
 
@@ -82,13 +82,13 @@
       @listenTo @orgAdminsView, "childview:org_admin:delete:clicked", (child, args) ->
         model = args.model
         dialogView = @getDialogView model
-        console.log dialogView
 
         @listenTo dialogView, "dialog:delete:admin:clicked", =>
           dialogView.$el.modal "hide"
           model.destroy()
-
-        console.log model
+          model.on "destroy", ( =>
+            org_admins = if not @_nestingOrg then App.request("org_admin:entities") else App.request("org:org_admin:entities", @_nestingOrgId)
+            @showOrgAdmins(org_admins))
 
         @show dialogView,
           loading:

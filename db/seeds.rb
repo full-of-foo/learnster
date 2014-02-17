@@ -110,10 +110,10 @@ Student.all.each do |s|
   count = 1 if count == 34
 end
 
-Student.first.update(email: "student@foo.com", password: "foobar",
-  password_confirmation: "foobar")
-OrgAdmin.first.update(email: "admin@foo.com", password: "foobar",
-  password_confirmation: "foobar")
+Student.first.update!(email: "student@foo.com", password: "foobar",
+  password_confirmation: "foobar", attending_org: Organisation.first)
+OrgAdmin.first.update!(email: "admin@foo.com", password: "foobar",
+  password_confirmation: "foobar", admin_for: Organisation.first)
 
 
 ########################
