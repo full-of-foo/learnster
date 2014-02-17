@@ -15,9 +15,10 @@
       new CourseSectionsApp.Edit.Controller
         id: @get_section_id(id)
 
-    show: (id) ->
+    show: (id, tab = "modules") ->
       new CourseSectionsApp.Show.Controller
         id: @get_section_id(id)
+        tab: tab
 
     get_section_id: (id_section) ->
       id = if id_section.id then id_section.id else id_section
@@ -33,6 +34,10 @@
   App.vent.on "course_section:clicked course_section:created", (id) ->
     id = API.get_section_id(id)
     App.navigate "/course_section/#{id}/show"
+
+  App.vent.on "enrollment:created enrollment:removed", (enrollment) ->
+    id = enrollment.get('course_section_id')
+    API.show(id, "students")
 
   App.vent.on "edit:course_section:clicked", (view) ->
     course_section = view.model

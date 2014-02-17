@@ -34,6 +34,15 @@
 				reset: true
 			students
 
+		getSectionStudentEntities: (sectionId) ->
+			students = new Entities.StudentsCollection
+			students.fetch
+				data:
+						page: 1
+						section_id: sectionId
+				reset: true
+			students
+
 		getStudentEntity: (id) ->
 			student = Entities.Student.findOrCreate
 				id: id
@@ -65,6 +74,9 @@
 
 	App.reqres.setHandler "org:student:entities", (orgId) ->
 		API.getOrgStudentEntities(orgId)
+
+	App.reqres.setHandler "section:student:entities", (sectionId) ->
+		API.getSectionStudentEntities(sectionId)
 
 	App.reqres.setHandler "student:entities", ->
 		API.getStudentEntities()

@@ -3,7 +3,7 @@ class EnrolledCourseSection < ActiveRecord::Base
   belongs_to :course_section
 
   validates_presence_of :student, :course_section
-  validates_uniqueness_of :student, scope: :course_section,
+  validates_uniqueness_of :student_id, scope: :course_section,
     message: "student already enrolled"
   before_save :default_values
 

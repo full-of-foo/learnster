@@ -22,4 +22,9 @@ class Organisation < ActiveRecord::Base
     end
   end
 
+  def has_section?(section_id)
+    !CourseSection.joins(course: :organisation)
+      .where("courses.organisation_id = ? AND course_sections.id = ?", self.id, section_id).empty?
+  end
+
 end

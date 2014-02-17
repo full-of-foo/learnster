@@ -59,6 +59,7 @@ Learnster::Application.routes.draw do
       resources :section_module
       resources :module_supplement
       resources :supplement_content
+      resources :enrolled_course_section
     end
 
   end

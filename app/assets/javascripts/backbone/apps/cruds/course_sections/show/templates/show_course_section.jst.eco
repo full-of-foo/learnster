@@ -29,4 +29,13 @@
         </div>
       </div>
 
+      <div class="control-group">
+        <label class="control-label" for="title">Course</label>
+        <div class="controls">
+         <p class="text-info"> <%- @editOrShowField( "course", @course.title, isEditableForm ) %> </p>
+        </div>
+      </div>
+
+
+
 </div>

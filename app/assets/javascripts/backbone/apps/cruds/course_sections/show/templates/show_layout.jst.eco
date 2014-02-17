@@ -2,9 +2,24 @@
     <div id="course-section-region"></div>
 </div>
 
-<div id="module-panel-region"></div>
-<div id="add-module-region"></div>
 
-<div>
-  <div id="list-module-region"></div>
+<ul id="course-setction-tab-list" class="nav nav-tabs">
+  <li><a id="modules-tab" href="#modules" data-toggle="tab">Modules</a></li>
+  <li><a id="students-tab" href="#students" data-toggle="tab">Students</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="module">
+  </div>
+
+  <div class="tab-pane" id="student">
+  </div>
+
 </div>
+
+<div id="panel-region"></div>
+    <div id="add-region"></div>
+    <div>
+      <div id="list-region"></div>
+</div>
+

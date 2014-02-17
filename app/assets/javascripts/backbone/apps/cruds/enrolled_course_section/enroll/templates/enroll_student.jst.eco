@@ -1,0 +1,18 @@
+<button type="button" class="close cancel-enroll-student" data-dismiss="alert">&times;</button>
+
+<blockquote>
+    <p class="text-info">Add Student...</p>
+    <small class="text-info">hover over fields for help</small>
+</blockquote>
+
+<div class="form-horizontal">
+    <fieldset>
+
+        <div class="control-group">
+            <!-- Student -->
+            <label class="control-label">Student</label>
+            <div id="student-select-region" class="controls"></div>
+        </div>
+
+
+</div>

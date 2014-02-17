@@ -4,9 +4,12 @@
     template: "course_sections/show/templates/show_layout"
     regions:
       courseSectionRegion: "#course-section-region"
-      modulesRegion:       "#list-module-region"
-      addModuleRegion:     "#add-module-region"
-      modulePanelRegion:   "#module-panel-region"
+      listRegion:          "#list-region"
+      addRegion:           "#add-region"
+      panelRegion:         "#panel-region"
+    triggers:
+      "click #modules-tab"  : "modules:tab:clicked"
+      "click #students-tab" : "students:tab:clicked"
 
 
   class Show.CourseSection extends App.Views.ItemView
@@ -30,3 +33,9 @@
     triggers:
       "click #add-module-button"    : "add:module:button:clicked"
       "click #remove-module-button" : "remove:module:button:clicked"
+
+  class Show.StudentPanel extends App.Views.ItemView
+    template: 'course_sections/show/templates/student_panel'
+    triggers:
+      "click #add-student-button"    : "add:student:button:clicked"
+      "click #remove-student-button" : "remove:student:button:clicked"
