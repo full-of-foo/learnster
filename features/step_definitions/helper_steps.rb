@@ -18,18 +18,17 @@ Given(/^I navigate to the "(.+)" page$/) do  |page|
   page.resize_window
 end
 
-Given(/^I click the "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
-  element = ElementHelper.get_element(@browser, element_type, attribute, value)
-
-  step "I should see a \"element_type\" with the \"attribute\" of \"value\""
-
-  element.click
-end
-
 Given(/^I wait "(.+)" seconds while the spinner is present$/) do |duration_str|
   @browser.div(id: "loading-container").wait_while_present(duration_str.to_i)
 end
 
+Given(/^I click the "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
+  element = ElementHelper.get_element(@browser, element_type, attribute, value)
+
+  step "I should see a \"#{element_type}\" with the \"#{attribute}\" of \"#{value}\""
+
+  element.click
+end
 
 # assertions
 Then(/^I should see a "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|

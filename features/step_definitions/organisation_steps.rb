@@ -15,16 +15,15 @@ Given(/^I create an Organisation/) do
   step('I open the add-organisation well')
   page = Pages::OrganisationsPage.new(@browser)
 
-  title, description                      = TestDataGenerator.title, TestDataGenerator.description
-  StepsDataCache.organisation_title       = title
-  StepsDataCache.organisation_description = description
+  title, description = TestDataGenerator.title, TestDataGenerator.description
 
   page.submit_new_organisation_form(title, description)
+  StepsDataCache.organisation = CacheEntites::Organisation.new(title, description)
 end
 
 Given(/^I open the Organisation from the grid$/) do
   page = Pages::OrganisationsPage.new(@browser)
-  title = StepsDataCache.organisation_title
+  title = StepsDataCache.organisation.title
 
   page.select_grid_organainsation_title(title)
 end
@@ -32,15 +31,15 @@ end
 Given(/^I edit the Organisation$/) do
   page = Pages::OrganisationsPage.new(@browser)
   new_title, new_description              = TestDataGenerator.title, TestDataGenerator.description
-  StepsDataCache.organisation_title       = new_title
-  StepsDataCache.organisation_description = new_description
 
   page.submit_update_organisation_form(new_title, new_description)
+  StepsDataCache.organisation.title       = new_title
+  StepsDataCache.organisation.description = new_description
 end
 
 Given(/^I search the organisation title$/) do
   page = Pages::OrganisationsPage.new(@browser)
-  title = StepsDataCache.organisation_title
+  title = StepsDataCache.organisation.title
 
   page.search_organisations_grid(title)
 end
@@ -54,9 +53,11 @@ end
 
 Given(/^I delete the Organisation from the grid$/) do
   page = Pages::OrganisationsPage.new(@browser)
-  title = StepsDataCache.organisation_title
+  title = StepsDataCache.organisation.title
 
   page.delete_organisation(title)
+  StepsDataCache.deleted_organisation = StepsDataCache.organisation
+  StepsDataCache.organisation = nil
 end
 
 
@@ -70,15 +71,15 @@ Then(/^I can open and close the add-organisation well$/) do
 
   step("I close the add-organisation well")
   sleep 0.2
-  
+
   step("I should not see a \"button\" with the \"id\" of \"Add Organisation\"")
 end
 
 Then(/^the Organisation is in the grid-list$/) do
-  step("I wait \"5\" seconds while the spinner is present")  
+  step("I wait \"5\" seconds while the spinner is present")
 
-  title       = StepsDataCache.organisation_title       
-  description = StepsDataCache.organisation_description
+  title       = StepsDataCache.organisation.title
+  description = StepsDataCache.organisation.description
   description = description[0..29] << '...' if description.size >= 30
   sleep 0.3
 
@@ -88,10 +89,10 @@ Then(/^the Organisation is in the grid-list$/) do
 end
 
 Then(/^the Organisation is not in the grid-list$/) do
-  step("I wait \"5\" seconds while the spinner is present")  
+  step("I wait \"5\" seconds while the spinner is present")
 
-  title       = StepsDataCache.organisation_title       
-  description = StepsDataCache.organisation_description
+  title       = StepsDataCache.deleted_organisation.title
+  description = StepsDataCache.deleted_organisation.description
   sleep 0.4
 
   step("I should not see a \"td\" with the \"text\" of \"#{title}\"")
@@ -101,7 +102,7 @@ end
 
 Then(/^I see the Organisation edit page title$/) do
   sleep(0.4)
-  title = StepsDataCache.organisation_title       
+  title = StepsDataCache.organisation.title
 
   step("I should see a \"p\" with the \"text\" of \"Editing Organisation: #{title}\"")
 end

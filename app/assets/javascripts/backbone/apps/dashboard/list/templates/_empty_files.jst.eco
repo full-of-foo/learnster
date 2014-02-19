@@ -1,1 +1,5 @@
-<h1>No files</h1>
+<div class="empty-dash-block">
+  <p class="muted">no files</p>
+  <h1 class="muted">:(</h1>
+</div>
+

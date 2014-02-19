@@ -20,7 +20,7 @@
         "click a#add-module-link" : "clicked:add:module:link"
 
     class List.EmptyFileBlock extends App.Views.ItemView
-      template: 'dashboard/list/templates/§'
+      template: 'dashboard/list/templates/_empty_files'
 
     class List.EmptyNotificationBlock extends App.Views.ItemView
       template: 'dashboard/list/templates/_empty_notification'
@@ -41,7 +41,7 @@
       initialize: (options = {}) ->
         @['emptyView'] = List.EmptyCourseBlock if @collection instanceof App.Entities.CourseCollection
         @['emptyView'] = List.EmptyModuleBlock if @collection instanceof App.Entities.LearningModuleCollection
-        @['emptyView'] = List.EmptyFileBlock if @collection instanceof App.Entities.NotificationsCollection
+        @['emptyView'] = List.EmptyFileBlock if @collection instanceof App.Entities.SupplementContentCollection
         @['emptyView'] = List.EmptyNotificationBlock if @collection instanceof App.Entities.NotificationsCollection
 
       triggers:

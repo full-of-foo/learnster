@@ -7,27 +7,28 @@ Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
 
   case user_type_str
   when "app admin"
-    @user = { email: "lightweightdevelopment@gmail.com", password: "foobar" }
+    @user = CacheEntites::User.new("Foo", "McBar", "lightweightdevelopment@gmail.com", "foobar")
   when "admin"
-    @user = { email: "admin@foo.com", password: "foobar" }
+    @user = CacheEntites::User.new("Foo", "McBar", "admin@foo.com", "foobar")
+  when "new admin"
+    @user = CacheEntites::User.new("Foo", "McBar", "signup@foo.com", "foobar")
   when "student"
-    @user = { email: "student@foo.com", password: "foobar" }
+    @user = CacheEntites::User.new("Foo", "McBar", "student@foo.com", "foobar")
   else
     raise "invalid user type"
   end
 
-  page.attempt_login(@user[:email], @user[:password])
+  StepsDataCache.current_user = @user
+  page.attempt_login(@user.email, @user.password)
+  sleep 0.8
 
-  StepsDataCache.current_user_email = @user[:email]
-  StepsDataCache.current_user_pass = @user[:password]
-  sleep 1
 end
 
 Given(/^I attempt to logout$/) do
   nav = Pages::HeaderNav.new(@browser)
   nav.attempt_logout
 
-  StepsDataCache.current_user_email, StepsDataCache.current_user_pass = nil, nil
+  StepsDataCache.current_user, StepsDataCache.organisation = nil, nil
   sleep 0.3
 end
 

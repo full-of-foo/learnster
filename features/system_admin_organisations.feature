@@ -1,9 +1,9 @@
-@admin-organisations
+@system_admin_organisations
 
 Feature: Admin Organisations
 	Admin organisation CRUDs
 
-@admin-organisations-1
+@system_admin_organisations-1
 Scenario: Create an Organisation and it is appended to the grid
 	Given I navigate to the "login" page
 	And I attempt to login with a known "app admin"
@@ -34,7 +34,7 @@ Scenario: Delete the Organisation and it is no longer listed
 	And I delete the Organisation from the grid
 	And the Organisation is not in the grid-list
 
-@admin-organisations-2
+@system_admin_organisations-2
 Scenario: Export Organisations and the file is downloaded
 	Given I navigate to the "login" page
 	And I attempt to login with a known "app admin"
