@@ -6,9 +6,9 @@ Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
   page = Pages::LoginPage.new(@browser)
 
   case user_type_str
-  when "app admin"
+  when "system admin"
     @user = CacheEntites::User.new("Foo", "McBar", "lightweightdevelopment@gmail.com", "foobar")
-  when "admin"
+  when "account admin"
     @user = CacheEntites::User.new("Foo", "McBar", "admin@foo.com", "foobar")
   when "new admin"
     @user = CacheEntites::User.new("Foo", "McBar", "signup@foo.com", "foobar")

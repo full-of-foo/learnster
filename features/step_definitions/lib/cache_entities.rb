@@ -8,7 +8,6 @@ module CacheEntites
         @email       = email
         @password    = password
       end
-
     end
 
     class Organisation
@@ -18,7 +17,40 @@ module CacheEntites
         @title        = title
         @description  = description
       end
+    end
 
+    class Course
+      attr_accessor :title, :description, :identifier
+
+      def initialize(title, description, identifier)
+        @title        = title
+        @description  = description
+        @identifier   = identifier
+      end
+    end
+
+    class CourseSection
+      attr_accessor :title
+
+      def initialize(title)
+        @title        = title
+      end
+    end
+
+    class LearningModule
+      attr_accessor :title
+
+      def initialize(title)
+        @title        = title
+      end
+    end
+
+    class Student
+      attr_accessor :email
+
+      def initialize(email)
+        @email       = email
+      end
     end
 
 end

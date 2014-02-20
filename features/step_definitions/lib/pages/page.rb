@@ -23,7 +23,18 @@ module Pages
       def url(client_url)
         TestConfig.sut << client_url
       end
-      
+
+      def scroll_down
+        @browser.div(id: "main-region").wd.location_once_scrolled_into_view
+      end
+
+      def submit_search_for(term)
+        @browser.text_field(id:'search').when_present.set(term)
+        @browser.button(text:'Search').click
+
+        sleep(0.4)
+      end
+
     end
 
 end
