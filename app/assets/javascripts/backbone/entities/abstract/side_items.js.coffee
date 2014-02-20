@@ -20,7 +20,6 @@
       _.defaults sideItem,
         isHeader:  false
         className: false
-        default:   false
         wrappingElem: '<a href="#"></a>'
         prependingElem: '<i class="icon-chevron-right"></i>'
 

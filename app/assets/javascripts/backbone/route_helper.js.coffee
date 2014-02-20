@@ -5,6 +5,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
     _userRoutes:
         shared: [
           /^organisation\/(.+?)\/students$/,
+          /^organisation\/(.+?)\/admins$/,
           /^login$/,
           /^about$/,
           /^testimonials$/,
@@ -62,3 +63,20 @@ do (Learnster, $, Backbone, Marionette, _) ->
       if user instanceof Learnster.Entities.Student  then isValid = @isRouteMatching(@getStudentRoutes(), route)
       isValid
 
+    _isSideRoute: (route) ->
+      ((@_getSideRoutes().filter (reg) -> reg.test(route)).length > 0)
+
+    _getSideRoutes: ->
+      [ /^login$/, /^signu(.+)$/, /^organisations$/, /^admins$/, /^students$/,
+        /^organisation\/(.+?)\/dashboard$/, /^organisation\/(.+?)\/admins$/, /^organisation\/(.+?)\/students$/]
+
+    sideItemIdForRoute: (route) ->
+      id = "side-item-sign-in"      if /^login$/.test(route)
+      id = "side-item-sign-up"      if /^signu(.+)$/.test(route)
+      id = "side-item-orgs"         if /^organisations$/.test(route)
+      id = "side-item-app-admins"   if /^admins$/.test(route)
+      id = "side-item-app-students" if /^students$/.test(route)
+      id = "side-item-dash"         if /^organisation\/(.+?)\/dashboard$/.test(route)
+      id = "side-item-all-admins"   if /^organisation\/(.+?)\/admins$/.test(route)
+      id = "side-item-all-students" if /^organisation\/(.+?)\/students$/.test(route)
+      id

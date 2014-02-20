@@ -38,16 +38,8 @@
       App.vent.trigger "before:after:route", route, params
       console.log "After route hook - #{route}: #{params}" if App.environment is "development"
 
-      if @_isSideRoute(route)
-        sbController = App.request "get:sidebar:controller"
-        sbController.navToSignIn() if /^login$/.test(route)
-        sbController.navToSignUp() if /^signu(.+)$/.test(route)
-
-
-    _isSideRoute: (route) ->
-      ((@_getSideRoutes().filter (reg) -> reg.test(route)).length > 0)
-
-    _getSideRoutes: ->
-      [ /^login$/, /^signu(.+)$/ ]
-
+      if App._isSideRoute(route)
+        App.commands.execute "side:higlight:item", App.sideItemIdForRoute(route)
+      else
+        App.commands.execute "clear:sidebar:higlight"
 

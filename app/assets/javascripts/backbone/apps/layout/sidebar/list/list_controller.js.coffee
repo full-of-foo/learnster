@@ -5,7 +5,7 @@
     initialize: (options) ->
       switch options.type
         when "AppAdmin" then sideBarItems = @getAppAdminBarItems()
-        when "OrgAdmin" then sideBarItems = @getOrgAdminBarItems()
+        when "account_manager" then sideBarItems = @getAccountAdminBarItems()
         when "Student" then sideBarItems = @getStudentBarItems()
         when "Login" then sideBarItems = @getLoginBarItems()
 
@@ -13,59 +13,55 @@
       sideBarView = App.request "tree:wrapper", sideItemCollection
 
       @listenTo sideBarView, "childview:side:item:link:clicked", (child, args) ->
+        user = App.currentUser
         model = child.model
         switch model.get('id')
-          when "side-item-sign-in" then @sideNavToSignIn(child)
-          when "side-item-sign-up" then @sideNavToSignUp(child)
+          when "side-item-sign-in"      then @sideNavTo("login", child)
+          when "side-item-sign-up"      then @sideNavTo("signup", child)
+          when "side-item-orgs"         then @sideNavTo("organisations",child)
+          when "side-item-app-admins"   then @sideNavTo("admins", child)
+          when "side-item-app-students" then @sideNavTo("students", child)
+          when "side-item-dash"         then @sideNavTo("/organisation/#{@_getOrgId(user)}/dashboard", child)
+          when "side-item-all-admins"   then @sideNavTo("/organisation/#{@_getOrgId(user)}/admins", child)
+          when "side-item-all-students" then @sideNavTo("/organisation/#{@_getOrgId(user)}/students", child)
 
       @show sideBarView
 
-    navToSignIn: ->
-      @_removeAllSideItemHighlights()
-      @_addHighlightToElem "side-item-sign-in"
-
-    sideNavToSignIn: (itemView) ->
-      App.navigate "/login"
-      @navToSignIn()
-
-    navToSignUp: ->
-      @_removeAllSideItemHighlights()
-      @_addHighlightToElem "side-item-sign-up"
-
-    sideNavToSignUp: (itemView) ->
-      App.navigate "/signup"
-      @navToSignUp()
+    sideNavTo: (route, itemView) ->
+      App.navigate route
+      linkId = itemView.$el.find('a').attr('id')
+      App.commands.execute "side:higlight:item", linkId
 
     getAppAdminBarItems: ->
       [
-        { text: "Students", default:  true },
-        { text: "Org Admins"      },
-        { text: "Organisations"   }
+        { text: "Organisations", id: "side-item-orgs"},
+        { text: "Administrators", id: "side-item-app-admins"},
+        { text: "Students", id: "side-item-app-students" }
       ]
 
-    getOrgAdminBarItems: ->
+    getAccountAdminBarItems: ->
       [
-        { text: "Dashboard", default:  true },
-        { text: "My Students" },
-        { text: "Org Admins"  },
-        { text: "My Admins"   }
+        { text: "Dashboard", id: "side-item-dash" },
+        { text: "All Administrators", id: "side-item-all-admins"  },
+        { text: "All Students", id: "side-item-all-students"  },
+        { text: "My Administrators", id: "side-item-my-administrators"  }
+        { text: "My Students", id: "side-item-my-students"  }
       ]
 
     getStudentBarItems: ->
       [
-        { text: "Dashboard", default:  true },
+        { text: "Dashboard"},
         { text: "Educators" },
         { text: "Modules"  }
       ]
 
     getLoginBarItems: ->
       [
-        { text: "Sign in", id: "side-item-sign-in", default:  true },
+        { text: "Sign in", id: "side-item-sign-in"},
         { text: "Sign up Organisation", id: "side-item-sign-up" }
       ]
 
-    _addHighlightToElem: (elemIdStr) ->
-      $("##{elemIdStr}").parent().addClass('active')
-
-    _removeAllSideItemHighlights: ->
-      App.commands.execute "clear:sidebar:higlight"
+    _getOrgId: (user) ->
+      id = user.get('admin_for').id if user instanceof App.Entities.OrgAdmin
+      id = user.get('attendning_org').id if user instanceof App.Entities.Student
+      id

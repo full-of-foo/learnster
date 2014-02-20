@@ -5,22 +5,28 @@
     showSidebar: ->
       user = App.request "get:current:user"
       if user instanceof Learnster.Entities.AppAdmin
-        @sidebar = @listAppAdminSidebar()
+        @listAppAdminSidebar()
+
       else if user instanceof Learnster.Entities.OrgAdmin
-        @sidebar = @listOrgAdminSidebar()
+        switch user.get('role')
+          when "course_manager" then throw new Error
+          when "module_manager" then throw new Error
+          when "account_manager" then @listAccountAdminSidebar()
+
       else if user instanceof Learnster.Entities.Student
-        @sidebar = @listStudentSidebar()
+        @listStudentSidebar()
+
       else
-        @sidebar = @listLoginSidebar()
+        @listLoginSidebar()
 
     listAppAdminSidebar: ->
       new SidebarApp.List.Controller
         type: "AppAdmin"
         region: App.sidebarRegion
 
-    listOrgAdminSidebar: ->
+    listAccountAdminSidebar: ->
       new SidebarApp.List.Controller
-        type: "OrgAdmin"
+        type: "account_manager"
         region: App.sidebarRegion
 
     listStudentSidebar: ->
@@ -36,11 +42,12 @@
   App.commands.setHandler "show:sidebar", ->
     API.showSidebar()
 
+  App.commands.setHandler "side:higlight:item", (id) ->
+    App.commands.execute "clear:sidebar:higlight"
+    $("##{id}").parent().addClass('active')
+
   App.commands.setHandler "clear:sidebar:higlight", ->
     $('#sidebar-region ul li').removeClass('active')
-
-  App.reqres.setHandler "get:sidebar:controller", ->
-    API.sidebar
 
   SidebarApp.on "start", ->
     API.showSidebar()

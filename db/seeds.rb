@@ -112,7 +112,7 @@ end
 
 Student.first.update!(email: "student@foo.com", password: "foobar",
   password_confirmation: "foobar", attending_org: Organisation.first)
-OrgAdmin.first.update!(email: "admin@foo.com", password: "foobar",
+OrgAdmin.first.update!(email: "admin@foo.com", password: "foobar", role: "account_manager",
   password_confirmation: "foobar", admin_for: Organisation.first)
 
 
@@ -122,7 +122,6 @@ OrgAdmin.first.update!(email: "admin@foo.com", password: "foobar",
 
 course_org = Organisation.first
 course_mgr = course_org.admins.first
-course_mgr.update! role: "course_manager"
 course_provisioner = course_org.admins.last
 course_students = course_org.students[0..4]
 

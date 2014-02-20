@@ -10,6 +10,8 @@ Given(/^I topbar navigate to "(.+)"$/) do |nav_text|
     page.top_nav_to(page.notifications_nav_link)
   when "Statistics"
     page.top_nav_to(page.stats_nav_link)
+  when "About"
+    page.top_nav_to(page.about_nav_link)
   else
     raise "Unknown navigation item text: '#{nav_text}'"
   end

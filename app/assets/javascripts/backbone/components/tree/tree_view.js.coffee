@@ -11,6 +11,13 @@
     itemView: Tree.SideItem
     itemViewContainer: 'ul.sidenav'
 
+    onShow: ->
+      route = App.getCurrentRoute()
+      if App._isSideRoute(route)
+        App.commands.execute "side:higlight:item", App.sideItemIdForRoute(route)
+      else
+        App.commands.execute "clear:sidebar:higlight"
+
     appendHtml: (collectionView, itemView, index) ->
       if not collectionView.collection.isEmpty()
         sideItemEntity = itemView.model
@@ -25,7 +32,8 @@
       else
         $itemView.append(sideItemEntity.get('wrappingElem')).
           find("a").append(sideItemEntity.get('prependingElem') + " #{text}")
-        $itemView.addClass('active') if sideItemEntity.get('default')
       $itemView.find("a").attr('id', sideItemEntity.
         get('id')) if sideItemEntity.get('id')
       $itemView
+
+
