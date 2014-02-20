@@ -1,4 +1,4 @@
-module CacheEntites
+module CacheEntities
     class User
       attr_accessor :first_name, :surname, :email, :password
 
@@ -56,10 +56,13 @@ module CacheEntites
     end
 
     class Student
-      attr_accessor :email
+      attr_accessor :first_name, :surname, :email, :password
 
-      def initialize(email)
-        @email       = email
+      def initialize(options = {})
+        @first_name  = options[:first_name] || ''
+        @surname     = options[:surname] || ''
+        @email       = options[:email] || ''
+        @password    = options[:password] || ''
       end
     end
 

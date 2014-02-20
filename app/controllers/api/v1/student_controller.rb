@@ -21,7 +21,11 @@ class Api::V1::StudentController < ApplicationController
       @students = nested_org_request?(params) ? @org.students()
         .page(params[:page]).per_page(20) : Student.all.page(params[:page]).per_page(20)
     elsif params[:page] && params[:section_id]
-      @students = CourseSection.find(params[:section_id]).students.page(params[:page]).per_page(20)
+      @students = CourseSection.find(params[:section_id]).students.page(params[:page])
+        .per_page(20)
+    elsif params[:page] && params[:created_by]
+      @students = OrgAdmin.find(params[:created_by]).created_students.page(params[:page])
+        .per_page(20)
     else
       @students = nested_org_request?(params) ? @org.students : Student.all
     end

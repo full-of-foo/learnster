@@ -17,6 +17,7 @@ module StepsDataCache
     attr_accessor :supplement
 
     attr_accessor :student
+    attr_accessor :deleted_student
   end
 
 end

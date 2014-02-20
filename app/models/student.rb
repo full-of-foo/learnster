@@ -51,10 +51,11 @@ class Student < User
 
   def self.search_term(search, nested_org = nil)
     if not search.empty? and not nested_org
-      self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")
+      self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
+        .email_matches("%#{search}%")
     elsif not search.empty? and nested_org
-      (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")) & self
-        .attending_org_eq(nested_org.id)
+      (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
+        .email_matches("%#{search}%")) & self.attending_org_eq(nested_org.id)
     elsif search.empty? and nested_org
       self.attending_org_eq(nested_org.id)
     else

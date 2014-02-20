@@ -18,7 +18,7 @@ Given(/^I create an Organisation/) do
   title, description = TestDataGenerator.title, TestDataGenerator.description
 
   page.submit_new_organisation_form(title, description)
-  StepsDataCache.organisation = CacheEntites::Organisation.new(title, description)
+  StepsDataCache.organisation = CacheEntities::Organisation.new(title, description)
 end
 
 Given(/^I open the Organisation from the grid$/) do

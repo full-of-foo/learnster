@@ -39,7 +39,7 @@ Given(/^I create a Course$/) do
   page = Pages::CoursesPage.new(@browser)
 
   title, description, identifier = TestDataGenerator.title, TestDataGenerator.description, "some-id"
-  course = CacheEntites::Course.new(title, description, identifier)
+  course = CacheEntities::Course.new(title, description, identifier)
 
   page.submit_new_course_form(course)
   StepsDataCache.course = course
@@ -61,7 +61,7 @@ Given(/^I create a Course Section$/) do
   step('I open the add-course-section well')
   page = Pages::CoursesPage.new(@browser)
 
-  course_section = CacheEntites::CourseSection.new(TestDataGenerator.title)
+  course_section = CacheEntities::CourseSection.new(TestDataGenerator.title)
 
   page.submit_new_course_section_form(course_section)
   StepsDataCache.course_section = course_section
@@ -73,7 +73,7 @@ Given(/^I add the first Module to the Course Section$/) do
 
   sleep(0.4)
   module_tile = @browser.div(class:"filter-option pull-left").when_present.text
-  learning_module = CacheEntites::LearningModule.new(title: module_tile)
+  learning_module = CacheEntities::LearningModule.new(title: module_tile)
 
   page.submit_add_first_module_form()
   StepsDataCache.learning_module = learning_module
@@ -93,7 +93,7 @@ Given(/^I add the first Student to the Course Section$/) do
 
   sleep(0.4)
   student_email = @browser.div(class:"filter-option pull-left").when_present.text
-  student = CacheEntites::Student.new(student_email)
+  student = CacheEntities::Student.new(email: student_email)
 
   page.submit_add_first_student_form()
   StepsDataCache.student = student

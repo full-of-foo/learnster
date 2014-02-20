@@ -7,7 +7,7 @@ end
 
 Given(/^I sign up an account admin$/) do
   page = Pages::SignUpPage.new(@browser)
-  signup_user = CacheEntites::User.new("Foo", "McBar", "signup@foo.com", "foobar")
+  signup_user = CacheEntities::User.new("Foo", "McBar", "signup@foo.com", "foobar")
 
   page.sign_up_account_admin(signup_user)
   StepsDataCache.signup_user = signup_user
@@ -24,7 +24,7 @@ end
 
 Given(/^I sign up an organisation$/) do
   page = Pages::SignUpPage.new(@browser)
-  signup_organisation = CacheEntites::Organisation.new("New College", "Some hip ass college")
+  signup_organisation = CacheEntities::Organisation.new("New College", "Some hip ass college")
 
   page.sign_up_organisation(signup_organisation)
   StepsDataCache.signup_organisation = signup_organisation

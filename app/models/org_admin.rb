@@ -41,9 +41,11 @@ class OrgAdmin < User
   def self.search_term(search, nested_org = nil, from_role = nil)
     admins = nil
     if not search.empty? and not nested_org
-      admins = self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")
+      admins = self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
+        .email_matches("%#{search}%")
     elsif not search.empty? and nested_org
-      admins = (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%")) & self.admin_for_eq(nested_org.id)
+      admins = (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
+        .email_matches("%#{search}%")) & self.admin_for_eq(nested_org.id)
     elsif search.empty? and nested_org
       admins = self.admin_for_eq(nested_org.id)
     else
@@ -79,6 +81,10 @@ class OrgAdmin < User
     UserMailer.signup_confirmation(self, confirm_url).deliver
     logger.info "Sending confirm email for user[id:#{self.id}, \
     email:'#{self.full_name}']; confirm url: #{confirm_url}"
+  end
+
+  def created_students
+    Student.where(created_by: self.id)
   end
 
   def app_admin?

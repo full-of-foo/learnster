@@ -15,7 +15,7 @@ Given(/^I create a Module$/) do
   page = Pages::ModulesPage.new(@browser)
 
   title, description = TestDataGenerator.title, TestDataGenerator.description
-  learning_module = CacheEntites::LearningModule.new(title: title, description: description)
+  learning_module = CacheEntities::LearningModule.new(title: title, description: description)
 
   page.submit_new_learning_module_form(learning_module)
   StepsDataCache.learning_module = learning_module
@@ -37,7 +37,7 @@ Given(/^I create a Supplement for the Module$/) do
   page = Pages::ModulesPage.new(@browser)
 
   title, description = TestDataGenerator.title, TestDataGenerator.description
-  supplement = CacheEntites::Supplement.new(title: title, description: description)
+  supplement = CacheEntities::Supplement.new(title: title, description: description)
 
   page.submit_new_supplement_form(supplement)
   StepsDataCache.supplement = supplement
