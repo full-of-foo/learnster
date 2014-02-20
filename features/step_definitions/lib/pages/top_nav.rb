@@ -6,14 +6,19 @@ module Pages
     attr_accessor :stats_nav_link
 
     attr_accessor :about_nav_link
+    attr_accessor :testimonials_nav_link
+    attr_accessor :join_nav_link
 
     def initialize(browser)
       super(browser)
 
-      @home_nav_link = @browser.li(id: 'home-dock-item')
+      @home_nav_link          = @browser.li(id: 'home-dock-item')
       @notifications_nav_link = @browser.li(id: 'notifications-dock-item')
-      @stats_nav_link = @browser.li(id: 'stats-dock-item')
-      @about_nav_link = @browser.li(id: 'about-dock-item')
+      @stats_nav_link         = @browser.li(id: 'stats-dock-item')
+
+      @about_nav_link         = @browser.li(id: 'about-dock-item')
+      @testimonials_nav_link  = @browser.li(id: 'testimonials-dock-item')
+      @join_nav_link          = @browser.li(id: 'join-dock-item')
     end
 
     # operations
