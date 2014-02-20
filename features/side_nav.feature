@@ -17,3 +17,9 @@ Scenario: Sessionless sidebar navigation
   Then I sidebar navigate to "Sign in"
   And I should see the text "The easy way to learn..."
   Then the "Sign in" nav is active
+
+# @side-nav-2
+# Scenario: System admin sidebar navigation
+#   Given I navigate to the "login" page
+#   And I attempt to login with a known "system admin"
+

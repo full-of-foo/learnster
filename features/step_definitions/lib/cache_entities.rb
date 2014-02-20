@@ -38,10 +38,20 @@ module CacheEntites
     end
 
     class LearningModule
-      attr_accessor :title
+      attr_accessor :title, :description
 
-      def initialize(title)
-        @title        = title
+      def initialize(options = {})
+        @title        = options[:title] || ''
+        @description  = options[:description] || ''
+      end
+    end
+
+    class Supplement
+      attr_accessor :title, :description
+
+      def initialize(options = {})
+        @title        = options[:title] || ''
+        @description  = options[:description] || ''
       end
     end
 

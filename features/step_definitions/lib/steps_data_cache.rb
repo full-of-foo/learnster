@@ -13,6 +13,8 @@ module StepsDataCache
     attr_accessor :course_section
 
     attr_accessor :learning_module
+    attr_accessor :deleted_learning_module
+    attr_accessor :supplement
 
     attr_accessor :student
   end

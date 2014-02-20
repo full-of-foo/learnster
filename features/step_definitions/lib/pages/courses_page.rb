@@ -56,7 +56,7 @@ module Pages
 
     def submit_new_course_form(course)
       self.title_field.when_present.set(course.title)
-      self.description_field.set(course.description)
+      self.description_field.when_present.set(course.description)
       self.identifier_field.set(course.identifier)
 
       self.add_course_button.click

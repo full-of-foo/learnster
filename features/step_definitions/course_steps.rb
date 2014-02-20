@@ -73,7 +73,7 @@ Given(/^I add the first Module to the Course Section$/) do
 
   sleep(0.4)
   module_tile = @browser.div(class:"filter-option pull-left").when_present.text
-  learning_module = CacheEntites::LearningModule.new(module_tile)
+  learning_module = CacheEntites::LearningModule.new(title: module_tile)
 
   page.submit_add_first_module_form()
   StepsDataCache.learning_module = learning_module

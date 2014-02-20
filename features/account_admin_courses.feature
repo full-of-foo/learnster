@@ -1,7 +1,7 @@
 @account_admin_courses
 
 Feature: Account Admin Courses
-  CRUDs on courses
+  CRUDs on courses and course section
 
 @account_admin_courses-1
 Scenario: CRUD Course
