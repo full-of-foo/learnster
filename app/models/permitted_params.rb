@@ -54,7 +54,7 @@ class PermittedParams < Struct.new(:params, :user)
       if user.app_admin?
         attrs += [:created_by, :last_login, :is_active, :attending_org]
       elsif user.org_admin?
-        attrs += [:created_by, :last_login, :is_active, :admin_for]
+        attrs += [:created_by, :last_login, :is_active, :admin_for, :role]
       end
       attrs
     end

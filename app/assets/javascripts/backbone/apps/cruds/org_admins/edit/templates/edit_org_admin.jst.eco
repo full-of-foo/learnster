@@ -20,6 +20,18 @@
 				</div>
 			</div>
 
+			<div class="control-group">
+          <!-- role -->
+          <label class="control-label">Role</label>
+					<% if(isEditableForm && (@currentUser().type is "AppAdmin" or (@currentUser().type is "OrgAdmin" and @currentUser().role is "account_manager"))): %>
+                <div id="role-select-region" class="controls"></div>
+					<% else: %>
+						<div class="controls">
+							<%- @editOrShowField( "formatted_role", @formatted_role, false ) %>
+						</div>
+		       <% end %>
+		  </div>
+
 			<% if isEditableForm: %>
 				<div class="control-group">
 					<label class="control-label" for="password">Password</label>
@@ -27,7 +39,7 @@
 						<input type="password" id="password" />
 					</div>
 				</div>
-				
+
 				<div class="control-group">
 					<label class="control-label" for="password_confirmation">Password Confirm</label>
 					<div class="controls">
@@ -35,7 +47,7 @@
 					</div>
 				</div>
 			<% end %>
-	
+
 			<div class="control-group">
 				<label class="control-label" for="created-at">Created at</label>
 				<div class="controls">

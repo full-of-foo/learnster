@@ -62,7 +62,6 @@
       "destroy": "removeItemView"
 
     initialize: (options) ->
-      console.debug "opening"
       { @columns, @config } = options
       @columns = @columns.models
       @collection = options.collection
@@ -77,7 +76,6 @@
       @drawCollectionCount()
 
     onClose: ->
-      console.debug "closing"
       $(window).unbind('scroll') if @config.isPaginable
 
     toggleColumn: (filterItemView, filterColumn) ->

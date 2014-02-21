@@ -158,7 +158,9 @@
         <% } else { %><i class="icon-list-offline-status" title="Offline"></i>
         <% } %><%= model.get("full_name") %>', isSortable: true, default: true, isRemovable: false }
        { title: "Email", attrName: "email", isSortable: true, default: true },
-       { title: "Last Online", attrName: "last_login_formatted", default: true},
+       { title: "Role", htmlContent: "<%= model.get('formatted_role') %>"
+        ,isSortable: true, default: true },
+       { title: "Last Online", attrName: "last_login_formatted"},
        { title: "Created On", attrName: "created_at_formatted",  isSortable: true },
        { title: "Last Updated", attrName: "updated_at_formatted"},
        { htmlContent: '<% if ( model.get("created_by") && model.get("created_by").id === currentUser.get("id")
