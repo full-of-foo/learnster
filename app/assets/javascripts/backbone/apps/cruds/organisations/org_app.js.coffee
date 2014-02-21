@@ -7,6 +7,7 @@
       "organisation/:id/students"         : "listOrgStudents"
       "organisation/:id/my_students"      : "listMyOrgStudents"
       "organisation/:id/admins"           : "listOrgAdmins"
+      "organisation/:id/my_admins"        : "listMyOrgAdmins"
       "organisation/:id/notifications"    : "listOrgNotifications"
       "organisation/:id/dashboard"        : "listDashBlocks"
       "organisation/:id/courses"          : "listOrgCourses"
@@ -37,6 +38,11 @@
     listOrgAdmins: (id) ->
       new App.OrgAdminsApp.List.Controller
         id: @get_org_id(id)
+
+    listMyOrgAdmins: (id) ->
+      new App.OrgAdminsApp.List.Controller
+        id: @get_org_id(id)
+        isOwnedAdmins: true
 
     listOrgNotifications: (id) ->
       new App.NotificationsApp.List.Controller

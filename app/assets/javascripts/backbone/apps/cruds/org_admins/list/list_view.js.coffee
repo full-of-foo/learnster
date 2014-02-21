@@ -28,6 +28,25 @@
         "click #list-settings-button" : "settings:button:clicked"
         "click #import-dropdown-item" : "import:dropdown:clicked"
 
+    class List.MyPanel extends App.Views.ItemView
+      template: "org_admins/list/templates/_my_panel"
+
+      initialize: (options) ->
+        @setInstancePropertiesFor "templateHelpers"
+
+      _closeDropdown: ->
+        $('#list-panel .dropdown-toggle').dropdown('toggle')
+
+      events:
+        "click ul.dropdown-menu li" : "_closeDropdown"
+
+      collectionEvents:
+        "reset": "render"
+      triggers:
+        "click #new-org-admin-button" : "new:org_admin:button:clicked"
+        "click #list-settings-button" : "settings:button:clicked"
+        "click #import-dropdown-item" : "import:dropdown:clicked"
+
     class List.SearchPanel extends App.Views.ItemView
       template: "org_admins/list/templates/_search_panel"
 

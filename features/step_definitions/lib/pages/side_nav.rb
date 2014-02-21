@@ -28,7 +28,7 @@ module Pages
       @dash_nav_link          = @browser.link(id: 'side-item-dash')
       @all_admins_nav_link    = @browser.link(id: 'side-item-all-admins')
       @all_students_nav_link  = @browser.link(id: 'side-item-all-students')
-      @my_admins_nav_link    = @browser.link(id: 'side-item-my-admins')
+      @my_admins_nav_link    = @browser.link(id: 'side-item-my-administrators')
       @my_students_nav_link  = @browser.link(id: 'side-item-my-students')
     end
 

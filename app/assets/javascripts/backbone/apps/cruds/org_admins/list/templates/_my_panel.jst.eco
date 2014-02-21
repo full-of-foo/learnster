@@ -13,8 +13,6 @@
             <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu">
-            <li><a href=<% if @nestingOrg: %>"/api/organisation/<%= @nestingOrg.get('id') %>/admin.xlsx"<% else: %>"api/org_admin.xlsx"<% end %>><i class="fa fa-fixed-width fa-level-down"></i> Export All</a>
-            </li>
             <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
             </li>
             <% if @nestingOrg: %>
@@ -26,7 +24,7 @@
     </div>
 
     <blockquote>
-        <p class="muted well-small">Organisation Administrators...</p>
+        <p class="muted well-small">My Administrators...</p>
     </blockquote>
 
 </div>

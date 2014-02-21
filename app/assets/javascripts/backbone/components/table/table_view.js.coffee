@@ -202,8 +202,6 @@
               search:     @collection.get('search')
 
             params['created_by'] = @collection.get('created_by') if hasCreadtedBy
-            console.debug params
-            console.debug(@collection.get('created_by'))
 
             @collection.fetch
               data: $.param(params)

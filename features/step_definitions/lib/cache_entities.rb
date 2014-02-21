@@ -66,4 +66,11 @@ module CacheEntities
       end
     end
 
+    class Admin < Student
+
+      def initialize(options = {})
+       super(options)
+      end
+    end
+
 end

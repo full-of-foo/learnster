@@ -28,6 +28,17 @@
         reset: true
       org_admins
 
+    getAdminOrgAdminEntities: (orgId, createdById) ->
+      org_admins = new Entities.OrgAdminCollection
+        url: Routes.api_organisation_admin_index_path(orgId)
+      org_admins.fetch
+        data:
+            page: 1
+            created_by: createdById
+        reset: true
+      org_admins.put('created_by',  createdById)
+      org_admins
+
     getOrgAdminEntity: (id) ->
       org_admin = Entities.OrgAdmin.findOrCreate
                                       id: id
@@ -39,17 +50,22 @@
       new Entities.OrgAdmin
 
     getSearchOrgAdminEntities: (searchOpts) ->
-      { term, nestedId } = searchOpts
+      { term, nestedId, owningId } = searchOpts
       if nestedId
         org_admins = new Entities.OrgAdminCollection
                                     url: Routes.api_organisation_admin_index_path(nestedId)
       else
         org_admins = new Entities.OrgAdminCollection()
+
+      term['created_by'] = owningId if owningId
       org_admins.fetch
         reset: true
         data: $.param(term)
+
       org_admins.put('search', term['search'])
+      org_admins.put('created_by', term['created_by']) if owningId
       org_admins
+
 
 
   App.reqres.setHandler "new:org_admin:entity", ->
@@ -74,7 +90,7 @@
   App.reqres.setHandler "org_admin:from:role:entities", (orgId, fromRole) ->
     App.request "search:org_admins:entities",
       term:
-        search:     ""
+        search:    ""
         from_role: fromRole
       nestedId: orgId
 
@@ -84,6 +100,9 @@
 
   App.reqres.setHandler "org:org_admin:entities", (orgId) ->
     API.getOrgAdminOrgEntities(orgId)
+
+  App.reqres.setHandler "admin:org_admin:entities", (orgId, adminId) ->
+    API.getAdminOrgAdminEntities(orgId, adminId)
 
   App.reqres.setHandler "org_admin:entities", ->
     API.getOrgAdminEntities()

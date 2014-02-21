@@ -38,16 +38,26 @@ class OrgAdmin < User
     import_status_data
   end
 
-  def self.search_term(search, nested_org = nil, from_role = nil)
+  def self.search_term(search, nested_org = nil, from_role = nil, created_by_id = nil)
     admins = nil
-    if not search.empty? and not nested_org
+    if not search.empty? and not nested_org and not created_by_id
       admins = self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
         .email_matches("%#{search}%")
+
     elsif not search.empty? and nested_org
       admins = (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
         .email_matches("%#{search}%")) & self.admin_for_eq(nested_org.id)
+
+    elsif not search.empty? and created_by_id
+      admins = (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
+        .email_matches("%#{search}%")) & self.created_by_eq(created_by_id)
+
     elsif search.empty? and nested_org
       admins = self.admin_for_eq(nested_org.id)
+
+    elsif search.empty? and created_by_id
+      admins = self.created_by_eq(created_by_id)
+
     else
       admins = self.all
     end
@@ -85,6 +95,10 @@ class OrgAdmin < User
 
   def created_students
     Student.where(created_by: self.id)
+  end
+
+  def created_admins
+    OrgAdmin.where(created_by: self.id)
   end
 
   def app_admin?

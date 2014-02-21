@@ -25,6 +25,7 @@
           when "side-item-all-admins"   then @sideNavTo("/organisation/#{@_getOrgId(user)}/admins", child)
           when "side-item-all-students" then @sideNavTo("/organisation/#{@_getOrgId(user)}/students", child)
           when "side-item-my-students"  then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_students", child)
+          when "side-item-my-administrators" then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_admins", child)
 
       @show sideBarView
 

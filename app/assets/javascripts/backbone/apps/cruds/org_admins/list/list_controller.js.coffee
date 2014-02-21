@@ -3,10 +3,11 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options) ->
+      @_isOwnedAdmins = options.isOwnedAdmins
       @_nestingOrgId = if options.id then options.id else false
       @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
-      org_admins = if not @_nestingOrg then App.request("org_admin:entities") else App.request("org:org_admin:entities", @_nestingOrgId)
+      org_admins = @getAdmins()
 
       @layout = @getLayoutView()
 
@@ -17,12 +18,22 @@
 
       @show @layout
 
+    getAdmins: ->
+      if not @_isOwnedAdmins
+        org_admins = if not @_nestingOrg then App.request("org_admin:entities") else App.request("org:org_admin:entities", @_nestingOrgId)
+      else
+        org_admins = App.request("admin:org_admin:entities", @_nestingOrgId, App.currentUser.get('id'))
+      org_admins
+
     showNewRegion: ->
       @layout.newRegion['_nestingOrg'] = @_nestingOrg
       App.execute "new:org_admin:view", @layout.newRegion
 
     showPanel: (org_admins) ->
-      panelView = @getPanelView org_admins
+      if @_isOwnedAdmins
+        panelView = @getMyPanelView org_admins
+      else
+        panelView = @getPanelView org_admins
 
       @listenTo panelView, "new:org_admin:button:clicked", =>
           @showNewRegion()
@@ -61,9 +72,12 @@
       @layout.searchRegion.show searchView
 
     searchOrgAdmins: (searchTerm) ->
+      owningId = App.currentUser.get('id')
+
       searchOpts =
         nestedId: @_nestingOrg?.id
         term: searchTerm
+        owningId: owningId if @_isOwnedAdmins
 
       @showSearchOrgAdmins(searchOpts)
 
@@ -87,7 +101,7 @@
           dialogView.$el.modal "hide"
           model.destroy()
           model.on "destroy", ( =>
-            org_admins = if not @_nestingOrg then App.request("org_admin:entities") else App.request("org:org_admin:entities", @_nestingOrgId)
+            org_admins = @getAdmins()
             @showOrgAdmins(org_admins))
 
         @show dialogView,
@@ -107,10 +121,16 @@
       @showOrgAdmins(org_admins)
 
     showFetchedAdmins: ->
-      admins = if not @_nestingOrg then App.request("org_admin:entities") else App.request("org:org_admin:entities", @_nestingOrgId)
+      admins = @getAdmins()
       @colCollection = null
       @showSettings() if not @layout.listSettingsRegion?.currentView?.isClosed and @layout.listSettingsRegion?.currentView
       @showOrgAdmins(admins)
+
+    getMyPanelView: (org_admins) ->
+      new List.MyPanel
+        collection: org_admins
+        templateHelpers:
+          nestingOrg: @_nestingOrg
 
     getPanelView: (org_admins) ->
       new List.Panel

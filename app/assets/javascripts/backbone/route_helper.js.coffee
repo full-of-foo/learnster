@@ -83,6 +83,6 @@ do (Learnster, $, Backbone, Marionette, _) ->
       id = "side-item-dash"         if /^organisation\/(.+?)\/dashboard$/.test(route)
       id = "side-item-all-admins"   if /^organisation\/(.+?)\/admins$/.test(route)
       id = "side-item-all-students" if /^organisation\/(.+?)\/students$/.test(route)
-      id = "side-item-my-admins"    if /^organisation\/(.+?)\/my_admins$/.test(route)
+      id = "side-item-my-administrators" if /^organisation\/(.+?)\/my_admins$/.test(route)
       id = "side-item-my-students"  if /^organisation\/(.+?)\/my_students$/.test(route)
       id
