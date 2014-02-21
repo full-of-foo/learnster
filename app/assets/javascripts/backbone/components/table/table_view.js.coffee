@@ -62,8 +62,10 @@
       "destroy": "removeItemView"
 
     initialize: (options) ->
+      console.debug "opening"
       { @columns, @config } = options
       @columns = @columns.models
+      @collection = options.collection
       @model = new App.Entities.TableConfig(@config)
       @defaultColumns = @getDefaultColumns @columns
       @setInstancePropertiesFor "itemViewOptions"
@@ -75,6 +77,7 @@
       @drawCollectionCount()
 
     onClose: ->
+      console.debug "closing"
       $(window).unbind('scroll') if @config.isPaginable
 
     toggleColumn: (filterItemView, filterColumn) ->
@@ -191,12 +194,19 @@
           if (Number(@collection.get('next_link')) == pageNumber + 1) and ($(window)
               .scrollTop() > $(document).height() - $(window).height() - 50)
             pageNumber += 1
-
             $('.pagination-area').addClass('pagination-loader')
+
+            hasCreadtedBy = @collection.get('created_by')
+            params =
+              page:       @collection.get('next_link')
+              search:     @collection.get('search')
+
+            params['created_by'] = @collection.get('created_by') if hasCreadtedBy
+            console.debug params
+            console.debug(@collection.get('created_by'))
+
             @collection.fetch
-              data: $.param
-                page:   @collection.get('next_link')
-                search: @collection.get('search')
+              data: $.param(params)
 
             @collection.on "synced:pagninable:collection", =>
               if @collection.get('next_link') ==  @collection.get('last_link')

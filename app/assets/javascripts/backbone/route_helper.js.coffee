@@ -5,7 +5,9 @@ do (Learnster, $, Backbone, Marionette, _) ->
     _userRoutes:
         shared: [
           /^organisation\/(.+?)\/students$/,
+          /^organisation\/(.+?)\/my_students$/,
           /^organisation\/(.+?)\/admins$/,
+          /^organisation\/(.+?)\/my_admins$/,
           /^login$/,
           /^about$/,
           /^testimonials$/,
@@ -68,7 +70,9 @@ do (Learnster, $, Backbone, Marionette, _) ->
 
     _getSideRoutes: ->
       [ /^login$/, /^signu(.+)$/, /^organisations$/, /^admins$/, /^students$/,
-        /^organisation\/(.+?)\/dashboard$/, /^organisation\/(.+?)\/admins$/, /^organisation\/(.+?)\/students$/]
+        /^organisation\/(.+?)\/dashboard$/, /^organisation\/(.+?)\/admins$/,
+        /^organisation\/(.+?)\/students$/, /^organisation\/(.+?)\/my_students$/,
+        /^organisation\/(.+?)\/my_admins$/]
 
     sideItemIdForRoute: (route) ->
       id = "side-item-sign-in"      if /^login$/.test(route)
@@ -79,4 +83,6 @@ do (Learnster, $, Backbone, Marionette, _) ->
       id = "side-item-dash"         if /^organisation\/(.+?)\/dashboard$/.test(route)
       id = "side-item-all-admins"   if /^organisation\/(.+?)\/admins$/.test(route)
       id = "side-item-all-students" if /^organisation\/(.+?)\/students$/.test(route)
+      id = "side-item-my-admins"    if /^organisation\/(.+?)\/my_admins$/.test(route)
+      id = "side-item-my-students"  if /^organisation\/(.+?)\/my_students$/.test(route)
       id

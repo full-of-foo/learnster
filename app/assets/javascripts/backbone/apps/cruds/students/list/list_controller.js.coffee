@@ -3,10 +3,11 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
+      @_isOwnedStudents = options.isOwnedStudents
       @_nestingOrgId = if options.id then options.id else false
       @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
-      students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", @_nestingOrgId)
+      students = @getStudents()
 
       @layout = @getLayoutView()
 
@@ -17,12 +18,22 @@
 
       @show @layout
 
+    getStudents: ->
+      if not @_isOwnedStudents
+        students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", @_nestingOrgId)
+      else
+        students = App.request("admin:student:entities", @_nestingOrgId, App.currentUser.get('id'))
+      students
+
     showNewRegion: ->
       @layout.newRegion['_nestingOrg'] = @_nestingOrg
       App.execute "new:student:view", @layout.newRegion
 
     showPanel: (students) ->
-      panelView = @getPanelView @_nestingOrg
+      if @_isOwnedStudents
+        panelView = @getMyPanelView @_nestingOrg
+      else
+        panelView = @getPanelView @_nestingOrg
 
       @listenTo panelView, "new:student:button:clicked", =>
         @showNewRegion()
@@ -69,9 +80,12 @@
 
 
     searchStudents: (searchTerm) ->
+      owningId = App.currentUser.get('id')
+
       searchOpts =
         nestedId: @_nestingOrg?.id
         term: searchTerm
+        owningId: owningId if @_isOwnedStudents
 
       @showSearchStudents(searchOpts)
 
@@ -95,7 +109,7 @@
           student = args.model
           student.destroy()
           student.on "destroy", ( =>
-            students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", @_nestingOrgId)
+            students = @getStudents()
             @showStudents(students))
 
         @show dialogView,
@@ -115,15 +129,19 @@
       @showStudents(students)
 
     showFetchedStudents: ->
-      console.log @_nestingOrg
-      console.log @_nestingOrgId
-      students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", @_nestingOrgId)
+      students = @getStudents()
       @colCollection = null
       @showSettings() if not @layout.listSettingsRegion?.currentView?.isClosed and @layout.listSettingsRegion?.currentView
       @showStudents(students)
 
     getPanelView: (students) ->
       new List.Panel
+        collection: students
+        templateHelpers:
+          nestingOrg: @_nestingOrg
+
+    getMyPanelView: (students) ->
+      new List.MyPanel
         collection: students
         templateHelpers:
           nestingOrg: @_nestingOrg

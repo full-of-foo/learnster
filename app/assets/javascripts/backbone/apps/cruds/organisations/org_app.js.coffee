@@ -5,6 +5,7 @@
     appRoutes:
       "organisation/:id/edit"             : "edit"
       "organisation/:id/students"         : "listOrgStudents"
+      "organisation/:id/my_students"      : "listMyOrgStudents"
       "organisation/:id/admins"           : "listOrgAdmins"
       "organisation/:id/notifications"    : "listOrgNotifications"
       "organisation/:id/dashboard"        : "listDashBlocks"
@@ -27,6 +28,11 @@
     listOrgStudents: (id) ->
       new App.StudentsApp.List.Controller
         id: @get_org_id(id)
+
+    listMyOrgStudents: (id) ->
+      new App.StudentsApp.List.Controller
+        id: @get_org_id(id)
+        isOwnedStudents: true
 
     listOrgAdmins: (id) ->
       new App.OrgAdminsApp.List.Controller

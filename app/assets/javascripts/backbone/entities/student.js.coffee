@@ -1,88 +1,106 @@
 @Learnster.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
 
-	class Entities.Student extends Entities.Models
-		urlRoot: Routes.api_student_index_path()
+  class Entities.Student extends Entities.Models
+    urlRoot: Routes.api_student_index_path()
 
 
-	class Entities.StudentsCollection extends Entities.Collections
-		model: Entities.Student
+  class Entities.StudentsCollection extends Entities.Collections
+    model: Entities.Student
 
-		initialize: (options = {}) =>
-			@url = if not options.url then Routes.api_student_index_path() else options.url
-			super
+    initialize: (options = {}) =>
+      @url = if not options.url then Routes.api_student_index_path() else options.url
+      super
 
 
-	API =
-		setCurrentStudent: (attrs) ->
-			new Entities.Student attrs
+  API =
+    setCurrentStudent: (attrs) ->
+      new Entities.Student attrs
 
-		getStudentEntities: ->
-			students = new Entities.StudentsCollection
-			students.fetch
-				data:
-					page: 1
-				reset: true
-			students
+    getStudentEntities: ->
+      students = new Entities.StudentsCollection
+      students.fetch
+        data:
+          page: 1
+        reset: true
+      students
 
-		getOrgStudentEntities: (orgId) ->
-			students = new Entities.StudentsCollection
-				url: Routes.api_organisation_student_index_path(orgId)
-			students.fetch
-				data:
-						page: 1
-				reset: true
-			students
+    getOrgStudentEntities: (orgId) ->
+      students = new Entities.StudentsCollection
+        url: Routes.api_organisation_student_index_path(orgId)
+      students.fetch
+        data:
+            page: 1
+        reset: true
+      students
 
-		getSectionStudentEntities: (sectionId) ->
-			students = new Entities.StudentsCollection
-			students.fetch
-				data:
-						page: 1
-						section_id: sectionId
-				reset: true
-			students
+    getAdminStudentEntities: (orgId, adminId) ->
+      students = new Entities.StudentsCollection
+        url: Routes.api_organisation_student_index_path(orgId)
+      students.fetch
+        data:
+            page: 1
+            created_by: adminId
+        reset: true
+      students.put('created_by',  adminId)
+      students
 
-		getStudentEntity: (id) ->
-			student = Entities.Student.findOrCreate
-				id: id
-			student.fetch
-				reset: true
-			student
+    getSectionStudentEntities: (sectionId) ->
+      students = new Entities.StudentsCollection
+      students.fetch
+        data:
+            page: 1
+            section_id: sectionId
+        reset: true
+      students
 
-		newStudent: ->
-			new Entities.Student()
+    getStudentEntity: (id) ->
+      student = Entities.Student.findOrCreate
+        id: id
+      student.fetch
+        reset: true
+      student
 
-		getSearchStudentEntities: (searchOpts) ->
-			{ term, nestedId } = searchOpts
-			if nestedId
-				students = new Entities.StudentsCollection
-					url: Routes.api_organisation_student_index_path(nestedId)
-			else
-				students = new Entities.StudentsCollection
-			students.fetch
-				reset: true
-				data: $.param(term)
-			students.put('search', term['search'])
-			students
+    newStudent: ->
+      new Entities.Student()
 
-	App.reqres.setHandler "new:student:entity", ->
-		API.newStudent()
+    getSearchStudentEntities: (searchOpts) ->
+      { term, nestedId, owningId } = searchOpts
+      if nestedId
+        students = new Entities.StudentsCollection
+          url: Routes.api_organisation_student_index_path(nestedId)
+      else
+        students = new Entities.StudentsCollection
 
-	App.reqres.setHandler "init:current:student", (attrs) ->
-		API.setCurrentStudent attrs
+      term['created_by'] = owningId if owningId
+      students.fetch
+        reset: true
+        data: $.param(term)
 
-	App.reqres.setHandler "org:student:entities", (orgId) ->
-		API.getOrgStudentEntities(orgId)
+      students.put('search', term['search'])
+      students.put('created_by', term['created_by']) if owningId
+      students
 
-	App.reqres.setHandler "section:student:entities", (sectionId) ->
-		API.getSectionStudentEntities(sectionId)
+  App.reqres.setHandler "new:student:entity", ->
+    API.newStudent()
 
-	App.reqres.setHandler "student:entities", ->
-		API.getStudentEntities()
+  App.reqres.setHandler "init:current:student", (attrs) ->
+    API.setCurrentStudent attrs
 
-	App.reqres.setHandler "student:entity", (id) ->
-		API.getStudentEntity id
+  App.reqres.setHandler "org:student:entities", (orgId) ->
+    API.getOrgStudentEntities(orgId)
 
-	App.reqres.setHandler "search:students:entities", (searchOpts) ->
-		API.getSearchStudentEntities searchOpts
+  App.reqres.setHandler "admin:student:entities", (orgId, adminId) ->
+    API.getAdminStudentEntities(orgId, adminId)
+
+  App.reqres.setHandler "section:student:entities", (sectionId) ->
+    API.getSectionStudentEntities(sectionId)
+
+  App.reqres.setHandler "student:entities", ->
+    API.getStudentEntities()
+
+  App.reqres.setHandler "student:entity", (id) ->
+    API.getStudentEntity id
+
+  App.reqres.setHandler "search:students:entities", (searchOpts) ->
+    API.getSearchStudentEntities searchOpts

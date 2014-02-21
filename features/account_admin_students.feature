@@ -19,6 +19,11 @@ Scenario: CRUD Course
   Then I open the Student edit page
   Then I see the Student edit page
   Then I click the "button" with the "id" of "Cancel"
+  Then I sidebar navigate to "My Students"
+  And I should not see a "td" with the "text" of "No students found :("
+  Then I open the Student edit page
+  Then I see the Student edit page
+  Then I click the "button" with the "id" of "Cancel"
 
   #delete course
   Then I delete the Student

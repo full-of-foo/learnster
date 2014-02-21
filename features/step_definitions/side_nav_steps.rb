@@ -20,6 +20,10 @@ Given(/^I sidebar navigate to "(.+)"$/) do |nav_text|
     page.side_nav_to(page.all_admins_nav_link)
   when "All Students"
     page.side_nav_to(page.all_students_nav_link)
+  when "My Administrators"
+    page.side_nav_to(page.my_admins_nav_link)
+  when "My Students"
+    page.side_nav_to(page.my_students_nav_link)
   else
     raise "Unknown navigation item text: '#{nav_text}'"
   end

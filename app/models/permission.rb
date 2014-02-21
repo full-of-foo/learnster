@@ -17,6 +17,7 @@ class Permission < Struct.new(:user)
           return true if organisation_students_request?(controller, params)
           return true if fellow_admins_request?(controller, params)
           return true if organisation_activity_request?(controller, params)
+          return true if students_owned?(controller, params)
         end
 
         if action.in?(%w[update destroy])
@@ -113,5 +114,9 @@ class Permission < Struct.new(:user)
 
     def student_is_owned?(controller, params)
       controller.end_with?("student") && user.id == Student.find(params[:id]).created_by.id
+    end
+
+    def students_owned?(controller, params)
+      controller.end_with?("student") && user.id.to_s == params[:created_by]
     end
 end

@@ -49,15 +49,25 @@ class Student < User
     import_status_data
   end
 
-  def self.search_term(search, nested_org = nil)
+  def self.search_term(search, nested_org = nil, created_by_id = nil)
     if not search.empty? and not nested_org
       self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
         .email_matches("%#{search}%")
+
     elsif not search.empty? and nested_org
       (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
         .email_matches("%#{search}%")) & self.attending_org_eq(nested_org.id)
+
+    elsif not search.empty? and created_by_id
+      (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
+        .email_matches("%#{search}%")) & self.created_by_eq(created_by_id)
+
     elsif search.empty? and nested_org
       self.attending_org_eq(nested_org.id)
+
+    elsif search.empty? and created_by_id
+      self.created_by_eq(created_by_id)
+
     else
       self.all
     end

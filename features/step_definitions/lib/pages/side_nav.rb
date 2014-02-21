@@ -11,6 +11,8 @@ module Pages
     attr_accessor :dash_nav_link
     attr_accessor :all_admins_nav_link
     attr_accessor :all_students_nav_link
+    attr_accessor :my_admins_nav_link
+    attr_accessor :my_students_nav_link
 
 
     def initialize(browser)
@@ -26,6 +28,8 @@ module Pages
       @dash_nav_link          = @browser.link(id: 'side-item-dash')
       @all_admins_nav_link    = @browser.link(id: 'side-item-all-admins')
       @all_students_nav_link  = @browser.link(id: 'side-item-all-students')
+      @my_admins_nav_link    = @browser.link(id: 'side-item-my-admins')
+      @my_students_nav_link  = @browser.link(id: 'side-item-my-students')
     end
 
     # operations
