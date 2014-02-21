@@ -13,6 +13,7 @@ require 'csv'
 Bundler.require(:default, Rails.env)
 
 module Learnster
+
   class Application < Rails::Application
     config.force_ssl = (ENV["ENABLE_HTTPS"] == "yes")
     # Settings in config/environments/* take precedence over those specified here.
@@ -26,5 +27,6 @@ module Learnster
 
     config.filter_parameters += [:password, :password_confirmation]
 
+    config.version = '0.6'
   end
 end

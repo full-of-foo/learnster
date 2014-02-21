@@ -23,7 +23,8 @@
     $(function(){
 
         Learnster.start({
-            environment:  "<%= Rails.env %>"
+            environment:  "<%= Rails.env %>",
+            version: "<%= Rails.configuration.version %>"
          });
     })
 

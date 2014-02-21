@@ -4,6 +4,8 @@
 
   App.on "initialize:before", (options) ->
     App.environment = options.environment
+    App.version = options.version
+
     if not _.isEmpty(gon)
       userType = gon.type[0].toLowerCase() + gon.type.slice(1)
       App.currentUser = App.reqres.request("init:current:#{userType}", gon)

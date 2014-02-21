@@ -1,11 +1,16 @@
 @Learnster.module "FooterApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
+    class App.Entities.AppVersion extends App.Entities.Models
+
     class Show.Controller extends App.Controllers.Base
 
         initialize: ->
-            currentUser = App.request "get:current:user"
-            footerView = @getFooterView(currentUser)
-            @show footerView
+          console.log App.version
+          versionModel = new App.Entities.AppVersion(version: App.version)
+          footerView = @getFooterView(versionModel)
+          @show footerView
 
-        getFooterView: (currentUser) ->
-            if currentUser? then new Show.Footer(model: currentUser) else new Show.Footer()
+        getFooterView: (versionModel) ->
+            new Show.Footer(model: versionModel)
+
+

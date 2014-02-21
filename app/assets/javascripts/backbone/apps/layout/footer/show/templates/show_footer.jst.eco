@@ -1,6 +1,6 @@
 <div id="footer">
     <div class="container">
-        <p class="muted">Learnster 2013</p>
+        <p class="muted">Learnster 2014 | v<%= @version %></p>
     </div>
 
 </div>
