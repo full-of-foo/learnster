@@ -1,7 +1,7 @@
 <div class="btn-group pull-right">
     <div class="btn-group">
-            <a id="chart-download-button" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-fixed-width icon-download-alt"></i> Save as...</a>
+            <a id="chart-download-button" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Save As...
+            <i class="fa fa-fixed-width icon-download-alt"></i> </a>
                 <ul class="dropdown-menu">
                     <li id="chart-as-jpeg"><a href="#"> JPEG</a>
                     </li>
@@ -11,7 +11,7 @@
     </div>
     <div class="btn-group">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-caret-down"></i>
+              Time Range  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu">
                 <li id="stat-range-3"><a href="#"> 3 months</a>
@@ -34,5 +34,5 @@
 
 <blockquote>
     <p class="text-info"><% if @items.length > 0: %>Total data pool size: <%= @items.length %><% else: %>Oops! No data to plot this time range
-    </p>          
-</blockquote>  
+    </p>
+</blockquote>
