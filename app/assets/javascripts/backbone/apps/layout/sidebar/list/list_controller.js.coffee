@@ -4,10 +4,11 @@
 
     initialize: (options) ->
       switch options.type
-        when "AppAdmin" then sideBarItems = @getAppAdminBarItems()
+        when "AppAdmin"        then sideBarItems = @getAppAdminBarItems()
         when "account_manager" then sideBarItems = @getAccountAdminBarItems()
-        when "Student" then sideBarItems = @getStudentBarItems()
-        when "Login" then sideBarItems = @getLoginBarItems()
+        when "course_manager"  then sideBarItems = @getCourseAdminBarItems()
+        when "Student"         then sideBarItems = @getStudentBarItems()
+        when "Login"           then sideBarItems = @getLoginBarItems()
 
       sideItemCollection = App.request "sidebar:entities", sideBarItems
       sideBarView = App.request "tree:wrapper", sideItemCollection
@@ -47,6 +48,14 @@
         { text: "All Administrators", id: "side-item-all-admins"  },
         { text: "All Students", id: "side-item-all-students"  },
         { text: "My Administrators", id: "side-item-my-administrators"  }
+        { text: "My Students", id: "side-item-my-students"  }
+      ]
+
+    getCourseAdminBarItems: ->
+      [
+        { text: "Dashboard", id: "side-item-dash" },
+        { text: "My Courses", id: "side-item-my-courses"  },
+        { text: "My Learning Modules", id: "side-item-my-modules"  },
         { text: "My Students", id: "side-item-my-students"  }
       ]
 

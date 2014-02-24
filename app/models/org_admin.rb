@@ -7,7 +7,7 @@ class OrgAdmin < User
 
   has_many :managed_courses, class_name: "Course", foreign_key: "managed_by"
   has_many :provisioned_courses, class_name: "CourseSection", foreign_key: "provisioned_by"
-  has_many :teaching_courses, class_name: "LearningModule", foreign_key: "educator_id"
+  has_many :learning_modules, class_name: "LearningModule", foreign_key: "educator_id"
 
   enumerize :role, in: [:account_manager, :course_manager, :module_manager], default: :module_manager
 

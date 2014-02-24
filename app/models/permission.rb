@@ -5,19 +5,19 @@ class Permission < Struct.new(:user)
     return true if controller.end_with?("application") && action == "index"
     if user
       return true if user.app_admin?
-      if user.org_admin?
-        # TODO - tidy
-        @org = user.admin_for
 
-        return true if controller.end_with?("student") && action == "create"
-        return true if controller.end_with?("org_admin") && action == "create"
-        return true if organisation_request?(controller, params) && action.in?(%w[show edit])
+      if user.org_admin?
+        @org = user.admin_for
 
         if action.in?(%w[index show])
           return true if organisation_students_request?(controller, params)
           return true if fellow_admins_request?(controller, params)
           return true if organisation_activity_request?(controller, params)
           return true if students_owned?(controller, params)
+          return true if my_organisation_request?(controller, params)
+          return true if fellow_admin_request?(controller, params)
+          return true if organisation_student_request?(controller, params)
+          return true if section_students_request?(controller, params)
         end
 
         if action.in?(%w[update destroy])
@@ -25,47 +25,46 @@ class Permission < Struct.new(:user)
           return true if admin_is_owned?(controller, params)
         end
 
-        if action.in?(%w[show edit])
-          return true if fellow_admin_request?(controller, params)
-          return true if organisation_student_request?(controller, params)
-        end
-
-        # TODO - wrap in condition - test whether org_id in param
+        account_controllers = %w[course learning_module enrolled_course_section /course_section section_module module_supplement supplement_content]
         if user.role.account_manager?
-          return true if controller.end_with?("student") && action == "import"
-          return true if controller.end_with?("org_admin") && action == "import"
-          return true if controller.end_with?("course") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("learning_module") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("course_section") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("section_module") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("module_supplement") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("supplement_content") && action.in?(%w[create index show edit update destroy])
-          return true if section_students_request?(controller, params) && action.in?(%w[index])
+          return true if create_user_request?(controller, action)
+          return true if my_organisation_import_request?(controller, params, action)
+
+          account_controllers.each do |controller_name|
+            return true if crud_on_controller?(controller_name, controller, action)
+          end
         end
 
         if user.role.course_manager?
-          return true if controller.end_with?("course") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("learning_module") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("course_section") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("section_module") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("module_supplement") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("supplement_content") && action.in?(%w[create index show edit update destroy])
-          return true if section_students_request?(controller, params) && action.in?(%w[index])
+          account_controllers.each do |controller_name|
+            return true if reads_on_controller?(controller_name, controller, action)
+          end
+
+          if course_related_controller_request?(controller)
+            @admin_modules = user.learning_modules
+            return true if my_supplement_updates_and_creates?(controller, action, params)
+            return true if my_content_updates_and_creates?(controller, action, params)
+            return true if my_module_updates?(controller, action, params)
+
+            @admin_courses = user.managed_courses
+            return true if my_course_section_updates_and_creates?(controller, action, params)
+            return true if my_section_module_updates_and_creates?(controller, action, params)
+            return true if my_student_enrollment_cruds?(controller, action, params)
+          end
         end
 
         if user.role.module_manager?
-          return true if controller.end_with?("learning_module") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("section_module") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("module_supplement") && action.in?(%w[create index show edit update destroy])
-          return true if controller.end_with?("supplement_content") && action.in?(%w[create index show edit update destroy])
-          return true if section_students_request?(controller, params) && action.in?(%w[index])
+          return true if controller.end_with?("learning_module") && action.in?(%w[create index show update destroy])
+          return true if controller.end_with?("section_module") && action.in?(%w[create index show update destroy])
+          return true if controller.end_with?("module_supplement") && action.in?(%w[create index show update destroy])
+          return true if controller.end_with?("supplement_content") && action.in?(%w[create index show update destroy])
         end
 
       end
       if user.student?
         @org = user.attending_org
 
-        return true if organisation_request?(controller, params) && action == "show"
+        return true if my_organisation_request?(controller, params) && action == "show"
 
         if action.in?(%w[index show])
           return true if organisation_students_request?(controller, params)
@@ -73,19 +72,115 @@ class Permission < Struct.new(:user)
         #TODO - implement
       end
     end
-    false
+
+    return false
   end
 
 
   private
 
-    def organisation_request?(controller, params)
-      controller.end_with?("organisation") && params[:id].to_i == @org.id
+    def nested_org_request?(organisation_id)
+      organisation_id.to_i == @org.id
     end
 
+    def my_organisation_request?(controller, params)
+      controller.end_with?("organisation") && nested_org_request?(params[:id])
+    end
+
+    def my_organisation_import_request?(controller, params, action)
+      student_import = controller.end_with?("student") && action == "import"
+      admin_import = controller.end_with?("org_admin") && action == "import"
+
+      (student_import || admin_import) && nested_org_request?(params[:organisation_id])
+    end
+
+    def create_user_request?(controller, action)
+      is_create_student = controller.end_with?("student") && action == "create"
+      is_create_admin   = controller.end_with?("org_admin") && action == "create"
+
+      is_create_student || is_create_admin
+    end
+
+    def crud_on_controller?(controller_name, controller, action)
+      controller.end_with?(controller_name) && action.in?(%w[create index show update destroy])
+    end
+
+    def reads_on_controller?(controller_name, controller, action)
+      controller.end_with?(controller_name) && action.in?(%w[index show])
+    end
+
+    def my_course_section_updates_and_creates?(controller, action, params)
+      if controller.end_with?("/course_section")
+        is_updatable = (action == "update"  && @admin_courses.exists?(params[:course][:id]))
+        is_deletable = (action == "destroy" && @admin_courses.exists?(CourseSection.find(params[:id]).course_id))
+        is_creatable = (action == "create"  && @admin_courses.exists?(params[:course_id]))
+
+        return is_updatable || is_deletable || is_creatable
+      else
+        return false
+      end
+    end
+
+    def my_student_enrollment_cruds?(controller, action, params)
+      if controller.end_with?("enrolled_course_section")
+        is_deletable = (action == "destroy" && @admin_courses.exists?(CourseSection.find(params[:course_section_id]).course_id))
+        is_creatable = (action == "create"  && @admin_courses.exists?(CourseSection.find(params[:course_section_id]).course_id))
+
+        return is_deletable || is_creatable
+      else
+        return false
+      end
+    end
+
+    def my_module_updates?(controller, action, params)
+      controller.end_with?("learning_module") && action
+        .in?(%w[update destroy]) && @admin_modules.exists?(params[:id])
+    end
+
+    def my_section_module_updates_and_creates?(controller, action, params)
+      controller.end_with?("section_module") && action
+        .in?(%w[update destroy create]) && @admin_courses
+          .exists?(CourseSection.find(params[:course_section_id]).course_id)
+    end
+
+    def my_supplement_updates_and_creates?(controller, action, params)
+      if controller.end_with?("module_supplement")
+        is_updatable = (action.in?(%w[update create]) && @admin_modules.exists?(params[:learning_module_id]))
+        is_deletable = (action == "destroy" && @admin_modules.exists?(ModuleSupplement
+                                                                        .find(params[:id])
+                                                                          .learning_module_id))
+        return is_deletable || is_updatable
+      else
+        return false
+      end
+    end
+
+    def my_content_updates_and_creates?(controller, action, params)
+      if controller.end_with?("supplement_content")
+        is_updatable = action == "update" && @admin_modules.exists?(ModuleSupplement
+                                                                        .find(params[:module_supplement_id])
+                                                                          .learning_module_id)
+        is_deletable = action == "destroy" && @admin_modules.exists?(SupplementContent
+                                                                        .find(params[:id])
+                                                                          .module_supplement
+                                                                            .learning_module_id)
+        is_creatable = action == "create" && @admin_modules.exists?(ModuleSupplement
+                                                                      .find(params[:module_supplement][:id])
+                                                                        .learning_module_id)
+        return is_updatable || is_deletable || is_creatable
+      else
+        return false
+      end
+    end
+
+    def course_related_controller_request?(controller)
+      related_controllers = %w[learning_module /course_section section_module module_supplement supplement_content]
+
+      related_controllers.any? { |related_controller| controller.end_with?(related_controller) }
+    end
 
     def organisation_students_request?(controller, params)
-      controller.end_with?("student") && params[:organisation_id].to_i == @org.id
+      controller.end_with?("student") && nested_org_request?(params[:organisation_id])
     end
 
     def section_students_request?(controller, params)
@@ -97,11 +192,11 @@ class Permission < Struct.new(:user)
     end
 
     def organisation_activity_request?(controller, params)
-      controller.end_with?("activities") && params[:organisation_id].to_i == @org.id
+      controller.end_with?("activities") && nested_org_request?(params[:organisation_id])
     end
 
     def fellow_admins_request?(controller, params)
-      controller.end_with?("org_admin") && params[:organisation_id].to_i == @org.id
+      controller.end_with?("org_admin") && nested_org_request?(params[:organisation_id])
     end
 
     def fellow_admin_request?(controller, params)

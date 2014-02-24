@@ -9,7 +9,7 @@
 
       else if user instanceof Learnster.Entities.OrgAdmin
         switch user.get('role')
-          when "course_manager" then throw new Error
+          when "course_manager" then @listCourseAdminSidebar()
           when "module_manager" then throw new Error
           when "account_manager" then @listAccountAdminSidebar()
 
@@ -27,6 +27,11 @@
     listAccountAdminSidebar: ->
       new SidebarApp.List.Controller
         type: "account_manager"
+        region: App.sidebarRegion
+
+    listCourseAdminSidebar: ->
+      new SidebarApp.List.Controller
+        type: "course_manager"
         region: App.sidebarRegion
 
     listStudentSidebar: ->

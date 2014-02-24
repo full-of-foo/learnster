@@ -114,6 +114,8 @@ Student.first.update!(email: "student@foo.com", password: "foobar",
   password_confirmation: "foobar", attending_org: Organisation.first)
 OrgAdmin.first.update!(email: "admin@foo.com", password: "foobar", role: "account_manager",
   password_confirmation: "foobar", admin_for: Organisation.first)
+OrgAdmin.first(offset: 1).update!(email: "courseadmin@foo.com", password: "foobar", role: "course_manager",
+  password_confirmation: "foobar", admin_for: Organisation.first)
 
 
 ########################
@@ -121,7 +123,7 @@ OrgAdmin.first.update!(email: "admin@foo.com", password: "foobar", role: "accoun
 ########################
 
 course_org = Organisation.first
-course_mgr = course_org.admins.first
+course_mgr = course_org.admins.first(offset: 1)
 course_provisioner = course_org.admins.last
 course_students = course_org.students[0..4]
 
@@ -140,7 +142,7 @@ course.save!
 
 params = {
   course: course,
-  provisioned_by: course_provisioner,
+  provisioned_by: course_mgr,
   section: "first year - semester 1"
 }
 course_section = CourseSection.new(params)

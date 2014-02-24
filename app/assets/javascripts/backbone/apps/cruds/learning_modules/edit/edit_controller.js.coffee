@@ -4,15 +4,15 @@
 
     initialize: (options) ->
       id = options.id
-      module = App.request "learning_module:entity", id
+      @module = App.request "learning_module:entity", id
 
-      @listenTo module, "updated", ->
-        App.vent.trigger "module:updated", module
+      @listenTo @module, "updated", ->
+        App.vent.trigger "module:updated", @module
 
-      @layout = @getLayoutView module
+      @layout = @getLayoutView @module
       @listenTo @layout, "show", =>
-        @setTitleRegion module
-        @setFormRegion module
+        @setTitleRegion @module
+        @setFormRegion @module
 
       @show @layout
 
@@ -59,6 +59,9 @@
         collection: admins
         itemViewId: "educator"
         itemView:   App.Components.Selects.UserOption
+
+      @listenTo selectView, "show", ->
+        _.delay(( => $('.selectpicker').selectpicker('val', @module.get('educator').email)), 370)
 
       @show selectView,
         loading:
