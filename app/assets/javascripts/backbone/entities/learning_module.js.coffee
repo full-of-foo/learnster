@@ -28,6 +28,18 @@
         reset: true
       learning_modules
 
+    getAdminOrgLearningModuleEntities: (orgId, adminId) ->
+      learning_modules = new Entities.LearningModuleCollection
+        url: Routes.api_organisation_learning_module_index_path(orgId)
+      learning_modules.fetch
+        reset: true
+        data:
+          page: 1
+          educator_id: adminId
+
+      learning_modules.put('educator_id',  adminId)
+      learning_modules
+
     setCurrentLearningModule: (attrs) ->
       new Entities.LearningModule attrs
 
@@ -40,16 +52,20 @@
       learning_module
 
     getSearchOrgLearningModuleEntities: (searchOpts) ->
-      { term, nestedId } = searchOpts
+      { term, nestedId, educatorId } = searchOpts
       if nestedId
         learning_modules = new Entities.LearningModuleCollection
           url: Routes.api_organisation_learning_module_index_path(nestedId)
       else
         learning_modules = new Entities.LearningModuleCollection
+
+      term['educator_id'] = educatorId if educatorId
       learning_modules.fetch
         reset: true
         data: $.param(term)
-      learning_modules.put('search', term['search'])
+
+      learning_modules.put('search',      term['search'])
+      learning_modules.put('educator_id', term['educator_id'])
       learning_modules
 
 
@@ -58,6 +74,9 @@
 
   App.reqres.setHandler "learning_module:entities", (orgId) ->
     API.getOrgLearningModuleEntities(orgId)
+
+  App.reqres.setHandler "admin:learning_module:entities", (orgId, adminId) ->
+    API.getAdminOrgLearningModuleEntities(orgId, adminId)
 
   App.reqres.setHandler "search:learning_module:entities", (searchOpts) ->
     API.getSearchOrgLearningModuleEntities searchOpts

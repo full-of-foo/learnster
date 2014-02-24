@@ -69,6 +69,34 @@ Scenario: Account admin sidebar navigation
   And I should see the text "Organisation Notifications"
   Then no sidenavs are active
 
+@side_nav-4
+Scenario: Course admin sidebar navigation
+  Given I navigate to the "login" page
+  And I attempt to login with a known "course admin"
+  Then the "Dashboard" nav is active
+
+  Then I sidebar navigate to "Dashboard"
+  Then the "Dashboard" nav is active
+  And I should see the text "Modules"
+
+  Then I sidebar navigate to "My Courses"
+  Then the "My Courses" nav is active
+  And I should see the text "My Courses..."
+
+  Then I sidebar navigate to "My Learning Modules"
+  Then the "My Learning Modules" nav is active
+  And I should see the text "My Learning Modules..."
+
+  Then I sidebar navigate to "All Administrators"
+  Then the "All Administrators" nav is active
+  Then I should see a "a" with the "id" of "new-org-admin-button"
+
+  Then I sidebar navigate to "All Students"
+  Then the "All Students" nav is active
+  Then I should see a "a" with the "id" of "new-student-button"
+
+  Then I topbar navigate to "Notifications"
+  Then no sidenavs are active
 
 
 

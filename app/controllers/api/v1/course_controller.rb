@@ -6,13 +6,20 @@ class Api::V1::CourseController < ApplicationController
 
   def index
      if search_request?
-      @courses = Course.search_term(params[:search]).page(params[:page]).per_page(20)  if search_term_request?(params)
-      @courses = Course.search_term(params[:search], @org).page(params[:page]).per_page(20)  if nested_org_term_search?(params)
+      @courses = Course.search_term(params[:search]).page(params[:page]).per_page(20)        if search_term_request?(params)
+      @courses = Course.search_term(params[:search], nil, params[:managed_by])
+        .page(params[:page]).per_page(20)                                                    if nested_org_term_search?(params) && params[:managed_by]
+      @courses = Course.search_term(params[:search], @org).page(params[:page]).per_page(20)  if nested_org_term_search?(params) && !params[:managed_by]
       return @courses
     end
 
-    @courses = nested_org_request?(params) ? @org.courses()
-      .page(params[:page]).per_page(20) : Course.all.page(params[:page]).per_page(20)
+    if !params[:managed_by]
+      @courses = nested_org_request?(params) ? @org.courses()
+        .page(params[:page]).per_page(20) : Course.all.page(params[:page]).per_page(20)
+    elsif params[:page] && params[:managed_by]
+      @courses = OrgAdmin.find(params[:managed_by]).managed_courses.page(params[:page])
+        .per_page(20)
+    end
 
     if xlsx_request?
       respond_to do |format|

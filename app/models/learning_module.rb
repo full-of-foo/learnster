@@ -27,14 +27,24 @@ class LearningModule < ActiveRecord::Base
     self.where(organisation_id: organisation_id, title: title).first
   end
 
-  def self.search_term(search, nested_org = nil)
-    if not search.empty? and not nested_org
+  def self.search_term(search, nested_org = nil, educator_id = nil)
+    if not search.empty? and not nested_org and not educator_id
       self.title_matches("%#{search}%") | self.description_matches("%#{search}%")
+
     elsif not search.empty? and nested_org
       (self.title_matches("%#{search}%") | self.description_matches("%#{search}%")) & self
         .organisation_id_eq(nested_org.id)
+
+    elsif not search.empty? and educator_id
+      (self.title_matches("%#{search}%") | self.description_matches("%#{search}%")) & self
+        .educator_id_eq(educator_id)
+
     elsif search.empty? and nested_org
       self.organisation_id_eq(nested_org.id)
+
+    elsif search.empty? and educator_id
+      self.educator_id_eq(educator_id)
+
     else
       self.all
     end

@@ -194,12 +194,16 @@
             pageNumber += 1
             $('.pagination-area').addClass('pagination-loader')
 
-            hasCreadtedBy = @collection.get('created_by')
+            hasCreatedBy  = @collection.get('created_by')
+            hasManagedBy  = @collection.get('managed_by')
+            hasEducatedBy = @collection.get('educator_id')
             params =
               page:       @collection.get('next_link')
               search:     @collection.get('search')
 
-            params['created_by'] = @collection.get('created_by') if hasCreadtedBy
+            params['created_by']  = @collection.get('created_by')  if hasCreatedBy
+            params['managed_by']  = @collection.get('managed_by')  if hasManagedBy
+            params['educator_id'] = @collection.get('educator_id') if hasEducatedBy
 
             @collection.fetch
               data: $.param(params)

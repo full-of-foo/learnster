@@ -5,9 +5,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
     _userRoutes:
         shared: [
           /^organisation\/(.+?)\/students$/,
-          /^organisation\/(.+?)\/my_students$/,
           /^organisation\/(.+?)\/admins$/,
-          /^organisation\/(.+?)\/my_admins$/,
           /^login$/,
           /^about$/,
           /^testimonials$/,
@@ -29,7 +27,11 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^organisation\/(.+?)\/notifications$/,
           /^organisation\/(.+?)\/dashboard$/,
           /^organisation\/(.+?)\/courses$/,
+          /^organisation\/(.+?)\/my_courses$/,
           /^organisation\/(.+?)\/modules$/,
+          /^organisation\/(.+?)\/my_modules$/,
+          /^organisation\/(.+?)\/my_students$/,
+          /^organisation\/(.+?)\/my_admins$/,
           /^course\/(.+?)\/edit$/,
           /^course\/(.+?)\/show$/,
           /^module\/(.+?)\/edit$/,
@@ -72,7 +74,8 @@ do (Learnster, $, Backbone, Marionette, _) ->
       [ /^login$/, /^signu(.+)$/, /^organisations$/, /^admins$/, /^students$/,
         /^organisation\/(.+?)\/dashboard$/, /^organisation\/(.+?)\/admins$/,
         /^organisation\/(.+?)\/students$/, /^organisation\/(.+?)\/my_students$/,
-        /^organisation\/(.+?)\/my_admins$/]
+        /^organisation\/(.+?)\/my_admins$/, /^organisation\/(.+?)\/my_courses$/,
+        /^organisation\/(.+?)\/my_modules$/]
 
     sideItemIdForRoute: (route) ->
       id = "side-item-sign-in"      if /^login$/.test(route)
@@ -85,4 +88,6 @@ do (Learnster, $, Backbone, Marionette, _) ->
       id = "side-item-all-students" if /^organisation\/(.+?)\/students$/.test(route)
       id = "side-item-my-administrators" if /^organisation\/(.+?)\/my_admins$/.test(route)
       id = "side-item-my-students"  if /^organisation\/(.+?)\/my_students$/.test(route)
+      id = "side-item-my-courses"   if /^organisation\/(.+?)\/my_courses$/.test(route)
+      id = "side-item-my-modules"   if /^organisation\/(.+?)\/my_modules$/.test(route)
       id

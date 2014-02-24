@@ -27,6 +27,8 @@
           when "side-item-all-students" then @sideNavTo("/organisation/#{@_getOrgId(user)}/students", child)
           when "side-item-my-students"  then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_students", child)
           when "side-item-my-administrators" then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_admins", child)
+          when "side-item-my-courses"   then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_courses", child)
+          when "side-item-my-modules"   then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_modules", child)
 
       @show sideBarView
 
@@ -56,7 +58,8 @@
         { text: "Dashboard", id: "side-item-dash" },
         { text: "My Courses", id: "side-item-my-courses"  },
         { text: "My Learning Modules", id: "side-item-my-modules"  },
-        { text: "My Students", id: "side-item-my-students"  }
+        { text: "All Administrators", id: "side-item-all-admins"  },
+        { text: "All Students", id: "side-item-all-students"  },
       ]
 
     getStudentBarItems: ->

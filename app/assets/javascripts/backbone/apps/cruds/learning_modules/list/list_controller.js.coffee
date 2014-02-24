@@ -3,10 +3,11 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options) ->
+      @_isTeachingModules = options.isTeachingModules
       @_nestingOrgId = if options.id then options.id else false
       @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
-      modules = if not @_nestingOrg then false else App.request("learning_module:entities", options.id)
+      modules = @getModules()
 
       @layout = @getLayoutView()
 
@@ -17,12 +18,22 @@
 
       @show @layout
 
+    getModules: ->
+      if not @_isTeachingModules
+        modules = App.request("learning_module:entities", @_nestingOrgId)
+      else
+        modules = App.request("admin:learning_module:entities", @_nestingOrgId, App.currentUser.get('id'))
+      modules
+
     showNewRegion: ->
       @layout.newRegion['_nestingOrgId'] = @_nestingOrgId
       App.execute "new:module:view", @layout.newRegion
 
     showPanel: (modules) ->
-      panelView = @getPanelView modules
+      if @_isTeachingModules
+        panelView = @getMyPanelView modules
+      else
+        panelView = @getPanelView modules
 
       @listenTo panelView, "new:module:button:clicked", =>
           @showNewRegion()
@@ -38,9 +49,12 @@
       @layout.searchRegion.show searchView
 
     searchModules: (searchTerm) ->
+      educatorId = App.currentUser.get('id')
+
       searchOpts =
         nestedId: @_nestingOrg?.id
         term: searchTerm
+        educatorId: educatorId if @_isTeachingModules
 
       @showSearchModules(searchOpts)
 
@@ -75,11 +89,17 @@
       @showModules(modules)
 
     showFetchedModules: ->
-      modules = if not @_nestingOrg then false else App.request("learning_module:entities", @_nestingOrgId)
+      modules = @getModules()
       @showModules(modules)
 
     getPanelView: (modules) ->
       new List.Panel
+        collection: modules
+        templateHelpers:
+          nestingOrg: @_nestingOrg
+
+    getMyPanelView: (modules) ->
+      new List.MyPanel
         collection: modules
         templateHelpers:
           nestingOrg: @_nestingOrg

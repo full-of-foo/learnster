@@ -3,10 +3,11 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      @_nestingOrgId = if options.id then options.id else false
-      @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
+      @_isManagedCourses  = options.isManagedCourses
+      @_nestingOrgId      = if options.id then options.id else false
+      @_nestingOrg        = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
-      courses = if not @_nestingOrg then false else App.request("org:course:entities", options.id)
+      courses = @getCourses()
 
       @layout = @getLayoutView()
 
@@ -17,12 +18,22 @@
 
       @show @layout
 
+    getCourses: ->
+      if not @_isManagedCourses
+        courses = App.request("org:course:entities", @_nestingOrgId)
+      else
+        courses = App.request("admin:org:course:entities", @_nestingOrgId, App.currentUser.get('id'))
+      courses
+
     showNewRegion: ->
       @layout.newRegion['_nestingOrg'] = @_nestingOrg
       App.execute "new:course:view", @layout.newRegion
 
     showPanel: (courses) ->
-      panelView = @getPanelView courses
+      if @_isManagedCourses
+        panelView = @getMyPanelView courses
+      else
+        panelView = @getPanelView courses
 
       @listenTo panelView, "new:course:button:clicked", =>
           @showNewRegion()
@@ -38,9 +49,12 @@
       @layout.searchRegion.show searchView
 
     searchCourses: (searchTerm) ->
+      managedId = App.currentUser.get('id')
+
       searchOpts =
         nestedId: @_nestingOrg?.id
         term: searchTerm
+        managedId: managedId if @_isManagedCourses
 
       @showSearchCourses(searchOpts)
 
@@ -75,11 +89,17 @@
       @showCourses(courses)
 
     showFetchedCourses: ->
-      courses = if not @_nestingOrg then false else App.request("org:course:entities", options.id)
+      courses = @getCourses()
       @showCourses(courses)
 
     getPanelView: (courses) ->
       new List.Panel
+        collection: courses
+        templateHelpers:
+          nestingOrg: @_nestingOrg
+
+    getMyPanelView: (courses) ->
+      new List.MyPanel
         collection: courses
         templateHelpers:
           nestingOrg: @_nestingOrg

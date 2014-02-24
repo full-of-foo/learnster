@@ -50,7 +50,7 @@ class Student < User
   end
 
   def self.search_term(search, nested_org = nil, created_by_id = nil)
-    if not search.empty? and not nested_org
+    if not search.empty? and not nested_org and not created_by_id
       self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
         .email_matches("%#{search}%")
 

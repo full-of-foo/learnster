@@ -25,6 +25,23 @@
       "click #new-course-button"   : "new:course:button:clicked"
       "click #import-dropdown-item" : "import:dropdown:clicked"
 
+  class List.MyPanel extends App.Views.ItemView
+    template: "courses/list/templates/_my_panel"
+    initialize: (options) ->
+      @setInstancePropertiesFor "templateHelpers"
+
+    _closeDropdown: ->
+      $('#list-panel .dropdown-toggle').dropdown('toggle')
+
+    events:
+      "click ul.dropdown-menu li" : "_closeDropdown"
+
+    collectionEvents:
+      "reset": "render"
+    triggers:
+      "click #new-course-button"   : "new:course:button:clicked"
+      "click #import-dropdown-item" : "import:dropdown:clicked"
+
   class List.SearchPanel extends App.Views.ItemView
     template: "courses/list/templates/_search_panel"
 

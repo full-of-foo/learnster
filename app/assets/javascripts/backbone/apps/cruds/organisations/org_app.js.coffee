@@ -11,7 +11,9 @@
       "organisation/:id/notifications"    : "listOrgNotifications"
       "organisation/:id/dashboard"        : "listDashBlocks"
       "organisation/:id/courses"          : "listOrgCourses"
+      "organisation/:id/my_courses"       : "listMyOrgCourses"
       "organisation/:id/modules"          : "listOrgModules"
+      "organisation/:id/my_modules"       : "listMyOrgModules"
       "organisations"                     : "listOrgs"
 
   API =
@@ -52,9 +54,19 @@
       new App.CoursesApp.List.Controller
         id: @get_org_id(id)
 
+    listMyOrgCourses: (id) ->
+      new App.CoursesApp.List.Controller
+        id: @get_org_id(id)
+        isManagedCourses: true
+
     listOrgModules: (id) ->
       new App.LearningModulesApp.List.Controller
         id: @get_org_id(id)
+
+    listMyOrgModules: (id) ->
+      new App.LearningModulesApp.List.Controller
+        id: @get_org_id(id)
+        isTeachingModules: true
 
      edit: (id) ->
       new OrgsApp.Edit.Controller
