@@ -1,9 +1,23 @@
 <% isEditableForm = false %>
+<% u = @currentUser() %>
 
-<div class="pull-right">
-        <span id="edit-module-button" class="btn btn-success">Edit</span>
-        <span id="delete-module-button" class="btn btn-danger">Delete</span>
-      </div>
+<% if u.type is "OrgAdmin" and u.role is "course_manager": %>
+  <% isEducatedBy = @isCreatedByUser(@educator) %>
+<% else if u.type is "OrgAdmin" and u.role is "account_manager": %>
+  <% isEducatedBy = true %>
+<% else: %>
+  <% isEducatedBy = false %>
+<% end %>
+
+
+
+<% if isEducatedBy: %>
+  <div class="pull-right">
+    <span id="edit-module-button" class="btn btn-success">Edit</span>
+    <span id="delete-module-button" class="btn btn-danger">Delete</span>
+  </div>
+<% end %>
+
 <blockquote id="edit-form-header">
     <p class="text-info">Showing Module: </p>
 </blockquote>

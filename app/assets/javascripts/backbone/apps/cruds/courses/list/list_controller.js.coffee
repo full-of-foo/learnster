@@ -125,7 +125,8 @@
        { title: "Identifier", attrName: "identifier", isSortable: true, isRemovable: false, default: true },
        { title: "# Sections", htmlContent: '<%= model.get("section_count") %>', default: true,  isSortable: true, isRemovable: false },
        { title: "Manager", attrName: "managed_by.full_name", isSortable: true, isRemovable: false, default: true },
-       { htmlContent: '<% if ( currentUser.get("type") ===  "OrgAdmin" ) { %>
+       { htmlContent: '<% if ( (currentUser.get("type") ===  "OrgAdmin" && currentUser.get("role") ===  "account_manager")
+                                || currentUser.get("type") ===  "AppAdmin" ) { %>
         <div class="delete-icon"><i class="icon-remove-sign"></i></div>
         <% } %>', className: "last-col-invisible", default: true, isRemovable: false }
       ]

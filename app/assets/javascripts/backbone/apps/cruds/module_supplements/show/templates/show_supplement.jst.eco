@@ -1,9 +1,23 @@
 <% isEditableForm = false %>
+<% u = @currentUser() %>
 
-<div class="pull-right">
-        <span id="delete-supplement-button" class="btn btn-danger">Delete</span>
-        <span id="cancel-show-supplement" class="btn btn-success">Close</span>
-</div>
+<% if u.type is "OrgAdmin" and u.role is "course_manager": %>
+  <% isEducatedBy = @isCreatedByUser(@learning_module.educator_id) %>
+<% else if u.type is "OrgAdmin" and u.role is "account_manager": %>
+  <% isEducatedBy = true %>
+<% else: %>
+  <% isEducatedBy = false %>
+<% end %>
+
+
+
+<% if isEducatedBy: %>
+  <div class="pull-right">
+      <span id="delete-supplement-button" class="btn btn-danger">Delete</span>
+      <span id="cancel-show-supplement" class="btn btn-success">Close</span>
+  </div>
+<% end %>
+
 <blockquote id="edit-form-header">
     <p class="text-info">Showing Supplement: </p>
 </blockquote>

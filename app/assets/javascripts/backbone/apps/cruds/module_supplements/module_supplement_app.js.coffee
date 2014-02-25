@@ -19,6 +19,6 @@
 
   App.vent.on "supplement:created open:supplement", (supplement) ->
     console.log supplement
-    moduleId = supplement.get('learning_module_id')
+    moduleId = supplement.get('learning_module').id
     supplementId = supplement.get('id')
     App.navigate "/module/#{moduleId}/supplement/#{supplementId}/show"

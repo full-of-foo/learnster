@@ -8,7 +8,11 @@ node do |supplement_content|
 end
 
 child :module_supplement => :module_supplement do
-  attributes :id, :title, :description, :created_at, :updated_at, :learning_module_id
+  attributes :id, :title, :description, :created_at, :updated_at, :learning_module
+
+  child :learning_module => :learning_module do
+    attributes :id, :title, :educator_id
+  end
 end
 
 child :file_upload => :file_upload do

@@ -139,18 +139,21 @@
         collection: students
         templateHelpers:
           nestingOrg: @_nestingOrg
+          currentUser: Marionette.View.prototype.templateHelpers().currentUser
 
     getMyPanelView: (students) ->
       new List.MyPanel
         collection: students
         templateHelpers:
           nestingOrg: @_nestingOrg
+          currentUser: Marionette.View.prototype.templateHelpers().currentUser
 
     getSearchView: (students) ->
       new List.SearchPanel
         collection: students
         templateHelpers:
           nestingOrg: @_nestingOrg
+          currentUser: Marionette.View.prototype.templateHelpers().currentUser
 
     getDialogView: (student) ->
       new List.DeleteDialog

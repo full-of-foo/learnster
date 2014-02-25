@@ -1,13 +1,23 @@
+<% u = @currentUser() %>
+
+<% if u.type is "OrgAdmin" and u.role is "account_manager": %>
+  <% hasCreatePermission = true %>
+<% else: %>
+  <% hasCreatePermission = false %>
+<% end %>
+
 <div id="list-panel" class="modal-header">
 
     <div class="btn-group pull-right">
 
-        <a id="new-org-admin-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i><% if @nestingOrg: %>
-        Add
-        <% else: %>
-        New
+        <% if hasCreatePermission: %>
+            <a id="new-org-admin-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i><% if @nestingOrg: %>
+            Add
+            <% else: %>
+            New
+            <% end %>
+             Admin</a>
         <% end %>
-         Admin</a>
         <a class="btn" id="list-settings-button" href="#"><i class="fa fa-cog"></i></a>
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="fa fa-caret-down"></i>
@@ -15,11 +25,13 @@
         <ul class="dropdown-menu">
             <li><a href=<% if @nestingOrg: %>"/api/organisation/<%= @nestingOrg.get('id') %>/admin.xlsx"<% else: %>"api/org_admin.xlsx"<% end %>><i class="fa fa-fixed-width fa-level-down"></i> Export All</a>
             </li>
-            <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
-            </li>
-            <% if @nestingOrg: %>
-            <li><a href="#" id="import-dropdown-item"><i class="fa fa-fixed-width fa-upload"></i> Import...</a>
-            </li>
+            <% if hasCreatePermission: %>
+                <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
+                </li>
+                <% if @nestingOrg: %>
+                <li><a href="#" id="import-dropdown-item"><i class="fa fa-fixed-width fa-upload"></i> Import...</a>
+                </li>
+                <% end %>
             <% end %>
         </ul>
 

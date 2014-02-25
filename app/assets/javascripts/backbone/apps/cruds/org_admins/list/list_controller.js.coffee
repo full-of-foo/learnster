@@ -131,18 +131,21 @@
         collection: org_admins
         templateHelpers:
           nestingOrg: @_nestingOrg
+          currentUser: Marionette.View.prototype.templateHelpers().currentUser
 
     getPanelView: (org_admins) ->
       new List.Panel
         collection: org_admins
         templateHelpers:
           nestingOrg: @_nestingOrg
+          currentUser: Marionette.View.prototype.templateHelpers().currentUser
 
     getSearchView: (org_admins) ->
       new List.SearchPanel
         collection: org_admins
         templateHelpers:
           nestingOrg: @_nestingOrg
+          currentUser: Marionette.View.prototype.templateHelpers().currentUser
 
     getDialogView: (org_admin) ->
       new List.DeleteDialog

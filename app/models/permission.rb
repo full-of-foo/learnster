@@ -45,6 +45,7 @@ class Permission < Struct.new(:user)
             return true if my_supplement_updates_and_creates?(controller, action, params)
             return true if my_content_updates_and_creates?(controller, action, params)
             return true if my_module_updates?(controller, action, params)
+            return true if create_module_request?(controller, action, params)
 
             @admin_courses = user.managed_courses
             return true if my_course_section_updates_and_creates?(controller, action, params)
@@ -174,9 +175,14 @@ class Permission < Struct.new(:user)
     end
 
     def course_related_controller_request?(controller)
-      related_controllers = %w[learning_module /course_section section_module module_supplement supplement_content]
+      related_controllers = %w[learning_module enrolled_course_section /course_section section_module module_supplement supplement_content]
 
       related_controllers.any? { |related_controller| controller.end_with?(related_controller) }
+    end
+
+    def create_module_request?(controller, action, params)
+      action == "create" && nested_org_request?(params[:organisation_id]) && controller
+        .end_with?("learning_module")
     end
 
     def organisation_students_request?(controller, params)

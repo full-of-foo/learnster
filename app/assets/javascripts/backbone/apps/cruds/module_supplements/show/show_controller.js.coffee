@@ -126,9 +126,17 @@
        { title: "Created On", attrName: "created_at_formatted", isSortable: true, default: true, isRemovable: false },
        { title: "File", htmlContent: '<a class="file-link" target="_blank" href="<%= model.get("file_upload").url %>"><i class="fa fa-download"></i></a>'
         , isSortable: true, default: true, isRemovable: false },
-       { htmlContent: '<div class="delete-icon"><i class="icon-remove-sign"></i></div>', className: "last-col-invisible"
+       { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible"
         ,default: true, isRemovable: false, hasData: false }
       ]
+
+    _deleteColTemplateString: ->
+      '<% if ( (currentUser.get("type") === "OrgAdmin" && currentUser.get("role") === "course_manager"
+              && model.get("module_supplement").learning_module.educator_id === currentUser.get("id") )
+        || currentUser.get("type") ===  "AppAdmin" || (currentUser.get("type") === "OrgAdmin"
+                                                       && currentUser.get("role") === "account_manager" )) { %>
+        <div class="delete-icon"><i class="icon-remove-sign"></i></div>
+        <% } %>'
 
     getTableOptions: (columns) ->
       columns: columns

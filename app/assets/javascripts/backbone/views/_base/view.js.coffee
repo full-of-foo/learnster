@@ -54,9 +54,10 @@
 					false
 
 			isCreatedByUser: (created_by) ->
+				created_by_id = if created_by.id then created_by.id else created_by
 				user = App.reqres.request("get:current:user")
 				if Object(user) not instanceof Boolean
-					created_by.id is user.get('id') or user instanceof App.Entities.AppAdmin
+					created_by_id is user.get('id') or user instanceof App.Entities.AppAdmin
 				else
 					false
 

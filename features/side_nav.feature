@@ -89,11 +89,11 @@ Scenario: Course admin sidebar navigation
 
   Then I sidebar navigate to "All Administrators"
   Then the "All Administrators" nav is active
-  Then I should see a "a" with the "id" of "new-org-admin-button"
+  Then I should not see a "a" with the "id" of "new-org-admin-button"
 
   Then I sidebar navigate to "All Students"
   Then the "All Students" nav is active
-  Then I should see a "a" with the "id" of "new-student-button"
+  Then I should not see a "a" with the "id" of "new-student-button"
 
   Then I topbar navigate to "Notifications"
   Then no sidenavs are active

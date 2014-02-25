@@ -27,6 +27,21 @@ Given(/^I edit the Admin$/) do
   StepsDataCache.admin.email = new_email
 end
 
+Given(/^I open the first Admin$/) do
+  page = Pages::AdminsPage.new(@browser)
+
+  step("I should see a \"th\" with the \"text\" of \"Name\"")
+  sleep(0.3)
+  full_name = @browser.tds(class: 'col-0')[0].text
+  first_name = full_name.split(' ')[0]
+  surname = full_name.split(' ')[1]
+
+  admin = CacheEntities::Admin.new(first_name: first_name, surname: surname)
+
+  step("I click the \"td\" with the \"text\" of \"#{full_name}\"")
+  StepsDataCache.admin = admin
+end
+
 Given(/^I open the Admin edit page$/) do
   admin = StepsDataCache.admin
   page = Pages::AdminsPage.new(@browser)
@@ -67,6 +82,17 @@ Then(/^I see the Admin edit page$/) do
 
   step("I should see a \"button\" with the \"id\" of \"Update\"")
   step("I should see a \"button\" with the \"id\" of \"Cancel\"")
+end
+
+Then(/^I see the Admin show page$/) do
+  admin = StepsDataCache.admin
+
+  sleep(0.3)
+  step("I should see a \"span\" with the \"text\" of \"#{admin.first_name}\"")
+  step("I should see a \"span\" with the \"text\" of \"#{admin.surname}\"")
+
+  step("I should not see a \"button\" with the \"id\" of \"Update\"")
+  step("I should not see a \"button\" with the \"id\" of \"Cancel\"")
 end
 
 

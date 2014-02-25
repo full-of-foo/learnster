@@ -1,5 +1,11 @@
-<!-- TODO - if org admin has permission -->
 <% isEditableForm = true %>
+<% u = @currentUser() %>
+
+<% if u.type is "OrgAdmin" and u.role is "course_manager": %>
+  <% hasEducatorPermission = false %>
+<% else: %>
+  <% hasEducatorPermission = true %>
+<% end %>
 
  <div class="span6">
 			<div class="control-group">
@@ -15,7 +21,11 @@
 				</div>
 			</div>
 
-			<div class="control-group">
+		<% if hasEducatorPermission: %>
+        <div class="control-group">
+    <% else: %>
+        <div class="control-group" style="display: none;">
+    <% end %>
         <!-- Educator -->
         <label class="control-label">Educator</label>
         <div id="educator-select-region" class="controls"></div>

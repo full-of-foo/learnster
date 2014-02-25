@@ -4,7 +4,7 @@ Feature: Account Admin Administrators
   CRUDs on admins
 
 @account_admin_administrators-1
-Scenario: CRUD Course
+Scenario: CRUD Admins
   Given I navigate to the "login" page
   And I attempt to login with a known "account admin"
   Then I sidebar navigate to "All Administrators"

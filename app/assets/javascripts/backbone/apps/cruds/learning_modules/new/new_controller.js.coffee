@@ -42,12 +42,18 @@
         region:  @layout.formRegion
 
     setEducatorSelector: (newLayout) ->
+      user = App.currentUser
+
       orgId = @_nestingOrgId
       admins = App.request("org_admin:from:role:entities", orgId, "module_manager")
       selectView = App.request "selects:wrapper",
         collection: admins
         itemViewId: "educator"
         itemView:   App.Components.Selects.UserOption
+
+      @listenTo selectView, "show", ->
+        _.delay(( => $('.selectpicker').
+                selectpicker('val', user.get('email'))) , 400)
 
       @show selectView,
         loading:

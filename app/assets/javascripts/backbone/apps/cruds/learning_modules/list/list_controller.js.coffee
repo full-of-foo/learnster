@@ -118,14 +118,21 @@
       new List.Layout
 
     getTableColumns: ->
-      # TODO - permission to see delete col
       [
        { title: "Title", attrName: "title", isSortable: true, isRemovable: false, default: true },
        { title: "Description", attrName: "description", default: true, isRemovable: false },
        { title: "# Supplements", htmlContent: '<%= model.get("supplement_count") %>', default: true,  isSortable: true, isRemovable: false },
        { title: "Manager", attrName: "educator.full_name", isSortable: true, isRemovable: false, default: true },
-       { htmlContent: '<div class="delete-icon"><i class="icon-remove-sign"></i></div>', className: "last-col-invisible", default: true, isRemovable: false }
+       { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible", default: true, isRemovable: false }
       ]
+
+    _deleteColTemplateString: ->
+      '<% if ( (currentUser.get("type") === "OrgAdmin" && currentUser.get("role") === "course_manager"
+              && model.get("educator_id") === currentUser.get("id") )
+        || currentUser.get("type") ===  "AppAdmin" || (currentUser.get("type") === "OrgAdmin"
+                                                       && currentUser.get("role") === "account_manager" )) { %>
+        <div class="delete-icon"><i class="icon-remove-sign"></i></div>
+        <% } %>'
 
     getTableOptions: (columns) ->
       columns: columns

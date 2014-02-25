@@ -2,7 +2,7 @@
 
 <div class="empty-dash-block">
   <p class="muted">
-  <% if u.type is "OrgAdmin" and u.role is "course_manager": %>you uploaded <% end %>
+  <% if u.type is "OrgAdmin" and (u.role is "course_manager" or u.role is "module_manager"): %>you uploaded <% end %>
   no files<% if u.type is "OrgAdmin" and u.role is "course_manager": %> to your modules <% end %></p>
   <h1 class="muted">:(</h1>
 </div>

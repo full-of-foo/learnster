@@ -22,10 +22,10 @@ module CacheEntities
     class Course
       attr_accessor :title, :description, :identifier
 
-      def initialize(title, description, identifier)
-        @title        = title
-        @description  = description
-        @identifier   = identifier
+      def initialize(options = {})
+        @title        = options[:title] || ''
+        @description  = options[:description] || ''
+        @identifier   = options[:identifier] || ''
       end
     end
 

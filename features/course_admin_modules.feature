@@ -1,10 +1,10 @@
-@account_admin_modules
+@course_admin_modules
 
-Feature: Account Admin Modules
+Feature: Course Admin Modules
   CRUDs on modules, supplements and supplement contents
 
-@account_admin_modules-1
-Scenario: CRUD Module
+@course_admin_modules-1
+Scenario: CRUD Modules
   Given I navigate to the "login" page
   And I attempt to login with a known "account admin"
   And I click the "h1" with the "text" of "Modules"

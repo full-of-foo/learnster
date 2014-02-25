@@ -34,12 +34,25 @@ Given(/^I open the remove-student well$/) do
   step("I click the \"link\" with the \"id\" of \"remove-student-button\"")
 end
 
+Given(/^I open my first Course$/) do
+  page = Pages::CoursesPage.new(@browser)
+
+  step("I should see a \"th\" with the \"text\" of \"Title\"")
+  sleep(0.3)
+
+  title = @browser.tds(class: 'col-0')[0].text
+  course = CacheEntities::Course.new(title: title)
+
+  step("I click the \"td\" with the \"text\" of \"#{course.title}\"")
+  StepsDataCache.course = course
+end
+
 Given(/^I create a Course$/) do
   step('I open the add-course well')
   page = Pages::CoursesPage.new(@browser)
 
   title, description, identifier = TestDataGenerator.title, TestDataGenerator.description, "some-id"
-  course = CacheEntities::Course.new(title, description, identifier)
+  course = CacheEntities::Course.new(title: title, description: description, identifier: identifier)
 
   page.submit_new_course_form(course)
   StepsDataCache.course = course
@@ -155,6 +168,18 @@ Then(/^I see the Course Section show page$/) do
 
   step("I should see a \"span\" with the \"id\" of \"edit-course-section-button\"")
   step("I should see a \"span\" with the \"id\" of \"delete-course-section-button\"")
+end
+
+Then(/^I see the uneditable Course show page$/) do
+  course = StepsDataCache.course
+
+  sleep(0.3)
+  step("I should see a \"span\" with the \"text\" of \"#{course.title}\"")
+
+  step("I should see a \"a\" with the \"id\" of \"new-course-section-button\"")
+
+  step("I should not see a \"span\" with the \"id\" of \"edit-course-button\"")
+  step("I should not see a \"span\" with the \"id\" of \"delete-course-button\"")
 end
 
 Then(/^I see the first Module on the Course Section$/) do

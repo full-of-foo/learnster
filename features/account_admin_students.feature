@@ -4,7 +4,7 @@ Feature: Account Admin Students
   CRUDs on students
 
 @account_admin_students-1
-Scenario: CRUD Course
+Scenario: CRUD Students
   Given I navigate to the "login" page
   And I attempt to login with a known "account admin"
   Then I sidebar navigate to "All Students"

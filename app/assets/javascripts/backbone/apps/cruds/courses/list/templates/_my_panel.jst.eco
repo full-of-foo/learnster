@@ -1,18 +1,26 @@
+<% u = @currentUser() %>
+
+<% if u.type is "OrgAdmin" and u.role is "course_manager": %>
+  <% hasCreatePermission = false %>
+<% else: %>
+  <% hasCreatePermission = true %>
+<% end %>
+
 <div id="list-panel" class="modal-header">
 
-    <div class="btn-group pull-right">
-
-        <a id="new-course-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
-        Add Course</a>
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu">
-            <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
-            </li>
-        </ul>
-
-    </div>
+    <% if hasCreatePermission: %>
+        <div class="btn-group pull-right">
+            <a id="new-course-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+            New Course</a>
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
+                </li>
+            </ul>
+        </div>
+    <% end %>
 
     <blockquote>
         <p class="muted well-small">My Courses...</p>

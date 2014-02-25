@@ -36,6 +36,21 @@ Given(/^I open the Student edit page$/) do
   step("I click the \"td\" with the \"text\" of \"#{student.email}\"")
 end
 
+Given(/^I open the first Student$/) do
+  page = Pages::StudentsPage.new(@browser)
+
+  step("I should see a \"th\" with the \"text\" of \"Name\"")
+  sleep(0.3)
+  full_name = @browser.tds(class: 'col-0')[0].text
+  first_name = full_name.split(' ')[0]
+  surname = full_name.split(' ')[1]
+
+  student = CacheEntities::Student.new(first_name: first_name, surname: surname)
+
+  step("I click the \"td\" with the \"text\" of \"#{full_name}\"")
+  StepsDataCache.student = student
+end
+
 Given(/^I delete the Student$/) do
   page = Pages::StudentsPage.new(@browser)
 
@@ -68,6 +83,17 @@ Then(/^I see the Student edit page$/) do
 
   step("I should see a \"button\" with the \"id\" of \"Update\"")
   step("I should see a \"button\" with the \"id\" of \"Cancel\"")
+end
+
+Then(/^I see the Student show page$/) do
+  student = StepsDataCache.student
+
+  sleep(0.3)
+  step("I should see a \"span\" with the \"text\" of \"#{student.first_name}\"")
+  step("I should see a \"span\" with the \"text\" of \"#{student.surname}\"")
+
+  step("I should not see a \"button\" with the \"id\" of \"Update\"")
+  step("I should not see a \"button\" with the \"id\" of \"Cancel\"")
 end
 
 

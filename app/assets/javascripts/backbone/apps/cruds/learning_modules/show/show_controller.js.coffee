@@ -127,8 +127,16 @@
        { title: "Title", attrName: "title", isSortable: true, default: true, isRemovable: false },
        { title: "Description", attrName: "description",  isSortable: true, default: true, isRemovable: false },
        { title: "# Uploads", attrName: "contents_counts",  isSortable: true, default: true, isRemovable: false },
-       { htmlContent: '<div class="delete-icon"><i class="icon-remove-sign"></i></div>', className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
+       { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
       ]
+
+    _deleteColTemplateString: ->
+      '<% if ( (currentUser.get("type") === "OrgAdmin" && currentUser.get("role") === "course_manager"
+              && model.get("learning_module").educator_id === currentUser.get("id") )
+        || currentUser.get("type") ===  "AppAdmin" || (currentUser.get("type") === "OrgAdmin"
+                                                       && currentUser.get("role") === "account_manager" )) { %>
+        <div class="delete-icon"><i class="icon-remove-sign"></i></div>
+        <% } %>'
 
     getTableOptions: (columns) ->
       columns: columns

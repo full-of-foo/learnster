@@ -10,8 +10,6 @@
 
   class List.Panel extends App.Views.ItemView
     template: "courses/list/templates/_panel"
-    initialize: (options) ->
-      @setInstancePropertiesFor "templateHelpers"
 
     _closeDropdown: ->
       $('#list-panel .dropdown-toggle').dropdown('toggle')
@@ -27,8 +25,6 @@
 
   class List.MyPanel extends App.Views.ItemView
     template: "courses/list/templates/_my_panel"
-    initialize: (options) ->
-      @setInstancePropertiesFor "templateHelpers"
 
     _closeDropdown: ->
       $('#list-panel .dropdown-toggle').dropdown('toggle')
