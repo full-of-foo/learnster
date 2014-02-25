@@ -10,25 +10,31 @@
       filesDashBlock = App.request("dash:block:entity", "Module Files")
       notificationsDashBlock = App.request("dash:block:entity", "Notifications")
 
-      #TODO = fetch type of entity
-      opts =
-        nestedId: @_nestingOrg.get('id')
-        page:     1
+      user = App.request "get:current:user"
 
-      courses = App.request "org:course:entities", opts.nestedId
-      modules = App.request "learning_module:entities", opts.nestedId
-      files = App.request "org:supplement:content:entities", opts.nestedId
-      notifications = App.request "search:notifications:entities", opts
+      App.execute "when:fetched", user, =>
+        isCourseManager = (user.get('type') is "OrgAdmin" and user.get('role') is "course_manager")
+        userId = user.get('id')
+
+        opts =
+          nestedId: @_nestingOrg.get('id')
+          page:     1
+          adminId: user.get('id') if isCourseManager
+
+        courses = App.request "org:course:entities", opts.nestedId
+        modules = App.request "learning_module:entities", opts.nestedId
+        files = if isCourseManager then App.request("educator:content:entities", userId) else App.request("org:supplement:content:entities", opts.nestedId)
+        notifications = App.request "search:notifications:entities", opts
 
 
-      @layout = @getLayoutView()
-      @listenTo @layout, "show", =>
-        @showCoursesBlock(coursesDashBlock, courses)
-        @showModulesBlock(modulesDashBlock, modules)
-        @showFilesBlock(filesDashBlock, files)
-        @showNotificationsBlock(notificationsDashBlock, notifications)
+        @layout = @getLayoutView()
+        @listenTo @layout, "show", =>
+          @showCoursesBlock(coursesDashBlock, courses)
+          @showModulesBlock(modulesDashBlock, modules)
+          @showFilesBlock(filesDashBlock, files)
+          @showNotificationsBlock(notificationsDashBlock, notifications)
 
-      @show @layout
+        @show @layout
 
     getLayoutView: ->
       new List.Layout()

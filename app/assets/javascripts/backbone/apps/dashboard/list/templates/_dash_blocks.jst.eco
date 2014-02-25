@@ -1,5 +1,8 @@
+<% u = @currentUser() %>
+
 <div id="<%= @title.replace(" ", "") %>" class="dash-block-header">
-  <h1><%= @title %></h1>
+  <h1><% if u.type is "OrgAdmin" and u.role is "course_manager" and (@title is "Notifications" or @title is "Module Files"): %>My <% end %>
+  <%= @title %></h1>
 </div>
 
 <div class="dash-block-content">

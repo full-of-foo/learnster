@@ -2,11 +2,17 @@
 <blockquote>
     <p class="text-info">
     <% if u.type is "AppAdmin": %>
-    Application Notifications
+      Application Notifications
     <% else if u.type is "OrgAdmin": %>
-    Organisation Notifications
+
+      <% if u.role is "account_manager": %>
+        Organisation Notifications
+      <% else: %>
+        My Notifications
+      <% end %>
+
 	<% else: %>
-	Notifications
+	 Notifications
 	<% end %>
     </p>          
 </blockquote>

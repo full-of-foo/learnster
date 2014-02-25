@@ -8,9 +8,14 @@ class Api::V1::SupplementContentController < ApplicationController
     if params[:module_supplement_id]
       @supplement_contents = ModuleSupplement.find(params[:module_supplement_id])
         .supplement_contents
+
+    elsif params[:educator_id]
+      @supplement_contents = SupplementContent.educator_contents(params[:educator_id])
+
     else
       @supplement_contents = nested_org_request?(params) ? SupplementContent
         .organisation_contents(@org.id) : SupplementContent.all
+
     end
 
     return @supplement_contents

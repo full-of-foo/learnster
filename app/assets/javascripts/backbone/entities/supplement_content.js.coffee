@@ -28,6 +28,15 @@
           module_supplement_id: supplementId
       contents
 
+    getEducatorContentEntities: (educatorId) ->
+      contents = new Entities.SupplementContentCollection
+        url: Routes.api_supplement_content_index_path()
+      contents.fetch
+        reset: true
+        data: $.param
+          educator_id: educatorId
+      contents
+
     getOrgSupplementContentEntities: (orgId) ->
       contents = new Entities.SupplementContentCollection
         url: Routes.api_organisation_supplement_content_index_path(orgId)
@@ -44,6 +53,9 @@
 
   App.reqres.setHandler "supplement:content:entities", (supplementId) ->
     API.getSupplementContentEntities(supplementId)
+
+  App.reqres.setHandler "educator:content:entities", (educatorId) ->
+    API.getEducatorContentEntities(educatorId)
 
   App.reqres.setHandler "org:supplement:content:entities", (orgId) ->
     API.getOrgSupplementContentEntities(orgId)
