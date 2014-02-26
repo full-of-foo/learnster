@@ -6,18 +6,20 @@
       @_nestingOrg = if options.id then App.request("org:entity", options.id) else false
       @_nestingOrgId = if options.id then options.id else false
 
-      notifications = @getNotifications()
-
-      @layout = @getLayoutView()
-      @listenTo @layout, "show", =>
-        @showNotifications notifications
-        @showPanel notifications
-
-      @show @layout
-
-    getNotifications: ->
       user = App.currentUser
 
+      App.execute "when:fetched", user, =>
+        notifications = @getNotifications(user)
+
+        @layout = @getLayoutView()
+        @listenTo @layout, "show", =>
+          @showNotifications notifications
+          @showPanel notifications
+
+        @show @layout
+
+
+    getNotifications: (user) ->
       if user instanceof Learnster.Entities.OrgAdmin
         switch user.get('role')
           when "course_manager"  then notifications = App.request("course:manager:notification:entities", @_nestingOrgId, user.get('id'))
