@@ -20,6 +20,7 @@
 			"click #home-dock-item"  : "home:dockItem:clicked"
 			"click #stats-dock-item" : "stats:dockItem:clicked"
 			"click #notifications-dock-item" : "notifications:dockItem:clicked"
+			"click #profile-settings-dock-item" : "settings:dockItem:clicked"
 			"click #about-dock-item" : "about:dockItem:clicked"
 			"click #testimonials-dock-item" : "testimonials:dockItem:clicked"
 			"click #join-dock-item" : "join:dockItem:clicked"

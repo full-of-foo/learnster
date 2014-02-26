@@ -1,3 +1,11 @@
+<% u = @currentUser() %>
+
+<% if u.type is "OrgAdmin" and u.role is "course_manager": %>
+  <% hasEducatorPermission = false %>
+<% else: %>
+  <% hasEducatorPermission = true %>
+<% end %>
+
 <button type="button" class="close cancel-new-course-section" data-dismiss="alert">&times;</button>
 
 <blockquote>
@@ -16,7 +24,11 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <% if hasEducatorPermission: %>
+            <div class="control-group">
+        <% else: %>
+            <div class="control-group" style="display: none;">
+        <% end %>
             <!-- Provisioner -->
             <label class="control-label">Provisioner</label>
             <div id="provisioner-select-region" class="controls"></div>

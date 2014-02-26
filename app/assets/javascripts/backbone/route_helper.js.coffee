@@ -32,6 +32,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^organisation\/(.+?)\/my_modules$/,
           /^organisation\/(.+?)\/my_students$/,
           /^organisation\/(.+?)\/my_admins$/,
+          /^organisation\/(.+?)\/my_settings$/,
           /^course\/(.+?)\/edit$/,
           /^course\/(.+?)\/show$/,
           /^module\/(.+?)\/edit$/,

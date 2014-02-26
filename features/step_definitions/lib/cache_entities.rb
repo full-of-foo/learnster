@@ -2,11 +2,11 @@ module CacheEntities
     class User
       attr_accessor :first_name, :surname, :email, :password
 
-      def initialize(first_name, surname, email, password)
-        @first_name  = first_name
-        @surname     = surname
-        @email       = email
-        @password    = password
+      def initialize(options = {})
+        @first_name  = options[:first_name] || ''
+        @surname     = options[:surname] || ''
+        @email       = options[:email] || ''
+        @password    = options[:password] || ''
       end
     end
 
@@ -55,14 +55,10 @@ module CacheEntities
       end
     end
 
-    class Student
-      attr_accessor :first_name, :surname, :email, :password
+    class Student < User
 
       def initialize(options = {})
-        @first_name  = options[:first_name] || ''
-        @surname     = options[:surname] || ''
-        @email       = options[:email] || ''
-        @password    = options[:password] || ''
+        super(options)
       end
     end
 

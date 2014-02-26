@@ -14,6 +14,7 @@
       "organisation/:id/my_courses"       : "listMyOrgCourses"
       "organisation/:id/modules"          : "listOrgModules"
       "organisation/:id/my_modules"       : "listMyOrgModules"
+      "organisation/:id/my_settings"      : "showMySettings"
       "organisations"                     : "listOrgs"
 
   API =
@@ -67,6 +68,10 @@
       new App.LearningModulesApp.List.Controller
         id: @get_org_id(id)
         isTeachingModules: true
+
+    showMySettings: (id) ->
+      new App.SettingsApp.Edit.Controller
+        id: @get_org_id(id)
 
      edit: (id) ->
       new OrgsApp.Edit.Controller

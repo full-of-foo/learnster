@@ -24,6 +24,11 @@
       @listenTo dockView, "notifications:dockItem:clicked", ->
         App.vent.trigger "notifications:link:clicked"
 
+      @listenTo dockView, "settings:dockItem:clicked", ->
+        user = App.request "get:current:user"
+        orgId = if user.get('type') is "OrgAdmin" then user.get('admin_for').id else user.get('attending_org').id
+        App.navigate "/organisation/#{orgId}/my_settings"
+
       @listenTo dockView, "about:dockItem:clicked", ->
         App.navigate "/about"
 

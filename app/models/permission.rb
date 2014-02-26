@@ -4,6 +4,7 @@ class Permission < Struct.new(:user)
     return true if controller.end_with?("sessions")
     return true if controller.end_with?("application") && action == "index"
     if user
+      @user = user
       return true if user.app_admin?
 
       if user.org_admin?
@@ -24,6 +25,9 @@ class Permission < Struct.new(:user)
           return true if student_is_owned?(controller, params)
           return true if admin_is_owned?(controller, params)
         end
+
+       return true if update_account_request?(controller, action, params)
+
 
         account_controllers = %w[course learning_module enrolled_course_section /course_section section_module module_supplement supplement_content]
         if user.role.account_manager?
@@ -183,6 +187,11 @@ class Permission < Struct.new(:user)
     def create_module_request?(controller, action, params)
       action == "create" && nested_org_request?(params[:organisation_id]) && controller
         .end_with?("learning_module")
+    end
+
+    def update_account_request?(controller, action, params)
+      action == "update" && (controller.end_with?("org_admin") || controller
+                             .end_with?("student")) && params[:id] == @user.id.to_s
     end
 
     def organisation_students_request?(controller, params)

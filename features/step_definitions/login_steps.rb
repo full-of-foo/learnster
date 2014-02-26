@@ -7,15 +7,15 @@ Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
 
   case user_type_str
   when "system admin"
-    @user = CacheEntities::User.new("Foo", "McBar", "lightweightdevelopment@gmail.com", "foobar")
+    @user = CacheEntities::User.new(first_name: "Foo", surname: "McBar", email: "lightweightdevelopment@gmail.com", password: "foobar")
   when "account admin"
-    @user = CacheEntities::User.new("Foo", "McBar", "admin@foo.com", "foobar")
+    @user = CacheEntities::User.new(first_name: "Foo", surname: "McBar", email: "admin@foo.com", password: "foobar")
   when "course admin"
-    @user = CacheEntities::User.new("Foo", "McBar", "courseadmin@foo.com", "foobar")
+    @user = CacheEntities::User.new(first_name: "Foo", surname: "McBar", email: "courseadmin@foo.com", password: "foobar")
   when "new admin"
-    @user = CacheEntities::User.new("Foo", "McBar", "signup@foo.com", "foobar")
+    @user = CacheEntities::User.new(first_name: "Foo", surname: "McBar", email: "signup@foo.com", password: "foobar")
   when "student"
-    @user = CacheEntities::User.new("Foo", "McBar", "student@foo.com", "foobar")
+    @user = CacheEntities::User.new(first_name: "Foo", surname: "McBar", email: "student@foo.com", password: "foobar")
   else
     raise "invalid user type"
   end

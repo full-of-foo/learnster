@@ -1,0 +1,76 @@
+ <div class="span6">
+			<div class="control-group">
+				<label class="control-label" for="first_name">First Name</label>
+				<div class="controls">
+					<%- @editOrShowField( "first_name", @first_name, true ) %>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="surname">Surname</label>
+				<div class="controls">
+					<%- @editOrShowField( "surname", @surname, true ) %>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="email">E-mail</label>
+				<div class="controls">
+					<%- @editOrShowField( "email", @email, false ) %>
+				</div>
+			</div>
+
+			<% if @currentUser().type is "OrgAdmin": %>
+				<div class="control-group">
+	          <!-- role -->
+	          <label class="control-label">Role</label>
+						<% if(@currentUser().type is "AppAdmin" or (@currentUser().type is "OrgAdmin" and @currentUser().role is "account_manager")): %>
+	                <div id="role-select-region" class="controls"></div>
+						<% else: %>
+							<div class="controls">
+								<%- @editOrShowField( "formatted_role", @formatted_role, false ) %>
+							</div>
+			      <% end %>
+			  </div>
+		 <% end %>
+
+				<div class="control-group">
+					<label class="control-label" for="password">Password</label>
+					<div class="controls">
+						<input type="password" id="password" />
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="password_confirmation">Password Confirm</label>
+					<div class="controls">
+						<input type="password" id="password_confirmation" />
+					</div>
+				</div>
+
+			<div class="control-group">
+				<label class="control-label" for="created-at">Created at</label>
+				<div class="controls">
+					<p id="created-at" class="form-control-static">
+						<%= @created_at_formatted %>
+					</p>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="last-online">Last online</label>
+				<div class="controls">
+					<p id="last-online" class="form-control-static">
+						<%= @last_login_formatted %>
+					</p>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="created-by">Created by</label>
+				<div class="controls">
+					<p id="created-by" class="form-control-static">
+					<% if @created_by: %>
+						<%= @created_by.full_name %>
+					<% end %>
+					</p>
+				</div>
+			</div>
+
+</div>

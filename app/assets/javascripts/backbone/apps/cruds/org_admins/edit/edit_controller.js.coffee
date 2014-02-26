@@ -19,7 +19,6 @@
 
     setFormRegion: (org_admin) ->
       @editView = @getEditView org_admin
-      @setRoleSelector()
 
       @listenTo @editView, "show", ->
         @setRoleSelector(org_admin)
