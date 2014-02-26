@@ -47,6 +47,10 @@ Given(/^I open my first Course$/) do
   StepsDataCache.course = course
 end
 
+Given(/^I open the first Course$/) do
+  step("I open my first Course")
+end
+
 Given(/^I create a Course$/) do
   step('I open the add-course well')
   page = Pages::CoursesPage.new(@browser)

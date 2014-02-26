@@ -14,5 +14,9 @@ child :provisioned_by => :provisioned_by do
 end
 
 child :course => :course do
-  attributes :id, :title, :organisation_id
+  attributes :id, :title, :organisation_id, :managed_by
+
+  child :managed_by => :managed_by do
+    attributes :id, :email, :first_name, :surname, :full_name
+  end
 end

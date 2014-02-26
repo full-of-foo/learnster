@@ -108,9 +108,9 @@ Scenario: Course admin sidebar navigation
   Then the "Dashboard" nav is active
   And I should see the text "Modules"
 
-  Then I sidebar navigate to "My Courses"
-  Then the "My Courses" nav is active
-  And I should see the text "My Courses..."
+  Then I sidebar navigate to "All Courses"
+  Then the "All Courses" nav is active
+  And I should see the text "Courses..."
 
   Then I sidebar navigate to "My Learning Modules"
   Then the "My Learning Modules" nav is active

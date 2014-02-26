@@ -14,7 +14,7 @@ Scenario: Account Admin Settings
   Then I topbar navigate to "Settings"
   And I see the settings the page
 
-@user_settings-1
+@user_settings-2
 Scenario: Account Admin Settings
   Given I navigate to the "login" page
   And I attempt to login with a known "course admin"

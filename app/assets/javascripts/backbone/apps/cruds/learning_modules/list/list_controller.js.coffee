@@ -128,6 +128,8 @@
 
     _deleteColTemplateString: ->
       '<% if ( (currentUser.get("type") === "OrgAdmin" && currentUser.get("role") === "course_manager"
+              && model.get("educator_id") === currentUser.get("id") 
+        || currentUser.get("type") === "OrgAdmin" && currentUser.get("role") === "module_manager"
               && model.get("educator_id") === currentUser.get("id") )
         || currentUser.get("type") ===  "AppAdmin" || (currentUser.get("type") === "OrgAdmin"
                                                        && currentUser.get("role") === "account_manager" )) { %>

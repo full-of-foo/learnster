@@ -1,23 +1,37 @@
-<div id="list-panel" class="modal-header">
-    <div class="btn-group pull-right">
+<% isEditableForm = false %>
+<% u = @currentUser() %>
 
-        <a id="add-module-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
-        Add Module</a>
-        <a id="remove-module-button" class="btn" href="#"><i class="fa fa-fixed-width fa-times-circle"></i>
-        Remove Module</a>
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu">
-            <li><a href="/api/organisation/<%= @course.organisation_id %>/course_section/<%= @id %>/learning_module.xlsx"
-            <i class="fa fa-fixed-width fa-level-down"></i>
-            Export All</a>
-            </li>
-            <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
-            </li>
-        </ul>
+<% if u.type is "OrgAdmin" and u.role is "course_manager": %>
+  <% hasPermission = (@isCreatedByUser(@course.managed_by) or @isCreatedByUser(@provisioned_by)) %>
+<% else if u.type is "OrgAdmin" and u.role is "account_manager": %>
+  <% hasPermission = true %>
+<% else: %>
+  <% hasPermission = false %>
+<% end %>
 
-    </div>
 
-</div>
-<div id="push"></div>
+<% if hasPermission: %>
+  <div id="list-panel" class="modal-header">
+      <div class="btn-group pull-right">
+
+          <a id="add-module-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+          Add Module</a>
+          <a id="remove-module-button" class="btn" href="#"><i class="fa fa-fixed-width fa-times-circle"></i>
+          Remove Module</a>
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="fa fa-caret-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+              <li><a href="/api/organisation/<%= @course.organisation_id %>/course_section/<%= @id %>/learning_module.xlsx"
+              <i class="fa fa-fixed-width fa-level-down"></i>
+              Export All</a>
+              </li>
+              <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
+              </li>
+          </ul>
+
+      </div>
+
+  </div>
+  <div id="push"></div>
+<% end %>

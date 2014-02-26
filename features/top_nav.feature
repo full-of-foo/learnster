@@ -22,7 +22,6 @@ Scenario: Top navigate to items as system admin
 
   Then I topbar navigate to "Notifications"
   And I should see the text "Application Notifications"
-  And there exists some notifications
 
   Then I topbar navigate to "Statistics"
   And I should see the text "App Statistics"
@@ -38,7 +37,6 @@ Scenario: Top navigate to items as account admin
 
   Then I topbar navigate to "Notifications"
   And I should see the text "Organisation Notifications"
-  And there exists some notifications
 
   Then I topbar navigate to "Statistics"
   And I should see the text "Organisation Statistics"
@@ -57,7 +55,6 @@ Scenario: Top navigate to items as course admin
 
   Then I topbar navigate to "Notifications"
   And I should see the text "My Notifications"
-  And there exists some notifications
 
   Then I topbar navigate to "Statistics"
   And I should see the text "Organisation Statistics"
@@ -76,7 +73,6 @@ Scenario: Top navigate to items as module admin
 
   Then I topbar navigate to "Notifications"
   And I should see the text "My Notifications"
-  And there exists some notifications
 
   Then I topbar navigate to "Statistics"
   And I should see the text "Organisation Statistics"

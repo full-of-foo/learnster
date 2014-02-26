@@ -123,8 +123,18 @@
        { title: "# Modules", htmlContent: '<%= model.get("module_count") %>', default: true,  isSortable: true, isRemovable: false },
        { title: "Provisioner", attrName: "provisioned_by.full_name", isSortable: true, isRemovable: false, default: true },
        { title: "Created On", attrName: "created_at_formatted", isSortable: true, default: true, isRemovable: false },
-       { htmlContent: '<div class="delete-icon"><i class="icon-remove-sign"></i></div>', className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
+       { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
       ]
+
+    _deleteColTemplateString: ->
+      '<% if ( (currentUser.get("type") === "OrgAdmin" && currentUser.get("role") === "course_manager"
+              && (model.get("provisioned_by").id === currentUser.get("id") || model.get("course").managed_by.id === currentUser.get("id"))
+              || currentUser.get("type") === "OrgAdmin" && currentUser.get("role") === "module_manager"
+              && (model.get("provisioned_by").id === currentUser.get("id") || model.get("course").managed_by.id === currentUser.get("id")))
+        || currentUser.get("type") ===  "AppAdmin" || (currentUser.get("type") === "OrgAdmin"
+                                                       && currentUser.get("role") === "account_manager" )) { %>
+        <div class="delete-icon"><i class="icon-remove-sign"></i></div>
+        <% } %>'
 
     getTableOptions: (columns) ->
       columns: columns

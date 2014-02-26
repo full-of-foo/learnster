@@ -9,7 +9,7 @@ Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
   when "system admin"
     @user = CacheEntities::User.new(first_name: "Foo", surname: "McSystemadmin", email: "lightweightdevelopment@gmail.com", password: "foobar")
   when "account admin"
-    @user = CacheEntities::User.new(first_name: "Foo", surname: "McAccmgr", email: "student@foo.com", password: "foobar")
+    @user = CacheEntities::User.new(first_name: "Foo", surname: "McAccmgr", email: "admin@foo.com", password: "foobar")
   when "course admin"
     @user = CacheEntities::User.new(first_name: "Foo", surname: "McCoursemgr", email: "courseadmin@foo.com", password: "foobar")
   when "module admin"

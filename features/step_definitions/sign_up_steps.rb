@@ -7,7 +7,7 @@ end
 
 Given(/^I sign up an account admin$/) do
   page = Pages::SignUpPage.new(@browser)
-  signup_user = CacheEntities::User.new("Foo", "McBar", "signup@foo.com", "foobar")
+  signup_user = CacheEntities::User.new(first_name: "Foo", surname: "McBar", email: "signup@foo.com", password: "foobar")
 
   page.sign_up_account_admin(signup_user)
   StepsDataCache.signup_user = signup_user

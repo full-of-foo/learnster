@@ -20,6 +20,8 @@ Given(/^I sidebar navigate to "(.+)"$/) do |nav_text|
     page.side_nav_to(page.all_admins_nav_link)
   when "All Students"
     page.side_nav_to(page.all_students_nav_link)
+  when "All Courses"
+    page.side_nav_to(page.all_courses_nav_link)
   when "My Administrators"
     page.side_nav_to(page.my_admins_nav_link)
   when "My Students"
@@ -56,6 +58,8 @@ Then(/^the "(.+)" nav is active$/) do |nav_text|
     link_class = page.all_admins_nav_link.when_present.parent.class_name
   when "All Students"
     link_class = page.all_students_nav_link.when_present.parent.class_name
+  when "All Courses"
+    link_class = page.all_courses_nav_link.when_present.parent.class_name
   when "My Courses"
     link_class = page.my_courses_nav_link.when_present.parent.class_name
   when "My Learning Modules"

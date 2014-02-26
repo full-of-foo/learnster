@@ -26,6 +26,8 @@
           when "side-item-dash"         then @sideNavTo("/organisation/#{@_getOrgId(user)}/dashboard", child)
           when "side-item-all-admins"   then @sideNavTo("/organisation/#{@_getOrgId(user)}/admins", child)
           when "side-item-all-students" then @sideNavTo("/organisation/#{@_getOrgId(user)}/students", child)
+          when "side-item-all-courses"  then @sideNavTo("/organisation/#{@_getOrgId(user)}/courses", child)
+          when "side-item-all-modules"  then @sideNavTo("/organisation/#{@_getOrgId(user)}/modules", child)
           when "side-item-my-students"  then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_students", child)
           when "side-item-my-administrators" then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_admins", child)
           when "side-item-my-courses"   then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_courses", child)
@@ -48,8 +50,12 @@
     getAccountAdminBarItems: ->
       [
         { text: "Dashboard", id: "side-item-dash" },
+        { text: "All Courses", id: "side-item-all-courses"  },
+        { text: "All Learning Modules", id: "side-item-all-modules"  },
         { text: "All Administrators", id: "side-item-all-admins"  },
         { text: "All Students", id: "side-item-all-students"  },
+        { text: "My Courses", id: "side-item-my-courses"  },
+        { text: "My Learning Modules", id: "side-item-my-modules"  },
         { text: "My Administrators", id: "side-item-my-administrators"  }
         { text: "My Students", id: "side-item-my-students"  }
       ]
@@ -59,17 +65,20 @@
         { text: "Dashboard", id: "side-item-dash" },
         { text: "My Courses", id: "side-item-my-courses"  },
         { text: "My Learning Modules", id: "side-item-my-modules"  },
+        { text: "All Courses", id: "side-item-all-courses"  },
+        { text: "All Learning Modules", id: "side-item-all-modules"  },
         { text: "All Administrators", id: "side-item-all-admins"  },
-        { text: "All Students", id: "side-item-all-students"  },
+        { text: "All Students", id: "side-item-all-students"  }
       ]
 
     getModuleAdminBarItems: ->
       [
         { text: "Dashboard", id: "side-item-dash" },
-        { text: "My Courses", id: "side-item-my-courses"  },
         { text: "My Learning Modules", id: "side-item-my-modules"  },
+        { text: "All Courses", id: "side-item-all-courses"  },
+        { text: "All Learning Modules", id: "side-item-all-modules"  },
         { text: "All Administrators", id: "side-item-all-admins"  },
-        { text: "All Students", id: "side-item-all-students"  },
+        { text: "All Students", id: "side-item-all-students"  }
       ]
 
     getStudentBarItems: ->

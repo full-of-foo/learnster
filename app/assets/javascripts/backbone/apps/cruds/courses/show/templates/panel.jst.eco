@@ -1,26 +1,34 @@
-<div id="list-panel" class="modal-header">
+<% u = @currentUser() %>
 
-    <div class="btn-group pull-right">
+<% if u.type is "OrgAdmin" and u.role is "course_manager": %>
+  <% hasPermission = @isCreatedByUser(@managed_by) %>
+<% else if u.type is "AppAdmin" or (u.type is "OrgAdmin" and u.role is "account_manager"): %>
+  <% hasPermission = true %>
+<% else: %>
+  <% hasPermission = false %>
+<% end %>
 
-        <a id="new-course-section-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i><% if @nestingOrg: %>
-        Add
-        <% else: %>
-        New
-        <% end %>
-         Course Section</a>
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu">
-        <% console.log @ %>
-            <li><a href="/api/organisation/<%= @organisation.id %>/course/<%= @id %>/course_section.xlsx"><i class="fa fa-fixed-width fa-level-down"></i>
-            Export All</a>
-            </li>
-            <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
-            </li>
-        </ul>
 
-    </div>
+<% if hasPermission: %>
+  <div id="list-panel" class="modal-header">
 
-</div>
-<div id="push"></div>
+      <div class="btn-group pull-right">
+
+          <a id="new-course-section-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+          New Course Section</a>
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="fa fa-caret-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+              <li><a href="/api/organisation/<%= @organisation.id %>/course/<%= @id %>/course_section.xlsx"><i class="fa fa-fixed-width fa-level-down"></i>
+              Export All</a>
+              </li>
+              <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
+              </li>
+          </ul>
+
+      </div>
+
+  </div>
+  <div id="push"></div>
+<% end %>

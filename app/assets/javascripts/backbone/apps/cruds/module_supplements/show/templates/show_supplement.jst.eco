@@ -1,7 +1,7 @@
 <% isEditableForm = false %>
 <% u = @currentUser() %>
 
-<% if u.type is "OrgAdmin" and u.role is "course_manager": %>
+<% if u.type is "OrgAdmin" and (u.role is "course_manager" or u.role is "module_manager"): %>
   <% isEducatedBy = @isCreatedByUser(@learning_module.educator_id) %>
 <% else if u.type is "OrgAdmin" and u.role is "account_manager": %>
   <% isEducatedBy = true %>

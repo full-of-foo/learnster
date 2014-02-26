@@ -16,6 +16,7 @@ module Pages
 
     attr_accessor :my_courses_nav_link
     attr_accessor :my_modules_nav_link
+    attr_accessor :all_courses_nav_link
 
 
     def initialize(browser)
@@ -36,6 +37,7 @@ module Pages
 
       @my_courses_nav_link  = @browser.link(id: 'side-item-my-courses')
       @my_modules_nav_link  = @browser.link(id: 'side-item-my-modules')
+      @all_courses_nav_link = @browser.link(id: 'side-item-all-courses')
     end
 
     # operations
