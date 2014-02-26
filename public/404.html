@@ -14,19 +14,15 @@
   </style>
 </head>
 
-<body id="404-page">
+<body>
   <script type="text/javascript">
 
-      window.onload = function () {
+      var page = document.getElementsByTagName('body');
 
-        var page = document.getElementById('404-page');
+      page.addEventListener('click', function() {
+          document.location.href = '/';
+      }, false);
 
-        page.addEventListener('click', function() {
-            document.location.href = '/';
-        }, false);
-
-      }
-
-    </script>
+  </script>
 </body>
 </html>
