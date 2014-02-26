@@ -1,0 +1,19 @@
+<% if @type is "AppAdmin": %>
+  <small class="sub-logo">system administrator</small>
+
+<% else if @type is "OrgAdmin": %>
+
+    <% if @role is "account_manager": %>
+      <small class="sub-logo">account manager</small>
+
+    <% else if @role is "course_manager": %>
+      <small class="sub-logo">course manager</small>
+
+    <% else: %>
+      <small class="sub-logo">module manager</small>
+    <% end %>
+
+<% else if @type is "Student": %>
+  <small class="sub-logo">student</small>
+
+<% end %>

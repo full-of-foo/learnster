@@ -8,7 +8,8 @@
 
       @listenTo @layout, "show", =>
         @showDock()
-        @showLogout() if Object(user) not instanceof Boolean
+        @showLogout()      if Object(user) not instanceof Boolean
+        @showSubLogo(user) if Object(user) not instanceof Boolean
 
       @show @layout
 
@@ -41,6 +42,11 @@
       @show dockView,
           region: @layout.dockRegion
 
+    showSubLogo: (user) ->
+      logoView = @getSubLogoView(user)
+      @show logoView,
+          region: @layout.subLogoRegion
+
     showLogout: ->
       logoutView = App.request "new:destroy:icon:view"
 
@@ -52,3 +58,8 @@
 
     getLayoutView:  ->
       new Show.Layout()
+
+    getSubLogoView: (user) ->
+      new Show.SubLogo
+        model: user
+
