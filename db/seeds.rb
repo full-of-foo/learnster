@@ -16,10 +16,10 @@
 1.times do |i|
   params = {
     email: "lightweightdevelopment@gmail.com",
-    first_name: "Anthony",
+    first_name: "Foo",
     password: "foobar",
     password_confirmation: "foobar",
-    surname: "Troy"
+    surname: "McSystemadmin"
   }
   AppAdmin.new(params).save!
 end
@@ -110,13 +110,13 @@ Student.all.each do |s|
   count = 1 if count == 34
 end
 
-Student.first.update!(first_name: "Foo", surname: "McBar", email: "student@foo.com", password: "foobar",
+Student.first.update!(first_name: "Foo", surname: "McStudent", email: "student@foo.com", password: "foobar",
   password_confirmation: "foobar", attending_org: Organisation.first)
-OrgAdmin.first.update!(first_name: "Foo", surname: "McBar", email: "admin@foo.com", password: "foobar",
+OrgAdmin.first.update!(first_name: "Foo", surname: "McAccmgr", email: "admin@foo.com", password: "foobar",
   role: "account_manager", password_confirmation: "foobar", admin_for: Organisation.first)
-OrgAdmin.first(offset: 1).update!(first_name: "Foo", surname: "McBar", email: "courseadmin@foo.com",
+OrgAdmin.first(offset: 1).update!(first_name: "Foo", surname: "McCourseadmin", email: "courseadmin@foo.com",
   password: "foobar", role: "course_manager", password_confirmation: "foobar", admin_for: Organisation.first)
-OrgAdmin.first(offset: 2).update!(first_name: "Foo", surname: "McBar", email: "moduleadmin@foo.com",
+OrgAdmin.first(offset: 2).update!(first_name: "Foo", surname: "McModuleadmin", email: "moduleadmin@foo.com",
   password: "foobar", role: "module_manager", password_confirmation: "foobar", admin_for: Organisation.first)
 
 

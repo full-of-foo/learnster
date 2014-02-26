@@ -13,17 +13,17 @@
       user = App.request "get:current:user"
 
       App.execute "when:fetched", user, =>
-        isCourseManager = (user.get('type') is "OrgAdmin" and user.get('role') is "course_manager")
+        isManager = (user.get('type') is "OrgAdmin" and (user.get('role') is "course_manager" or user.get('role') is "module_manager"))
         userId = user.get('id')
 
         opts =
           nestedId: @_nestingOrg.get('id')
           page:     1
-          adminId: user.get('id') if isCourseManager
+          adminId: user.get('id') if isManager
 
         courses = App.request "org:course:entities", opts.nestedId
         modules = App.request "learning_module:entities", opts.nestedId
-        files = if isCourseManager then App.request("educator:content:entities", userId) else App.request("org:supplement:content:entities", opts.nestedId)
+        files = if isManager then App.request("educator:content:entities", userId) else App.request("org:supplement:content:entities", opts.nestedId)
         notifications = App.request "search:notifications:entities", opts
 
 

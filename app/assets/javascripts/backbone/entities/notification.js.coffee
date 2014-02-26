@@ -24,13 +24,13 @@
         reset: true
       notifications
 
-    getCourseManagerNotificationEntities: (orgId, adminId) ->
+    getManagerNotificationEntities: (orgId, adminId) ->
       notifications = new Entities.NotificationsCollection
         url: Routes.api_organisation_activities_path(orgId)
       notifications.fetch
         reset: true
         data:
-          course_manager_id: adminId
+          manager_id: adminId
 
       notifications
 
@@ -39,7 +39,7 @@
       opts = {}
       opts['page']              = page if page
       opts['search']            = term if term
-      opts['course_manager_id'] = adminId if adminId
+      opts['manager_id'] = adminId if adminId
 
       if nestedId
         notifications = new Entities.NotificationsCollection
@@ -56,8 +56,8 @@
   App.reqres.setHandler "org:notification:entities", (orgId) ->
     API.getOrgNotificationEntities(orgId)
 
-  App.reqres.setHandler "course:manager:notification:entities", (orgId, adminId) ->
-    API.getCourseManagerNotificationEntities(orgId, adminId)
+  App.reqres.setHandler "manager:notification:entities", (orgId, adminId) ->
+    API.getManagerNotificationEntities(orgId, adminId)
 
   App.reqres.setHandler "notification:entities", ->
     API.getNotificationEntities()

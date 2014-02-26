@@ -11,7 +11,7 @@ class Activity < ActiveRecord::Base
           .where("users.type = ? AND users.admin_for = ?", "OrgAdmin", organisation_id))
   end
 
-  def self.course_manager_activities(admin_id)
+  def self.manager_activities(admin_id)
     admin              = OrgAdmin.find(admin_id)
 
     course_ids         = admin.managed_courses.ids
