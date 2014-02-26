@@ -59,10 +59,18 @@ class Permission < Struct.new(:user)
         end
 
         if user.role.module_manager?
-          return true if controller.end_with?("learning_module") && action.in?(%w[create index show update destroy])
-          return true if controller.end_with?("section_module") && action.in?(%w[create index show update destroy])
-          return true if controller.end_with?("module_supplement") && action.in?(%w[create index show update destroy])
-          return true if controller.end_with?("supplement_content") && action.in?(%w[create index show update destroy])
+          account_controllers.each do |controller_name|
+            return true if reads_on_controller?(controller_name, controller, action)
+          end
+
+          if course_related_controller_request?(controller)
+            @admin_modules = user.learning_modules
+            return true if my_supplement_updates_and_creates?(controller, action, params)
+            return true if my_content_updates_and_creates?(controller, action, params)
+            return true if my_module_updates?(controller, action, params)
+            return true if create_module_request?(controller, action, params)
+          end
+
         end
 
       end

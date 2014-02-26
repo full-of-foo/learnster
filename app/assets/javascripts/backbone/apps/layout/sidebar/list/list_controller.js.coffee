@@ -7,6 +7,7 @@
         when "AppAdmin"        then sideBarItems = @getAppAdminBarItems()
         when "account_manager" then sideBarItems = @getAccountAdminBarItems()
         when "course_manager"  then sideBarItems = @getCourseAdminBarItems()
+        when "module_manager"  then sideBarItems = @getModuleAdminBarItems()
         when "Student"         then sideBarItems = @getStudentBarItems()
         when "Login"           then sideBarItems = @getLoginBarItems()
 
@@ -54,6 +55,15 @@
       ]
 
     getCourseAdminBarItems: ->
+      [
+        { text: "Dashboard", id: "side-item-dash" },
+        { text: "My Courses", id: "side-item-my-courses"  },
+        { text: "My Learning Modules", id: "side-item-my-modules"  },
+        { text: "All Administrators", id: "side-item-all-admins"  },
+        { text: "All Students", id: "side-item-all-students"  },
+      ]
+
+    getModuleAdminBarItems: ->
       [
         { text: "Dashboard", id: "side-item-dash" },
         { text: "My Courses", id: "side-item-my-courses"  },

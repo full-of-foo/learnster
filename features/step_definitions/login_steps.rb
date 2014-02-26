@@ -12,6 +12,8 @@ Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
     @user = CacheEntities::User.new(first_name: "Foo", surname: "McBar", email: "admin@foo.com", password: "foobar")
   when "course admin"
     @user = CacheEntities::User.new(first_name: "Foo", surname: "McBar", email: "courseadmin@foo.com", password: "foobar")
+  when "module admin"
+    @user = CacheEntities::User.new(first_name: "Foo", surname: "McBar", email: "moduleadmin@foo.com", password: "foobar")
   when "new admin"
     @user = CacheEntities::User.new(first_name: "Foo", surname: "McBar", email: "signup@foo.com", password: "foobar")
   when "student"

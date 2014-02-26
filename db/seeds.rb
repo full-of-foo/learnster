@@ -116,6 +116,8 @@ OrgAdmin.first.update!(first_name: "Foo", surname: "McBar", email: "admin@foo.co
   role: "account_manager", password_confirmation: "foobar", admin_for: Organisation.first)
 OrgAdmin.first(offset: 1).update!(first_name: "Foo", surname: "McBar", email: "courseadmin@foo.com",
   password: "foobar", role: "course_manager", password_confirmation: "foobar", admin_for: Organisation.first)
+OrgAdmin.first(offset: 2).update!(first_name: "Foo", surname: "McBar", email: "moduleadmin@foo.com",
+  password: "foobar", role: "module_manager", password_confirmation: "foobar", admin_for: Organisation.first)
 
 
 ########################
@@ -154,7 +156,7 @@ course_students.each { |s| EnrolledCourseSection
 
 
 4.times do |i|
-  module_educator = course_org.admins.order("RANDOM()").first
+  module_educator = OrgAdmin.first(offset: 2)
   params = {
     title: "Object Orientated Programming " + "#{i + 1}",
     description: Faker::Lorem.sentence,
