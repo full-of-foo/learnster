@@ -56,7 +56,7 @@
         { text: "All Students", id: "side-item-all-students"  },
         { text: "My Courses", id: "side-item-my-courses"  },
         { text: "My Learning Modules", id: "side-item-my-modules"  },
-        { text: "My Administrators", id: "side-item-my-administrators"  }
+        { text: "My Administrators", id: "side-item-my-administrators"  },
         { text: "My Students", id: "side-item-my-students"  }
       ]
 
@@ -83,9 +83,12 @@
 
     getStudentBarItems: ->
       [
-        { text: "Dashboard"},
-        { text: "Educators" },
-        { text: "Modules"  }
+        { text: "Dashboard", id: "side-item-dash" },
+        { text: "My Courses", id: "side-item-my-courses"  },
+        { text: "My Learning Modules", id: "side-item-my-modules"  },
+        { text: "My Educators", id: "side-item-my-administrators"  },
+        { text: "My Coursemates", id: "side-item-my-students"  }
+
       ]
 
     getLoginBarItems: ->
@@ -95,6 +98,6 @@
       ]
 
     _getOrgId: (user) ->
-      id = user.get('admin_for').id if user instanceof App.Entities.OrgAdmin
-      id = user.get('attendning_org').id if user instanceof App.Entities.Student
+      id = user.get('admin_for').id     if user instanceof App.Entities.OrgAdmin
+      id = user.get('attending_org').id if user instanceof App.Entities.Student
       id

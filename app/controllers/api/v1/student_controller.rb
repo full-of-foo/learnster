@@ -8,19 +8,21 @@ class Api::V1::StudentController < ApplicationController
 
   def index
     if search_request?
-      @students = Student.search_term(params[:search]).page(params[:page]).per_page(20)         if search_term_request?(params)
+      @students = Student.search_term(params[:search]).page(params[:page]).per_page(20)      if search_term_request?(params)
       @students = Student.search_term(params[:search], nil, params[:created_by])
-        .page(params[:page]).per_page(20) if nested_org_term_search?(params) && params[:created_by]
+        .page(params[:page]).per_page(20)                                                    if nested_org_term_search?(params) && params[:created_by]
+      @students = Student.search_term(params[:search], nil, nil, params[:student_id])
+        .page(params[:page]).per_page(20)                                                    if nested_org_term_search?(params) && params[:student_id]
       @students = Student.search_term(params[:search], @org).page(params[:page])
-        .per_page(20)   if nested_org_term_search?(params) && !params[:created_by]
-      @students = Student.search_range(params[:created_months_ago], :created_at)                if created_at_search?(params)
-      @students = Student.search_range(params[:updated_months_ago], :updated_at)                if updated_at_search?(params)
-      @students = Student.search_range(params[:created_months_ago], :created_at, @org)          if nested_org_created_at_search?(params)
-      @students = Student.search_range(params[:updated_months_ago], :updated_at, @org)          if nested_org_updated_at_search?(params)
+        .per_page(20)                                                                        if nested_org_term_search?(params) && !params[:created_by] && !params[:student_id]
+      @students = Student.search_range(params[:created_months_ago], :created_at)             if created_at_search?(params)
+      @students = Student.search_range(params[:updated_months_ago], :updated_at)             if updated_at_search?(params)
+      @students = Student.search_range(params[:created_months_ago], :created_at, @org)       if nested_org_created_at_search?(params)
+      @students = Student.search_range(params[:updated_months_ago], :updated_at, @org)       if nested_org_updated_at_search?(params)
       return @students
     end
 
-    if params[:page] && !params[:section_id]
+    if params[:page] && !params[:section_id] && !params[:created_by] && !params[:student_id]
       @students = nested_org_request?(params) ? @org.students()
         .page(params[:page]).per_page(20) : Student.all.page(params[:page]).per_page(20)
     elsif params[:page] && params[:section_id]
@@ -28,6 +30,9 @@ class Api::V1::StudentController < ApplicationController
         .per_page(20)
     elsif params[:page] && params[:created_by]
       @students = OrgAdmin.find(params[:created_by]).created_students.page(params[:page])
+        .per_page(20)
+    elsif params[:page] && params[:student_id]
+      @students = Student.coursemates(params[:student_id]).page(params[:page])
         .per_page(20)
     else
       @students = nested_org_request?(params) ? @org.students : Student.all

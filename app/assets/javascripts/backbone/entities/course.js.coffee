@@ -31,6 +31,18 @@
       courses.put('managed_by',  adminId)
       courses
 
+    getStudentOrgCourseEntities: (orgId, studentId) ->
+      courses = new Entities.CourseCollection
+        url: Routes.api_organisation_course_index_path(orgId)
+      courses.fetch
+        reset: true
+        data:
+          page: 1
+          student_id: studentId
+
+      courses.put('student_id',  studentId)
+      courses
+
     setCurrentCourse: (attrs) ->
       new Entities.Course attrs
 
@@ -46,7 +58,7 @@
       new Entities.Course
 
     getSearchCourseEntities: (searchOpts) ->
-      { term, nestedId, managedId } = searchOpts
+      { term, nestedId, managedId, studiedId } = searchOpts
       if nestedId
         courses = new Entities.CourseCollection
           url: Routes.api_organisation_course_index_path(nestedId)
@@ -54,12 +66,14 @@
         courses = new Entities.CourseCollection
 
       term['managed_by'] = managedId if managedId
+      term['student_id'] = studiedId if studiedId
       courses.fetch
         reset: true
         data: $.param(term)
 
       courses.put('search',     term['search'])
       courses.put('managed_by', term['managed_by'])
+      courses.put('student_id', term['student_id'])
       courses
 
 
@@ -68,6 +82,9 @@
 
   App.reqres.setHandler "admin:org:course:entities", (orgId, adminId) ->
     API.getAdminOrgCourseEntities(orgId, adminId)
+
+  App.reqres.setHandler "student:org:course:entities", (orgId, studentId) ->
+    API.getStudentOrgCourseEntities(orgId, studentId)
 
   App.reqres.setHandler "search:courses:entities", (searchOpts) ->
     API.getSearchCourseEntities searchOpts

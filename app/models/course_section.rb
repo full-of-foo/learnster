@@ -12,6 +12,8 @@ class CourseSection < ActiveRecord::Base
   validates_presence_of :section, :provisioned_by, :course_id
   validates_uniqueness_of :section, :scope => [:course_id]
 
+  generate_scopes
+
   def self.organisation_course_sections(organisation_id, course_id = nil)
     if course_id.nil?
       self.joins(:course => :organisation).where("courses.organisation_id = ?", organisation_id)

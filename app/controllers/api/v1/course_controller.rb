@@ -7,17 +7,22 @@ class Api::V1::CourseController < ApplicationController
   def index
      if search_request?
       @courses = Course.search_term(params[:search]).page(params[:page]).per_page(20)        if search_term_request?(params)
+      @courses = Course.search_term(params[:search], nil, nil, params[:student_id])
+        .page(params[:page]).per_page(20)                                                    if nested_org_term_search?(params) && !params[:managed_by] && params[:student_id]
       @courses = Course.search_term(params[:search], nil, params[:managed_by])
-        .page(params[:page]).per_page(20)                                                    if nested_org_term_search?(params) && params[:managed_by]
-      @courses = Course.search_term(params[:search], @org).page(params[:page]).per_page(20)  if nested_org_term_search?(params) && !params[:managed_by]
+        .page(params[:page]).per_page(20)                                                    if nested_org_term_search?(params) && params[:managed_by] && !params[:student_id]
+      @courses = Course.search_term(params[:search], @org).page(params[:page]).per_page(20)  if nested_org_term_search?(params) && !params[:managed_by] && !params[:student_id]
       return @courses
     end
 
-    if !params[:managed_by]
+    if !params[:managed_by] && ! params[:student_id]
       @courses = nested_org_request?(params) ? @org.courses()
         .page(params[:page]).per_page(20) : Course.all.page(params[:page]).per_page(20)
     elsif params[:page] && params[:managed_by]
       @courses = OrgAdmin.find(params[:managed_by]).managed_courses.page(params[:page])
+        .per_page(20)
+    elsif params[:page] && params[:student_id]
+      @courses = Course.student_courses(params[:student_id]).page(params[:page])
         .per_page(20)
     end
 

@@ -3,26 +3,31 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      @_isTeachingModules = options.isTeachingModules
+      @_isMyModules = options.isMyModules
       @_nestingOrgId = if options.id then options.id else false
       @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
-      modules = @getModules()
+      App.execute "when:fetched", App.currentUser, =>
+        modules = @getModules()
 
-      @layout = @getLayoutView()
+        @layout = @getLayoutView()
 
-      @listenTo @layout, "show", =>
-        @showSearch modules
-        @showPanel modules
-        @showModules modules
+        @listenTo @layout, "show", =>
+          @showSearch modules
+          @showPanel modules
+          @showModules modules
 
-      @show @layout
+        @show @layout
 
     getModules: ->
-      if not @_isTeachingModules
+      user = App.currentUser
+
+      if not @_isMyModules
         modules = App.request("learning_module:entities", @_nestingOrgId)
-      else
-        modules = App.request("admin:learning_module:entities", @_nestingOrgId, App.currentUser.get('id'))
+      else if(user.get('type') is "OrgAdmin")
+        modules = App.request("admin:learning_module:entities", @_nestingOrgId, user.get('id'))
+      else if(user.get('type') is "Student")
+        modules = App.request("student:learning_module:entities", @_nestingOrgId, user.get('id'))
       modules
 
     showNewRegion: ->
@@ -30,7 +35,7 @@
       App.execute "new:module:view", @layout.newRegion
 
     showPanel: (modules) ->
-      if @_isTeachingModules
+      if @_isMyModules
         panelView = @getMyPanelView modules
       else
         panelView = @getPanelView modules
@@ -49,12 +54,14 @@
       @layout.searchRegion.show searchView
 
     searchModules: (searchTerm) ->
-      educatorId = App.currentUser.get('id')
+      user = App.currentUser
+      userId = user.get('id')
 
       searchOpts =
         nestedId: @_nestingOrg?.id
         term: searchTerm
-        educatorId: educatorId if @_isTeachingModules
+        educatorId: userId if @_isMyModules and user.get('type') is "OrgAdmin"
+        studentId: userId  if @_isMyModules and user.get('type') is "Student"
 
       @showSearchModules(searchOpts)
 

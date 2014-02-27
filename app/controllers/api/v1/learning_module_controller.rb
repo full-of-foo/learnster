@@ -7,9 +7,11 @@ class Api::V1::LearningModuleController < ApplicationController
   def index
     if search_request?
       @learning_modules = LearningModule.search_term(params[:search]).page(params[:page]).per_page(20)        if search_term_request?(params)
-      @learning_modules = LearningModule.search_term(params[:search], @org).page(params[:page]).per_page(20)  if nested_org_term_search?(params) && !params[:educator_id]
+      @learning_modules = LearningModule.search_term(params[:search], @org).page(params[:page]).per_page(20)  if nested_org_term_search?(params) && !params[:educator_id] && !params[:student_id]
       @learning_modules = LearningModule.search_term(params[:search], nil, params[:educator_id])
         .page(params[:page]).per_page(20)                                                                     if nested_org_term_search?(params) && params[:educator_id]
+      @learning_modules = LearningModule.search_term(params[:search], nil, nil, params[:student_id])
+        .page(params[:page]).per_page(20)                                                                     if nested_org_term_search?(params) && params[:student_id]
       return @learning_modules
     end
 
@@ -19,6 +21,9 @@ class Api::V1::LearningModuleController < ApplicationController
         .page(params[:page]).per_page(20)
     elsif !params[:course_section_id] && params[:educator_id]
       @learning_modules = OrgAdmin.find(params[:educator_id]).learning_modules
+        .page(params[:page]).per_page(20)
+    elsif params[:student_id]
+      @learning_modules = LearningModule.student_modules(params[:student_id])
         .page(params[:page]).per_page(20)
     else
       @learning_modules = nested_org_request?(params) ? LearningModule.organisation_modules(@org.id)

@@ -3,26 +3,29 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      @_isManagedCourses  = options.isManagedCourses
+      @_isMyCourses  = options.isMyCourses
       @_nestingOrgId      = if options.id then options.id else false
       @_nestingOrg        = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
-      courses = @getCourses()
+      App.execute "when:fetched", App.currentUser, =>
+        courses = @getCourses()
 
-      @layout = @getLayoutView()
+        @layout = @getLayoutView()
 
-      @listenTo @layout, "show", =>
-        @showSearch courses
-        @showPanel courses
-        @showCourses courses
+        @listenTo @layout, "show", =>
+          @showSearch courses
+          @showPanel courses
+          @showCourses courses
 
-      @show @layout
+        @show @layout
 
     getCourses: ->
-      if not @_isManagedCourses
+      if not @_isMyCourses
         courses = App.request("org:course:entities", @_nestingOrgId)
-      else
+      else if(App.currentUser.get('type') is "OrgAdmin")
         courses = App.request("admin:org:course:entities", @_nestingOrgId, App.currentUser.get('id'))
+      else if(App.currentUser.get('type') is "Student")
+        courses = App.request("student:org:course:entities", @_nestingOrgId, App.currentUser.get('id'))
       courses
 
     showNewRegion: ->
@@ -30,7 +33,7 @@
       App.execute "new:course:view", @layout.newRegion
 
     showPanel: (courses) ->
-      if @_isManagedCourses
+      if @_isMyCourses
         panelView = @getMyPanelView courses
       else
         panelView = @getPanelView courses
@@ -49,12 +52,13 @@
       @layout.searchRegion.show searchView
 
     searchCourses: (searchTerm) ->
-      managedId = App.currentUser.get('id')
+      myId = App.currentUser.get('id')
 
       searchOpts =
         nestedId: @_nestingOrg?.id
         term: searchTerm
-        managedId: managedId if @_isManagedCourses
+        managedId: myId if @_isMyCourses and App.currentUser.get('type') is "OrgAdmin"
+        studiedId: myId if @_isMyCourses and App.currentUser.get('type') is "Student"
 
       @showSearchCourses(searchOpts)
 
@@ -118,7 +122,6 @@
       new List.Layout
 
     getTableColumns: ->
-      # TODO - permission to see delete col
       [
        { title: "Title", attrName: "title", isSortable: true, isRemovable: false, default: true },
        { title: "Description", attrName: "description", default: true, isRemovable: false },

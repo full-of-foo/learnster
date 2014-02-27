@@ -3,26 +3,29 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      @_isOwnedAdmins = options.isOwnedAdmins
+      @_isMyAdmins = options.isMyAdmins
       @_nestingOrgId = if options.id then options.id else false
       @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
-      org_admins = @getAdmins()
+      App.execute "when:fetched", App.currentUser, =>
+        org_admins = @getAdmins()
+        @layout = @getLayoutView()
 
-      @layout = @getLayoutView()
+        @listenTo @layout, "show", =>
+          @showSearch org_admins
+          @showPanel org_admins
+          @showOrgAdmins org_admins
 
-      @listenTo @layout, "show", =>
-        @showSearch org_admins
-        @showPanel org_admins
-        @showOrgAdmins org_admins
-
-      @show @layout
+        @show @layout
 
     getAdmins: ->
-      if not @_isOwnedAdmins
+      user = App.currentUser
+      if not @_isMyAdmins
         org_admins = if not @_nestingOrg then App.request("org_admin:entities") else App.request("org:org_admin:entities", @_nestingOrgId)
-      else
-        org_admins = App.request("admin:org_admin:entities", @_nestingOrgId, App.currentUser.get('id'))
+      else if(user.get('type') is "OrgAdmin")
+        org_admins = App.request("admin:org_admin:entities", @_nestingOrgId, user.get('id'))
+      else if(user.get('type') is "Student")
+        org_admins = App.request("student:org_admin:entities", @_nestingOrgId, user.get('id'))
       org_admins
 
     showNewRegion: ->
@@ -30,7 +33,7 @@
       App.execute "new:org_admin:view", @layout.newRegion
 
     showPanel: (org_admins) ->
-      if @_isOwnedAdmins
+      if @_isMyAdmins
         panelView = @getMyPanelView org_admins
       else
         panelView = @getPanelView org_admins
@@ -72,12 +75,14 @@
       @layout.searchRegion.show searchView
 
     searchOrgAdmins: (searchTerm) ->
-      owningId = App.currentUser.get('id')
+      user = App.currentUser
+      userId = user.get('id')
 
       searchOpts =
         nestedId: @_nestingOrg?.id
         term: searchTerm
-        owningId: owningId if @_isOwnedAdmins
+        owningId:  userId if @_isMyAdmins and user.get('type') is "OrgAdmin"
+        studentId: userId if @_isMyAdmins and user.get('type') is "Student"
 
       @showSearchOrgAdmins(searchOpts)
 

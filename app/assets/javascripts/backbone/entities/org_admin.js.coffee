@@ -39,6 +39,17 @@
       org_admins.put('created_by',  createdById)
       org_admins
 
+    getStudentOrgAdminEntities: (orgId, studentId) ->
+      org_admins = new Entities.OrgAdminCollection
+        url: Routes.api_organisation_admin_index_path(orgId)
+      org_admins.fetch
+        data:
+            page: 1
+            student_id: studentId
+        reset: true
+      org_admins.put('student_id',  studentId)
+      org_admins
+
     getOrgAdminEntity: (id) ->
       org_admin = Entities.OrgAdmin.findOrCreate
                                       id: id
@@ -50,20 +61,22 @@
       new Entities.OrgAdmin
 
     getSearchOrgAdminEntities: (searchOpts) ->
-      { term, nestedId, owningId } = searchOpts
+      { term, nestedId, owningId, studentId } = searchOpts
       if nestedId
         org_admins = new Entities.OrgAdminCollection
                                     url: Routes.api_organisation_admin_index_path(nestedId)
       else
         org_admins = new Entities.OrgAdminCollection()
 
-      term['created_by'] = owningId if owningId
+      term['created_by'] = owningId  if owningId
+      term['student_id'] = studentId if studentId
       org_admins.fetch
         reset: true
         data: $.param(term)
 
       org_admins.put('search', term['search'])
       org_admins.put('created_by', term['created_by']) if owningId
+      org_admins.put('student_id', term['student_id']) if studentId
       org_admins
 
 
@@ -103,6 +116,12 @@
 
   App.reqres.setHandler "admin:org_admin:entities", (orgId, adminId) ->
     API.getAdminOrgAdminEntities(orgId, adminId)
+
+  App.reqres.setHandler "admin:org_admin:entities", (orgId, adminId) ->
+    API.getAdminOrgAdminEntities(orgId, adminId)
+
+  App.reqres.setHandler "student:org_admin:entities", (orgId, studentId) ->
+    API.getStudentOrgAdminEntities(orgId, studentId)
 
   App.reqres.setHandler "org_admin:entities", ->
     API.getOrgAdminEntities()

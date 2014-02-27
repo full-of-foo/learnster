@@ -3,26 +3,31 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
-      @_isOwnedStudents = options.isOwnedStudents
+      @_isMyStudents = options.isMyStudents
       @_nestingOrgId = if options.id then options.id else false
       @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
-      students = @getStudents()
+      App.execute "when:fetched", App.currentUser, =>
+        students = @getStudents()
 
-      @layout = @getLayoutView()
+        @layout = @getLayoutView()
 
-      @listenTo @layout, "show", =>
-        @showSearch students
-        @showPanel students
-        @showStudents students
+        @listenTo @layout, "show", =>
+          @showSearch students
+          @showPanel students
+          @showStudents students
 
-      @show @layout
+        @show @layout
 
     getStudents: ->
-      if not @_isOwnedStudents
+      user = App.currentUser
+
+      if not @_isMyStudents
         students = if not @_nestingOrg then App.request("student:entities") else App.request("org:student:entities", @_nestingOrgId)
-      else
-        students = App.request("admin:student:entities", @_nestingOrgId, App.currentUser.get('id'))
+      else if user.get('type') is "OrgAdmin"
+        students = App.request("admin:student:entities", @_nestingOrgId, user.get('id'))
+      else if user.get('type') is "Student"
+        students = App.request("student:coursemate:entities", @_nestingOrgId, user.get('id'))
       students
 
     showNewRegion: ->
@@ -30,7 +35,7 @@
       App.execute "new:student:view", @layout.newRegion
 
     showPanel: (students) ->
-      if @_isOwnedStudents
+      if @_isMyStudents
         panelView = @getMyPanelView @_nestingOrg
       else
         panelView = @getPanelView @_nestingOrg
@@ -80,12 +85,14 @@
 
 
     searchStudents: (searchTerm) ->
-      owningId = App.currentUser.get('id')
+      user = App.currentUser
+      userId = user.get('id')
 
       searchOpts =
         nestedId: @_nestingOrg?.id
         term: searchTerm
-        owningId: owningId if @_isOwnedStudents
+        owningId:  userId if @_isMyStudents and user.get('type') is "OrgAdmin"
+        studentId: userId if @_isMyStudents and user.get('type') is "Student"
 
       @showSearchStudents(searchOpts)
 

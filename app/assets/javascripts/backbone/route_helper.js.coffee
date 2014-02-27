@@ -15,7 +15,19 @@ do (Learnster, $, Backbone, Marionette, _) ->
         ]
 
         student: [
-
+          /^organisation\/(.+?)\/admins$/,
+          /^statistic\/(.+)\/(.+)\/(.+)$/,
+          /^organisation\/(.+?)\/notifications$/,
+          /^organisation\/(.+?)\/dashboard$/,
+          /^organisation\/(.+?)\/my_students$/,
+          /^organisation\/(.+?)\/my_admins$/,
+          /^organisation\/(.+?)\/my_courses$/,
+          /^organisation\/(.+?)\/my_modules$/,
+          /^organisation\/(.+?)\/my_settings$/,
+          /^course\/(.+?)\/show$/,
+          /^module\/(.+?)\/show$/,
+          /^module\/(.+?)\/supplement\/(.+?)\/show$/,
+          /^course_section\/(.+?)\/show$/
         ],
 
         orgAdmin: [

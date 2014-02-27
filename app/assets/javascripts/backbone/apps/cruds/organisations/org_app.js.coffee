@@ -36,7 +36,7 @@
     listMyOrgStudents: (id) ->
       new App.StudentsApp.List.Controller
         id: @get_org_id(id)
-        isOwnedStudents: true
+        isMyStudents: true
 
     listOrgAdmins: (id) ->
       new App.OrgAdminsApp.List.Controller
@@ -45,7 +45,7 @@
     listMyOrgAdmins: (id) ->
       new App.OrgAdminsApp.List.Controller
         id: @get_org_id(id)
-        isOwnedAdmins: true
+        isMyAdmins: true
 
     listOrgNotifications: (id) ->
       new App.NotificationsApp.List.Controller
@@ -58,7 +58,7 @@
     listMyOrgCourses: (id) ->
       new App.CoursesApp.List.Controller
         id: @get_org_id(id)
-        isManagedCourses: true
+        isMyCourses: true
 
     listOrgModules: (id) ->
       new App.LearningModulesApp.List.Controller
@@ -67,7 +67,7 @@
     listMyOrgModules: (id) ->
       new App.LearningModulesApp.List.Controller
         id: @get_org_id(id)
-        isTeachingModules: true
+        isMyModules: true
 
     showMySettings: (id) ->
       new App.SettingsApp.Edit.Controller

@@ -1,8 +1,14 @@
 <% u = @currentUser() %>
 
 <div id="<%= @title.replace(" ", "") %>" class="dash-block-header">
-  <h1><% if u.type is "OrgAdmin" and (u.role is "course_manager" or u.role is "module_manager") and (@title is "Notifications" or @title is "Module Files"): %>My <% end %>
-  <%= @title %></h1>
+  <h1>
+  <% if u.type is "OrgAdmin" and (u.role is "course_manager" or u.role is "module_manager") and (@title is "Notifications" or @title is "Module Files"): %>
+    My
+  <% else if u.type is "Student" and (@title is "Notifications" or @title is "Module Files" or @title is "Courses" or @title is "Modules"): %>
+    My
+    <% end %>
+  <%= @title %>
+  </h1>
 </div>
 
 <div class="dash-block-content">

@@ -27,6 +27,15 @@ class Student < User
     true
   end
 
+  def self.coursemates(student_id)
+    section_ids  = EnrolledCourseSection.where("student_id = ?", student_id)
+      .select("enrolled_course_sections.course_section_id").to_a.map(&:course_section_id)
+    student_ids = (EnrolledCourseSection.where(course_section_id: section_ids)
+                    .select('student_id').to_a.map(&:student_id)).uniq
+
+    self.where(id: student_ids)
+  end
+
   def self.import_with_validation(file, attending_organisation, created_by)
     spreadsheet = open_spreadsheet(file)
     import_status_data = Hash.new
@@ -49,8 +58,8 @@ class Student < User
     import_status_data
   end
 
-  def self.search_term(search, nested_org = nil, created_by_id = nil)
-    if not search.empty? and not nested_org and not created_by_id
+  def self.search_term(search, nested_org = nil, created_by_id = nil, student_id = nil)
+    if not search.empty? and not nested_org and not created_by_id and not student_id
       self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
         .email_matches("%#{search}%")
 
@@ -62,11 +71,18 @@ class Student < User
       (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
         .email_matches("%#{search}%")) & self.created_by_eq(created_by_id)
 
+    elsif not search.empty? and student_id
+      (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
+        .email_matches("%#{search}%")) & self.coursemates(student_id)
+
     elsif search.empty? and nested_org
       self.attending_org_eq(nested_org.id)
 
     elsif search.empty? and created_by_id
       self.created_by_eq(created_by_id)
+
+    elsif search.empty? and student_id
+      self.coursemates(student_id)
 
     else
       self.all

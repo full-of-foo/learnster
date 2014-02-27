@@ -45,6 +45,18 @@
       students.put('created_by',  adminId)
       students
 
+    getStudentCoursemateEntities: (orgId, studentId) ->
+      students = new Entities.StudentsCollection
+        url: Routes.api_organisation_student_index_path(orgId)
+      students.fetch
+        data:
+            page: 1
+            student_id: studentId
+        reset: true
+      students.put('student_id',  studentId)
+      students
+
+
     getSectionStudentEntities: (sectionId) ->
       students = new Entities.StudentsCollection
       students.fetch
@@ -65,20 +77,22 @@
       new Entities.Student()
 
     getSearchStudentEntities: (searchOpts) ->
-      { term, nestedId, owningId } = searchOpts
+      { term, nestedId, owningId, studentId } = searchOpts
       if nestedId
         students = new Entities.StudentsCollection
           url: Routes.api_organisation_student_index_path(nestedId)
       else
         students = new Entities.StudentsCollection
 
-      term['created_by'] = owningId if owningId
+      term['created_by'] = owningId  if owningId
+      term['student_id'] = studentId if studentId
       students.fetch
         reset: true
         data: $.param(term)
 
       students.put('search', term['search'])
       students.put('created_by', term['created_by']) if owningId
+      students.put('student_id', term['student_id']) if studentId
       students
 
   App.reqres.setHandler "new:student:entity", ->
@@ -92,6 +106,9 @@
 
   App.reqres.setHandler "admin:student:entities", (orgId, adminId) ->
     API.getAdminStudentEntities(orgId, adminId)
+
+  App.reqres.setHandler "student:coursemate:entities", (orgId, student) ->
+    API.getStudentCoursemateEntities(orgId, student)
 
   App.reqres.setHandler "section:student:entities", (sectionId) ->
     API.getSectionStudentEntities(sectionId)

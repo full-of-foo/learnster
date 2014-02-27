@@ -6,6 +6,7 @@ class Permission < Struct.new(:user)
     if user
       @user = user
       return true if user.app_admin?
+      account_controllers = %w[course learning_module enrolled_course_section /course_section section_module module_supplement supplement_content]
 
       if user.org_admin?
         @org = user.admin_for
@@ -29,7 +30,6 @@ class Permission < Struct.new(:user)
        return true if update_account_request?(controller, action, params)
 
 
-        account_controllers = %w[course learning_module enrolled_course_section /course_section section_module module_supplement supplement_content]
         if user.role.account_manager?
           return true if create_user_request?(controller, action)
           return true if my_organisation_import_request?(controller, params, action)
@@ -74,15 +74,26 @@ class Permission < Struct.new(:user)
         end
 
       end
+
       if user.student?
         @org = user.attending_org
 
-        return true if my_organisation_request?(controller, params) && action == "show"
-
         if action.in?(%w[index show])
+          return true if student_self_request?(controller, params)
           return true if organisation_students_request?(controller, params)
+          return true if organisation_activity_request?(controller, params)
+          return true if my_organisation_request?(controller, params)
+          return true if fellow_admin_request?(controller, params)
+          return true if organisation_student_request?(controller, params)
+          return true if section_students_request?(controller, params)
         end
-        #TODO - implement
+
+        return true if student_admins_request?(controller, action, params)
+
+        account_controllers.each do |controller_name|
+            return true if reads_on_controller?(controller_name, controller, action)
+        end
+
       end
     end
 
@@ -222,6 +233,10 @@ class Permission < Struct.new(:user)
       controller.end_with?("org_admin") && nested_org_request?(params[:organisation_id])
     end
 
+    def student_admins_request?(controller, action, params)
+      fellow_admins_request?(controller, params) && action == "index" && user.id = params[:student_id]
+    end
+
     def fellow_admin_request?(controller, params)
       controller.end_with?("org_admin") && @org.admins.exists?(params[:id])
     end
@@ -232,6 +247,10 @@ class Permission < Struct.new(:user)
 
     def student_is_owned?(controller, params)
       controller.end_with?("student") && user.id == Student.find(params[:id]).created_by.id
+    end
+
+    def student_self_request?(controller, params)
+      controller.end_with?("student") && user.id.to_s == params[:id]
     end
 
     def students_owned?(controller, params)

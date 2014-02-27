@@ -16,6 +16,25 @@ class OrgAdmin < User
     User.model_name
   end
 
+  def self.student_admins(student_id)
+    # TODO - better querying
+    course_manager_ids = Course.student_courses(student_id).select("managed_by")
+      .to_a.map(&:managed_by).map(&:id)
+
+    student_section_ids  = EnrolledCourseSection.where("student_id = ?", student_id)
+      .select("enrolled_course_sections.course_section_id").to_a.map(&:course_section_id)
+    provisioner_ids = CourseSection.where(id: student_section_ids).select('provisioned_by')
+      .map(&:provisioned_by).map(&:id)
+
+    module_ids = SectionModule.where(course_section_id: student_section_ids)
+      .select("learning_module_id").to_a.map(&:learning_module_id)
+    educator_ids = LearningModule.where(id: module_ids).select("educator_id")
+      .map(&:educator_id)
+
+    admin_ids = (course_manager_ids | provisioner_ids | educator_ids) 
+    self.where(id: admin_ids)
+  end
+
   def self.import_with_validation(file, admin_for, created_by)
     spreadsheet = open_spreadsheet(file)
     import_status_data = Hash.new
@@ -38,9 +57,9 @@ class OrgAdmin < User
     import_status_data
   end
 
-  def self.search_term(search, nested_org = nil, from_role = nil, created_by_id = nil)
+  def self.search_term(search, nested_org = nil, from_role = nil, created_by_id = nil, student_id = nil)
     admins = nil
-    if not search.empty? and not nested_org and not created_by_id
+    if not search.empty? and not nested_org and not created_by_id and not student_id
       admins = self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
         .email_matches("%#{search}%")
 
@@ -52,11 +71,18 @@ class OrgAdmin < User
       admins = (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
         .email_matches("%#{search}%")) & self.created_by_eq(created_by_id)
 
+    elsif not search.empty? and student_id
+      admins = (self.first_name_matches("%#{search}%") | self.surname_matches("%#{search}%") | self
+        .email_matches("%#{search}%")) & self.student_admins(student_id)
+
     elsif search.empty? and nested_org
       admins = self.admin_for_eq(nested_org.id)
 
     elsif search.empty? and created_by_id
       admins = self.created_by_eq(created_by_id)
+
+    elsif search.empty? and student_id
+      admins = self.student_admins(student_id)
 
     else
       admins = self.all
@@ -65,8 +91,10 @@ class OrgAdmin < User
         is_account_mgr_search = from_role == 'account_manager'
         is_course_mgr_search = from_role == 'course_manager'
         is_module_mgr_search = from_role == 'module_manager'
-        admins = (admins & (self.search_role(from_role) | self.search_role("course_manager") | self.search_role("account_manager"))) if is_module_mgr_search
-        admins = (admins & (self.search_role(from_role) | self.search_role("account_manager"))) if is_course_mgr_search
+        admins = (admins & (self.search_role(from_role) | self.search_role("course_manager") | self
+                    .search_role("account_manager"))) if is_module_mgr_search
+        admins = (admins & (self.search_role(from_role) | self
+                    .search_role("account_manager"))) if is_course_mgr_search
         admins = (admins & (self.search_role(from_role))) if is_account_mgr_search
     end
     admins
