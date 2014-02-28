@@ -38,7 +38,9 @@
 
   App.vent.on "courses:block:clicked", (org) ->
     orgId = org.get('id')
-    App.navigate "/organisation/#{orgId}/courses"
+    isStudent = App.currentUser.get('type') is "Student"
+    url = if isStudent then "/organisation/#{orgId}/my_courses" else "/organisation/#{orgId}/courses"
+    App.navigate url
 
   App.vent.on "edit:course:clicked", (view) ->
     course = view.model

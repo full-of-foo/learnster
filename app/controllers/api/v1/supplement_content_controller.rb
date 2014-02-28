@@ -12,6 +12,9 @@ class Api::V1::SupplementContentController < ApplicationController
     elsif params[:educator_id]
       @supplement_contents = SupplementContent.educator_contents(params[:educator_id])
 
+    elsif params[:student_id]
+      @supplement_contents = SupplementContent.student_contents(params[:student_id])
+
     else
       @supplement_contents = nested_org_request?(params) ? SupplementContent
         .organisation_contents(@org.id) : SupplementContent.all

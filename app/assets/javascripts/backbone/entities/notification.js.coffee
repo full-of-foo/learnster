@@ -45,11 +45,12 @@
       notifications
 
     getSearchNotificationEntities: (searchOpts) ->
-      { term, nestedId, page, adminId } = searchOpts
+      { term, nestedId, page, adminId, studentId } = searchOpts
       opts = {}
-      opts['page']              = page if page
-      opts['search']            = term if term
+      opts['page']       = page if page
+      opts['search']     = term if term
       opts['manager_id'] = adminId if adminId
+      opts['student_id'] = studentId if studentId
 
       if nestedId
         notifications = new Entities.NotificationsCollection

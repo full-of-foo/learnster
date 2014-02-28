@@ -63,7 +63,9 @@
 
   App.vent.on "modules:block:clicked", (org) ->
     orgId = org.get('id')
-    App.navigate "/organisation/#{orgId}/modules"
+    isStudent = App.currentUser.get('type') is "Student"
+    url = if isStudent then "/organisation/#{orgId}/my_modules" else "/organisation/#{orgId}/modules"
+    App.navigate url
 
   App.vent.on "module:updated module:cancelled module:clicked learning_module:created", (learning_module) ->
     moduleId = learning_module.get('id')

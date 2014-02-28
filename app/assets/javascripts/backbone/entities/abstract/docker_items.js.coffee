@@ -37,7 +37,7 @@
       [
         { elemId: "home-dock-item", imageName: "home256.png", caption: "Home" },
         { elemId: "notifications-dock-item", imageName: "announcements256.png", caption: "Notifications" },
-        { elemId: "stats-dock-item", imageName: "skill-gap256.png", caption: "Grades" },
+        { elemId: "stats-dock-item", imageName: "skill-gap256.png", caption: "Statistics" },
         { elemId: "profile-settings-dock-item", imageName: "maintenance256.png",   caption: "Profile Setting" }
       ]
 

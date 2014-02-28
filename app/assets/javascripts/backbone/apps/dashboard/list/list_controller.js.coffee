@@ -4,6 +4,7 @@
 
     initialize: (options = {}) ->
       @_nestingOrg = App.request("org:entity", options.id)
+      @_nestingOrgId = options.id
 
       coursesDashBlock = App.request("dash:block:entity", "Courses")
       modulesDashBlock = App.request("dash:block:entity", "Modules")
@@ -13,18 +14,10 @@
       user = App.request "get:current:user"
 
       App.execute "when:fetched", user, =>
-        isManager = (user.get('type') is "OrgAdmin" and (user.get('role') is "course_manager" or user.get('role') is "module_manager"))
-        userId = user.get('id')
-
-        opts =
-          nestedId: @_nestingOrg.get('id')
-          page:     1
-          adminId: user.get('id') if isManager
-
-        courses = App.request "org:course:entities", opts.nestedId
-        modules = App.request "learning_module:entities", opts.nestedId
-        files = if isManager then App.request("educator:content:entities", userId) else App.request("org:supplement:content:entities", opts.nestedId)
-        notifications = App.request "search:notifications:entities", opts
+        courses       = @getCourses(user)
+        modules       = @getModules(user)
+        files         = @getFiles(user)
+        notifications = @getNotifications(user)
 
 
         @layout = @getLayoutView()
@@ -35,6 +28,42 @@
           @showNotificationsBlock(notificationsDashBlock, notifications)
 
         @show @layout
+
+    getCourses: (user) ->
+      if user.get('type') is 'OrgAdmin'
+        return App.request("org:course:entities", @_nestingOrgId)
+      else
+        return App.request("student:org:course:entities", @_nestingOrgId, user.get('id'))
+
+    getModules: (user) ->
+      if user.get('type') is 'OrgAdmin'
+        return App.request("learning_module:entities", @_nestingOrgId)
+      else
+        return App.request("student:learning_module:entities", @_nestingOrgId, user.get('id'))
+
+    getFiles: (user) ->
+      isManager = @_isManager(user)
+
+      if isManager
+        return App.request("educator:content:entities", user.get('id'))
+      else if user.get('type') is "Student"
+        return App.request("student:content:entities", user.get('id'))
+      else
+        return App.request("org:supplement:content:entities", @_nestingOrgId)
+
+    getNotifications: (user) ->
+      isManager = @_isManager(user)
+      opts =
+          nestedId:  @_nestingOrgId
+          page:      1
+          adminId:   user.get('id') if isManager
+          studentId: user.get('id') if user.get('type') is "Student"
+
+      return App.request "search:notifications:entities", opts
+
+    _isManager: (user) ->
+      (user.get('type') is "OrgAdmin" and (user.
+                    get('role') is "course_manager" or user.get('role') is "module_manager"))
 
     getLayoutView: ->
       new List.Layout()
