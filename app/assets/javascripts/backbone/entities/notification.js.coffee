@@ -34,6 +34,16 @@
 
       notifications
 
+    getStudentNotificationEntities: (orgId, studentId) ->
+      notifications = new Entities.NotificationsCollection
+        url: Routes.api_organisation_activities_path(orgId)
+      notifications.fetch
+        reset: true
+        data:
+          student_id: studentId
+
+      notifications
+
     getSearchNotificationEntities: (searchOpts) ->
       { term, nestedId, page, adminId } = searchOpts
       opts = {}
@@ -53,11 +63,16 @@
       notifications.put('search', term['search']) if term
       notifications
 
+
+
   App.reqres.setHandler "org:notification:entities", (orgId) ->
     API.getOrgNotificationEntities(orgId)
 
   App.reqres.setHandler "manager:notification:entities", (orgId, adminId) ->
     API.getManagerNotificationEntities(orgId, adminId)
+
+  App.reqres.setHandler "student:notification:entities", (orgId, studentId) ->
+    API.getStudentNotificationEntities(orgId, studentId)
 
   App.reqres.setHandler "notification:entities", ->
     API.getNotificationEntities()

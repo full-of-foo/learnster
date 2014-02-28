@@ -28,7 +28,7 @@
       else if user instanceof Learnster.Entities.AppAdmin
         notifications = App.request("notification:entities")
       else if user instanceof Learnster.Entities.Student
-        throw new Error
+        notifications = App.request("student:notification:entities", @_nestingOrgId, user.get('id'))
       notifications
 
     showPanel: (notifications) ->

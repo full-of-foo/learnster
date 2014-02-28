@@ -3,10 +3,8 @@
     <p class="text-info">
     <% if u.type is "AppAdmin": %>
     Application Statistics
-    <% else if u.type is "OrgAdmin": %>
+    <% else if u.type is "OrgAdmin" or u.type is "Student": %>
     Organisation Statistics
-	<% else if u.type is "Student":%>
-	Grades
 	<% end %>
-    </p>          
+    </p>
 </blockquote>

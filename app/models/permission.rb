@@ -8,6 +8,8 @@ class Permission < Struct.new(:user)
       return true if user.app_admin?
       account_controllers = %w[course learning_module enrolled_course_section /course_section section_module module_supplement supplement_content]
 
+      return true if update_account_request?(controller, action, params)
+
       if user.org_admin?
         @org = user.admin_for
 
@@ -26,9 +28,6 @@ class Permission < Struct.new(:user)
           return true if student_is_owned?(controller, params)
           return true if admin_is_owned?(controller, params)
         end
-
-       return true if update_account_request?(controller, action, params)
-
 
         if user.role.account_manager?
           return true if create_user_request?(controller, action)
@@ -89,6 +88,7 @@ class Permission < Struct.new(:user)
         end
 
         return true if student_admins_request?(controller, action, params)
+        return true if student_activity_request?(controller, action, params)
 
         account_controllers.each do |controller_name|
             return true if reads_on_controller?(controller_name, controller, action)
@@ -209,8 +209,14 @@ class Permission < Struct.new(:user)
     end
 
     def update_account_request?(controller, action, params)
+      puts controller, action
+      puts @user.id.to_s
       action == "update" && (controller.end_with?("org_admin") || controller
                              .end_with?("student")) && params[:id] == @user.id.to_s
+    end
+
+    def student_activity_request?(controller, action, params)
+      action == "index" && controller.end_with?("activities") && params[:student_id] == @user.id.to_s
     end
 
     def organisation_students_request?(controller, params)

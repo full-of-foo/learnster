@@ -10,9 +10,11 @@
       <% else: %>
         My Notifications
       <% end %>
+    <% else if u.type is "Student": %>
+        My Notifications
 
 	<% else: %>
 	 Notifications
 	<% end %>
-    </p>          
+    </p>
 </blockquote>
