@@ -1,7 +1,7 @@
 module TestConfig
 
   def self.sut
-   ENV['SUT'].nil? ? "109.74.204.118" : "#{ENV['SUT']}"
+   ENV['SUT'].nil? ? "http://learnster.co.uk" : "#{ENV['SUT']}"
   end
-  
+
 end
