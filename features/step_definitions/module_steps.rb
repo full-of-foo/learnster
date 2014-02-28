@@ -15,7 +15,7 @@ Given(/^I create a Module$/) do
   page = Pages::ModulesPage.new(@browser)
 
   title, description = TestDataGenerator.title, TestDataGenerator.description
-  learning_module = CacheEntities::LearningModule.new(title: title, description: description)
+  learning_module    = CacheEntities::LearningModule.new(title: title, description: description)
 
   page.submit_new_learning_module_form(learning_module)
   StepsDataCache.learning_module = learning_module
@@ -30,6 +30,23 @@ Given(/^I edit the Module$/) do
   page.submit_edit_module_form(new_title, new_description)
   StepsDataCache.learning_module.title = new_title
   StepsDataCache.learning_module.description = new_description
+end
+
+Given(/^I open my first Module$/) do
+  page = Pages::ModulesPage.new(@browser)
+
+  step("I should see a \"th\" with the \"text\" of \"Title\"")
+  sleep(0.3)
+
+  title = @browser.tds(class: 'col-0')[0].text
+  learning_module = CacheEntities::LearningModule.new(title: title)
+
+  step("I click the \"td\" with the \"text\" of \"#{learning_module.title}\"")
+  StepsDataCache.learning_module = learning_module
+end
+
+Given(/^I open the first Module$/) do
+  step("I open my first Module")
 end
 
 Given(/^I create a Supplement for the Module$/) do
@@ -74,12 +91,6 @@ Then(/^I see the Module show page$/) do
   sleep(0.3)
   step("I should see a \"span\" with the \"text\" of \"#{learning_module.title}\"")
   step("I should see a \"span\" with the \"text\" of \"#{learning_module.description}\"")
-
-  step("I should see a \"span\" with the \"id\" of \"edit-module-button\"")
-  step("I should see a \"span\" with the \"id\" of \"delete-module-button\"")
-
-
-  step("I should see a \"a\" with the \"id\" of \"add-module-supplement-button\"")
 end
 
 Then(/^I see the Supplement show page$/) do

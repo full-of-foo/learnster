@@ -110,6 +110,7 @@
         collection: modules
         templateHelpers:
           nestingOrg: @_nestingOrg
+          currentUser: Marionette.View.prototype.templateHelpers().currentUser
 
     getSearchView: (modules) ->
       new List.SearchPanel
@@ -135,7 +136,7 @@
 
     _deleteColTemplateString: ->
       '<% if ( (currentUser.get("type") === "OrgAdmin" && currentUser.get("role") === "course_manager"
-              && model.get("educator_id") === currentUser.get("id") 
+              && model.get("educator_id") === currentUser.get("id")
         || currentUser.get("type") === "OrgAdmin" && currentUser.get("role") === "module_manager"
               && model.get("educator_id") === currentUser.get("id") )
         || currentUser.get("type") ===  "AppAdmin" || (currentUser.get("type") === "OrgAdmin"

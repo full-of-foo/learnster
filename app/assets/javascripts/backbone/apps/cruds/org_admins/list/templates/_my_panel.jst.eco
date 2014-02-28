@@ -1,30 +1,45 @@
+<% u = @currentUser() %>
+
+<% if u.type is "AppAdmin" or (u.type is "OrgAdmin" and u.role is "account_manager"): %>
+  <% hasCreatePermission = true %>
+<% else: %>
+  <% hasCreatePermission = false %>
+<% end %>
+
+
 <div id="list-panel" class="modal-header">
 
     <div class="btn-group pull-right">
 
-        <a id="new-org-admin-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i><% if @nestingOrg: %>
-        Add
-        <% else: %>
-        New
-        <% end %>
-         Admin</a>
-        <a class="btn" id="list-settings-button" href="#"><i class="fa fa-cog"></i></a>
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu">
-            <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
-            </li>
-            <% if @nestingOrg: %>
-            <li><a href="#" id="import-dropdown-item"><i class="fa fa-fixed-width fa-upload"></i> Import...</a>
-            </li>
+        <% if hasCreatePermission: %>
+            <a id="new-org-admin-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i><% if @nestingOrg: %>
+            Add
+            <% else: %>
+            New
             <% end %>
-        </ul>
+             Admin</a>
+         <% end %>
+
+        <a class="btn" id="list-settings-button" href="#"><i class="fa fa-cog"></i></a>
+
+        <% if hasCreatePermission: %>
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                    <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
+                    </li>
+                    <% if @nestingOrg: %>
+                    <li><a href="#" id="import-dropdown-item"><i class="fa fa-fixed-width fa-upload"></i> Import...</a>
+                    </li>
+                    <% end %>
+            </ul>
+        <% end %>
 
     </div>
 
     <blockquote>
-        <p class="muted well-small">My Administrators...</p>
+        <p class="muted well-small">My <% if u.type is "Student": %>Educators<% else: %>Administrators<% end %>...</p>
     </blockquote>
 
 </div>

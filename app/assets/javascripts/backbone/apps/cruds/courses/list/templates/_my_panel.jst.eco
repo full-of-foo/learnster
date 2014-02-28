@@ -1,6 +1,6 @@
 <% u = @currentUser() %>
 
-<% if u.type is "OrgAdmin" and (u.role is "course_manager" or u.role is "module_manager"): %>
+<% if u.type is "Student" or (u.type is "OrgAdmin" and (u.role is "course_manager" or u.role is "module_manager")): %>
   <% hasCreatePermission = false %>
 <% else: %>
   <% hasCreatePermission = true %>
@@ -9,6 +9,7 @@
 <div id="list-panel" class="modal-header">
 
     <% if hasCreatePermission: %>
+
         <div class="btn-group pull-right">
             <a id="new-course-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
             New Course</a>
@@ -20,6 +21,7 @@
                 </li>
             </ul>
         </div>
+
     <% end %>
 
     <blockquote>
