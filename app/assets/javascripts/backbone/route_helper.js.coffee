@@ -63,7 +63,70 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^notifications$/
         ]
 
-    getAppAdminRoutes: ->
+    setTitle: (route) ->
+      switch true
+        when /students$/.test(route)
+          $('title').html('Students')
+          break
+        when /^student/.test(route)
+          $('title').html('Student')
+          break
+        when /admins$/.test(route)
+          $('title').html('Administrators')
+          break
+        when /^org_admin/.test(route)
+          $('title').html('Administrator')
+          break
+        when /courses$/.test(route)
+          $('title').html('Courses')
+          break
+        when /course\//.test(route)
+          $('title').html('Course')
+          break
+        when /modules$/.test(route)
+          $('title').html('Modules')
+          break
+        when /^module\/(.+?)\/supplement\/(.+?)\/show$/.test(route)
+          $('title').html('Supplement')
+          break
+        when /module\//.test(route)
+          $('title').html('Module')
+          break
+        when /notifications$/.test(route)
+          $('title').html('Notifications')
+          break
+        when /statistic/.test(route)
+          $('title').html('Statistics')
+          break
+        when /^course_section/.test(route)
+          $('title').html('Course Section')
+          break
+        when /my_settings$/.test(route)
+          $('title').html('Settings')
+          break
+        when /404$/.test(route)
+          $('title').html('Page Not Found')
+          break
+        when /^organisation\/(.+?)\/dashboard$/.test(route)
+          $('title').html('Dashboard')
+          break
+        when /^login$/.test(route)
+          $('title').html('Sign in | Learnster')
+          break
+        when /^about$/.test(route)
+          $('title').html('About | Learnster')
+          break
+        when /^testimonials$/.test(route)
+          $('title').html('Testimonials | Learnster')
+          break
+        when /^signu(.+)$/.test(route)
+          $('title').html('Sign Up | Learnster')
+          break
+        else
+          $('title').html('Learnster')
+          break
+
+    getAllRoutes: ->
       _.flatten(@_userRoutes)
 
     getStudentRoutes: ->
@@ -77,7 +140,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
       ((validRoutes.filter (reg) -> reg.test(route)).length > 0)
 
     isPermittedRoute: (user, route) ->
-      if user instanceof Learnster.Entities.AppAdmin then isValid = @isRouteMatching(@getAppAdminRoutes(), route)
+      if user instanceof Learnster.Entities.AppAdmin then isValid = @isRouteMatching(@getAllRoutes(), route)
       if user instanceof Learnster.Entities.OrgAdmin then isValid = @isRouteMatching(@getOrgAdminRoutes(), route)
       if user instanceof Learnster.Entities.Student  then isValid = @isRouteMatching(@getStudentRoutes(), route)
       isValid
