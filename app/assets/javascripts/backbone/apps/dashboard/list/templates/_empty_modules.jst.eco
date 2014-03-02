@@ -1,6 +1,9 @@
+<% u = @currentUser() %>
+
 <div class="empty-dash-block">
   <p class="muted">no modules</p>
-  <p class="muted">please <a id="add-module-link" href="#">add</a> one</p>
+  <% if u.type isnt "Student": %>
+    <p class="muted">please <a id="add-module-link" href="#">add</a> one</p>
+  <% end %>
   <h1 class="muted">:(</h1>
 </div>
-
