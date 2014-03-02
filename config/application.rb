@@ -27,6 +27,6 @@ module Learnster
 
     config.filter_parameters += [:password, :password_confirmation]
 
-    config.version = '0.7'
+    config.version = '0.8'
   end
 end
