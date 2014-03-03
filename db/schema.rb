@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303102843) do
+ActiveRecord::Schema.define(version: 20140303184326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,19 @@ ActiveRecord::Schema.define(version: 20140303102843) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "deliverables_tables", force: true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "due_date"
+    t.boolean  "is_closed",            default: false
+    t.boolean  "is_private",           default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "module_supplement_id"
+  end
+
+  add_index "deliverables_tables", ["module_supplement_id"], name: "index_deliverables_tables_on_module_supplement_id", using: :btree
 
   create_table "enrolled_course_sections", force: true do |t|
     t.integer  "student_id"

@@ -103,7 +103,8 @@ Then(/^I see the Supplement show page$/) do
   step("I should see a \"span\" with the \"id\" of \"delete-supplement-button\"")
   step("I should see a \"span\" with the \"id\" of \"cancel-show-supplement\"")
 
-  step("I should see a \"a\" with the \"id\" of \"new-supplement-content-button\"")
+  step("I should see a \"a\" with the \"id\" of \"new-wiki-content-button\"")
+  step("I should see a \"a\" with the \"id\" of \"new-content-upload-button\"")
 end
 
 Then(/^I should not see the deleted Module$/) do
