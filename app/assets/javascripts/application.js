@@ -22,6 +22,7 @@
 //= require lib/backbone
 //= require lib/backbone.marionette
 
+//= require ./lib/vendor/tinymce.min
 //= require_tree ./lib/vendor
 
 //= require_tree ./backbone/config

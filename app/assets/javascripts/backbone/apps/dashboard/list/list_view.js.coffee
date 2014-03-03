@@ -29,8 +29,9 @@
       template: 'dashboard/list/templates/_dash_block'
       tagName: 'li'
       triggers:
-        "click span" : "dash:block:clicked"
-        "click a.file-link i" : "file:link:clicked"
+        "click span"             : "dash:block:clicked"
+        "click a.file-link i"    : "file:link:clicked"
+        "click #wiki-link i"     : "wiki:link:clicked"
 
     class List.DashBlockComposite extends App.Views.CompositeView
       template: 'dashboard/list/templates/_dash_blocks'

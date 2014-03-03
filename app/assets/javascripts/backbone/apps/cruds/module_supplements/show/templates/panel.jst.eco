@@ -14,12 +14,13 @@
 
       <div class="btn-group pull-right">
 
-          <a id="new-supplement-content-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
-          New Content</a>
+          <a id="new-content-upload-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+          New Upload</a>
+          <a id="new-wiki-content-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+          New Wiki</a>
 
       </div>
 
   </div>
   <div id="push"></div>
 <% end %>
-

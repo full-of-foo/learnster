@@ -17,8 +17,10 @@
   App.commands.setHandler "show:supplement:view", (region, supplement) ->
     API.showSupplement(region, supplement)
 
+  App.vent.on "edit:wiki:cancel edit:wiki:updated", (moduleId, supplementId) ->
+    App.navigate "/module/#{moduleId}/supplement/#{supplementId}/show"
+
   App.vent.on "supplement:created open:supplement", (supplement) ->
-    console.log supplement
     moduleId = supplement.get('learning_module').id
     supplementId = supplement.get('id')
     App.navigate "/module/#{moduleId}/supplement/#{supplementId}/show"

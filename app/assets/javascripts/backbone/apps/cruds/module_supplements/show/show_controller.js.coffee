@@ -44,7 +44,8 @@
       contentsView = @getContentsView(contents)
 
       @listenTo contentsView, "childview:content:clicked", (child, args) ->
-        App.vent.trigger "supplement:content:clicked", args.model
+        model = args.model
+        App.vent.trigger "wiki:content:clicked", model if model.get('type') is "WikiContent"
 
       @listenTo contentsView, "childview:content:delete:clicked", (child, args) ->
         model = args.model
@@ -84,16 +85,22 @@
     showContentsPanel: (supplement) ->
       panelView = @getPanelView(supplement)
 
-      @listenTo panelView, "new:supplement:content:button:clicked", =>
-        @showNewRegion()
+      @listenTo panelView, "new:upload:content:button:clicked", =>
+        @showNewUploadRegion()
+
+      @listenTo panelView, "new:wiki:content:button:clicked", =>
+        @showNewWikiRegion()
 
       @show panelView,
         loading:
           loadingType: "spinner"
         region: @layout.supplementContentsPanelRegion
 
-    showNewRegion: ->
-      App.execute "new:content:view", @layout.newSupplementContentRegion, @supplementId
+    showNewUploadRegion: ->
+      App.execute "new:content:upload:view", @layout.newSupplementContentRegion, @supplementId
+
+    showNewWikiRegion: ->
+      App.execute "new:wiki:content:view", @layout.newSupplementContentRegion, @supplementId
 
     getLayoutView: (supplement) ->
       new Show.Layout
@@ -124,7 +131,9 @@
       [
        { title: "Title", attrName: "title", isSortable: true, default: true, isRemovable: false },
        { title: "Created On", attrName: "created_at_formatted", isSortable: true, default: true, isRemovable: false },
-       { title: "File", htmlContent: '<a class="file-link" target="_blank" href="<%= model.get("file_upload").url %>"><i class="fa fa-download"></i></a>'
+       { title: "File", htmlContent: '<% if(model.get("file_upload")){ %><a class="file-link" target="_blank" href="<%= model.get("file_upload").url %>">&#10004;</a><% } %>'
+        , isSortable: true, default: true, isRemovable: false },
+       { title: "Wiki", htmlContent: '<% if(model.get("wiki_markup")){ %><span class="wiki-link">&#10004;</span><% } %>'
         , isSortable: true, default: true, isRemovable: false },
        { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible"
         ,default: true, isRemovable: false, hasData: false }
@@ -151,5 +160,4 @@
               "click .delete-icon i"   : "content:delete:clicked"
               "click"                  : "content:clicked"
           events:
-              "click a.file-link i" : ((e) => e.stopImmediatePropagation())
-
+              "click a.file-link" : ((e) => e.stopImmediatePropagation())

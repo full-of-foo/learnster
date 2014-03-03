@@ -8,7 +8,7 @@
 
       coursesDashBlock = App.request("dash:block:entity", "Courses")
       modulesDashBlock = App.request("dash:block:entity", "Modules")
-      filesDashBlock = App.request("dash:block:entity", "Module Files")
+      contentsDashBlock = App.request("dash:block:entity", "Module Contents")
       notificationsDashBlock = App.request("dash:block:entity", "Notifications")
 
       user = App.request "get:current:user"
@@ -16,7 +16,7 @@
       App.execute "when:fetched", user, =>
         courses       = @getCourses(user)
         modules       = @getModules(user)
-        files         = @getFiles(user)
+        contents      = @getContents(user)
         notifications = @getNotifications(user)
 
 
@@ -24,7 +24,7 @@
         @listenTo @layout, "show", =>
           @showCoursesBlock(coursesDashBlock, courses)
           @showModulesBlock(modulesDashBlock, modules)
-          @showFilesBlock(filesDashBlock, files)
+          @showContentsBlock(contentsDashBlock, contents)
           @showNotificationsBlock(notificationsDashBlock, notifications)
 
         @show @layout
@@ -41,7 +41,7 @@
       else
         return App.request("student:learning_module:entities", @_nestingOrgId, user.get('id'))
 
-    getFiles: (user) ->
+    getContents: (user) ->
       isManager = @_isManager(user)
 
       if isManager
@@ -106,9 +106,9 @@
           loadingType: "spinner"
         region: @layout.modulesBlockRegion
 
-    showFilesBlock: (filesDashBlock, files) ->
+    showContentsBlock: (contentsDashBlock, files) ->
       blockView = new List.DashBlockComposite
-        model: filesDashBlock
+        model: contentsDashBlock
         collection: files
 
       @listenTo blockView, "dash:files:block:clicked", ->
@@ -121,6 +121,9 @@
       @listenTo blockView, "childview:file:link:clicked", (child, args) ->
         child.$el.unbind('click')
         child.$el.find('i').click()
+
+      @listenTo blockView, "childview:wiki:link:clicked", (child, args) ->
+        App.vent.trigger "wiki:content:clicked", args.model
 
       @show blockView,
         loading:

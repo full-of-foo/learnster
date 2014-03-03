@@ -182,8 +182,8 @@ course_students.each { |s| EnrolledCourseSection
     remote_file_upload_url: "https://news.ycombinator.com/y18.gif",
     module_supplement: lesson
   }
-  lesson_content = SupplementContent.new(params)
-  lesson_content.save!
+  content_upload = ContentUpload.new(params)
+  content_upload.save!
 end
 
 21.times do |i|

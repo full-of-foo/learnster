@@ -30,7 +30,7 @@
       when "AppAdmin" then App.currentUser = App.request("appAdmin:entity", id)
       when "OrgAdmin" then App.currentUser = App.request("org_admin:entity", id)
       when "Student"  then App.currentUser = App.request("student:entity", id)
-      else throw new Error "Attributes supplied do not have correct user type"
+      else throw new Error("Attributes supplied do not have correct user type")
     App.currentUser
 
   App.reqres.setHandler "set:current:user", (attrs) ->
@@ -38,7 +38,7 @@
       when "AppAdmin" then App.currentUser = App.request("init:current:appAdmin", attrs)
       when "OrgAdmin" then App.currentUser = App.request("init:current:orgAdmin", attrs)
       when "Student"  then App.currentUser = App.request("init:current:student", attrs)
-      else throw new Error "Attributes supplied do not have correct user type"
+      else throw new Error("Attributes supplied do not have correct user type")
     App.currentUser
 
   App.reqres.setHandler "default:region", ->

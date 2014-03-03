@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140212144433) do
+ActiveRecord::Schema.define(version: 20140303102843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,9 +139,13 @@ ActiveRecord::Schema.define(version: 20140212144433) do
     t.datetime "updated_at"
     t.integer  "module_supplement_id"
     t.string   "file_upload"
+    t.string   "type"
+    t.text     "wiki_markup"
   end
 
   add_index "supplement_contents", ["module_supplement_id"], name: "index_supplement_contents_on_module_supplement_id", using: :btree
+  add_index "supplement_contents", ["type"], name: "index_supplement_contents_on_type", using: :btree
+  add_index "supplement_contents", ["wiki_markup"], name: "index_supplement_contents_on_wiki_markup", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email"

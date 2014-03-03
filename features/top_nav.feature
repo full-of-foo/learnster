@@ -61,7 +61,7 @@ Scenario: Top navigate to items as course admin
   And there exists some statistics
 
   Then I topbar navigate to "Home"
-  And I click the "h1" with the "text" of "My Module Files"
+  And I click the "h1" with the "text" of "My Module Contents"
 
   Then I topbar navigate to "Settings"
   And I see the settings the page
@@ -79,7 +79,7 @@ Scenario: Top navigate to items as module admin
   And there exists some statistics
 
   Then I topbar navigate to "Home"
-  And I click the "h1" with the "text" of "My Module Files"
+  And I click the "h1" with the "text" of "My Module Contents"
 
   Then I topbar navigate to "Settings"
   And I see the settings the page
@@ -97,7 +97,7 @@ Scenario: Top navigate to items as module admin
   And there exists some statistics
 
   Then I topbar navigate to "Home"
-  And I click the "h1" with the "text" of "My Module Files"
+  And I click the "h1" with the "text" of "My Module Contents"
 
   Then I topbar navigate to "Settings"
   And I see the settings the page

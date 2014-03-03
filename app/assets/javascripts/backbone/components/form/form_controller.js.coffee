@@ -14,6 +14,8 @@
       @contentView.triggerMethod "form:cancel"
 
     formSubmit: ->
+      model = @contentView.model
+      model.beforeSave(model) if model?.beforeSave
       data = Backbone.Syphon.serialize @formLayout
       if @contentView.triggerMethod("form:submit", data) isnt false
         model = @contentView.model

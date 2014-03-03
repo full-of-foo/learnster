@@ -21,7 +21,7 @@ Scenario: Account Admin Settings
   Then I topbar navigate to "Settings"
   Then I update the account details
   Then the "Dashboard" nav is active
-  And I should see the text "My Module Files"
+  And I should see the text "My Module Contents"
   Then I topbar navigate to "Settings"
   And I see the settings the page
 
@@ -32,7 +32,7 @@ Scenario: Account Admin Settings
   Then I topbar navigate to "Settings"
   Then I update the account details
   Then the "Dashboard" nav is active
-  And I should see the text "My Module Files"
+  And I should see the text "My Module Contents"
   Then I topbar navigate to "Settings"
   And I see the settings the page
 
@@ -43,6 +43,6 @@ Scenario: Account Admin Settings
   Then I topbar navigate to "Settings"
   Then I update the account details
   Then the "Dashboard" nav is active
-  And I should see the text "My Module Files"
+  And I should see the text "My Module Contents"
   Then I topbar navigate to "Settings"
   And I see the settings the page

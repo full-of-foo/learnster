@@ -41,4 +41,5 @@
   class Show.Panel extends App.Views.ItemView
     template: 'module_supplements/show/templates/panel'
     triggers:
-      "click #new-supplement-content-button" : "new:supplement:content:button:clicked"
+      "click #new-content-upload-button" : "new:upload:content:button:clicked"
+      "click #new-wiki-content-button"   : "new:wiki:content:button:clicked"

@@ -3,9 +3,10 @@
   class New.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
+      @_isUpload = if options.isUpload then options.isUpload else options.isWiki
       @nestedSupplementId = options.nestedSupplementId
 
-      content = App.request "new:supplement:content:entity"
+      content = if @_isUpload then App.request "new:content:upload:entity" else App.request "new:wiki:content:entity"
       content.set('module_supplement', {id: @nestedSupplementId})
 
       @layout = @getLayoutView content
@@ -15,7 +16,10 @@
         App.vent.trigger "content:created", new_content
 
       @listenTo @layout, "show", =>
-        @setFormRegion content
+        if @_isUpload
+          @setUploadFormRegion(content)
+        else
+          @setWikiFormRegion(content)
 
       @show @layout
 
@@ -23,12 +27,29 @@
       new New.Layout
         model: content
 
-    getNewView: (content) ->
-      new New.View
+    getNewUploadView: (content) ->
+      new New.UploadView
         model: content
 
-    setFormRegion: (content) ->
-      @newView = @getNewView content
+    getNewWikiView: (content) ->
+      new New.WikiView
+        model: content
+
+    setWikiFormRegion: (content) ->
+      @newView = @getNewWikiView content
+      formView = App.request "form:wrapper", @newView
+      @newView['_formWrapper'] = formView
+
+      @listenTo @newView, "form:cancel", ->
+        @region.close()
+
+      @show formView,
+        loading:
+            loadingType: "spinner"
+        region:  @layout.formRegion
+
+    setUploadFormRegion: (content) ->
+      @newView = @getNewUploadView content
       formView = App.request "form:wrapper", @newView
       @newView['_formWrapper'] = formView
 

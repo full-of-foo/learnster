@@ -1,8 +1,6 @@
 class SupplementContent < ActiveRecord::Base
   belongs_to :module_supplement
-  mount_uploader :file_upload, FileUploader
-
-  validates_presence_of :module_supplement, :title, :file_upload
+  validates_presence_of :module_supplement, :title
 
   def self.organisation_contents(organisation_id)
     self.joins(module_supplement: [learning_module: :organisation])

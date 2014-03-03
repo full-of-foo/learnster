@@ -5,6 +5,8 @@
       "module/:id/edit" : "edit"
       "module/:id/show" : "show"
       "module/:id/supplement/:supplementId/show" : "showWithSupplement"
+      "module/:moduleId/supplement/:supplementId/wiki/:wikiId/edit" : "editWiki"
+      "module/:moduleId/supplement/:supplementId/wiki/:wikiId/show" : "showWiki"
 
   API =
     newModuleView: (region) ->
@@ -18,6 +20,19 @@
     show: (id) ->
       new LearningModulesApp.Show.Controller
         id: @get_module_id(id)
+
+    editWiki: (moduleId, supplementId, wikiId) ->
+      new App.SupplementContentsApp.Edit.Controller
+        id: wikiId
+        moduleId: moduleId
+        supplementId: supplementId
+
+    showWiki: (moduleId, supplementId, wikiId) ->
+      new App.SupplementContentsApp.Edit.Controller
+        isPreview: true
+        id: wikiId
+        moduleId: moduleId
+        supplementId: supplementId
 
     showWithSupplement: (id, supplementId) ->
       new LearningModulesApp.Show.Controller

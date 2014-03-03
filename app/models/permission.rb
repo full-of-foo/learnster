@@ -6,7 +6,7 @@ class Permission < Struct.new(:user)
     if user
       @user = user
       return true if user.app_admin?
-      account_controllers = %w[course learning_module enrolled_course_section /course_section section_module module_supplement supplement_content]
+      account_controllers = %w[course learning_module wiki_content content_upload enrolled_course_section /course_section section_module module_supplement supplement_content]
 
       return true if update_account_request?(controller, action, params)
 
@@ -180,16 +180,18 @@ class Permission < Struct.new(:user)
     end
 
     def my_content_updates_and_creates?(controller, action, params)
-      if controller.end_with?("supplement_content")
+      if controller.end_with?("supplement_content") || controller
+          .end_with?("content_upload") || controller.end_with?("wiki_content")
+        supplement_id = params[:module_supplement] ? params[:module_supplement][:id] : params[:module_supplement_id]
         is_updatable = action == "update" && @admin_modules.exists?(ModuleSupplement
-                                                                        .find(params[:module_supplement_id])
+                                                                        .find(supplement_id)
                                                                           .learning_module_id)
         is_deletable = action == "destroy" && @admin_modules.exists?(SupplementContent
                                                                         .find(params[:id])
                                                                           .module_supplement
                                                                             .learning_module_id)
         is_creatable = action == "create" && @admin_modules.exists?(ModuleSupplement
-                                                                      .find(params[:module_supplement][:id])
+                                                                      .find(supplement_id)
                                                                         .learning_module_id)
         return is_updatable || is_deletable || is_creatable
       else
@@ -198,7 +200,7 @@ class Permission < Struct.new(:user)
     end
 
     def course_related_controller_request?(controller)
-      related_controllers = %w[learning_module enrolled_course_section /course_section section_module module_supplement supplement_content]
+      related_controllers = %w[learning_module enrolled_course_section wiki_content content_upload /course_section section_module module_supplement supplement_content]
 
       related_controllers.any? { |related_controller| controller.end_with?(related_controller) }
     end

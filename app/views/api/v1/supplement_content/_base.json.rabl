@@ -1,4 +1,4 @@
-attributes :id, :title, :description, :created_at, :updated_at, :file_upload, :module_supplement
+attributes :id, :title, :description, :type, :created_at, :updated_at, :file_upload, :module_supplement, :wiki_markup
 
 node do |supplement_content|
     {

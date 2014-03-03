@@ -86,6 +86,9 @@ do (Learnster, $, Backbone, Marionette, _) ->
         when /modules$/.test(route)
           $('title').html('Modules')
           break
+        when /^module\/(.+?)\/supplement\/(.+?)\/wiki\/(.+?)$/.test(route)
+          $('title').html('Wiki')
+          break
         when /^module\/(.+?)\/supplement\/(.+?)\/show$/.test(route)
           $('title').html('Supplement')
           break

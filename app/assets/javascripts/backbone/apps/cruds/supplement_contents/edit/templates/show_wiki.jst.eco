@@ -1,0 +1,56 @@
+<% isEditableForm = false %>
+<% u = @currentUser() %>
+
+<% if u.type is "OrgAdmin" and (u.role is "course_manager" or u.role is "module_manager"): %>
+  <% hasPermission = @isCreatedByUser(@module_supplement.learning_module.educator_id) %>
+<% else if u.type is "OrgAdmin" and u.role is "account_manager": %>
+  <% hasPermission = true %>
+<% else: %>
+  <% hasPermission = false %>
+<% end %>
+
+
+<% if hasPermission: %>
+    <div class="pull-right">
+      <span id="edit-wiki-button" class="btn btn-success">Edit</span>
+    </div>
+<% end %>
+
+<blockquote>
+    <p class="text-info">Showing Educator Wiki...</p>
+    <small class="text-info">hover over fields for help</small>
+</blockquote>
+
+<div class="form-horizontal">
+    <fieldset>
+
+        <div class="control-group">
+            <!-- Title -->
+            <label class="control-label" for="title">Title</label>
+            <div class="controls">
+                <%- @editOrShowField( "title", @title, isEditableForm ) %>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Description -->
+            <label class="control-label" for="description">Description</label>
+            <div class="controls">
+                <%- @editOrShowField( "description", @description, isEditableForm ) %>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Description -->
+            <label class="control-label" for="updated_at_formatted">Last updated</label>
+            <div class="controls">
+                <%- @editOrShowField( "updated_at_formatted", @updated_at_formatted, isEditableForm ) %>
+            </div>
+        </div>
+        <div class="control-group">
+            <!-- Wiki -->
+            <div class="span" style="width:98%; background: white; margin-right: 3pc; margin-top: 1pc; padding: -1pc;"><%- @wiki_markup %></div>
+        </div>
+
+    </fieldset>
+</div>

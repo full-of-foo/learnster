@@ -38,3 +38,13 @@
   <span class="timestamp">created on <%= @created_at_formatted %></span>
 
 <% end %>
+
+<!-- File upload template -->
+<% if  @wiki_markup:  %>
+<span class="content">
+  <%= @title %>
+  <span id="wiki-link"><i class="fa fa-pencil-square-o"></i></span>
+</span>
+  <span class="timestamp">created on <%= @created_at_formatted %></span>
+
+<% end %>
