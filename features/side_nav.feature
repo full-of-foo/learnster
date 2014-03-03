@@ -150,11 +150,8 @@ Scenario: Course admin sidebar navigation
   Then I should not see a "a" with the "id" of "new-org-admin-button"
 
   Then I sidebar navigate to "My Coursemates"
-  Then the "My Students" nav is active
+  Then the "My Coursemates" nav is active
   Then I should not see a "a" with the "id" of "new-student-button"
 
   Then I topbar navigate to "Notifications"
   Then no sidenavs are active
-
-
-
