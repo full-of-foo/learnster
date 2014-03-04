@@ -3,6 +3,12 @@ upstream unicorn {
 }
 
 server {
+  listen 80;
+  root <%= current_path %>/public;
+  rewrite ^(.*) https://$host$1 permanent;
+}
+
+server {
   listen       443;
   root <%= current_path %>/public;
 
