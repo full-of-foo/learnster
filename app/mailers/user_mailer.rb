@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "learnster.automated.mailer@gmail.com"
+  default from: ENV['GMAIL_USERNAME']
 
   def signup_confirmation(admin, confirmation_url)
     @admin = admin
