@@ -1,0 +1,24 @@
+<% u = @currentUser() %>
+
+<% if u.type is "OrgAdmin" and (u.role is "course_manager" or u.role is "module_manager"): %>
+  <% isEducatedBy = @isCreatedByUser(@learning_module.educator_id) %>
+<% else if u.type is "OrgAdmin" and u.role is "account_manager": %>
+  <% isEducatedBy = true %>
+<% else: %>
+  <% isEducatedBy = false %>
+<% end %>
+
+
+<% if isEducatedBy: %>
+  <div id="list-panel" class="modal-header">
+
+      <div class="btn-group pull-right">
+
+          <a id="new-deliverable-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+          New Deliverable</a>
+
+      </div>
+
+  </div>
+  <div id="push"></div>
+<% end %>

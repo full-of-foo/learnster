@@ -52,6 +52,10 @@ class PermittedParams < Struct.new(:params, :user)
     params.require(:enrolled_course_section).permit(*enrolled_course_section_attributes)
   end
 
+  def deliverable_params
+    params.require(:deliverable).permit(*deliverable_attributes)
+  end
+
   private
     def user_attributes
       attrs = [:email, :first_name, :surname]
@@ -101,6 +105,10 @@ class PermittedParams < Struct.new(:params, :user)
 
     def enrolled_course_section_attributes
       [:course_section_id, :student_id]
+    end
+
+    def deliverable_attributes
+      [:title, :description, :module_supplement, :is_private, :due_date, :is_closed]
     end
 
 end

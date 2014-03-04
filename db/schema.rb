@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20140303184326) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "deliverables_tables", force: true do |t|
+  create_table "deliverables", force: true do |t|
     t.string   "title"
     t.string   "description"
     t.datetime "due_date"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20140303184326) do
     t.integer  "module_supplement_id"
   end
 
-  add_index "deliverables_tables", ["module_supplement_id"], name: "index_deliverables_tables_on_module_supplement_id", using: :btree
+  add_index "deliverables", ["module_supplement_id"], name: "index_deliverables_on_module_supplement_id", using: :btree
 
   create_table "enrolled_course_sections", force: true do |t|
     t.integer  "student_id"

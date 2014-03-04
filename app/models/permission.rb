@@ -6,7 +6,9 @@ class Permission < Struct.new(:user)
     if user
       @user = user
       return true if user.app_admin?
-      account_controllers = %w[course learning_module wiki_content content_upload enrolled_course_section /course_section section_module module_supplement supplement_content]
+      account_controllers = %w[course learning_module wiki_content content_upload
+        enrolled_course_section /course_section section_module module_supplement
+        deliverable supplement_content]
 
       return true if update_account_request?(controller, action, params)
 
@@ -46,7 +48,7 @@ class Permission < Struct.new(:user)
           if course_related_controller_request?(controller)
             @admin_modules = user.learning_modules
             return true if my_supplement_updates_and_creates?(controller, action, params)
-            return true if my_content_updates_and_creates?(controller, action, params)
+            return true if my_deliverable_or_content_updates_and_creates?(controller, action, params)
             return true if my_module_updates?(controller, action, params)
             return true if create_module_request?(controller, action, params)
 
@@ -65,7 +67,7 @@ class Permission < Struct.new(:user)
           if course_related_controller_request?(controller)
             @admin_modules = user.learning_modules
             return true if my_supplement_updates_and_creates?(controller, action, params)
-            return true if my_content_updates_and_creates?(controller, action, params)
+            return true if my_deliverable_or_content_updates_and_creates?(controller, action, params)
             return true if my_module_updates?(controller, action, params)
             return true if create_module_request?(controller, action, params)
           end
@@ -179,9 +181,9 @@ class Permission < Struct.new(:user)
       end
     end
 
-    def my_content_updates_and_creates?(controller, action, params)
+    def my_deliverable_or_content_updates_and_creates?(controller, action, params)
       if controller.end_with?("supplement_content") || controller
-          .end_with?("content_upload") || controller.end_with?("wiki_content")
+          .end_with?("deliverable") || controller.end_with?("content_upload") || controller.end_with?("wiki_content")
         supplement_id = params[:module_supplement] ? params[:module_supplement][:id] : params[:module_supplement_id]
         is_updatable = action == "update" && @admin_modules.exists?(ModuleSupplement
                                                                         .find(supplement_id)
@@ -200,7 +202,9 @@ class Permission < Struct.new(:user)
     end
 
     def course_related_controller_request?(controller)
-      related_controllers = %w[learning_module enrolled_course_section wiki_content content_upload /course_section section_module module_supplement supplement_content]
+      related_controllers = %w[learning_module enrolled_course_section wiki_content
+        content_upload /course_section section_module module_supplement
+        deliverable supplement_content]
 
       related_controllers.any? { |related_controller| controller.end_with?(related_controller) }
     end

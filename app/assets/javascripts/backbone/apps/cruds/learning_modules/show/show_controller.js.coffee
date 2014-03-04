@@ -127,6 +127,7 @@
        { title: "Title", attrName: "title", isSortable: true, default: true, isRemovable: false },
        { title: "Description", attrName: "description",  isSortable: true, default: true, isRemovable: false },
        { title: "# Contents", attrName: "contents_counts",  isSortable: true, default: true, isRemovable: false },
+       { title: "# Deliverables", attrName: "deliverables_counts",  isSortable: true, default: true, isRemovable: false },
        { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
       ]
 

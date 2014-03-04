@@ -11,15 +11,30 @@
 
       @listenTo @layout, "show", =>
         @showSupplement(@supplement)
-        @showContentsPanel(@supplement)
+        @showContentsTab(@supplement)
+
+      @listenTo @layout, "contents:tab:clicked", ->
+        @showContentsTab(@supplement)
+
+      @listenTo @layout, "deliverables:tab:clicked", ->
+        @showDeliverablesTab(@supplement)
 
       @show @layout
 
+    showContentsTab: (supplement) ->
+      $('#content-deliverable-tab-list a:first').tab('show')
+      @_closeNewRegion()
+      @showContentsPanel(supplement)
+      @showContents(supplement)
+
+    showDeliverablesTab: (supplement) ->
+      $('#content-deliverable-tab-list a:last').tab('show')
+      @_closeNewRegion()
+      @showDeliverablesPanel(supplement)
+      @showDeliverables(supplement)
+
     showSupplement: (supplement) ->
       supplementView = @getShowView(supplement)
-
-      # @listenTo supplementView, "edit:supplement:button:clicked", (view) ->
-      #   App.vent.trigger "edit:supplement:clicked", view
 
       @listenTo supplementView, "delete:supplement:button:clicked", (view) ->
         model = view.model
@@ -29,9 +44,6 @@
         supplement = view.model
         moduleId = supplement.get('learning_module').id
         App.navigate "/module/#{moduleId}/show"
-
-      @listenTo supplementView, "show", ->
-        @showContents(supplement)
 
       @show supplementView,
         loading:
@@ -54,7 +66,24 @@
       @show contentsView,
         loading:
           loadingType: "spinner"
-        region: @layout.supplementContentsRegion
+        region: @layout.listRegion
+
+    showDeliverables: (supplement) ->
+      @supplementId = supplement.get('id')
+      deliverables = App.request("supplement:deliverable:entities", @supplementId)
+      deliverablesView = @getDeliverablesView(deliverables)
+
+      @listenTo deliverablesView, "childview:deliverable:delete:clicked", (child, args) ->
+        model = args.model
+        @showDeleteDeliverableDialog(model)
+
+      @listenTo deliverablesView, "childview:deliverable:clicked", (child, args) ->
+        model = args.model
+        App.request "show:deliverable", model
+      @show deliverablesView,
+        loading:
+          loadingType: "spinner"
+        region: @layout.listRegion
 
     showDeleteDialog: (supplement) ->
       dialogView = @getDialogView supplement
@@ -75,12 +104,35 @@
       @listenTo dialogView, "dialog:delete:supplement:content:clicked", =>
         dialogView.$el.modal "hide"
         content.destroy()
-        content.on "destroy", => @showContents(@supplement)
+        content.on "destroy", => @showContentsTab(@supplement)
 
       @show dialogView,
         loading:
           loadingType: "spinner"
         region: App.dialogRegion
+
+    showDeleteDeliverableDialog: (deliverable) ->
+        dialogView = @getDeliverableDialogView deliverable
+        @listenTo dialogView, "dialog:delete:deliverable:clicked", =>
+          dialogView.$el.modal "hide"
+          deliverable.destroy()
+          deliverable.on "destroy", => @showDeliverablesTab(@supplement)
+
+        @show dialogView,
+          loading:
+            loadingType: "spinner"
+          region: App.dialogRegion
+
+    showDeliverablesPanel: (supplement) ->
+      panelView = @getDeliverablesPanelView(supplement)
+
+      @listenTo panelView, "new:deliverable:button:clicked", =>
+        @showNewDeliverableRegion()
+
+      @show panelView,
+        loading:
+          loadingType: "spinner"
+        region: @layout.panelRegion
 
     showContentsPanel: (supplement) ->
       panelView = @getPanelView(supplement)
@@ -94,13 +146,16 @@
       @show panelView,
         loading:
           loadingType: "spinner"
-        region: @layout.supplementContentsPanelRegion
+        region: @layout.panelRegion
 
     showNewUploadRegion: ->
-      App.execute "new:content:upload:view", @layout.newSupplementContentRegion, @supplementId
+      App.execute "new:content:upload:view", @layout.newRegion, @supplementId
 
     showNewWikiRegion: ->
-      App.execute "new:wiki:content:view", @layout.newSupplementContentRegion, @supplementId
+      App.execute "new:wiki:content:view", @layout.newRegion, @supplementId
+
+    showNewDeliverableRegion: ->
+      App.execute "new:deliverable:view", @layout.newRegion, @supplementId
 
     getLayoutView: (supplement) ->
       new Show.Layout
@@ -118,6 +173,14 @@
       new Show.DeleteContentDialog
         model: content
 
+    getDeliverableDialogView: (deliverable) ->
+      new Show.DeleteDeliverableDialog
+        model: deliverable
+
+    getDeliverablesPanelView: (supplement) ->
+      new Show.DeliverablePanel
+        model: supplement
+
     getPanelView: (supplement) ->
       new Show.Panel
         model: supplement
@@ -127,6 +190,11 @@
       options = @getTableOptions cols
       App.request "table:wrapper", sections, options
 
+    getDeliverablesView: (deliverables) ->
+      cols = @getDeliverableTableColumns()
+      options = @getDeliverableTableOptions cols
+      App.request "table:wrapper", deliverables, options
+
     getTableColumns: ->
       [
        { title: "Title", attrName: "title", isSortable: true, default: true, isRemovable: false },
@@ -135,6 +203,17 @@
         , isSortable: true, default: true, isRemovable: false },
        { title: "Wiki", htmlContent: '<% if(model.get("wiki_markup")){ %><span class="wiki-link">&#10004;</span><% } %>'
         , isSortable: true, default: true, isRemovable: false },
+       { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible"
+        ,default: true, isRemovable: false, hasData: false }
+      ]
+
+    getDeliverableTableColumns: ->
+      [
+       { title: "Title", attrName: "title", isSortable: true, default: true, isRemovable: false },
+       { title: "Private", htmlContent: '<% if(model.get("is_private")){ %>&#10004;<% } else { %>✘<% } %>'
+        , isSortable: true, default: true, isRemovable: false },
+       { title: "Due Date", attrName: "due_date_formatted", isSortable: true, default: true, isRemovable: false },
+       { title: "Created On", attrName: "created_at_formatted", isSortable: true, default: true, isRemovable: false },
        { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible"
         ,default: true, isRemovable: false, hasData: false }
       ]
@@ -149,9 +228,20 @@
         <div class="delete-icon"><i class="icon-remove-sign"></i></div>
         <% } %>'
 
+    getDeliverableTableOptions: (columns) ->
+      columns: columns
+      region: @layout.listRegion
+      config:
+        spanClass: "span7"
+        emptyMessage: "No deliverables have been set :("
+        itemProperties:
+          triggers:
+              "click .delete-icon i"   : "deliverable:delete:clicked"
+              "click"                  : "deliverable:clicked"
+
     getTableOptions: (columns) ->
       columns: columns
-      region: @layout.supplementContentsRegion
+      region: @layout.listRegion
       config:
         spanClass: "span7"
         emptyMessage: "No contents have been set :("
@@ -161,3 +251,6 @@
               "click"                  : "content:clicked"
           events:
               "click a.file-link" : ((e) => e.stopImmediatePropagation())
+
+    _closeNewRegion: ->
+      @layout.newRegion.close()

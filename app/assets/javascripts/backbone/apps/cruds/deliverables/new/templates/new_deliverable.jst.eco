@@ -1,8 +1,10 @@
+<% isEditableForm = true %>
+
 <div class="wiki-container">
-    <button type="button" class="close cancel-new-content" data-dismiss="alert">&times;</button>
+    <button type="button" class="close cancel-new-deliverable" data-dismiss="alert">&times;</button>
 
     <blockquote>
-        <p class="text-info">New Wiki...</p>
+        <p class="text-info">New Deliverable...</p>
         <small class="text-info">hover over fields for help</small>
     </blockquote>
 
@@ -26,11 +28,19 @@
             </div>
 
             <div class="control-group">
-                <!-- Wiki -->
-            <div class="span">
-              <textarea id="wiki_markup" name="wiki_markup" style="width:50%; margin-left: -4pc;"></textarea>
+                <!-- Is Private -->
+                <label class="control-label" for="is_private">Private</label>
+                <div class="span">
+                    <input type="checkbox" id="is_private" name="is_private" value="false">
+                </div>
             </div>
 
+            <div class="control-group">
+                <!-- Due date -->
+                <label class="control-label" for="due_date">Due date</label>
+                <div class="span">
+                    <input data-provide="datepicker" id="due_date" name="due_date" class="datepicker input-xlarge" data-date-format="mm/dd/yyyy">
+                </div>
             </div>
 
         </fieldset>

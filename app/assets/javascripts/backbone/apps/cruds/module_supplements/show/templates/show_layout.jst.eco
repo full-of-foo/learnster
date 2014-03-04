@@ -2,11 +2,26 @@
     <div id="show-supplement-region"></div>
 
     <div id="push"></div>
+    <div id="push"></div>
 
-    <div id="supplement-contents-panel-region"></div>
-    <div id="new-supplement-content-region"></div>
-    <div class="span7">
-      <div id="supplement-contents-region"></div>
+    <ul id="content-deliverable-tab-list" class="nav nav-tabs">
+      <li><a id="contents-tab" href="#contents" data-toggle="tab">Contents</a></li>
+      <li><a id="deliverables-tab" href="#deliverables" data-toggle="tab">Deliverables</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="content">
+      </div>
+
+      <div class="tab-pane" id="deliverables">
+      </div>
+
+      <div id="panel-region"></div>
+      <div id="new-region"></div>
+      <div class="span7">
+        <div id="list-region"></div>
+      </div>
+
     </div>
 
 </div>

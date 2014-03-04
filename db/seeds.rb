@@ -7,7 +7,7 @@
 # teardown
 [ApiKey, LearningModule, User, Organisation, Activity,
   EnrolledCourseSection, CourseSection, Course, SupplementContent,
-  ModuleSupplement].each(&:delete_all)
+  ModuleSupplement, Deliverable].each(&:delete_all)
 
 ########################
 ## Users and Orgs
@@ -165,7 +165,6 @@ course_students.each { |s| EnrolledCourseSection
   }
   m = LearningModule.new(params)
   m.save!
-  # enroll students
   m.course_sections << course_section
 
   params = {
@@ -184,6 +183,18 @@ course_students.each { |s| EnrolledCourseSection
   }
   content_upload = ContentUpload.new(params)
   content_upload.save!
+
+  params = {
+    title: "Project - #{i}",
+    description: Faker::Lorem.sentence,
+    due_date: (Time.zone.now + 1.week),
+    is_closed: false,
+    is_private: false,
+    module_supplement: lesson
+  }
+  deliverable = Deliverable.new(params)
+  deliverable.save!
+
 end
 
 21.times do |i|

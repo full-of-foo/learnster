@@ -26,10 +26,9 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^organisation\/(.+?)\/my_settings$/,
           /^course\/(.+?)\/show$/,
           /^module\/(.+?)\/show$/,
-          /^student\/(.+?)\/edit$/,
-          /^org_admin\/(.+?)\/edit$/,
           /^module\/(.+?)\/supplement\/(.+?)\/show$/,
-          /^course_section\/(.+?)\/show$/
+          /^course_section\/(.+?)\/show$/,
+          /^deliverable\/(.+?)\/show$/
         ],
 
         orgAdmin: [
@@ -53,7 +52,9 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^module\/(.+?)\/show$/,
           /^module\/(.+?)\/supplement\/(.+?)\/show$/,
           /^course_section\/(.+?)\/edit$/,
-          /^course_section\/(.+?)\/show$/
+          /^course_section\/(.+?)\/show$/,
+          /^deliverable\/(.+?)\/show$/,
+          /^deliverable\/(.+?)\/edit$/
         ],
 
         appAdmin: [
@@ -82,6 +83,9 @@ do (Learnster, $, Backbone, Marionette, _) ->
           break
         when /course\//.test(route)
           $('title').html('Course')
+          break
+        when /^deliverable\/(.+?)\/show$/.test(route)
+          $('title').html('Deliverable')
           break
         when /modules$/.test(route)
           $('title').html('Modules')

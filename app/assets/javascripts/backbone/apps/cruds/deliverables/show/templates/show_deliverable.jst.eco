@@ -1,0 +1,61 @@
+<% isEditableForm = false %>
+<% u = @currentUser() %>
+
+<% if u.type is "OrgAdmin" and (u.role is "course_manager" or u.role is "module_manager"): %>
+  <% hasPermission = @isCreatedByUser(@module_supplement.learning_module.educator_id) %>
+<% else if u.type is "OrgAdmin" and u.role is "account_manager": %>
+  <% hasPermission = true %>
+<% else: %>
+  <% hasPermission = false %>
+<% end %>
+
+<% if hasPermission: %>
+  <div class="pull-right">
+      <span id="edit-deliverable-button" class="btn btn-success">Edit</span>
+      <span id="delete-deliverable-button" class="btn btn-danger">Delete</span>
+  </div>
+<% end %>
+
+<blockquote id="edit-form-header">
+    <p class="text-info">Showing Deliverable: </p>
+</blockquote>
+
+<div id="push"></div>
+
+ <div class="span6">
+
+      <div class="control-group">
+        <span class="control-label" for="title">Title</label>
+        <div class="controls">
+         <p class="text-info"> <%- @editOrShowField( "title", @title, isEditableForm ) %> </p>
+        </div>
+      </div>
+
+      <% if @description: %>
+        <div class="control-group">
+          <label class="control-label" for="description">Description</label>
+          <div class="controls">
+           <p class="text-info"> <%- @editOrShowField( "description", @description, isEditableForm ) %> </p>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="control-group">
+        <label class="control-label" for="due_date">Due date</label>
+        <div class="controls">
+         <p class="text-info"> <%- @editOrShowField( "due_date", @due_date_formatted, isEditableForm ) %> </p>
+        </div>
+      </div>
+
+      <div class="pull-right">
+        <div class="row">
+            <span for="is_closed">Closed:
+                <% if @is_closed: %> &#10004; <% else: %> ✘ <% end %>
+            </span>
+
+            <span for="is_private">Private:
+                <% if @is_private: %> &#10004; <% else: %> ✘ <% end %>
+            </span>
+        </div>
+      </div>
+  </div>
