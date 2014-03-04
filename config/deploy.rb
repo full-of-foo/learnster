@@ -31,7 +31,8 @@ ssh_options[:forward_agent] = true
 set :gmail_user, ENV["GMAIL_USERNAME"]
 set :gmail_pass, ENV["GMAIL_PASSWORD"]
 
-after "deploy", "deploy:cleanup" # keep only the last 5 releases
+set :keep_releases, 2
+after "deploy", "deploy:cleanup"
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
 after "deploy:restart", "delayed_job:restart"

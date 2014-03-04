@@ -19,7 +19,7 @@ namespace :unicorn do
   %w[start stop restart].each do |command|
     desc "#{command} unicorn"
     task command, roles: :app do
-      run "ENABLE_HTTPS == 'yes' service unicorn_#{application} #{command}"
+      run "ENABLE_HTTPS='yes' service unicorn_#{application} #{command}"
     end
     after "deploy:restart", "unicorn:stop", "unicorn:start" # restart does reload gems
   end
