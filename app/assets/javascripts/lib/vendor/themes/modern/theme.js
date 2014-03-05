@@ -572,7 +572,15 @@ tinymce.ThemeManager.add('modern', function(editor) {
 			}
 
 			// Load content.min.css or content.inline.min.css
-			editor.contentCSS.push(skinUrl + '/content' + (editor.inline ? '.inline' : '') + '.min.css');
+			var isDevelopment = false;
+
+			if (/localhost/.test(tinymce.DOM.doc.URL)) {
+				isDevelopment = true;
+			}
+
+			if ( isDevelopment === true ) {
+				editor.contentCSS.push(skinUrl + '/content' + (editor.inline ? '.inline' : '') + '.min.css');
+			}
 		}
 
 		// Handle editor setProgressState change
