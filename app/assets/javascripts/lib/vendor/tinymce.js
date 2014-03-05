@@ -6736,16 +6736,7 @@ define("tinymce/dom/DOMUtils", [
 						link.onload = null;
 					};
 				}
-
-				var isDevelopment = false;
-
-				if (/localhost/.test(url)) {
-					isDevelopment = true;
-				}
-
-				if ( isDevelopment === true ) {
-					head.appendChild(link);
-				}
+				head.appendChild(link);
 			});
 		},
 
@@ -7782,15 +7773,7 @@ define("tinymce/dom/ScriptLoader", [
 			elm.onerror = error;
 
 			// Add script to document
-			var isDevelopment = false;
-
-			if (/localhost/.test(document.URL)) {
-				isDevelopment = true;
-			}
-
-			if ( isDevelopment === true ) {
-				(document.getElementsByTagName('head')[0] || document.body).appendChild(elm);
-			}
+			(document.getElementsByTagName('head')[0] || document.body).appendChild(elm);
 		}
 
 		/**

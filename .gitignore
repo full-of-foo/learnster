@@ -1,5 +1,7 @@
 features/downloads/*
-public/assets/*
+/public/assets/source_maps
+/public/assets/*.*
+
 /.bundle
 /db/*.sqlite3
 /db/*.sqlite3-journal
@@ -35,7 +37,6 @@ vendor/bundle/
 /*.tmpproj
 **.swp
 .secret
-public/assets/source_maps
 *.pid
 log/
 solr/development

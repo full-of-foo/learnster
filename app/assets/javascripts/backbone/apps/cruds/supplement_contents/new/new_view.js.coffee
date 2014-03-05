@@ -13,6 +13,7 @@
       tinymce.init
         selector: "#wiki_markup",
         theme: "modern",
+        skin_url: "/assets/tiny/lightgray",
         browser_spellcheck : true,
         plugins: [
             "advlist autolink lists link image charmap print preview hr anchor pagebreak",
