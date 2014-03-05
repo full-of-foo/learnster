@@ -16629,7 +16629,7 @@ define("tinymce/Formatter", [
 					// Move selection to text node
 					selection.setCursorLocation(node, 1);
 
-					// If the formatNode is empty, we can remove it safely. 
+					// If the formatNode is empty, we can remove it safely.
 					if (dom.isEmpty(formatNode)) {
 						dom.remove(formatNode);
 					}
@@ -21102,7 +21102,7 @@ define("tinymce/ui/Control", [
 		 * @method encode
 		 * @param {String/Object/Array} text Text to entity encode.
 		 * @param {Boolean} [translate=true] False if the contents shouldn't be translated.
-		 * @return {String} Encoded and possible traslated string. 
+		 * @return {String} Encoded and possible traslated string.
 		 */
 		encode: function(text, translate) {
 			if (translate !== false && Control.translate) {
@@ -23197,7 +23197,7 @@ define("tinymce/ui/Resizable", [
 	"use strict";
 
 	return {
-		/** 
+		/**
 		 * Resizes the control to contents.
 		 *
 		 * @method resizeToContent
@@ -23208,7 +23208,7 @@ define("tinymce/ui/Resizable", [
 			this.reflow();
 		},
 
-		/** 
+		/**
 		 * Resizes the control to a specific width/height.
 		 *
 		 * @method resizeTo
@@ -23229,7 +23229,7 @@ define("tinymce/ui/Resizable", [
 			return this.layoutRect({minW: w, minH: h, w: w, h: h}).reflow();
 		},
 
-		/** 
+		/**
 		 * Resizes the control to a specific relative width/height.
 		 *
 		 * @method resizeBy
@@ -24512,7 +24512,7 @@ define("tinymce/util/Quirks", [
 		 *  7. Delete by selecting contents and writing a character.'
 		 *
 		 * This code is a ugly hack since writing full custom delete logic for just this bug
-		 * fix seemed like a huge task. I hope we can remove this before the year 2030. 
+		 * fix seemed like a huge task. I hope we can remove this before the year 2030.
 		 */
 		function cleanupStylesWhenDeleting() {
 			var doc = editor.getDoc();
@@ -27425,10 +27425,10 @@ define("tinymce/Editor", [
 		 * @example
 		 * // Show progress for the active editor
 		 * tinymce.activeEditor.setProgressState(true);
-		 * 
+		 *
 		 * // Hide progress for the active editor
 		 * tinymce.activeEditor.setProgressState(false);
-		 * 
+		 *
 		 * // Show progress after 3 seconds
 		 * tinymce.activeEditor.setProgressState(true, 3000);
 		 */
@@ -30543,7 +30543,7 @@ define("tinymce/ui/PanelButton", [
 
 /**
  * This class creates a color button control. This is a split button in which the main
- * button has a visual representation of the currently selected color. When clicked 
+ * button has a visual representation of the currently selected color. When clicked
  * the caret button displays a color picker, allowing the user to select a new color.
  *
  * @-x-less ColorButton.less
@@ -30555,7 +30555,7 @@ define("tinymce/ui/ColorButton", [
 	"tinymce/dom/DOMUtils"
 ], function(PanelButton, DomUtils) {
 	"use strict";
-	
+
 	var DOM = DomUtils.DOM;
 
 	return PanelButton.extend({
@@ -30611,7 +30611,7 @@ define("tinymce/ui/ColorButton", [
 				'</div>'
 			);
 		},
-		
+
 		/**
 		 * Called after the control has been rendered.
 		 *
@@ -30635,7 +30635,7 @@ define("tinymce/ui/ColorButton", [
 
 			return self._super();
 		}
-		
+
 	});
 });
 
