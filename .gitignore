@@ -1,6 +1,5 @@
 features/downloads/*
-/public/assets/source_maps
-/public/assets/*.*
+/public/assets
 
 /.bundle
 /db/*.sqlite3
