@@ -7782,7 +7782,15 @@ define("tinymce/dom/ScriptLoader", [
 			elm.onerror = error;
 
 			// Add script to document
-			(document.getElementsByTagName('head')[0] || document.body).appendChild(elm);
+			var isDevelopment = false;
+
+			if (/localhost/.test(document.URL)) {
+				isDevelopment = true;
+			}
+
+			if ( isDevelopment === true ) {
+				(document.getElementsByTagName('head')[0] || document.body).appendChild(elm);
+			}
 		}
 
 		/**
