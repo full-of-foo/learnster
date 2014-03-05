@@ -6736,9 +6736,17 @@ define("tinymce/dom/DOMUtils", [
 						link.onload = null;
 					};
 				}
-				if (settings.skin_url  !== "override") {
+
+				var isDevelopment = false;
+
+				if (/localhost/.test(url)) {
+					isDevelopment = true;
+				}
+
+				if ( isDevelopment === true ) {
 					head.appendChild(link);
 				}
+				head.appendChild(link);
 			});
 		},
 
