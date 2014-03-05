@@ -556,11 +556,6 @@ tinymce.ThemeManager.add('modern', function(editor) {
 
 		if (skin) {
 			var skinUrl = settings.skin_url;
-			var content = skinUrl +'/content.min'
-			if (skinUrl === "override") {
-				args.skinUiCss = skin;
-				content = skin
-			}
 
 			if (skinUrl) {
 				skinUrl = editor.documentBaseURI.toAbsolute(skinUrl);
@@ -574,6 +569,12 @@ tinymce.ThemeManager.add('modern', function(editor) {
 				args.skinUiCss = skinUrl + '/skin.ie7.min.css';
 			} else {
 				args.skinUiCss = skinUrl + '/skin.min.css';
+			}
+
+			var content = skinUrl +'/content.min'
+			if (skinUrl === "override") {
+				args.skinUiCss = skin;
+				content = skin
 			}
 
 			// Load content.min.css or content.inline.min.css

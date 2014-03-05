@@ -6736,8 +6736,9 @@ define("tinymce/dom/DOMUtils", [
 						link.onload = null;
 					};
 				}
-
-				head.appendChild(link);
+				if (settings.skin_url  !== "override") {
+					head.appendChild(link);
+				}
 			});
 		},
 
