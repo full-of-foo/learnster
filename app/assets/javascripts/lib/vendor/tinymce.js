@@ -6746,7 +6746,6 @@ define("tinymce/dom/DOMUtils", [
 				if ( isDevelopment === true ) {
 					head.appendChild(link);
 				}
-				head.appendChild(link);
 			});
 		},
 
