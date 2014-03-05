@@ -1,7 +1,7 @@
 
 ## Learnster - An Open Source Learning Management System
 
-Currently in development, learnster is a pure single page application learnining management system, with Backbone.Marionette front-end backed by a Rails API
+Currently in development, learnster is a pure single page app learnining management system, with a Backbone.Marionette front-end backed by a Rails API
 
 
 ### System Requirements
@@ -15,8 +15,8 @@ Currently in development, learnster is a pure single page application learnining
  - bundle install
  - rake db:migrate
  - rake db:seed
- - GMAIL_USERNAME='learnster.automated.mailer2@gmail.com' GMAIL_PASSWORD='*****' rake start
- - GMAIL_USERNAME='learnster.automated.mailer2@gmail.com' GMAIL_PASSWORD='*****' bin/delayed_job start
+ - GMAIL_USERNAME='foo@bar.com' GMAIL_PASSWORD='pass' rake start
+ - GMAIL_USERNAME='foo@bar.com' GMAIL_PASSWORD='pass' bin/delayed_job start
 
 ### Regression Testing
 
