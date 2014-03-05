@@ -1,43 +1,26 @@
 
 ## Learnster - An Open Source Learning Management System
 
-Currently in development, learnster is a learnining management system whose rich experience is provided by a Backbone.Marionette front-end levearged with a Rails back-end
+Currently in development, learnster is a pure single page application learnining management system, with Backbone.Marionette front-end backed by a Rails API
+
 
 ### System Requirements
 
-Please note that such has been tested only on OS X 10.8+
-
- - Rails 4.0.1
- - ruby 2.0.0p247 (or above)
+ - rails 4.0.1
+ - ruby 2+
  - bundler
 
 ### Development Bootstrapping
 
- - bundle install && bundle update
+ - bundle install
  - rake db:migrate
  - rake db:seed
- - rake sunspot:solr:start
- - rake sunspot:solr:reindex
+ - GMAIL_USERNAME='learnster.automated.mailer2@gmail.com' GMAIL_PASSWORD='*****' rake start
+ - GMAIL_USERNAME='learnster.automated.mailer2@gmail.com' GMAIL_PASSWORD='*****' bin/delayed_job start
 
 ### Regression Testing
 
- - SUT=myip.com KILL_ON_EXIT=1 HEADLESS=1 cucumber
-
-
-
-TODO:
-
-* Better high-level intro
-
-* Mention more prereqs
-
-* Configuration
-
-* How to run the test suite
-
-* Services (job queues, cache servers etc.)
-
-* Deployment instructions
+ - rake db:seed && SUT=myip.com KILL_ON_EXIT=1 HEADLESS=1 bundle exec cucumber
 
 
 
