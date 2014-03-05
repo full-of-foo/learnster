@@ -6,6 +6,8 @@ do (Learnster, $, Backbone, Marionette, _) ->
         shared: [
           /^organisation\/(.+?)\/students$/,
           /^organisation\/(.+?)\/admins$/,
+          /^student\/(.+?)\/edit$/,
+          /^org_admin\/(.+?)\/edit$/,
           /^login$/,
           /^about$/,
           /^testimonials$/,
@@ -33,8 +35,6 @@ do (Learnster, $, Backbone, Marionette, _) ->
 
         orgAdmin: [
           /^organisation\/(.+?)\/admins$/,
-          /^student\/(.+?)\/edit$/,
-          /^org_admin\/(.+?)\/edit$/,
           /^organisation\/(.+?)\/edit$/,
           /^statistic\/(.+)\/(.+)\/(.+)$/,
           /^organisation\/(.+?)\/notifications$/,

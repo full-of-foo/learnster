@@ -38,6 +38,7 @@ Then(/^I should see a "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attr
 end
 
 Then(/^I should not see a "(.+)" with the "(.+)" of "(.+)"$/) do |element_type, attribute, value|
+  sleep(0.6)
   element = ElementHelper.get_element(@browser, element_type, attribute, value)
 
   raise "Found: #{element_type}, #{attribute}, #{value}" if element.exists?

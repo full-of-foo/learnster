@@ -31,7 +31,7 @@ Given(/^I open the first Admin$/) do
   page = Pages::AdminsPage.new(@browser)
 
   step("I should see a \"th\" with the \"text\" of \"Name\"")
-  sleep(0.3)
+  sleep(0.6)
   full_name = @browser.tds(class: 'col-0')[0].text
   first_name = full_name.split(' ')[0]
   surname = full_name.split(' ')[1]
