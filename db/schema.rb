@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303184326) do
+ActiveRecord::Schema.define(version: 20140305195459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,20 @@ ActiveRecord::Schema.define(version: 20140303184326) do
 
   add_index "section_modules", ["course_section_id"], name: "index_section_modules_on_course_section_id", using: :btree
   add_index "section_modules", ["learning_module_id"], name: "index_section_modules_on_learning_module_id", using: :btree
+
+  create_table "submissions", force: true do |t|
+    t.string   "notes"
+    t.string   "type"
+    t.string   "file_upload"
+    t.text     "wiki_markup"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "deliverable_id"
+    t.integer  "student_id"
+  end
+
+  add_index "submissions", ["deliverable_id"], name: "index_submissions_on_deliverable_id", using: :btree
+  add_index "submissions", ["student_id"], name: "index_submissions_on_student_id", using: :btree
 
   create_table "supplement_contents", force: true do |t|
     t.string   "title"

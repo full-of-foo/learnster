@@ -12,7 +12,7 @@
 
       @listenTo deliverable, "created", (new_deliverable) =>
         @layout.close()
-        App.vent.trigger "deliverable:created", new_deliverable
+        App.request "show:deliverable", new_deliverable
 
       @listenTo @layout, "show", =>
           @showFormRegion(deliverable)

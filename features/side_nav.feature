@@ -57,6 +57,19 @@ Scenario: Account admin sidebar navigation
   Then the "Dashboard" nav is active
   Then I should see a "h1" with the "text" of "Courses"
 
+  Then I sidebar navigate to "My Courses"
+  Then the "My Courses" nav is active
+  And I should see the text "My Courses..."
+
+  Then I sidebar navigate to "My Learning Modules"
+  Then the "My Learning Modules" nav is active
+  And I should see the text "My Learning Modules..."
+
+  Then I sidebar navigate to "My Deliverables"
+  Then the "My Deliverables" nav is active
+  And I should see the text "My Deliverables..."
+
+
   Then I sidebar navigate to "All Administrators"
   Then the "All Administrators" nav is active
   Then I should see a "a" with the "id" of "new-org-admin-button"
@@ -87,6 +100,10 @@ Scenario: Course admin sidebar navigation
   Then the "My Learning Modules" nav is active
   And I should see the text "My Learning Modules..."
 
+  Then I sidebar navigate to "My Deliverables"
+  Then the "My Deliverables" nav is active
+  And I should see the text "My Deliverables..."
+
   Then I sidebar navigate to "All Administrators"
   Then the "All Administrators" nav is active
   Then I should not see a "a" with the "id" of "new-org-admin-button"
@@ -99,7 +116,7 @@ Scenario: Course admin sidebar navigation
   Then no sidenavs are active
 
 @side_nav-5
-Scenario: Course admin sidebar navigation
+Scenario: Module admin sidebar navigation
   Given I navigate to the "login" page
   And I attempt to login with a known "module admin"
   Then the "Dashboard" nav is active
@@ -116,6 +133,10 @@ Scenario: Course admin sidebar navigation
   Then the "My Learning Modules" nav is active
   And I should see the text "My Learning Modules..."
 
+  Then I sidebar navigate to "My Deliverables"
+  Then the "My Deliverables" nav is active
+  And I should see the text "My Deliverables..."
+
   Then I sidebar navigate to "All Administrators"
   Then the "All Administrators" nav is active
   Then I should not see a "a" with the "id" of "new-org-admin-button"
@@ -128,7 +149,7 @@ Scenario: Course admin sidebar navigation
   Then no sidenavs are active
 
 @side_nav-6
-Scenario: Course admin sidebar navigation
+Scenario: Student sidebar navigation
   Given I navigate to the "login" page
   And I attempt to login with a known "student"
   Then the "Dashboard" nav is active
@@ -144,6 +165,10 @@ Scenario: Course admin sidebar navigation
   Then I sidebar navigate to "My Learning Modules"
   Then the "My Learning Modules" nav is active
   And I should see the text "My Learning Modules..."
+
+  Then I sidebar navigate to "My Deliverables"
+  Then the "My Deliverables" nav is active
+  And I should see the text "My Deliverables..."
 
   Then I sidebar navigate to "My Educators"
   Then the "My Educators" nav is active

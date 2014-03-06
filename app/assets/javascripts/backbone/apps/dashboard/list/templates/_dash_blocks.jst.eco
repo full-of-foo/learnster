@@ -17,6 +17,10 @@
 
 <div class="dash-block-header dash-block-footer">
     <small id="<%= @title.replace(" ", "") %>" class="text-info">
+    <% if @title is "Module Contents": %>
+      <%= @allText.replace(" Contents", "s") %>
+    <% else: %>
       <%= @allText %>
+    <% end %>
     </small>
 </div>

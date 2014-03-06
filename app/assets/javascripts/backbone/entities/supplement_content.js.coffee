@@ -25,7 +25,9 @@
       contents.fetch
         reset: true
         data: $.param
+          page: 1
           module_supplement_id: supplementId
+      contents.put('module_supplement_id', supplementId)
       contents
 
     getEducatorContentEntities: (educatorId) ->
@@ -34,7 +36,9 @@
       contents.fetch
         reset: true
         data: $.param
+          page: 1
           educator_id: educatorId
+      contents.put('educator_id', educatorId)
       contents
 
     getStudentContentEntities: (studentId) ->
@@ -43,14 +47,19 @@
       contents.fetch
         reset: true
         data: $.param
+          page: 1
           student_id: studentId
+      contents.put('student_id', studentId)
       contents
 
     getOrgSupplementContentEntities: (orgId) ->
       contents = new Entities.SupplementContentCollection
         url: Routes.api_organisation_supplement_content_index_path(orgId)
       contents.fetch
+        data:
+          page: 1
         reset: true
+      contents.put('organisation_id', orgId)
       contents
 
     setCurrentSupplementContent: (attrs) ->

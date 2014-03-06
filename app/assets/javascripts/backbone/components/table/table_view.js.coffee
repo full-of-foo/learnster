@@ -56,6 +56,7 @@
     ui:
       table:      "table#app-table"
       headerRow:  "tr#app-table-header-row"
+      pageArea:   ".pagination-area"
 
     collectionEvents:
       "reset": "render"
@@ -110,7 +111,7 @@
       @ui.headerRow.append($column)
 
     drawCollectionCount: ->
-      $('.pagination-area')
+      @ui.pageArea.first()
         .html("<span class='text-info'>Viewing: #{@collection
           .size()} out of #{@collection.size()} records</span>")
 
@@ -148,7 +149,7 @@
         attrArray = attr.split /\./
         attrString = if attrArray.length is 1 then model.
           get(attrArray[0]) else model.get(attrArray[0])[attrArray[1]]
-        attrString = @_elipTrim(attrString) if attr is 'description'
+        attrString = @_elipTrim(attrString) if((attr is 'description' or attr is 'notes') and attrString)
 
         $row.append($cell.append(attrString))
 
@@ -187,25 +188,27 @@
 
       $(window).scroll =>
         if @collection.get('next_link')
-          $('.pagination-area').html('')
+          @ui.pageArea.first().html('')
 
           if (Number(@collection.get('next_link')) == pageNumber + 1) and ($(window)
               .scrollTop() > $(document).height() - $(window).height() - 50)
             pageNumber += 1
-            $('.pagination-area').addClass('pagination-loader')
+            @ui.pageArea.first().addClass('pagination-loader')
 
-            hasCreatedBy  = @collection.get('created_by')
-            hasManagedBy  = @collection.get('managed_by')
-            hasEducatedBy = @collection.get('educator_id')
-            hasStudiedBy  = @collection.get('student_id')
+            hasCreatedBy        = @collection.get('created_by')
+            hasManagedBy        = @collection.get('managed_by')
+            hasEducatedBy       = @collection.get('educator_id')
+            hasParentSupplement = @collection.get('module_supplement_id')
+            hasStudiedBy        = @collection.get('student_id')
             params =
               page:       @collection.get('next_link')
               search:     @collection.get('search')
 
-            params['created_by']  = @collection.get('created_by')  if hasCreatedBy
-            params['managed_by']  = @collection.get('managed_by')  if hasManagedBy
-            params['educator_id'] = @collection.get('educator_id') if hasEducatedBy
-            params['student_id']  = @collection.get('student_id')  if hasStudiedBy
+            params['created_by']           = @collection.get('created_by')  if hasCreatedBy
+            params['managed_by']           = @collection.get('managed_by')  if hasManagedBy
+            params['educator_id']          = @collection.get('educator_id') if hasEducatedBy
+            params['module_supplement_id'] = @collection.get('module_supplement_id') if hasParentSupplement
+            params['student_id']           = @collection.get('student_id')  if hasStudiedBy
 
             @collection.fetch
               data: $.param(params)
@@ -215,7 +218,7 @@
                 @_finishScroll()
 
     _finishScroll: ->
-      $('.pagination-area').removeClass('pagination-loader')
+      @ui.pageArea.first().removeClass('pagination-loader')
       @drawCollectionCount()
 
     _elipTrim: (string, maxSize = 30) ->

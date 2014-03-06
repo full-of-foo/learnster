@@ -7,7 +7,7 @@
       deliverable = App.request "deliverable:entity", id
 
       @listenTo deliverable, "updated", ->
-        App.vent.trigger "deliverable:updated", deliverable
+        App.request "show:deliverable", deliverable
 
       @layout = @getLayoutView deliverable
       @listenTo @layout, "show", =>
@@ -30,11 +30,12 @@
 
     setFormRegion: (deliverable) ->
       editView = @getEditView deliverable
+
       @listenTo editView, "form:cancel", ->
-        App.vent.trigger "deliverable:cancelled", deliverable
+        App.request "show:deliverable", deliverable
 
       formView = App.request "form:wrapper", editView
-      console.log formView
+
       @show formView,
         loading:
           loadingType: "spinner"

@@ -13,45 +13,84 @@
 
   API =
     getDeliverable: (id) ->
-      content = Entities.Deliverable.findOrCreate
+      deliverable = Entities.Deliverable.findOrCreate
         id: id
-      content.fetch
+      deliverable.fetch
         reset: true
-      content
+      deliverable
 
     getSupplementDeliverableEntities: (supplementId) ->
-      contents = new Entities.DeliverableCollection
+      deliverables = new Entities.DeliverableCollection
         url: Routes.api_deliverable_index_path()
-      contents.fetch
+      deliverables.fetch
         reset: true
         data: $.param
+          page: 1
           module_supplement_id: supplementId
-      contents
+      deliverables.put('module_supplement_id', supplementId)
+      deliverables
 
     getEducatorDeliverableEntities: (educatorId) ->
-      contents = new Entities.DeliverableCollection
+      deliverables = new Entities.DeliverableCollection
         url: Routes.api_deliverable_index_path()
-      contents.fetch
+      deliverables.fetch
         reset: true
         data: $.param
+          page: 1
           educator_id: educatorId
-      contents
+      deliverables.put('educator_id', educatorId)
+      deliverables
 
     getStudentDeliverableEntities: (studentId) ->
-      contents = new Entities.DeliverableCollection
+      deliverables = new Entities.DeliverableCollection
         url: Routes.api_deliverable_index_path()
-      contents.fetch
+      deliverables.fetch
         reset: true
         data: $.param
+          page: 1
           student_id: studentId
-      contents
+      deliverables.put('student_id', studentId)
+      deliverables
+
+    getStudentDeliverableDeliverableEntities: (deliverableId, studentId) ->
+      deliverables = new Entities.DeliverableCollection
+        url: Routes.api_deliverable_index_path()
+      deliverables.fetch
+        reset: true
+        data: $.param
+          page: 1
+          student_id: studentId
+          deliverable_id: deliverableId
+
+      deliverables.put('student_id',     studentId)
+      deliverables.put('deliverable_id', deliverableId)
+      deliverables
 
     getOrgDeliverableEntities: (orgId) ->
-      contents = new Entities.DeliverableCollection
+      deliverables = new Entities.DeliverableCollection
         url: Routes.api_organisation_deliverable_index_path(orgId)
-      contents.fetch
+      deliverables.fetch
+        data:
+          page: 1
         reset: true
-      contents
+      deliverables
+
+    getSearchDeliverableEntities: (searchOpts) ->
+      { term, supplementId, adminId, studentId } = searchOpts
+      deliverables = new Entities.DeliverableCollection
+
+      term['module_supplement_id'] = supplementId if supplementId
+      term['educator_id']          = adminId      if adminId
+      term['student_id']           = studentId    if studentId
+      deliverables.fetch
+        reset: true
+        data: $.param(term)
+
+      deliverables.put('search',               term['search'])
+      deliverables.put('educator_id',          term['educator_id'])
+      deliverables.put('module_supplement_id', term['module_supplement_id'])
+      deliverables.put('student_id',           term['student_id'])
+      deliverables
 
     setCurrentDeliverable: (attrs) ->
       new Entities.Deliverable attrs
@@ -66,8 +105,8 @@
   App.reqres.setHandler "educator:deliverable:entities", (educatorId) ->
     API.getEducatorDeliverableEntities(educatorId)
 
-  App.reqres.setHandler "student:deliverable:entities", (student) ->
-    API.getStudentDeliverableEntities(student)
+  App.reqres.setHandler "student:deliverable:entities", (studentId) ->
+    API.getStudentDeliverableEntities(studentId)
 
   App.reqres.setHandler "org:deliverable:entities", (orgId) ->
     API.getOrgDeliverableEntities(orgId)

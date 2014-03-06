@@ -1,11 +1,10 @@
-<!-- TODO - if org admin has permission -->
 <% isEditableForm = true %>
 
 <blockquote id="edit-form-header">
 
     <p class="text-info">
-    <% if isEditableForm: %>Editing<% else: %>Showing<% end %>
-    Section: <%= @section %></p>
+    <% if isEditableForm: %>Editing <% else: %>Showing <% end %>
+    Deliverable:</p>
 	<% if isEditableForm: %>
     	<small class="text-info">hover over fields for help</small>
     <% end %>

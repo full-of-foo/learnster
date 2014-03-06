@@ -18,6 +18,7 @@
     modelEvents:
       "sync:after": "render"
     onShow: ->
-      $('.datepicker').datepicker
-        format: 'dd/mm/yyyy'
-        autoclose: true
+      _.delay(( => $('.datepicker').datepicker({ format: 'dd/mm/yyyy'
+              , autoclose: true })), 400)
+    beforeClose: ->
+      $('.datepicker').datepicker('remove')

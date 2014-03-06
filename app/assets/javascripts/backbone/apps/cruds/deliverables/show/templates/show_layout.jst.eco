@@ -2,3 +2,6 @@
     <div id="show-deliverable-region"></div>
 </div>
 
+<div id="panel-region"></div>
+<div id="new-region"></div>
+<div id="list-region"></div>

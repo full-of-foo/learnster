@@ -45,8 +45,11 @@ Learnster::Application.routes.draw do
         resources :module_supplement
         resources :supplement_content
         resources :content_upload
+        resources :submission_upload
         resources :wiki_content
+        resources :wiki_submission
         resources :deliverable
+        resources :submission
         get '/course/:course_id/course_section' => 'course_section#index'
         get '/course_section/:course_section_id/learning_module' => 'learning_module#index'
       end
@@ -63,9 +66,12 @@ Learnster::Application.routes.draw do
       resources :module_supplement
       resources :supplement_content
       resources :content_upload
+      resources :submission_upload
       resources :wiki_content
+      resources :wiki_submission
       resources :enrolled_course_section
       resources :deliverable
+      resources :submission
     end
 
   end

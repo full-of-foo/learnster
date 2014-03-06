@@ -8,13 +8,14 @@ class Api::V1::OrgAdminController < ApplicationController
 
   def index
     if search_request?
-      @org_admins = OrgAdmin.search_term(params[:search]).page(params[:page]).per_page(20)        if search_term_request?(params)
+      @org_admins = OrgAdmin.search_term(params[:search]).order("created_at desc")
+        .page(params[:page]).per_page(20)                                                         if search_term_request?(params)
       @org_admins = OrgAdmin.search_term(params[:search], nil, nil, params[:created_by])
-        .page(params[:page]).per_page(20)                                                         if nested_org_term_search?(params) && params[:created_by]
+        .order("created_at desc").page(params[:page]).per_page(20)                                if nested_org_term_search?(params) && params[:created_by]
       @org_admins = OrgAdmin.search_term(params[:search], nil, nil, nil, params[:student_id])
-        .page(params[:page]).per_page(20)                                                         if nested_org_term_search?(params) && params[:student_id]
-      @org_admins = OrgAdmin.search_term(params[:search], @org).page(params[:page])
-        .per_page(20)                                                                             if nested_org_term_search?(params) && !params[:created_by] && !params[:student_id]
+        .order("created_at desc").page(params[:page]).per_page(20)                                if nested_org_term_search?(params) && params[:student_id]
+      @org_admins = OrgAdmin.search_term(params[:search], @org)
+        .order("created_at desc").page(params[:page]).per_page(20)                                if nested_org_term_search?(params) && !params[:created_by] && !params[:student_id]
       @org_admins = OrgAdmin.search_term(params[:search], @org, params[:from_role])               if params[:from_role]
       @org_admins = OrgAdmin.search_range(params[:created_months_ago], :created_at)               if created_at_search?(params)
       @org_admins = OrgAdmin.search_range(params[:updated_months_ago], :updated_at)               if updated_at_search?(params)
@@ -24,16 +25,21 @@ class Api::V1::OrgAdminController < ApplicationController
     end
 
     if params[:page] && !params[:created_by] && !params[:student_id]
-      @org_admins = nested_org_request?(params) ? @org.admins.page(params[:page])
-        .per_page(20) : OrgAdmin.all.page(params[:page]).per_page(20)
+      @org_admins = nested_org_request?(params) ? @org.admins.order("created_at desc")
+        .page(params[:page]).per_page(20) : OrgAdmin.all.order("created_at desc")
+          .page(params[:page]).per_page(20)
+
     elsif params[:page] && params[:created_by]
-      @org_admins = OrgAdmin.find(params[:created_by]).created_admins.page(params[:page])
-        .per_page(20)
+      @org_admins = OrgAdmin.find(params[:created_by]).created_admins.order("created_at desc")
+        .page(params[:page]).per_page(20)
+
     elsif params[:page] && params[:student_id]
-      @org_admins = OrgAdmin.student_admins(params[:student_id]).page(params[:page])
-        .per_page(20)
+      @org_admins = OrgAdmin.student_admins(params[:student_id]).order("created_at desc")
+        .page(params[:page]).per_page(20)
+
     else
-      @org_admins = nested_org_request?(params) ? @org.admins : OrgAdmin.all
+      @org_admins = nested_org_request?(params) ? @org.admins
+        .order("created_at desc") : OrgAdmin.all.order("created_at desc")
     end
 
     if xlsx_request?

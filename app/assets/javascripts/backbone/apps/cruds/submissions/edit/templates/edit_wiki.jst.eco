@@ -1,0 +1,34 @@
+<% isEditableForm = true %>
+
+<div class="pull-right">
+  <span id="preview-wiki-button" class="btn btn-success">Preview</span>
+</div>
+
+<blockquote>
+    <p class="text-info">Editing Wiki...</p>
+    <small class="text-info">hover over fields for help</small>
+</blockquote>
+
+<div class="form-horizontal">
+    <fieldset>
+
+        <div class="control-group">
+                <!-- notes -->
+                <label class="control-label" for="notes">Notes</label>
+                <div class="controls">
+                    <%- @editOrShowField( "notes", @notes, isEditableForm ) %>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <!-- Wiki -->
+                <div class="span">
+                  <textarea id="wiki_markup" name="wiki_markup" style="width:95%; margin-left: -2pc;"><%- @escape(@wiki_markup) %></textarea>
+                </div>
+
+            </div>
+
+        </div>
+
+    </fieldset>
+</div>

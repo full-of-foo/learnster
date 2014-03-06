@@ -1,7 +1,5 @@
 class Api::V1::WikiContentController < ApplicationController
-  after_filter only: [:index] { paginate(:supplement_contents) }
   before_filter :authenticate_and_authorize
-  before_filter :find_org, only: [:index]
 
   def create
     @supplement_content = WikiContent.new

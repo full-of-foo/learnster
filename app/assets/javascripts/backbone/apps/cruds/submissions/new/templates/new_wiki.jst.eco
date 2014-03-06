@@ -1,0 +1,31 @@
+<div class="wiki-container">
+    <button type="button" class="close cancel-new-submission" data-dismiss="alert">&times;</button>
+
+    <blockquote>
+        <p class="text-info">New Wiki...</p>
+        <small class="text-info">hover over fields for help</small>
+    </blockquote>
+
+    <div class="form-horizontal">
+        <fieldset>
+
+            <div class="control-group">
+                <!-- notes -->
+                <label class="control-label" for="notes">Notes</label>
+                <div class="controls">
+                    <input type="text" id="notes" name="notes" placeholder="" class="input-xlarge">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <!-- Wiki -->
+                <div class="span">
+                  <textarea id="wiki_markup" name="wiki_markup" style="width:90%; margin-left: -2pc;"></textarea>
+                </div>
+
+            </div>
+
+        </fieldset>
+    </div>
+</div>
+

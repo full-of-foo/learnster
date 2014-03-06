@@ -6,10 +6,11 @@ class Api::V1::SectionModuleController < ApplicationController
   def index
     if params[:course_section_id]
       @section_modules = SectionModule.where(course_section_id: params[:course_section_id])
-        .page(params[:page]).per_page(20)
+        .order("created_at desc").page(params[:page]).per_page(20)
     else
       @section_modules = nested_org_request?(params) ? SectionModule.organisation_section_modules(@org.id)
-          .page(params[:page]).per_page(20) : SectionModule.all.page(params[:page]).per_page(20)
+          .order("created_at desc").page(params[:page]).per_page(20) : SectionModule.all
+            .order("created_at desc").page(params[:page]).per_page(20)
     end
 
   end

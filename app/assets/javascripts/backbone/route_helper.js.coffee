@@ -25,12 +25,15 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^organisation\/(.+?)\/my_admins$/,
           /^organisation\/(.+?)\/my_courses$/,
           /^organisation\/(.+?)\/my_modules$/,
+          /^organisation\/(.+?)\/my_deliverables$/,
           /^organisation\/(.+?)\/my_settings$/,
           /^course\/(.+?)\/show$/,
           /^module\/(.+?)\/show$/,
           /^module\/(.+?)\/supplement\/(.+?)\/show$/,
           /^course_section\/(.+?)\/show$/,
-          /^deliverable\/(.+?)\/show$/
+          /^deliverable\/(.+?)\/show$/,
+          /^deliverable\/(.+?)\/wiki_submission\/(.+?)\/show$/,
+          /^deliverable\/(.+?)\/wiki_submission\/(.+?)\/edit$/
         ],
 
         orgAdmin: [
@@ -54,6 +57,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^course_section\/(.+?)\/edit$/,
           /^course_section\/(.+?)\/show$/,
           /^deliverable\/(.+?)\/show$/,
+          /^deliverable\/(.+?)\/wiki_submission\/(.+?)\/show$/,
           /^deliverable\/(.+?)\/edit$/
         ],
 
@@ -84,8 +88,14 @@ do (Learnster, $, Backbone, Marionette, _) ->
         when /course\//.test(route)
           $('title').html('Course')
           break
+        when /^deliverable\/(.+?)\/wiki_submission\/(.+?)/.test(route)
+          $('title').html('Wiki')
+          break
         when /^deliverable\/(.+?)\/show$/.test(route)
           $('title').html('Deliverable')
+          break
+        when /my_deliverables$/.test(route)
+          $('title').html('Deliverables')
           break
         when /modules$/.test(route)
           $('title').html('Modules')
@@ -160,7 +170,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
         /^organisation\/(.+?)\/dashboard$/, /^organisation\/(.+?)\/admins$/,
         /^organisation\/(.+?)\/students$/, /^organisation\/(.+?)\/my_students$/,
         /^organisation\/(.+?)\/my_admins$/, /^organisation\/(.+?)\/my_courses$/,
-        /^organisation\/(.+?)\/my_modules$/]
+        /^organisation\/(.+?)\/my_modules$/, /^organisation\/(.+?)\/my_deliverables$/]
 
     sideItemIdForRoute: (route) ->
       id = "side-item-sign-in"      if /^login$/.test(route)
@@ -175,4 +185,5 @@ do (Learnster, $, Backbone, Marionette, _) ->
       id = "side-item-my-students"  if /^organisation\/(.+?)\/my_students$/.test(route)
       id = "side-item-my-courses"   if /^organisation\/(.+?)\/my_courses$/.test(route)
       id = "side-item-my-modules"   if /^organisation\/(.+?)\/my_modules$/.test(route)
+      id = "side-item-my-deliverables"   if /^organisation\/(.+?)\/my_deliverables$/.test(route)
       id

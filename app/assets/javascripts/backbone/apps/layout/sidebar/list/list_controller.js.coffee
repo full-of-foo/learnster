@@ -32,6 +32,7 @@
           when "side-item-my-administrators" then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_admins", child)
           when "side-item-my-courses"   then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_courses", child)
           when "side-item-my-modules"   then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_modules", child)
+          when "side-item-my-deliverables" then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_deliverables", child)
 
       @show sideBarView
 
@@ -56,6 +57,7 @@
         { text: "All Students", id: "side-item-all-students"  },
         { text: "My Courses", id: "side-item-my-courses"  },
         { text: "My Learning Modules", id: "side-item-my-modules"  },
+        { text: "My Deliverables", id: "side-item-my-deliverables"  },
         { text: "My Administrators", id: "side-item-my-administrators"  },
         { text: "My Students", id: "side-item-my-students"  }
       ]
@@ -65,6 +67,7 @@
         { text: "Dashboard", id: "side-item-dash" },
         { text: "My Courses", id: "side-item-my-courses"  },
         { text: "My Learning Modules", id: "side-item-my-modules"  },
+        { text: "My Deliverables", id: "side-item-my-deliverables"  },
         { text: "All Courses", id: "side-item-all-courses"  },
         { text: "All Learning Modules", id: "side-item-all-modules"  },
         { text: "All Administrators", id: "side-item-all-admins"  },
@@ -75,6 +78,7 @@
       [
         { text: "Dashboard", id: "side-item-dash" },
         { text: "My Learning Modules", id: "side-item-my-modules"  },
+        { text: "My Deliverables", id: "side-item-my-deliverables"  },
         { text: "All Courses", id: "side-item-all-courses"  },
         { text: "All Learning Modules", id: "side-item-all-modules"  },
         { text: "All Administrators", id: "side-item-all-admins"  },
@@ -86,9 +90,9 @@
         { text: "Dashboard", id: "side-item-dash" },
         { text: "My Courses", id: "side-item-my-courses"  },
         { text: "My Learning Modules", id: "side-item-my-modules"  },
+        { text: "My Deliverables", id: "side-item-my-deliverables"  },
         { text: "My Educators", id: "side-item-my-administrators"  },
         { text: "My Coursemates", id: "side-item-my-students"  }
-
       ]
 
     getLoginBarItems: ->

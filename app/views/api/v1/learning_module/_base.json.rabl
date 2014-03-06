@@ -5,6 +5,7 @@ node do |learning_module|
     {
         shared_on_course_section_count: learning_module.shared_on_course_section_count(),
         supplement_count: learning_module.module_supplements.count(),
+        student_count: learning_module.student_count(),
         created_at_formatted: learning_module.created_at.strftime("%d/%m/%Y"),
         updated_at_formatted: time_ago_in_words(learning_module.updated_at())
     }

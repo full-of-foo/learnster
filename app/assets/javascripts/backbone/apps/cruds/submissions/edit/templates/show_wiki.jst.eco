@@ -1,0 +1,57 @@
+<% isEditableForm = false %>
+<% u = @currentUser() %>
+
+<% if u.type is "Student": %>
+  <% hasPermission = @isCreatedByUser(@student) %>
+<% else: %>
+  <% hasPermission = false %>
+<% end %>
+
+
+<% if hasPermission: %>
+    <div class="pull-right">
+      <span id="edit-wiki-button" class="btn btn-success">Edit</span>
+    </div>
+<% end %>
+
+<blockquote>
+    <p class="text-info">Showing Wiki...</p>
+    <small class="text-info">hover over fields for help</small>
+</blockquote>
+
+<div class="form-horizontal">
+    <fieldset>
+
+        <div class="control-group">
+            <!-- Notes -->
+            <label class="control-label" for="notes">Notes</label>
+            <div class="controls">
+                <%- @editOrShowField( "notes", @notes, isEditableForm ) %>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Last updated -->
+            <label class="control-label" for="updated_at_formatted">Last updated</label>
+            <div class="controls">
+                <%- @editOrShowField( "updated_at_formatted", @updated_at_formatted, isEditableForm ) %>
+            </div>
+        </div>
+
+        <% if hasPermission is false: %>
+            <div class="control-group">
+            <!-- Student -->
+                <label class="control-label" for="full_name">Submitted by</label>
+                <div class="controls">
+                    <%- @editOrShowField( "full_name", @student.full_name, isEditableForm ) %>
+                </div>
+            </div>
+        <% end %>
+
+        <div class="control-group">
+            <!-- Wiki -->
+            <div class="span" style="width:98%; background: white; margin-right: 3pc; margin-top: 1pc; padding: -1pc;"><%- @wiki_markup %></div>
+        </div>
+
+    </fieldset>
+</div>

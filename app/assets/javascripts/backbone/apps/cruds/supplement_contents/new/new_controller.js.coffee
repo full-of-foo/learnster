@@ -1,42 +1,42 @@
-@Learnster.module "SupplementContentsApp.New", (New, App, Backbone, Marionette, $, _) ->
+@Learnster.module "SubmissionsApp.New", (New, App, Backbone, Marionette, $, _) ->
 
   class New.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
       @_isUpload = if options.isUpload then options.isUpload else options.isWiki
-      @nestedSupplementId = options.nestedSupplementId
+      @nestedDeliverableId = options.nestedDeliverableId
 
-      content = if @_isUpload then App.request "new:content:upload:entity" else App.request "new:wiki:content:entity"
-      content.set('module_supplement', {id: @nestedSupplementId})
+      submission = if @_isUpload then App.request "new:submission:upload:entity" else App.request "new:wiki:submission:entity"
+      submission.set('deliverable', {id: @nestedDeliverableId})
 
-      @layout = @getLayoutView content
+      @layout = @getLayoutView submission
 
-      @listenTo content, "created", (new_content) =>
+      @listenTo submission, "created", (new_submission) =>
         @layout.close()
-        App.vent.trigger "content:created", new_content
+        App.vent.trigger "submission:created", new_submission
 
       @listenTo @layout, "show", =>
         if @_isUpload
-          @setUploadFormRegion(content)
+          @setUploadFormRegion(submission)
         else
-          @setWikiFormRegion(content)
+          @setWikiFormRegion(submission)
 
       @show @layout
 
-    getLayoutView: (content) ->
+    getLayoutView: (submission) ->
       new New.Layout
-        model: content
+        model: submission
 
-    getNewUploadView: (content) ->
+    getNewUploadView: (submission) ->
       new New.UploadView
-        model: content
+        model: submission
 
-    getNewWikiView: (content) ->
+    getNewWikiView: (submission) ->
       new New.WikiView
-        model: content
+        model: submission
 
-    setWikiFormRegion: (content) ->
-      @newView = @getNewWikiView content
+    setWikiFormRegion: (submission) ->
+      @newView = @getNewWikiView submission
       formView = App.request "form:wrapper", @newView
       @newView['_formWrapper'] = formView
 
@@ -48,8 +48,8 @@
             loadingType: "spinner"
         region:  @layout.formRegion
 
-    setUploadFormRegion: (content) ->
-      @newView = @getNewUploadView content
+    setUploadFormRegion: (submission) ->
+      @newView = @getNewUploadView submission
       formView = App.request "form:wrapper", @newView
       @newView['_formWrapper'] = formView
 

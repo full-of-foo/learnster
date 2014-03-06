@@ -80,6 +80,7 @@
       @listenTo deliverablesView, "childview:deliverable:clicked", (child, args) ->
         model = args.model
         App.request "show:deliverable", model
+
       @show deliverablesView,
         loading:
           loadingType: "spinner"

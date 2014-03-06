@@ -2,8 +2,10 @@
 
   class DeliverablesApp.Router extends App.Routers.AppRouter
     appRoutes:
-      "deliverable/:id/show"    : "show"
-      "deliverable/:id/edit"    : "edit"
+      "deliverable/:id/show"            : "show"
+      "deliverable/:id/edit"            : "edit"
+      "deliverable/:deliverableId/wiki_submission/:id/show" : "showWiki"
+      "deliverable/:deliverableId/wiki_submission/:id/edit" : "editWiki"
 
 
   App.addInitializer ->
@@ -18,6 +20,18 @@
     edit: (id) ->
       new DeliverablesApp.Edit.Controller
         id: @get_deliverable_id(id)
+
+    showWiki: (deliverableId, id) ->
+      new App.SubmissionsApp.Edit.Controller
+        deliverableId: deliverableId
+        id:            id
+        isPreview:     true
+
+    editWiki: (deliverableId, id) ->
+      new App.SubmissionsApp.Edit.Controller
+        deliverableId: deliverableId
+        id:            id
+        isPreview:     false
 
     newDeliverable: (region, supplementId) ->
       new DeliverablesApp.New.Controller

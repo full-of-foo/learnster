@@ -5,7 +5,7 @@
       regions:
         coursesBlockRegion: "#courses-block-region"
         modulesBlockRegion: "#modules-block-region"
-        filesBlockRegion: "#files-block-region"
+        contentsBlockRegion: "#files-block-region"
         notificationsBlockRegion: "#notifications-block-region"
 
     class List.EmptyCourseBlock extends App.Views.ItemView
@@ -46,8 +46,8 @@
         @['emptyView'] = List.EmptyNotificationBlock if @collection instanceof App.Entities.NotificationsCollection
 
       triggers:
-        "click #Courses" : "dash:courses:block:clicked"
-        "click #Modules" : "dash:modules:block:clicked"
-        "click #ModuleFiles" : "dash:files:block:clicked"
-        "click #Notifications" : "dash:notifications:block:clicked"
+        "click #Courses"        : "dash:courses:block:clicked"
+        "click #Modules"        : "dash:modules:block:clicked"
+        "click #ModuleContents" : "dash:contents:block:clicked"
+        "click #Notifications"  : "dash:notifications:block:clicked"
 

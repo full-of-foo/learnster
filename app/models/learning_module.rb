@@ -28,7 +28,7 @@ class LearningModule < ActiveRecord::Base
       .select("enrolled_course_sections.course_section_id").to_a.map(&:course_section_id)
     module_ids = SectionModule.where(course_section_id: section_ids)
       .select("learning_module_id").to_a.map(&:learning_module_id)
-    
+
     self.where(id: module_ids)
   end
 
@@ -68,6 +68,10 @@ class LearningModule < ActiveRecord::Base
 
   def shared_on_course_section_count
     SectionModule.where(learning_module: self).count
+  end
+
+  def student_count
+    Student.module_students(self.id).count
   end
 
 end

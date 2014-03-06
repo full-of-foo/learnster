@@ -1,0 +1,31 @@
+<% u = @currentUser() %>
+
+<% if u.type is "Student" and @is_closed is false: %>
+  <% hasPermission = true %>
+<% else: %>
+  <% hasPermission = false %>
+<% end %>
+
+<% if hasPermission: %>
+  <div id="list-panel" class="modal-header">
+      <div class="btn-group pull-right">
+
+            <a id="new-submission-upload-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+            Make Upload Submission</a>
+            <a id="new-wiki-submission-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+            Make Wiki Submission</a>
+
+      </div>
+  </div>
+  <div id="push"></div>
+<% end %>
+
+<blockquote>
+
+<% if u.type is "Student" and @is_private is true: %>
+  <p class="muted well-small">My Submissions...</p>
+<% else: %>
+  <p class="muted well-small">Submissions...</p>
+<% end %>
+
+</blockquote>

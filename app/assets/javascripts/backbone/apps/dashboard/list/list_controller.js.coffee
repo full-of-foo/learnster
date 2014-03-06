@@ -106,12 +106,12 @@
           loadingType: "spinner"
         region: @layout.modulesBlockRegion
 
-    showContentsBlock: (contentsDashBlock, files) ->
+    showContentsBlock: (contentsDashBlock, contents) ->
       blockView = new List.DashBlockComposite
         model: contentsDashBlock
-        collection: files
+        collection: contents
 
-      @listenTo blockView, "dash:files:block:clicked", ->
+      @listenTo blockView, "dash:contents:block:clicked", ->
         App.vent.trigger "modules:block:clicked", @_nestingOrg
 
       @listenTo blockView, "childview:dash:block:clicked", (child, args) ->
@@ -128,7 +128,7 @@
       @show blockView,
         loading:
           loadingType: "spinner"
-        region: @layout.filesBlockRegion
+        region: @layout.contentsBlockRegion
 
     showNotificationsBlock: (notificationsDashBlock, notifications) ->
       blockView = new List.DashBlockComposite

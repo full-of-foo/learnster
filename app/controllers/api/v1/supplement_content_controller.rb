@@ -7,17 +7,21 @@ class Api::V1::SupplementContentController < ApplicationController
   def index
     if params[:module_supplement_id]
       @supplement_contents = ModuleSupplement.find(params[:module_supplement_id])
-        .supplement_contents
+        .supplement_contents.order("created_at desc").page(params[:page]).per_page(20)
 
     elsif params[:educator_id]
       @supplement_contents = SupplementContent.educator_contents(params[:educator_id])
+        .order("created_at desc").page(params[:page]).per_page(20)
 
     elsif params[:student_id]
       @supplement_contents = SupplementContent.student_contents(params[:student_id])
+        .order("created_at desc").page(params[:page]).per_page(20)
 
     else
       @supplement_contents = nested_org_request?(params) ? SupplementContent
-        .organisation_contents(@org.id) : SupplementContent.all
+        .organisation_contents(@org.id).page(params[:page])
+          .order("created_at desc").per_page(20) : SupplementContent.all
+            .page(params[:page]).per_page(20)
 
     end
 
@@ -28,15 +32,14 @@ class Api::V1::SupplementContentController < ApplicationController
     @supplement_content = SupplementContent.find(params[:id])
   end
 
-
   def destroy
-    @module_supplement = SupplementContent.find(params[:id])
+    @supplement_content = SupplementContent.find(params[:id])
 
-    if @module_supplement.destroy()
+    if @supplement_content.destroy()
       untrack_trackable params[:id]
       render json: {}
     else
-      respond_with @module_supplement
+      respond_with @supplement_content
     end
   end
 

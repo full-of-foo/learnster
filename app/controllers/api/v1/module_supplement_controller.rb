@@ -6,16 +6,18 @@ class Api::V1::ModuleSupplementController < ApplicationController
 
   def index
     if search_request?
-      @module_supplements = ModuleSupplement.search_term(params[:search]).page(params[:page]).per_page(20) if search_term_request?(params)
+      @module_supplements = ModuleSupplement.search_term(params[:search]).order("created_at desc")
+        .page(params[:page]).per_page(20) if search_term_request?(params)
       return @module_supplements
     end
 
 
     if params[:learning_module_id]
       @module_supplements = LearningModule.find(params[:learning_module_id]).module_supplements
-        .page(params[:page]).per_page(20)
+        .order("created_at desc").page(params[:page]).per_page(20)
     else
-      @module_supplements = ModuleSupplement.all.page(params[:page]).per_page(20)
+      @module_supplements = ModuleSupplement.all.order("created_at desc")
+        .page(params[:page]).per_page(20)
     end
 
     return @module_supplements

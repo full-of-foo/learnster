@@ -4,6 +4,7 @@ class Student < User
   belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org"
   has_many :enrolled_course_sections
   has_many :course_sections, through: :enrolled_course_sections
+  has_many :submissions
 
   validates_presence_of :attending_org
 
@@ -32,6 +33,15 @@ class Student < User
       .select("enrolled_course_sections.course_section_id").to_a.map(&:course_section_id)
     student_ids = (EnrolledCourseSection.where(course_section_id: section_ids)
                     .select('student_id').to_a.map(&:student_id)).uniq
+
+    self.where(id: student_ids)
+  end
+
+  def self.module_students(module_id)
+    section_ids = SectionModule.where(learning_module_id: module_id)
+      .select("section_modules.course_section_id").to_a.map(&:course_section_id)
+    student_ids = EnrolledCourseSection.where(course_section_id: section_ids)
+      .select("student_id").to_a.map(&:student_id)
 
     self.where(id: student_ids)
   end

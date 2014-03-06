@@ -14,6 +14,7 @@
       "organisation/:id/my_courses"       : "listMyOrgCourses"
       "organisation/:id/modules"          : "listOrgModules"
       "organisation/:id/my_modules"       : "listMyOrgModules"
+      "organisation/:id/my_deliverables"  : "listMyDeliverables"
       "organisation/:id/my_settings"      : "showMySettings"
       "organisations"                     : "listOrgs"
 
@@ -68,6 +69,10 @@
       new App.LearningModulesApp.List.Controller
         id: @get_org_id(id)
         isMyModules: true
+
+    listMyDeliverables: (id) ->
+      new App.DeliverablesApp.List.Controller
+        id: @get_org_id(id)
 
     showMySettings: (id) ->
       new App.SettingsApp.Edit.Controller

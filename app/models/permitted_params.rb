@@ -44,8 +44,16 @@ class PermittedParams < Struct.new(:params, :user)
     params.require(:supplement_content).permit(*supplement_content_attributes)
   end
 
+  def submission_params
+    params.require(:submission).permit(*submission_attributes)
+  end
+
   def wiki_content_params
     params.require(:wiki_content).permit(*supplement_content_attributes)
+  end
+
+  def wiki_submission_params
+    params.require(:wiki_submission).permit(*submission_attributes)
   end
 
   def enrolled_course_section_params
@@ -101,6 +109,10 @@ class PermittedParams < Struct.new(:params, :user)
 
     def supplement_content_attributes
       [:title, :description, :module_supplement, :file_upload, :wiki_markup]
+    end
+
+    def submission_attributes
+      [:notes, :deliverable, :student, :file_upload, :wiki_markup]
     end
 
     def enrolled_course_section_attributes

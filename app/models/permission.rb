@@ -8,7 +8,7 @@ class Permission < Struct.new(:user)
       return true if user.app_admin?
       account_controllers = %w[course learning_module wiki_content content_upload
         enrolled_course_section /course_section section_module module_supplement
-        deliverable supplement_content]
+        deliverable supplement_content /submission submission_upload wiki_submission]
 
       return true if update_account_request?(controller, action, params)
 
@@ -48,7 +48,7 @@ class Permission < Struct.new(:user)
           if course_related_controller_request?(controller)
             @admin_modules = user.learning_modules
             return true if my_supplement_updates_and_creates?(controller, action, params)
-            return true if my_deliverable_or_content_updates_and_creates?(controller, action, params)
+            return true if admin_deliverable_or_content_updates_and_creates?(controller, action, params)
             return true if my_module_updates?(controller, action, params)
             return true if create_module_request?(controller, action, params)
 
@@ -67,7 +67,7 @@ class Permission < Struct.new(:user)
           if course_related_controller_request?(controller)
             @admin_modules = user.learning_modules
             return true if my_supplement_updates_and_creates?(controller, action, params)
-            return true if my_deliverable_or_content_updates_and_creates?(controller, action, params)
+            return true if admin_deliverable_or_content_updates_and_creates?(controller, action, params)
             return true if my_module_updates?(controller, action, params)
             return true if create_module_request?(controller, action, params)
           end
@@ -78,6 +78,10 @@ class Permission < Struct.new(:user)
 
       if user.student?
         @org = user.attending_org
+
+        account_controllers.each do |controller_name|
+            return true if reads_on_controller?(controller_name, controller, action)
+        end
 
         if action.in?(%w[index show])
           return true if student_self_request?(controller, params)
@@ -91,11 +95,9 @@ class Permission < Struct.new(:user)
 
         return true if student_admins_request?(controller, action, params)
         return true if student_activity_request?(controller, action, params)
-
-        account_controllers.each do |controller_name|
-            return true if reads_on_controller?(controller_name, controller, action)
-        end
-
+        return true if student_submission_updatable?(controller, action, params)
+        @student_modules = LearningModule.student_modules(user.id)
+        return true if student_submission_creatable?(controller, action, params)
       end
     end
 
@@ -141,9 +143,9 @@ class Permission < Struct.new(:user)
         is_deletable = (action == "destroy" && @admin_courses.exists?(CourseSection.find(params[:id]).course_id))
         is_creatable = (action == "create"  && @admin_courses.exists?(params[:course_id]))
 
-        return is_updatable || is_deletable || is_creatable
+        is_updatable || is_deletable || is_creatable
       else
-        return false
+        false
       end
     end
 
@@ -152,9 +154,9 @@ class Permission < Struct.new(:user)
         is_deletable = (action == "destroy" && @admin_courses.exists?(CourseSection.find(params[:course_section_id]).course_id))
         is_creatable = (action == "create"  && @admin_courses.exists?(CourseSection.find(params[:course_section_id]).course_id))
 
-        return is_deletable || is_creatable
+        is_deletable || is_creatable
       else
-        return false
+        false
       end
     end
 
@@ -175,15 +177,16 @@ class Permission < Struct.new(:user)
         is_deletable = (action == "destroy" && @admin_modules.exists?(ModuleSupplement
                                                                         .find(params[:id])
                                                                           .learning_module_id))
-        return is_deletable || is_updatable
+        is_deletable || is_updatable
       else
-        return false
+        false
       end
     end
 
-    def my_deliverable_or_content_updates_and_creates?(controller, action, params)
+    def admin_deliverable_or_content_updates_and_creates?(controller, action, params)
       if controller.end_with?("supplement_content") || controller
-          .end_with?("deliverable") || controller.end_with?("content_upload") || controller.end_with?("wiki_content")
+          .end_with?("deliverable") || controller.end_with?("content_upload") || controller
+            .end_with?("wiki_content")
         supplement_id = params[:module_supplement] ? params[:module_supplement][:id] : params[:module_supplement_id]
         is_updatable = action == "update" && @admin_modules.exists?(ModuleSupplement
                                                                         .find(supplement_id)
@@ -195,16 +198,41 @@ class Permission < Struct.new(:user)
         is_creatable = action == "create" && @admin_modules.exists?(ModuleSupplement
                                                                       .find(supplement_id)
                                                                         .learning_module_id)
-        return is_updatable || is_deletable || is_creatable
+        is_updatable || is_deletable || is_creatable
       else
-        return false
+        false
+      end
+    end
+
+    def student_submission_updatable?(controller, action, params)
+      if action != "create" && (controller.end_with?("/submission") || controller
+          .end_with?("submission_upload") || controller.end_with?("wiki_submission"))
+        is_student_submission = Submission.find(params[:id]).student_id == @user.id
+
+        is_updatable = action == "update"  && is_student_submission
+        is_deletable = action == "destroy" && is_student_submission
+        is_updatable || is_deletable
+      else
+        false
+      end
+    end
+
+    def student_submission_creatable?(controller, action, params)
+      if action == "create" && (controller.end_with?("/submission") || controller.end_with?("submission_upload") || controller
+          .end_with?("wiki_submission"))
+        deliverable_id = params[:deliverable] ? params[:deliverable][:id] : params[:deliverable_id]
+        supplement_id  = Deliverable.find(deliverable_id).module_supplement_id
+
+        @student_modules.exists?(ModuleSupplement.find(supplement_id).learning_module_id)
+      else
+        false
       end
     end
 
     def course_related_controller_request?(controller)
       related_controllers = %w[learning_module enrolled_course_section wiki_content
         content_upload /course_section section_module module_supplement
-        deliverable supplement_content]
+        deliverable supplement_content /submission submission_upload wiki_submission]
 
       related_controllers.any? { |related_controller| controller.end_with?(related_controller) }
     end
@@ -215,8 +243,6 @@ class Permission < Struct.new(:user)
     end
 
     def update_account_request?(controller, action, params)
-      puts controller, action
-      puts @user.id.to_s
       action == "update" && (controller.end_with?("org_admin") || controller
                              .end_with?("student")) && params[:id] == @user.id.to_s
     end

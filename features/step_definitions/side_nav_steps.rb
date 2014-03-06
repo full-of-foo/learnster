@@ -36,6 +36,8 @@ Given(/^I sidebar navigate to "(.+)"$/) do |nav_text|
     page.side_nav_to(page.my_coursemates_nav_link)
   when "My Learning Modules"
     page.side_nav_to(page.my_modules_nav_link)
+  when "My Deliverables"
+    page.side_nav_to(page.my_deliverables_nav_link)
   else
     raise "Unknown navigation item text: '#{nav_text}'"
   end
@@ -70,6 +72,8 @@ Then(/^the "(.+)" nav is active$/) do |nav_text|
     link_class = page.my_courses_nav_link.when_present.parent.class_name
   when "My Learning Modules"
      link_class = page.my_modules_nav_link.when_present.parent.class_name
+  when "My Deliverables"
+     link_class = page.my_deliverables_nav_link.when_present.parent.class_name
   when "My Educators"
      link_class = page.my_admins_nav_link.when_present.parent.class_name
   when "My Coursemates"

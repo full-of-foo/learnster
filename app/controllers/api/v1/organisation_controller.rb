@@ -5,11 +5,12 @@ class Api::V1::OrganisationController < ApplicationController
   def index
     if search_request?
       @organisations = Organisation.search_term(params[:search])
-        .page(params[:page]).per_page(20)
+        .order("created_at desc").page(params[:page]).per_page(20)
       return @organisations
     end
 
-    @organisations = Organisation.all.page(params[:page]).per_page(20)
+    @organisations = Organisation.all.order("created_at desc")
+      .page(params[:page]).per_page(20)
 
     if params[:format] == "xlsx"
       type = "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
