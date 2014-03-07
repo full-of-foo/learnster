@@ -69,4 +69,33 @@ module CacheEntities
       end
     end
 
+    class WikiContent
+      attr_accessor :title, :description, :wiki_markup
+
+      def initialize(options = {})
+        @title        = options[:title] || ''
+        @description  = options[:description] || ''
+        @wiki_markup  = options[:wiki_markup] || ''
+      end
+    end
+
+    class WikiSubmission
+      attr_accessor :notes, :wiki_markup
+
+      def initialize(options = {})
+        @notes        = options[:notes] || ''
+        @wiki_markup  = options[:wiki_markup] || ''
+      end
+    end
+
+    class Deliverable
+      attr_accessor :title, :description, :due_date
+
+      def initialize(options = {})
+        @title        = options[:title] || ''
+        @description  = options[:description] || ''
+        @due_date     = options[:due_date] || ''
+      end
+    end
+
 end

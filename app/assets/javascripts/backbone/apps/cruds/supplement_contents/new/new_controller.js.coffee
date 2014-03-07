@@ -1,42 +1,47 @@
-@Learnster.module "SubmissionsApp.New", (New, App, Backbone, Marionette, $, _) ->
+@Learnster.module "SupplementContentsApp.New", (New, App, Backbone, Marionette, $, _) ->
 
   class New.Controller extends App.Controllers.Base
 
     initialize: (options = {}) ->
       @_isUpload = if options.isUpload then options.isUpload else options.isWiki
-      @nestedDeliverableId = options.nestedDeliverableId
+      @nestedSupplementId = options.nestedSupplementId
 
-      submission = if @_isUpload then App.request "new:submission:upload:entity" else App.request "new:wiki:submission:entity"
-      submission.set('deliverable', {id: @nestedDeliverableId})
+      content = if @_isUpload then App.request "new:content:upload:entity" else App.request "new:wiki:content:entity"
+      content.set('module_supplement', {id: @nestedSupplementId})
+      content.beforeSave = @_scrapeWikiContent if not @_isUpload
 
-      @layout = @getLayoutView submission
+      @layout = @getLayoutView content
 
-      @listenTo submission, "created", (new_submission) =>
+      @listenTo content, "created", (new_content) =>
         @layout.close()
-        App.vent.trigger "submission:created", new_submission
+        App.vent.trigger "content:created", new_content
 
       @listenTo @layout, "show", =>
         if @_isUpload
-          @setUploadFormRegion(submission)
+          @setUploadFormRegion(content)
         else
-          @setWikiFormRegion(submission)
+          @setWikiFormRegion(content)
 
       @show @layout
 
-    getLayoutView: (submission) ->
+    _scrapeWikiContent: (content) ->
+      content.set('wiki_markup', tinymce.activeEditor.getContent())
+      $('#wiki_markup').val(tinymce.activeEditor.getContent())
+
+    getLayoutView: (content) ->
       new New.Layout
-        model: submission
+        model: content
 
-    getNewUploadView: (submission) ->
+    getNewUploadView: (content) ->
       new New.UploadView
-        model: submission
+        model: content
 
-    getNewWikiView: (submission) ->
+    getNewWikiView: (content) ->
       new New.WikiView
-        model: submission
+        model: content
 
-    setWikiFormRegion: (submission) ->
-      @newView = @getNewWikiView submission
+    setWikiFormRegion: (content) ->
+      @newView = @getNewWikiView content
       formView = App.request "form:wrapper", @newView
       @newView['_formWrapper'] = formView
 
@@ -48,8 +53,8 @@
             loadingType: "spinner"
         region:  @layout.formRegion
 
-    setUploadFormRegion: (submission) ->
-      @newView = @getNewUploadView submission
+    setUploadFormRegion: (content) ->
+      @newView = @getNewUploadView content
       formView = App.request "form:wrapper", @newView
       @newView['_formWrapper'] = formView
 
@@ -60,3 +65,4 @@
         loading:
             loadingType: "spinner"
         region:  @layout.formRegion
+

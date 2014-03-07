@@ -45,6 +45,17 @@ Given(/^I open my first Module$/) do
   StepsDataCache.learning_module = learning_module
 end
 
+Given(/^I open the Module$/) do
+  page = Pages::ModulesPage.new(@browser)
+  step("I should see a \"th\" with the \"text\" of \"Title\"")
+  sleep(0.3)
+
+  learning_module = StepsDataCache.learning_module
+  page.submit_search_for(learning_module.title)
+
+  step("I click the \"td\" with the \"text\" of \"#{learning_module.title}\"")
+end
+
 Given(/^I open the first Module$/) do
   step("I open my first Module")
 end
@@ -58,6 +69,23 @@ Given(/^I create a Supplement for the Module$/) do
 
   page.submit_new_supplement_form(supplement)
   StepsDataCache.supplement = supplement
+end
+
+Given(/^I open the Supplement$/) do
+  page = Pages::ModulesPage.new(@browser)
+  supplement = StepsDataCache.supplement
+  2.times {
+    page.scroll_down
+    sleep(0.4)
+  }
+
+  step("I should see a \"td\" with the \"text\" of \"#{supplement.title}\"")
+  step("I click the \"td\" with the \"text\" of \"#{supplement.title}\"")
+  sleep(0.4)
+  2.times {
+    page.scroll_down
+    sleep(0.2)
+  }
 end
 
 Given(/^I delete the Supplement on the Module$/) do

@@ -62,6 +62,16 @@ Given(/^I create a Course$/) do
   StepsDataCache.course = course
 end
 
+Given(/^I open the Course$/) do
+  page = Pages::CoursesPage.new(@browser)
+  step("I should see a \"th\" with the \"text\" of \"Title\"")
+  course = StepsDataCache.course
+  sleep(0.3)
+
+  page.submit_search_for(course.title)
+
+  step("I click the \"td\" with the \"text\" of \"#{course.title}\"")
+end
 
 Given(/^I edit the Course$/) do
   step("I click the \"span\" with the \"id\" of \"edit-course-button\"")
@@ -96,12 +106,33 @@ Given(/^I add the first Module to the Course Section$/) do
   StepsDataCache.learning_module = learning_module
 end
 
+Given(/^I add a known Module to the Course Section$/) do
+  step('I open the add-module well')
+  page = Pages::CoursesPage.new(@browser)
+  learning_module = StepsDataCache.learning_module
+  sleep(0.4)
+
+  @browser.execute_script("$('.selectpicker').selectpicker('val', '#{learning_module.title}');")
+  sleep(0.2)
+  page.submit_add_first_module_form()
+end
+
 Given(/^I remove the first Module from the Course Section$/) do
   step('I open the remove-module well')
   page = Pages::CoursesPage.new(@browser)
 
   page.submit_remove_first_module_form()
   StepsDataCache.learning_module = nil
+end
+
+Given(/^I add my Student to the Course Section/) do
+  step('I open the add-student well')
+  page = Pages::CoursesPage.new(@browser)
+
+  sleep(0.4)
+  @browser.execute_script("$('.selectpicker').selectpicker('val', 'student@foo.com');")
+  sleep(0.2)
+  page.submit_add_first_student_form()
 end
 
 Given(/^I add the first Student to the Course Section$/) do

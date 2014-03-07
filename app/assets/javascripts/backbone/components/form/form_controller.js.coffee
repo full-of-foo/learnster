@@ -15,7 +15,15 @@
 
     formSubmit: ->
       model = @contentView.model
-      model.beforeSave(model) if model?.beforeSave
+      console.debug model
+      if model.beforeSave
+        console.debug model.beforeSave
+        model.beforeSave(model)
+        _.delay((=> @submit()), 450)
+      else
+        @submit()
+
+    submit: ->
       data = Backbone.Syphon.serialize @formLayout
       if @contentView.triggerMethod("form:submit", data) isnt false
         model = @contentView.model

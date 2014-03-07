@@ -26,6 +26,7 @@ module Pages
 
       def scroll_down
         @browser.div(id: "main-region").wd.location_once_scrolled_into_view
+        sleep(0.3)
       end
 
       def submit_search_for(term)

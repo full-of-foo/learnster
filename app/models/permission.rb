@@ -47,8 +47,9 @@ class Permission < Struct.new(:user)
 
           if course_related_controller_request?(controller)
             @admin_modules = user.learning_modules
-            return true if my_supplement_updates_and_creates?(controller, action, params)
-            return true if admin_deliverable_or_content_updates_and_creates?(controller, action, params)
+            admim_deliverable_updates_and_creates
+            return true if admin_deliverable_updates_and_creates?(controller, action, params)
+            return true if admin_content_updates_and_creates?(controller, action, params)
             return true if my_module_updates?(controller, action, params)
             return true if create_module_request?(controller, action, params)
 
@@ -67,7 +68,8 @@ class Permission < Struct.new(:user)
           if course_related_controller_request?(controller)
             @admin_modules = user.learning_modules
             return true if my_supplement_updates_and_creates?(controller, action, params)
-            return true if admin_deliverable_or_content_updates_and_creates?(controller, action, params)
+            return true if admin_deliverable_updates_and_creates?(controller, action, params)
+            return true if admin_content_updates_and_creates?(controller, action, params)
             return true if my_module_updates?(controller, action, params)
             return true if create_module_request?(controller, action, params)
           end
@@ -183,15 +185,33 @@ class Permission < Struct.new(:user)
       end
     end
 
-    def admin_deliverable_or_content_updates_and_creates?(controller, action, params)
-      if controller.end_with?("supplement_content") || controller
-          .end_with?("deliverable") || controller.end_with?("content_upload") || controller
+    def admin_content_updates_and_creates?(controller, action, params)
+      if controller.end_with?("supplement_content") || controller.end_with?("content_upload") || controller
             .end_with?("wiki_content")
         supplement_id = params[:module_supplement] ? params[:module_supplement][:id] : params[:module_supplement_id]
         is_updatable = action == "update" && @admin_modules.exists?(ModuleSupplement
                                                                         .find(supplement_id)
                                                                           .learning_module_id)
         is_deletable = action == "destroy" && @admin_modules.exists?(SupplementContent
+                                                                        .find(params[:id])
+                                                                          .module_supplement
+                                                                            .learning_module_id)
+        is_creatable = action == "create" && @admin_modules.exists?(ModuleSupplement
+                                                                      .find(supplement_id)
+                                                                        .learning_module_id)
+        is_updatable || is_deletable || is_creatable
+      else
+        false
+      end
+    end
+
+    def admin_deliverable_updates_and_creates?(controller, action, params)
+      if controller.end_with?("deliverable")
+        supplement_id = params[:module_supplement] ? params[:module_supplement][:id] : params[:module_supplement_id]
+        is_updatable = action == "update" && @admin_modules.exists?(ModuleSupplement
+                                                                        .find(supplement_id)
+                                                                          .learning_module_id)
+        is_deletable = action == "destroy" && @admin_modules.exists?(Deliverable
                                                                         .find(params[:id])
                                                                           .module_supplement
                                                                             .learning_module_id)
