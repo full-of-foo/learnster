@@ -1,11 +1,11 @@
 <div id="panel-region"></div>
 
-<div class="login-modal">
-	  <div class="modal-body">
+    <div class="login-modal">
+      <div class="modal-body">
 
-			<div class="well">
-				<div id="form-region"></div>
-			</div>
+        <div class="well">
+          <div id="form-region"></div>
+        </div>
 
-	</div>
-</div>
+      </div>
+    </div>

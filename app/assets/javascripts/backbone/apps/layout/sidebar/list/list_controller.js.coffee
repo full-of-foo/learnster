@@ -1,4 +1,4 @@
-@Learnster.module "SidebarApp.List", (List, App, Backbone, Marionette, $, _) ->
+@Learnster.module "SidebarApp.List", (List, App, Backbone, Marionette, $, _, twttr) ->
 
   class List.Controller extends App.Controllers.Base
 
@@ -33,6 +33,9 @@
           when "side-item-my-courses"   then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_courses", child)
           when "side-item-my-modules"   then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_modules", child)
           when "side-item-my-deliverables" then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_deliverables", child)
+
+      @listenTo sideBarView, "show", =>
+        _.delay(( => twttr.widgets.load() ), 50) if options.type is "Login"
 
       @show sideBarView
 
@@ -98,10 +101,17 @@
     getLoginBarItems: ->
       [
         { text: "Sign in", id: "side-item-sign-in"},
-        { text: "Sign up Organisation", id: "side-item-sign-up" }
+        { text: "Sign up Organisation", id: "side-item-sign-up" },
+        { text: @_twitterMarkUp(), isDiv: true }
       ]
+
+    _twitterMarkUp: ->
+      '<a class="twitter-timeline" href="https://twitter.com/learnster_rocks" data-widget-id="441969499873370112">
+        Tweets by @learnster_rocks</a>'
 
     _getOrgId: (user) ->
       id = user.get('admin_for').id     if user instanceof App.Entities.OrgAdmin
       id = user.get('attending_org').id if user instanceof App.Entities.Student
       id
+
+, twttr

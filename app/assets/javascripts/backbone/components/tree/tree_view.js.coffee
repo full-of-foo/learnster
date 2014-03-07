@@ -21,8 +21,15 @@
     appendHtml: (collectionView, itemView, index) ->
       if not collectionView.collection.isEmpty()
         sideItemEntity = itemView.model
-        $sideItem = @$drawSideItem(sideItemEntity, itemView.$el)
-        collectionView.$("ul.sidenav").append($sideItem[0])
+        if not sideItemEntity.get('isDiv')
+          $sideItem = @$drawSideItem(sideItemEntity, itemView.$el)
+          collectionView.$("ul.sidenav").append($sideItem[0])
+        else
+          @$drawSideDiv(collectionView, sideItemEntity)
+
+    $drawSideDiv: (collectionView, sideItemEntity) ->
+      divHtml = '<div style="margin-top: 1.9pc; height: 22pc;">' + sideItemEntity.get('text') + '</div>'
+      collectionView.$('ul.sidenav').append(divHtml)
 
     $drawSideItem: (sideItemEntity, $itemView) ->
       text = sideItemEntity.get('text')
@@ -33,7 +40,8 @@
         $itemView.append(sideItemEntity.get('wrappingElem')).
           find("a").append(sideItemEntity.get('prependingElem') + " #{text}")
       $itemView.find("a").attr('id', sideItemEntity.
-        get('id')) if sideItemEntity.get('id')
+      get('id')) if sideItemEntity.get('id')
       $itemView
+
 
 
