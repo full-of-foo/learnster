@@ -28,7 +28,9 @@
 
     setFormRegion: (supplement) ->
       @newView = @getNewView supplement
-      formView = App.request "form:wrapper", @newView
+      formView = App.request "form:wrapper", @newView,
+        toast:
+          message: "supplement created"
 
       @listenTo @newView, "form:cancel", ->
         @region.close()

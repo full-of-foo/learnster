@@ -33,7 +33,10 @@
       @listenTo editView, "form:cancel", ->
         App.vent.trigger "course:cancelled", course
 
-      formView = App.request "form:wrapper", editView
+      formView = App.request "form:wrapper", editView,
+        toast:
+          message: "#{course.get('title')} updated"
+
       @show formView,
         loading:
           loadingType: "spinner"

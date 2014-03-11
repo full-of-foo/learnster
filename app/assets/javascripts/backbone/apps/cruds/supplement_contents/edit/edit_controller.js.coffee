@@ -10,20 +10,20 @@
 
       content = App.request "wiki:content:entity", @wikiId
       content.beforeSave = @_scrapeWikiContent
-
       @layout = @getLayoutView content
 
-      if not @isPreview
-        @listenTo content, "updated", (new_content) =>
-          App.navigate "module/#{@moduleId}/supplement/#{@supplementId}/wiki/#{@wikiId}/show"
+      App.execute "when:fetched", content, =>
+        if not @isPreview
+          @listenTo content, "updated", (new_content) =>
+            App.navigate "module/#{@moduleId}/supplement/#{@supplementId}/wiki/#{@wikiId}/show"
 
-        @listenTo @layout, "show", =>
-          @setWikiFormRegion(content)
-      else
-        @listenTo @layout, "show", =>
-          @setWikiPreviewRegion(content)
+          @listenTo @layout, "show", =>
+            @setWikiFormRegion(content)
+        else
+          @listenTo @layout, "show", =>
+            @setWikiPreviewRegion(content)
 
-      @show @layout
+        @show @layout
 
     _scrapeWikiContent: (content) ->
       content.set('wiki_markup', tinymce.activeEditor.getContent())
@@ -43,7 +43,9 @@
 
     setWikiFormRegion: (content) ->
       @editView = @getEditWikiView content
-      formView = App.request "form:wrapper", @editView
+      formView = App.request "form:wrapper", @editView,
+        toast:
+          message: "#{content.get('title')} updated"
 
       @listenTo @editView, "form:cancel", ->
         App.vent.trigger "edit:wiki:cancel", @moduleId, @supplementId

@@ -1,4 +1,5 @@
-attributes :id, :notes, :type, :created_at, :updated_at, :file_upload, :wiki_markup, :deliverable, :student, :version
+attributes :id, :notes, :type, :created_at, :updated_at, :file_upload, :wiki_markup, :deliverable, :student
+attributes :version, :if => lambda { |o| root_object.respond_to?("version") }
 
 node do |submission|
     {
@@ -31,6 +32,9 @@ child :file_upload => :file_upload do
   attributes :url
 end
 
-child :version => :version do
-  attributes :id, :event
+if root_object.respond_to?("version")
+  child(:version => :version) do
+    attributes :id, :event
+  end
 end
+

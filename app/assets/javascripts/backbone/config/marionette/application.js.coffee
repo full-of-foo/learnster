@@ -40,7 +40,6 @@ do (Backbone, $, _, window) ->
     getRegistrySize: ->
       _.size @_registry
 
-
     makeToast: (options = {}) ->
       _closeToast = ->
         console.log "closing"

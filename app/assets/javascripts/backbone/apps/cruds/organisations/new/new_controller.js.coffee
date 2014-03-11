@@ -15,7 +15,9 @@
         @listenTo @newView, "form:cancel", =>
           @region.close()
 
-        formView = App.request "form:wrapper", @newView
+        formView = App.request "form:wrapper", @newView,
+          toast:
+            message: "organisation created"
         layout.formRegion.show formView
 
       @show layout
@@ -23,7 +25,6 @@
     getLayoutView: (org) ->
       new New.Layout
         model: org
-
 
     getNewView: (org) ->
       new New.View

@@ -6,15 +6,16 @@
       id = options.id
       deliverable = App.request "deliverable:entity", id
 
-      @listenTo deliverable, "updated", ->
-        App.request "show:deliverable", deliverable
+      App.execute "when:fetched", deliverable, =>
+        @listenTo deliverable, "updated", ->
+          App.request "show:deliverable", deliverable
 
-      @layout = @getLayoutView deliverable
-      @listenTo @layout, "show", =>
-        @setTitleRegion deliverable
-        @setFormRegion deliverable
+        @layout = @getLayoutView deliverable
+        @listenTo @layout, "show", =>
+          @setTitleRegion deliverable
+          @setFormRegion deliverable
 
-      @show @layout
+        @show @layout
 
     getLayoutView: (deliverable) ->
       new Edit.Layout
@@ -34,7 +35,9 @@
       @listenTo editView, "form:cancel", ->
         App.request "show:deliverable", deliverable
 
-      formView = App.request "form:wrapper", editView
+      formView = App.request "form:wrapper", editView,
+        toast:
+          message: "#{deliverable.get('title')} updated"
 
       @show formView,
         loading:

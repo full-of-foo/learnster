@@ -64,9 +64,6 @@
         @_setScrollableCollection(pageNumber)
 
     _setScrollableCollection: (pageNumber) ->
-      console.debug pageNumber
-      console.debug @collection
-
       $(window).scroll =>
         if @collection.get('next_link')
           @ui.pageArea.first().html('')
@@ -81,6 +78,8 @@
             hasEducatedBy       = @collection.get('educator_id')
             hasParentSupplement = @collection.get('module_supplement_id')
             hasStudiedBy        = @collection.get('student_id')
+            hasDeliverable      = @collection.get('deliverable_id')
+
             params =
               page:       @collection.get('next_link')
               search:     @collection.get('search')
@@ -90,6 +89,7 @@
             params['educator_id']          = @collection.get('educator_id') if hasEducatedBy
             params['module_supplement_id'] = @collection.get('module_supplement_id') if hasParentSupplement
             params['student_id']           = @collection.get('student_id')  if hasStudiedBy
+            params['deliverable_id']       = @collection.get('deliverable_id') if hasDeliverable
 
             @collection.fetch
               data: $.param(params)

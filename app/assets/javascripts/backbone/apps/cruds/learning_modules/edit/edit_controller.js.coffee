@@ -10,11 +10,13 @@
         App.vent.trigger "module:updated", @module
 
       @layout = @getLayoutView @module
-      @listenTo @layout, "show", =>
-        @setTitleRegion @module
-        @setFormRegion @module
 
-      @show @layout
+      App.execute "when:fetched", @module, =>
+        @listenTo @layout, "show", =>
+          @setTitleRegion @module
+          @setFormRegion @module
+
+        @show @layout
 
     getLayoutView: (module) ->
       new Edit.Layout
@@ -34,7 +36,9 @@
       @listenTo @editView, "form:cancel", ->
         App.vent.trigger "module:cancelled", module
 
-      formView = App.request "form:wrapper", @editView
+      formView = App.request "form:wrapper", @editView,
+        toast:
+          message: "#{module.get('title')} updated"
 
       @listenTo formView, "show", ->
         orgId = module.get('organisation_id')

@@ -30,7 +30,9 @@
 
     setFormRegion: (sectionModule) ->
       @newView = @getNewView sectionModule
-      formView = App.request "form:wrapper", @newView
+      formView = App.request "form:wrapper", @newView,
+        toast:
+          message: "module added"
 
       @listenTo formView, "show", ->
         @setModuleSelector(formView)

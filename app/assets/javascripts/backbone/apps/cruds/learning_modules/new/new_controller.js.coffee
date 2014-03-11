@@ -28,7 +28,9 @@
 
     setFormRegion: (module) ->
       @newView = @getNewView module
-      formView = App.request "form:wrapper", @newView
+      formView = App.request "form:wrapper", @newView,
+        toast:
+          message: "module created"
 
       @listenTo formView, "show", ->
         @setEducatorSelector(formView)

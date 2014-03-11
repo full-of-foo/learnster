@@ -36,7 +36,7 @@
         data:
           manager_id: adminId
           page: 1
-
+      notifications.put('manager_id', adminId)
       notifications
 
     getStudentNotificationEntities: (orgId, studentId) ->
@@ -47,7 +47,7 @@
         data:
           student_id: studentId
           page: 1
-
+      notifications.put('student_id', studentId)
       notifications
 
     getSearchNotificationEntities: (searchOpts) ->

@@ -5,7 +5,6 @@
     initialize: (options = {}) ->
       @_nestingOrg = options.region?._nestingOrg
       student = App.request "new:student:entity"
-
       @layout = @getLayoutView student
 
       @listenTo student, "created", ->
@@ -27,7 +26,9 @@
 
     setFormRegion: (student) ->
       @newView = @getNewView student
-      formView = App.request "form:wrapper", @newView
+      formView = App.request "form:wrapper", @newView,
+        toast:
+          message: "student created"
 
       user = App.request "get:current:user"
 

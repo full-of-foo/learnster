@@ -27,7 +27,9 @@
 
     setFormRegion: (org_admin) ->
       @newView = @getNewView org_admin
-      formView = App.request "form:wrapper", @newView
+      formView = App.request "form:wrapper", @newView,
+        toast:
+          message: "administrator created"
       user = App.request "get:current:user"
 
       if user.get('type') is "AppAdmin"

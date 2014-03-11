@@ -41,7 +41,11 @@
             learning_module_id: moduleId
             course_section_id: @_nestingCourseSectionId
 
-        sectionModule.on "destroy", => App.navigate "/course_section/#{@_nestingCourseSectionId}/show"
+        sectionModule.on "destroy", =>
+          App.makeToast
+              text: "module removed"
+              type: "info"
+          App.navigate "/course_section/#{@_nestingCourseSectionId}/show"
 
       @listenTo @newView, "form:cancel", =>
         @region.close()

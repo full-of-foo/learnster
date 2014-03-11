@@ -53,7 +53,9 @@
       submission.urlRoot = Routes.api_wiki_submission_index_path()
       submission.beforeSave = @_scrapeWikiContent
       editView = @getEditWikiView submission
-      formView = App.request "form:wrapper", editView
+      formView = App.request "form:wrapper", editView,
+        toast:
+          message: "wiki updated"
 
       @listenTo submission, "updated", (submission) ->
         App.vent.trigger "wiki:submission:updated", submission
@@ -109,7 +111,11 @@
       @listenTo versionView, "revert:wiki:clicked", =>
         revertVersion = App.request "revert:version:entity", versionId
         revertVersion.save()
-        revertVersion.on "created", => App.vent.trigger("wiki:submission:updated", submission)
+        revertVersion.on "created", =>
+          App.makeToast
+            text: "wiki reverted"
+            type: "info"
+          App.vent.trigger("wiki:submission:updated", submission)
 
       @show versionView,
         loading:

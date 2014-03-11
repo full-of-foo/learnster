@@ -27,6 +27,7 @@
         data: $.param
           page: 1
           deliverable_id: deliverableId
+      submissions.put('deliverable_id', deliverableId)
       submissions
 
     getStudentSubmissionEntities: (studentId) ->
@@ -37,6 +38,7 @@
         data: $.param
           page: 1
           student_id: studentId
+      submissions.put('student_id', studentId)
       submissions
 
     getStudentDeliverableSubmissionEntities: (deliverableId, studentId) ->
@@ -48,6 +50,8 @@
           page: 1
           deliverable_id: deliverableId
           student_id:     studentId
+      submissions.put('deliverable_id', deliverable_id)
+      submissions.put('student_id', studentId)
       submissions
 
     setCurrentSubmission: (attrs) ->

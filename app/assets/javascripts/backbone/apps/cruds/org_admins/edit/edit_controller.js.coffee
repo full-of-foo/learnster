@@ -31,6 +31,8 @@
 
       options =
         footer: if not createdByUser then false else true
+        toast:
+          message: "#{org_admin.get('full_name')} updated"
 
       formView = App.request "form:wrapper", @editView, options
       @layout.formRegion.show formView

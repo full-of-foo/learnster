@@ -40,7 +40,7 @@
         @trigger "created", @
         if toast
           App.makeToast
-              text: "Created successfully"
+              text: toast.message or "Created successfully"
               type: "info"
       else ## model is being updated
         collection ?= @collection ## if model has collection property defined, use that if no collection option exists
@@ -48,7 +48,7 @@
         @trigger "updated", @
         if toast
           App.makeToast
-              text: "Updated successfully"
+              text: toast.message or "Updated successfully"
               type: "info"
 
     saveError: (model, xhr, options) =>

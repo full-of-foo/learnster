@@ -28,7 +28,6 @@
         collection = @contentView.collection
         @processFormSubmit data, model, collection, @formLayout.config.toast
 
-
     processFormSubmit: (data, model, collection, toast = false) ->
       model.save data,
         collection: collection
@@ -38,10 +37,10 @@
       @region = @formLayout.formContentRegion
       @show @contentView
 
-
     getFormLayout: (options = {}) ->
       config = @getDefaultConfig _.result(@contentView, "form")
-      _.extend config, options
+      console.log config
+      config = _.extend config, options
 
       buttons = @getButtons config.buttons
 
@@ -49,7 +48,6 @@
         config: config
         model: @contentView.model
         buttons: buttons
-
 
     getDefaultConfig: (config = {}) ->
       _.defaults config,
@@ -59,10 +57,8 @@
         syncing: true
         toast: true
 
-
     getButtons: (buttons = {}) ->
       App.request("form:button:entities", buttons, @contentView.model) unless buttons is false
-
 
 
   App.reqres.setHandler "form:wrapper", (contentView, options = {}) ->

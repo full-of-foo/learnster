@@ -29,7 +29,9 @@
 
     showFormRegion: (deliverable) ->
       @newView = @getNewDeliverable deliverable
-      formView = App.request "form:wrapper", @newView
+      formView = App.request "form:wrapper", @newView,
+        toast:
+          message: "deliverable created"
 
       @listenTo @newView, "form:cancel", ->
         @region.close()

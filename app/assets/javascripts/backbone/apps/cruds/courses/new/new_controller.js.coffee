@@ -26,7 +26,9 @@
 
     setFormRegion: (course) ->
       newView = @getNewView course
-      formView = App.request "form:wrapper", newView
+      formView = App.request "form:wrapper", newView,
+        toast:
+          message: "course created"
 
       @listenTo newView, "form:cancel", =>
         @region.close()

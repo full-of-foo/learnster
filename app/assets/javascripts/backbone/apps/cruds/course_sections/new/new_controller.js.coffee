@@ -8,7 +8,7 @@
 
       courseSection = App.request "new:course_section:entity"
       courseSection.set('course_id', @_nestingCourseId)
-      
+
       @layout = @getLayoutView courseSection
 
       @listenTo courseSection, "created", ->
@@ -29,7 +29,9 @@
 
     setFormRegion: (courseSection) ->
       @newView = @getNewView courseSection
-      formView = App.request "form:wrapper", @newView
+      formView = App.request "form:wrapper", @newView,
+        toast:
+          message: "course section created"
 
       @listenTo formView, "show", ->
         @setProvisionerSelector(formView)
@@ -45,7 +47,7 @@
     setProvisionerSelector: (newLayout) ->
       orgId = @_nestingOrgId
       user = App.currentUser
-      
+
       admins = App.request("org_admin:from:role:entities", orgId, "course_manager")
       selectView = App.request "selects:wrapper",
         collection: admins

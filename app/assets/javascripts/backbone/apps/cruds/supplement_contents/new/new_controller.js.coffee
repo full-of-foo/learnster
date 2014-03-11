@@ -42,7 +42,10 @@
 
     setWikiFormRegion: (content) ->
       @newView = @getNewWikiView content
-      formView = App.request "form:wrapper", @newView
+      formView = App.request "form:wrapper", @newView,
+        toast:
+          message: "wiki created"
+
       @newView['_formWrapper'] = formView
 
       @listenTo @newView, "form:cancel", ->
@@ -58,11 +61,16 @@
       formView = App.request "form:wrapper", @newView
       @newView['_formWrapper'] = formView
 
+      content.on "created", ->
+        App.makeToast
+              text: "content uploaded"
+              type: "info"
+
       @listenTo @newView, "form:cancel", ->
         @region.close()
 
       @show formView,
         loading:
             loadingType: "spinner"
-        region:  @layout.formRegion
+        region: @layout.formRegion
 

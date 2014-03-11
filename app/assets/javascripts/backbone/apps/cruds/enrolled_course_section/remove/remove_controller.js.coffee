@@ -39,7 +39,11 @@
             course_section_id: @_nestingCourseSectionId
             student_id: studentId
 
-        enrollment.on "destroy", => App.vent.trigger "enrollment:removed", enrollment
+        enrollment.on "destroy", =>
+          App.makeToast
+              text: "student removed"
+              type: "info"
+          App.vent.trigger "enrollment:removed", enrollment
 
       @listenTo @newView, "form:cancel", =>
         @region.close()

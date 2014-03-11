@@ -31,7 +31,9 @@
 
     setFormRegion: (enrollment) ->
       @newView = @getNewView enrollment
-      formView = App.request "form:wrapper", @newView
+      formView = App.request "form:wrapper", @newView,
+        toast:
+          message: "student enrolled"
 
       @listenTo formView, "show", ->
         @setStudentSelector(formView)

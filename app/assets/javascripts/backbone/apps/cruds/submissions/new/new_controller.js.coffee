@@ -42,7 +42,10 @@
 
     setWikiFormRegion: (submission) ->
       @newView = @getNewWikiView submission
-      formView = App.request "form:wrapper", @newView
+      formView = App.request "form:wrapper", @newView,
+        toast:
+          message: "wiki submitted"
+
       @newView['_formWrapper'] = formView
 
       @listenTo @newView, "form:cancel", ->
@@ -56,6 +59,12 @@
     setUploadFormRegion: (submission) ->
       @newView = @getNewUploadView submission
       formView = App.request "form:wrapper", @newView
+
+      submission.on "created", ->
+        App.makeToast
+          text: "submission uploaded"
+          type: "info"
+
       @newView['_formWrapper'] = formView
 
       @listenTo @newView, "form:cancel", ->
