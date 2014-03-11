@@ -51,7 +51,7 @@
         $row.append(markUp)
         @ui.list.append($row[0])
       else
-        emptyCell = "<span>#{@config.emptyMessage}</span>"
+        emptyCell = "<span class='content'><h3>#{@config.emptyMessage}</h3></span>"
         @ui.list.append(emptyCell)
 
     styleList: (className) ->
