@@ -47,7 +47,6 @@ class Permission < Struct.new(:user)
 
           if course_related_controller_request?(controller)
             @admin_modules = user.learning_modules
-            admim_deliverable_updates_and_creates
             return true if admin_deliverable_updates_and_creates?(controller, action, params)
             return true if admin_content_updates_and_creates?(controller, action, params)
             return true if my_module_updates?(controller, action, params)
@@ -72,6 +71,7 @@ class Permission < Struct.new(:user)
             return true if admin_content_updates_and_creates?(controller, action, params)
             return true if my_module_updates?(controller, action, params)
             return true if create_module_request?(controller, action, params)
+            return true if admin_submission_version_request?(controller, action, params)
           end
 
         end
@@ -97,8 +97,9 @@ class Permission < Struct.new(:user)
 
         return true if student_admins_request?(controller, action, params)
         return true if student_activity_request?(controller, action, params)
-        return true if student_submission_updatable?(controller, action, params)
         @student_modules = LearningModule.student_modules(user.id)
+        return true if student_submission_version_request?(controller, action, params)
+        return true if student_submission_updatable?(controller, action, params)
         return true if student_submission_creatable?(controller, action, params)
       end
     end
@@ -132,7 +133,8 @@ class Permission < Struct.new(:user)
     end
 
     def crud_on_controller?(controller_name, controller, action)
-      controller.end_with?(controller_name) && action.in?(%w[create index show update destroy])
+      controller.end_with?(controller_name) && action.in?(%w[create index show show_version
+        update destroy index_versions revert])
     end
 
     def reads_on_controller?(controller_name, controller, action)
@@ -206,7 +208,7 @@ class Permission < Struct.new(:user)
     end
 
     def admin_deliverable_updates_and_creates?(controller, action, params)
-      if controller.end_with?("deliverable")
+      if controller.end_with?("deliverable") && action != "revert"
         supplement_id = params[:module_supplement] ? params[:module_supplement][:id] : params[:module_supplement_id]
         is_updatable = action == "update" && @admin_modules.exists?(ModuleSupplement
                                                                         .find(supplement_id)
@@ -224,14 +226,53 @@ class Permission < Struct.new(:user)
       end
     end
 
+    def student_submission_version_request?(controller, action, params)
+      if controller.end_with?("wiki_submission")
+        is_showable = action == "show_version" && @student_modules
+          .exists?(Submission.find(PaperTrail::Version.find(params[:version_id]).item_id)
+            .deliverable.module_supplement.learning_module_id)
+
+        is_indexable = action == "index_versions" && @student_modules
+          .exists?(Submission.find(params[:wiki_submission_id]).deliverable
+                    .module_supplement.learning_module_id)
+
+        is_showable || is_indexable
+      else
+        false
+      end
+    end
+
+    def admin_submission_version_request?(controller, action, params)
+      if controller.end_with?("wiki_submission") || controller.end_with?("/submission")
+        is_showable = action == "show_version" && @admin_modules
+          .exists?(Submission.find(PaperTrail::Version.find(params[:version_id]).item_id)
+            .deliverable.module_supplement.learning_module_id)
+
+        is_indexable = action == "index_versions" && @admin_modules
+          .exists?(Submission.find(params[:wiki_submission_id]).deliverable
+                    .module_supplement.learning_module_id)
+
+        is_destroyable = action == "destroy" && @admin_modules
+          .exists?(Submission.find(params[:id]).deliverable
+                    .module_supplement.learning_module_id)
+
+        is_showable || is_indexable ||  is_destroyable
+      else
+        false
+      end
+    end
+
     def student_submission_updatable?(controller, action, params)
       if action != "create" && (controller.end_with?("/submission") || controller
           .end_with?("submission_upload") || controller.end_with?("wiki_submission"))
-        is_student_submission = Submission.find(params[:id]).student_id == @user.id
+        id = params[:id] || params[:wiki_submission_id]
 
-        is_updatable = action == "update"  && is_student_submission
-        is_deletable = action == "destroy" && is_student_submission
-        is_updatable || is_deletable
+        is_revertable        = (action == "revert" && PaperTrail::Version
+                                  .find(id).item.student_id == @user.id)
+        is_updatable         = action == "update" && Submission.find(id).student_id == @user.id
+        is_deletable         = action == "destroy" && Submission.find(id).student_id == @user.id
+
+        is_updatable || is_deletable || is_revertable
       else
         false
       end

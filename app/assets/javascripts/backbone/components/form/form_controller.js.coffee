@@ -15,9 +15,7 @@
 
     formSubmit: ->
       model = @contentView.model
-      console.debug model
       if model.beforeSave
-        console.debug model.beforeSave
         model.beforeSave(model)
         _.delay((=> @submit()), 450)
       else

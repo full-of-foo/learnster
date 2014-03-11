@@ -6,6 +6,7 @@
       "deliverable/:id/edit"            : "edit"
       "deliverable/:deliverableId/wiki_submission/:id/show" : "showWiki"
       "deliverable/:deliverableId/wiki_submission/:id/edit" : "editWiki"
+      "deliverable/:deliverableId/wiki_submission/:id/version/:versionId/show" : "showVersion"
 
 
   App.addInitializer ->
@@ -31,6 +32,13 @@
       new App.SubmissionsApp.Edit.Controller
         deliverableId: deliverableId
         id:            id
+        isPreview:     false
+
+    showVersion: (deliverableId, id, versionId) ->
+      new App.SubmissionsApp.Edit.Controller
+        deliverableId: deliverableId
+        id:            id
+        versionId:     versionId
         isPreview:     false
 
     newDeliverable: (region, supplementId) ->

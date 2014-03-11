@@ -69,6 +69,9 @@ Learnster::Application.routes.draw do
       resources :submission_upload
       resources :wiki_content
       resources :wiki_submission
+      post "/wiki_submission/version/:id/revert" => "wiki_submission#revert", as: :wiki_submission_revert
+      get "/wiki_submission/:id/versions" => "wiki_submission#index_versions", as: :wiki_submission_versions
+      get "/wiki_submission/:id/version" => "wiki_submission#show_version", as: :wiki_submission_version
       resources :enrolled_course_section
       resources :deliverable
       resources :submission

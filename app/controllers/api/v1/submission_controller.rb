@@ -25,9 +25,8 @@ class Api::V1::SubmissionController < ApplicationController
   end
 
   def show
-    @submission = Submission.find(params[:id])
+    @submission = Submission.includes(:student).find(params[:id])
   end
-
 
   def destroy
     @submission = Submission.find(params[:id])

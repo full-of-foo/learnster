@@ -8,14 +8,16 @@
 <% end %>
 
 
-<% if hasPermission: %>
+
     <div class="pull-right">
-      <span id="edit-wiki-button" class="btn btn-success">Edit</span>
+    <% if hasPermission: %>
+      <span id="revert-wiki-button" class="btn btn-success">Revert</span>
+    <% end %>
+      <span id="cancel-wiki-version" class="btn"><% if hasPermission: %>Cancel<% else: %>Back<% end %></span>
     </div>
-<% end %>
 
 <blockquote>
-    <p class="text-info">Showing Wiki...</p>
+    <p class="text-info">Showing Previous Version...</p>
 </blockquote>
 
 <div class="form-horizontal">
@@ -31,7 +33,7 @@
 
         <div class="control-group">
             <!-- Last updated -->
-            <label class="control-label" for="updated_at_formatted">Last updated</label>
+            <label class="control-label" for="updated_at_formatted">Updated at</label>
             <div class="controls">
                 <%- @editOrShowField( "updated_at_formatted", @updated_at_formatted, isEditableForm ) %>
             </div>
@@ -46,10 +48,6 @@
                 </div>
             </div>
         <% end %>
-
-      <div id="versions-container" class="pull-right">
-          <div id="versions-region"></div>
-      </div>
 
         <div class="control-group">
             <!-- Wiki -->

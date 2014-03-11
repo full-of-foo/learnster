@@ -1,0 +1,1 @@
+<% if @is_live: %>&#10004;<% end %><span class="timestamp"> <%= @created_at_formatted %> (<%= @version_word_count %> words)</span>

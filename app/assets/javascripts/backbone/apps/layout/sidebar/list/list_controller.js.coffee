@@ -1,4 +1,4 @@
-@Learnster.module "SidebarApp.List", (List, App, Backbone, Marionette, $, _, twttr) ->
+@Learnster.module "SidebarApp.List", (List, App, Backbone, Marionette, $, _, window) ->
 
   class List.Controller extends App.Controllers.Base
 
@@ -35,7 +35,8 @@
           when "side-item-my-deliverables" then @sideNavTo("/organisation/#{@_getOrgId(user)}/my_deliverables", child)
 
       @listenTo sideBarView, "show", =>
-        _.delay(( => twttr.widgets.load() ), 50) if options.type is "Login"
+        if options.type is "Login"
+          _.delay(( => $.getScript('//platform.twitter.com/widgets.js', ( => window.twttr.widgets.load()), false, { xPolling: '0' } )), 50)
 
       @show sideBarView
 
@@ -114,4 +115,4 @@
       id = user.get('attending_org').id if user instanceof App.Entities.Student
       id
 
-, twttr
+, window

@@ -34,9 +34,32 @@
 
   class Edit.Preview extends App.Views.Layout
     template: "submissions/edit/templates/show_wiki"
+    regions:
+      versionsRegion: "#versions-region"
     triggers:
       "click .cancel-edit-submission" : "form:cancel"
       "click #edit-wiki-button"       : "edit:wiki:clicked"
 
+  class Edit.VersionPreview extends App.Views.ItemView
+    template: "submissions/edit/templates/show_version"
+    triggers:
+      "click #cancel-wiki-version" : "form:cancel"
+      "click #revert-wiki-button"  : "revert:wiki:clicked"
+
+  class Edit.Version extends App.Views.ItemView
+    template: "submissions/edit/templates/_version"
+    tagName: "li"
+    triggers:
+      "click" : "clicked:wiki:version:link"
+
+  class Edit.EmptyVersions extends App.Views.ItemView
+    template: "submissions/edit/templates/_empty_versions"
+    tagName: "li"
+
+  class Edit.Versions extends App.Views.CompositeView
+    template: 'submissions/edit/templates/versions'
+    itemView: Edit.Version
+    itemViewContainer: 'ul'
+    emptyView: Edit.EmptyVersions
 
 , tinymce

@@ -21,6 +21,7 @@ module StepsDataCache
     attr_accessor :deliverable
     attr_accessor :deleted_deliverable
     attr_accessor :wiki_submission
+    attr_accessor :old_wiki_submission
 
     attr_accessor :student
     attr_accessor :deleted_student

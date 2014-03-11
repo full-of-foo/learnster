@@ -1,0 +1,26 @@
+.versions {
+  list-style: none;
+  margin: 10px 0 0 0;
+
+  li {
+    padding: 7px 0;
+    border-top: 1px solid #e8e8e8;
+    padding-right: 5px;
+  }
+
+  li span {
+    margin-left: 1pc;
+  }
+
+  li:hover {
+      background-color: #F3FFFF;
+      border-left: 1.5px solid #06F0FF;
+      cursor: pointer;
+    }
+}
+
+#versions-container {
+  overflow: scroll;
+  max-height: 7.5pc;
+  margin-top: -4pc;
+}

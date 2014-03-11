@@ -1,4 +1,4 @@
-attributes :id, :notes, :type, :created_at, :updated_at, :file_upload, :wiki_markup, :deliverable, :student
+attributes :id, :notes, :type, :created_at, :updated_at, :file_upload, :wiki_markup, :deliverable, :student, :version
 
 node do |submission|
     {
@@ -7,17 +7,20 @@ node do |submission|
     }
 end
 
+node(:word_count, :if => lambda { |object| object.class.name == "WikiSubmission" }) do |object|
+    object.wiki_word_count()
+end
+
 child :deliverable => :deliverable do
   attributes :id, :title, :description, :due_date, :is_closed, :is_private, :created_at, :updated_at, :module_supplement
 
   child :module_supplement => :module_supplement do
     attributes :id, :title, :description, :created_at, :updated_at, :learning_module
 
-      child :learning_module => :learning_module do
-        attributes :id, :title, :educator_id
-      end
+    child :learning_module => :learning_module do
+      attributes :id, :title, :educator_id
+    end
   end
-
 end
 
 child :student => :student do
@@ -26,4 +29,8 @@ end
 
 child :file_upload => :file_upload do
   attributes :url
+end
+
+child :version => :version do
+  attributes :id, :event
 end

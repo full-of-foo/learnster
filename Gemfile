@@ -56,7 +56,7 @@ gem "spinjs-rails"
 gem "datejs-rails"
 gem "pg", "0.15.1"
 gem "carrierwave"
-# gem "rmagick"
+gem 'paper_trail', '~> 3.0.0'
 
 group :doc do
   gem "sdoc", "0.3.20", require: false

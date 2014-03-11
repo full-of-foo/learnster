@@ -50,7 +50,6 @@ class Api::V1::DeliverableController < ApplicationController
   def update
     @deliverable = Deliverable.find(params[:id])
     params = permitted_params.deliverable_params.merge(create_and_update_params)
-    logger.debug @de
     if @deliverable.update params
       track_activity @deliverable
       render "api/v1/deliverable/show"

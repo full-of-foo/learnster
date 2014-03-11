@@ -112,7 +112,7 @@ class PermittedParams < Struct.new(:params, :user)
     end
 
     def submission_attributes
-      [:notes, :deliverable, :student, :file_upload, :wiki_markup]
+      [:notes, :deliverable, :student, :file_upload, :wiki_markup, :word_count]
     end
 
     def enrolled_course_section_attributes

@@ -1,22 +1,18 @@
 @Learnster.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.WikiSubmission extends Entities.Models
-    urlRoot: Routes.api_wiki_submission_index_path()
-
-  class Entities.WikiSubmissionCollection extends Entities.Collections
-    model: Entities.WikiSubmission
-
     initialize: (options = {}) =>
-      @url = if options.url then options.url else Routes.api_wiki_submission_index_path()
+      @urlRoot = if options.urlRoot then options.urlRoot else Routes.api_wiki_submission_index_path()
       super
 
-
   API =
-    getWikiSubmission: (id) ->
-      submission = Entities.WikiSubmission.findOrCreate
-        id: id
+    getWikiSubmissionVersion: (versionId) ->
+      submission = new Entities.WikiSubmission
+        urlRoot: Routes.api_wiki_submission_version_path(versionId)
       submission.fetch
         reset: true
+        data:
+          version_id: versionId
       submission
 
     setCurrentWikiSubmission: (attrs) ->
@@ -30,6 +26,9 @@
 
   App.reqres.setHandler "wiki:submission:entity", (id) ->
     API.getWikiSubmission id
+
+  App.reqres.setHandler "wiki:submission:by:version:entity", (versionId) ->
+    API.getWikiSubmissionVersion versionId
 
   App.reqres.setHandler "init:wiki:submission", (attrs) ->
     API.setCurrentWikiSubmission attrs

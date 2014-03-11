@@ -7,7 +7,8 @@
 # teardown
 [ApiKey, LearningModule, User, Organisation, Activity,
   EnrolledCourseSection, CourseSection, Course, SupplementContent,
-  ModuleSupplement, Deliverable].each(&:delete_all)
+  ModuleSupplement, Deliverable, Submission, PaperTrail::Version]
+    .each(&:delete_all)
 
 ########################
 ## Users and Orgs
@@ -128,6 +129,8 @@ course_org = Organisation.first
 course_mgr = course_org.admins.first(offset: 1)
 course_provisioner = course_org.admins.last
 course_students = course_org.students[0..4]
+student = Student.first
+course_students << student
 
 params = {
   organisation: course_org,
@@ -156,6 +159,8 @@ course_students.each { |s| EnrolledCourseSection
 
 
 4.times do |i|
+
+  # Module
   module_educator = OrgAdmin.first(offset: 2)
   params = {
     title: "Object Orientated Programming " + "#{i + 1}",
@@ -167,6 +172,7 @@ course_students.each { |s| EnrolledCourseSection
   m.save!
   m.course_sections << course_section
 
+  # Supplements
   params = {
     title: "Week #{i + 1}",
     description: Faker::Lorem.sentence,
@@ -175,6 +181,7 @@ course_students.each { |s| EnrolledCourseSection
   lesson = ModuleSupplement.new(params)
   lesson.save!
 
+  # Content Uploads
   params = {
     title: "Lecture Slides - part #{i + 1}",
     description: Faker::Lorem.sentence,
@@ -184,6 +191,7 @@ course_students.each { |s| EnrolledCourseSection
   content_upload = ContentUpload.new(params)
   content_upload.save!
 
+  # Deliverables
   params = {
     title: "Project - #{i}",
     description: Faker::Lorem.sentence,
@@ -195,8 +203,19 @@ course_students.each { |s| EnrolledCourseSection
   deliverable = Deliverable.new(params)
   deliverable.save!
 
+  # Wiki Submissions
+  params = {
+    notes: "foo",
+    wiki_markup: "<h1>foo</h2>",
+    student: student,
+    deliverable: deliverable
+  }
+  wiki_sub = WikiSubmission.new(params)
+  wiki_sub.save!
+
 end
 
+# Courses
 21.times do |i|
     params = {
     organisation: course_org,
@@ -209,6 +228,7 @@ end
   course.save!
 end
 
+# Course Sections
 course_count = Course.count
 12.times do |i|
 
