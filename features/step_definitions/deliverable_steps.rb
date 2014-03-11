@@ -112,6 +112,7 @@ end
 
 Then(/^I see the first Wiki Submission version page$/) do
   old_wiki_submission = StepsDataCache.old_wiki_submission
+  sleep(1.2)
 
   step("I should see a \"p\" with the \"text\" of \"Showing Previous Version...\"")
   step("I should see a \"span\" with the \"text\" of \"#{old_wiki_submission.notes}\"")
