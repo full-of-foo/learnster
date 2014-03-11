@@ -2,6 +2,7 @@ class Activity < ActiveRecord::Base
   belongs_to :user
   belongs_to :trackable, polymorphic: true
 
+  before_create :add_custom_message
   generate_scopes
 
   def self.organisation_activities(organisation_id)
@@ -42,6 +43,70 @@ class Activity < ActiveRecord::Base
 
     (Activity.trackable_id_in(ids) | Activity.user_id_eq(student_id))
   end
+
+
+  private
+
+    def add_custom_message
+      case
+      when self.trackable.is_a?(Student), self.trackable.is_a?(OrgAdmin)
+        self.message = user_activity_message
+      when self.trackable.is_a?(WikiSubmission), self.trackable.is_a?(WikiContent)
+        self.message = wiki_activity_message
+      when self.trackable.is_a?(SubmissionUpload), self.trackable.is_a?(ContentUpload)
+        self.message = content_activity_message
+      when self.trackable.is_a?(CourseSection), self.trackable.is_a?(Course)
+        self.message = course_activity_message
+      when self.trackable.is_a?(LearningModule), self.trackable.is_a?(ModuleSupplement)
+        self.message =  module_activity_message
+      when self.trackable.is_a?(Deliverable)
+        self.message =  deliverable_activity_message
+      end
+    end
+
+    def user_activity_message
+      actionString = self.action == "create" ? "created the account" : "updated the profile"
+      className    = self.trackable_type.downcase
+
+      "#{actionString} of the #{className} #{self.trackable.full_name}"
+    end
+
+    def wiki_activity_message
+      actionString = self.action == "create" ? "created" : "updated"
+
+      "#{actionString} a wiki"
+    end
+
+    def content_activity_message
+      actionString = self.action == "create" ? "uploaded" : "updated"
+      className    = self.trackable.is_a?(SubmissionUpload) ? "a submission" : "some module content"
+
+      "#{actionString} #{className}"
+    end
+
+    def course_activity_message
+      actionString = self.action == "create" ? "created" : "updated"
+      className    = self.trackable.is_a?(Course) ? "the course" : "a course section"
+      title        = self.trackable.is_a?(CourseSection) ? self.trackable.section : self.trackable.title
+
+      "#{actionString} #{className} #{title}"
+    end
+
+    def module_activity_message
+      actionString = self.action == "create" ? "created" : "updated"
+      className    = self.trackable.is_a?(LearningModule) ? "the module" : "a module supplement named"
+      title        = self.trackable.title
+
+      "#{actionString} #{className} #{title}"
+    end
+
+    def deliverable_activity_message
+      actionString = self.action == "create" ? "created" : "updated"
+      className    = "the deliverable named"
+      title        = self.trackable.title
+
+      "#{actionString} #{className} #{title}"
+    end
 
 
 end

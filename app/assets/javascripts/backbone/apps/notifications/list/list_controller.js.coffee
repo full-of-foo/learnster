@@ -38,7 +38,6 @@
 
     showNotifications: (notifications) ->
       notificationsView = @getNotificationsView notifications
-
       @show notificationsView,
         loading:
           loadingType: "spinner"
@@ -52,5 +51,12 @@
       new List.Layout()
 
     getNotificationsView: (notifications) ->
-      new List.NotificationSummaries
-        collection: notifications
+      listView = App.request "list:wrapper", notifications,
+        config:
+          emptyMessage: "no notifications just quite yet"
+          listClassName: "notifications"
+          listItemTemplate: "backbone/apps/notifications/list/templates/_notification_summary"
+          itemProperties:
+            triggers:
+              "click span" : "notification:clicked"
+      listView

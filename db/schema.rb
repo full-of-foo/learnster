@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140308191215) do
+ActiveRecord::Schema.define(version: 20140311125840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20140308191215) do
     t.string   "trackable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "message"
   end
 
   add_index "activities", ["trackable_id"], name: "index_activities_on_trackable_id", using: :btree

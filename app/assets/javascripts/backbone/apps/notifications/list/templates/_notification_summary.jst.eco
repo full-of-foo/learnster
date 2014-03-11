@@ -1,23 +1,33 @@
 <% u = @currentUser() %>
 
 <span class="content">
-	<% if u.full_name is @user.full_name: %>
+	<% if u.id is @user.id: %>
 		You
 	<% else: %>
 		<%= @user.full_name %>
 	<% end %>
 
 
-	  <%= @action_formatted %>
 
-	<% if @trackable: %>
+	<% if @trackable and not @message: %>
+	  <%= @action_formatted %>
 
 	 	<%= @trackable.name if @trackable.name %>
 	 	<%= @trackable.section if @trackable.section %>
 	 	<%= @trackable.title if @trackable.title %>
 
+	<% else if @trackable and @message: %>
+		<% if (@trackable.trackable_type is "User" or @trackable.trackable_type is "Student" or @trackable.trackable_type is "OrgAdmin") and u.id is @trackable.id: %>
+			updated your profile
+
+		<% else: %>
+		 	<%= @message %>
+
+		<% end %>
+
 	<% else: %>
 	 <em>something</em>
+
 	<% end %>
 
 </span>

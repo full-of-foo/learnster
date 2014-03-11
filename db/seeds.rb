@@ -34,7 +34,6 @@ end
   }
   o = Organisation.new(params)
   o.save!
-  # OrgAdmin.first.activities.create! action: "create", trackable: o
 end
 
 count = 0
@@ -66,7 +65,6 @@ count = 0
 
   oa = OrgAdmin.new(params)
   oa.save!
-  # AppAdmin.first.activities.create! action: "create", trackable: oa
 end
 
 Organisation.all.each_with_index do |o, i|
@@ -76,7 +74,6 @@ Organisation.all.each_with_index do |o, i|
     index = OrgAdmin.first.id + i
   end
   o.update created_by: OrgAdmin.find(index)
-  # AppAdmin.first.activities.create! action: "update", trackable: o
 end
 
 
@@ -143,6 +140,7 @@ params = {
 }
 course = Course.new(params)
 course.save!
+course_mgr.activities.create! trackable: course, action: "create"
 
 
 params = {
@@ -152,6 +150,7 @@ params = {
 }
 course_section = CourseSection.new(params)
 course_section.save!
+course_mgr.activities.create! trackable: course_section, action: "create"
 
 # Enroll students
 course_students.each { |s| EnrolledCourseSection
@@ -170,6 +169,7 @@ course_students.each { |s| EnrolledCourseSection
   }
   m = LearningModule.new(params)
   m.save!
+  module_educator.activities.create! trackable: m, action: "create"
   m.course_sections << course_section
 
   # Supplements
@@ -180,6 +180,7 @@ course_students.each { |s| EnrolledCourseSection
   }
   lesson = ModuleSupplement.new(params)
   lesson.save!
+  module_educator.activities.create! trackable: lesson, action: "create"
 
   # Content Uploads
   params = {
@@ -190,6 +191,7 @@ course_students.each { |s| EnrolledCourseSection
   }
   content_upload = ContentUpload.new(params)
   content_upload.save!
+  module_educator.activities.create! trackable: content_upload, action: "create"
 
   # Deliverables
   params = {
@@ -202,6 +204,7 @@ course_students.each { |s| EnrolledCourseSection
   }
   deliverable = Deliverable.new(params)
   deliverable.save!
+  module_educator.activities.create! trackable: deliverable, action: "create"
 
   # Wiki Submissions
   params = {
@@ -212,11 +215,12 @@ course_students.each { |s| EnrolledCourseSection
   }
   wiki_sub = WikiSubmission.new(params)
   wiki_sub.save!
+  student.activities.create! trackable: wiki_sub, action: "create"
 
 end
 
 # Courses
-21.times do |i|
+15.times do |i|
     params = {
     organisation: course_org,
     managed_by: course_mgr,

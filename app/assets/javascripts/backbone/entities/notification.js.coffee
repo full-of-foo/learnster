@@ -15,6 +15,8 @@
       notifications = new Entities.NotificationsCollection
       notifications.fetch
         reset: true
+        data:
+          page: 1
       notifications
 
     getOrgNotificationEntities: (id) ->
@@ -22,6 +24,8 @@
         url: Routes.api_organisation_activities_path(id)
       notifications.fetch
         reset: true
+        data:
+          page: 1
       notifications
 
     getManagerNotificationEntities: (orgId, adminId) ->
@@ -31,6 +35,7 @@
         reset: true
         data:
           manager_id: adminId
+          page: 1
 
       notifications
 
@@ -41,6 +46,7 @@
         reset: true
         data:
           student_id: studentId
+          page: 1
 
       notifications
 

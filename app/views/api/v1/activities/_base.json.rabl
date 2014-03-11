@@ -1,4 +1,4 @@
-attributes :id, :action, :user, :trackable, :created_at
+attributes :id, :action, :user, :trackable, :created_at, :message
 
 
 node do |activity|
@@ -16,7 +16,8 @@ child :trackable => :trackable do
   attributes :id
   node(:name, :if => lambda { |object| object.class.name == "Organisation" ||  object
     .class.name == "Course" || object.class.name == "LearningModule" || object.class
-    .name == "ModuleSupplement" || object.class.name == "SupplementContent" }) do |object|
+    .name == "ModuleSupplement" || object.class.name == "SupplementContent" || object
+    .class.name == "Deliverable" }) do |object|
   	object.title
   end
   node(:name, :if => lambda { |object| object.class.name == "CourseSection" }) do |object|

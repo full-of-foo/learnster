@@ -9,15 +9,3 @@
   class List.Panel extends App.Views.ItemView
     template: "notifications/list/templates/_panel"
 
-  class List.Empty extends App.Views.ItemView
-    template: "notifications/list/templates/_empty"
-
-  class List.NotificationSummary extends App.Views.ItemView
-    template: "notifications/list/templates/_notification_summary"
-    tagName: "li"
-
-  class List.NotificationSummaries extends App.Views.CompositeView
-    template: 'notifications/list/templates/notification_summaries'
-    itemView: List.NotificationSummary
-    itemViewContainer: 'ul'
-    emptyView: List.Empty
