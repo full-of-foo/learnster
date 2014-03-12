@@ -17,6 +17,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
         ]
 
         student: [
+          /^(.+?)&togetherjs=(.+?)$/,
           /^organisation\/(.+?)\/admins$/,
           /^statistic\/(.+)\/(.+)\/(.+)$/,
           /^organisation\/(.+?)\/notifications$/,
@@ -37,6 +38,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
         ],
 
         orgAdmin: [
+          /^(.+?)&togetherjs=(.+?)$/,
           /^organisation\/(.+?)\/admins$/,
           /^organisation\/(.+?)\/edit$/,
           /^statistic\/(.+)\/(.+)\/(.+)$/,

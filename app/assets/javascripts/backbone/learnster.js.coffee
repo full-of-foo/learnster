@@ -1,4 +1,4 @@
-@Learnster = do ($, Backbone, Marionette, _) ->
+@Learnster = do ($, Backbone, Marionette, _, TogetherJS, window) ->
 
   App = new Marionette.Application()
 
@@ -98,6 +98,11 @@
 
   App.on "initialize:after", ->
       App.startHistory()
+
+      LearnsterCollab.getInstance().stop()
+      if App.currentUser
+        window.TogetherJSConfig_getUserName = ( => App.currentUser.get('full_name') )
+
       isEmptyRoute = App.getCurrentRoute() is null
       App.execute "redirect:home" if isEmptyRoute
 

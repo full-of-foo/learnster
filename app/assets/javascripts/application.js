@@ -23,9 +23,11 @@
 //= require lib/backbone.marionette
 
 //= require ./lib/vendor/tinymce
+//= require ./backbone/config/togetherjs
 //= require_tree ./lib/vendor
 
 //= require_tree ./backbone/config
+//= require_tree ./backbone/initializers
 //= require backbone/learnster
 //= require backbone/route_helper
 
@@ -35,4 +37,3 @@
 //= require_tree ./backbone/components
 //= require_tree ./backbone/routers
 //= require_tree ./backbone/apps
-

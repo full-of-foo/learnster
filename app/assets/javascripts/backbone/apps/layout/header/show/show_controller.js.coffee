@@ -1,4 +1,4 @@
-@Learnster.module "HeaderApp.Show", (Show, App, Backbone, Marionette, $, _) ->
+@Learnster.module "HeaderApp.Show", (Show, App, Backbone, Marionette, $, _, LearnsterCollab) ->
 
   class Show.Controller extends App.Controllers.Base
 
@@ -21,6 +21,9 @@
 
       @listenTo dockView, "stats:dockItem:clicked", ->
         App.navigate "/statistics"
+
+      @listenTo dockView, "collaborate:dockItem:clicked", ->
+        LearnsterCollab.getInstance().start()
 
       @listenTo dockView, "notifications:dockItem:clicked", ->
         App.vent.trigger "notifications:link:clicked"
@@ -63,3 +66,4 @@
       new Show.SubLogo
         model: user
 
+, LearnsterCollab

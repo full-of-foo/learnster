@@ -1,4 +1,4 @@
-@Learnster.module "SessionApp", (SessionApp, App, Backbone, Marionette, $, _) ->
+@Learnster.module "SessionApp", (SessionApp, App, Backbone, Marionette, $, _, LearnsterCollab) ->
 
   class SessionApp.Router extends App.Routers.AppRouter
     appRoutes:
@@ -22,8 +22,12 @@
     getDestroyIconView: ->
       new SessionApp.Destroy.Icon()
 
-  App.vent.on "session:created session:destroyed", (currentUser = null) ->
+  App.vent.on "session:created", (currentUser = null) ->
     App.execute "reset:regions"
+
+  App.vent.on "session:destroyed", (currentUser = null) ->
+    App.execute "reset:regions"
+    LearnsterCollab.getInstance().stop()
 
   App.reqres.setHandler "new:destroy:icon:view", ->
     API.getDestroyIconView()
@@ -31,3 +35,5 @@
   App.addInitializer ->
     new SessionApp.Router
       controller: API
+
+, LearnsterCollab
