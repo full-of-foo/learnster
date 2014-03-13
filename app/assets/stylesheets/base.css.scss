@@ -164,7 +164,7 @@ html, body {
   width: 1.1pc;
   background: url("/images/loading.gif") no-repeat;
   margin-top: 1pc;
-  position: fixed;
+  position: relative;
 }
 
 .basic-success {
@@ -174,5 +174,5 @@ html, body {
   margin-left: 1.28pc;
   text-align: center;
   background: url("/images/success.png") no-repeat;
-  position: fixed;
+  position: relative;
 }
