@@ -154,3 +154,25 @@ html, body {
 	}
 }
 
+.basic-loader {
+  background-size: 100%;
+  text-align: center;
+  margin-left: 1.32pc;
+  margin-right: auto;
+  vertical-align: middle;
+  height: 1.1pc;
+  width: 1.1pc;
+  background: url("/images/loading.gif") no-repeat;
+  margin-top: 1pc;
+  position: fixed;
+}
+
+.basic-success {
+  background-size: 100% !important;
+  height: 0.8pc !important;
+  width: 0.8pc !important;
+  margin-left: 1.28pc;
+  text-align: center;
+  background: url("/images/success.png") no-repeat;
+  position: fixed;
+}

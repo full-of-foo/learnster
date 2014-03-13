@@ -101,7 +101,7 @@
 
       LearnsterCollab.getInstance().stop()
       if App.currentUser
-        window.TogetherJSConfig_getUserName = ( => App.currentUser.get('full_name') )
+        window.TogetherJSConfig_getUserName = ( => App.currentUser.get('full_name') if App.currentUser )
 
       isEmptyRoute = App.getCurrentRoute() is null
       App.execute "redirect:home" if isEmptyRoute

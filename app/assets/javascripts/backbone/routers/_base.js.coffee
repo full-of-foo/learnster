@@ -29,7 +29,7 @@
         if not isRootRoute
           App.execute "redirect:home"
           return false
-      else if(not App.isPermittedRoute(user, route) and user)
+      else if(not @_permittedRoute(user, route) and user)
         console.log("#{route}: not permitted") if App.environment is "development"
         App.commands.execute("show:not:found") if route isnt "404"
         return false
@@ -44,3 +44,9 @@
         App.commands.execute "side:higlight:item", App.sideItemIdForRoute(route)
       else
         App.commands.execute "clear:sidebar:higlight"
+
+    _permittedRoute: (user, route) ->
+      if String(route) isnt String(/^collaborate&togetherjs=(.+)$/)
+        App.isPermittedRoute(user, route)
+      else
+        true

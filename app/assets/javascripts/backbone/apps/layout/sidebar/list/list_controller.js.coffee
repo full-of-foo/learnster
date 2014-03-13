@@ -18,11 +18,11 @@
         user = App.currentUser
         model = child.model
         switch model.get('id')
-          when "side-item-sign-in"      then @sideNavTo("login", child)
-          when "side-item-sign-up"      then @sideNavTo("signup", child)
-          when "side-item-orgs"         then @sideNavTo("organisations",child)
-          when "side-item-app-admins"   then @sideNavTo("admins", child)
-          when "side-item-app-students" then @sideNavTo("students", child)
+          when "side-item-sign-in"      then @sideNavTo("/login", child)
+          when "side-item-sign-up"      then @sideNavTo("/signup", child)
+          when "side-item-orgs"         then @sideNavTo("/organisations",child)
+          when "side-item-app-admins"   then @sideNavTo("/admins", child)
+          when "side-item-app-students" then @sideNavTo("/students", child)
           when "side-item-dash"         then @sideNavTo("/organisation/#{@_getOrgId(user)}/dashboard", child)
           when "side-item-all-admins"   then @sideNavTo("/organisation/#{@_getOrgId(user)}/admins", child)
           when "side-item-all-students" then @sideNavTo("/organisation/#{@_getOrgId(user)}/students", child)

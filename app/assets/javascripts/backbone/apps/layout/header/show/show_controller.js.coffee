@@ -23,7 +23,8 @@
         App.navigate "/statistics"
 
       @listenTo dockView, "collaborate:dockItem:clicked", ->
-        LearnsterCollab.getInstance().start()
+        if $('#collab-success').length is 0 and LearnsterCollab.getInstance().isInitializing() is false
+          LearnsterCollab.getInstance().start()
 
       @listenTo dockView, "notifications:dockItem:clicked", ->
         App.vent.trigger "notifications:link:clicked"
