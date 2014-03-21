@@ -4,6 +4,9 @@
     template: 'dialog_box/templates/dialog_box'
     tagName: 'div'
     className: 'modal fade'
+    triggers:
+      "click #primary-button"   : "dialog:primary:clicked"
+      "click #secondary-button" : "dialog:secondary:clicked"
 
     onShow: ->
       @$el.modal()

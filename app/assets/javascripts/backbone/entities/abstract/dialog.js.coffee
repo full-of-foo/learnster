@@ -10,12 +10,15 @@
       _.defaults options,
         contentText: ""
         primary:
-          cssClass: "btn btn-success"
-          text:     "Okay"
+          cssClass:   "btn btn-success"
+          text:       "Okay"
+          hasDismiss: false
+          callback:   false
         secondary:
           cssClass:   "btn"
           text:       "Cancel"
           hasDismiss: true
+          callback:   false
         headerText: "Learnster"
         hasDismiss: true
 

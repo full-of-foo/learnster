@@ -6,6 +6,14 @@
       dialogModel = App.request "dialog:box:entity", dialogOpts
       dialogView = @getDialogView dialogModel
 
+      if dialogModel.get('primary').callback
+        @listenTo dialogView, "dialog:primary:clicked", ->
+          dialogModel.get('primary').callback()
+
+      if dialogModel.get('secondary').callback
+        @listenTo dialogView, "dialog:secondary:clicked", ->
+          dialogModel.get('secondary').callback()
+
       @show dialogView,
         region: App.dialogRegion
 

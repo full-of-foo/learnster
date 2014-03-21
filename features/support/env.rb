@@ -42,13 +42,14 @@ else
   profile['browser.helperApps.neverAsk.saveToDisk'] = "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
   profile['browser.helperApps.neverAsk.openFile'] = "application/vnd.openxmlformates-officedocument.spreadsheetml.sheet"
   profile['browser.helperApps.alwaysAsk.force'] = 'false'
-  
+
   browser = Watir::Browser.new :firefox, profile: profile
 end
 
-# Run hooks 
+# Run hooks
 Before do
   @browser = browser
+  browser.cookies.add "user_onboarded", true, :path => "/"
 end
 
 After do
@@ -57,7 +58,7 @@ After do
   browser.refresh
 end
 
-at_exit do 
+at_exit do
   Dir.glob("#{Dir.pwd}/features/downloads/*").each { |f| File.delete(f) }
 
   if ENV["KILL_ON_EXIT"] == "1" and (!ENV['HEADLESS'] or ENV['HEADLESS'] == "0")

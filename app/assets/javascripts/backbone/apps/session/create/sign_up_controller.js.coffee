@@ -18,7 +18,7 @@
       panelView = @getPanelView()
       @layout.panelRegion.show panelView
 
-    showIntro: () ->
+    showIntro: ->
       introView = @getIntroView()
       @listenTo introView, "show", ->
         @_completeCrumbItem("intro-crumb")
@@ -27,7 +27,7 @@
 
       @layout.currentFormRegion.show introView
 
-    showAdminForm: () ->
+    showAdminForm: ->
       new_org_admin = App.request "new:new_org_admin:entity"
       adminFormView = @getAdminFormView(new_org_admin)
       adminFormView = App.request "form:wrapper", adminFormView

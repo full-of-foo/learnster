@@ -31,7 +31,12 @@ Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
   StepsDataCache.current_user = @user
   page.attempt_login(@user.email, @user.password)
   sleep 0.8
+end
 
+Given(/^I attempt to login with a known unboarded "(.+)"$/) do |user_type_str|
+  @browser.cookies.delete 'user_onboarded'
+
+  step("I attempt to login with a known \"#{user_type_str}\"")
 end
 
 Given(/^I attempt to logout$/) do

@@ -5,12 +5,12 @@
         <% if @hasDismiss: %>
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <% end %>
-        <h4 class="modal-title"><%= @headerText %></h4>
+        <h4 class="modal-title"><%- @headerText %></h4>
 
       </div><!-- /.modal-header -->
 
       <div class="modal-body">
-        <p><%= @contentText %></p>
+        <p><%- @contentText %></p>
       </div>
 
       <div class="modal-footer">
