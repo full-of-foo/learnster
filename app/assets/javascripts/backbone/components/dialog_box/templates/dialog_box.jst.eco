@@ -1,0 +1,28 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <% if @hasDismiss: %>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <% end %>
+        <h4 class="modal-title"><%= @headerText %></h4>
+
+      </div><!-- /.modal-header -->
+
+      <div class="modal-body">
+        <p><%= @contentText %></p>
+      </div>
+
+      <div class="modal-footer">
+        <% if @secondary: %>
+          <button type="button" id="secondary-button" class="<%= @secondary.cssClass %>" <% if @secondary.hasDismiss: %>data-dismiss="modal"<% end %>>
+          <%= @secondary.text %></button>
+        <% end %>
+        <% if @primary: %>
+          <button type="button" id="primary-button" class="<%= @primary.cssClass %>">
+          <%= @primary.text %></button>
+        <% end %>
+      </div>
+
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

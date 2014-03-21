@@ -89,8 +89,8 @@
         @_completeCrumbItem("org-crumb")
 
       @listenTo new_org, "created", ->
+        _.delay(( => @showRegistrationCompleteDialog()), 650)
         App.navigate "/login"
-        @showRegistrationCompleteDialog org_admin
 
       @show orgFormView,
         loading:
@@ -112,12 +112,17 @@
             loadingType: "spinner"
           region: App.dialogRegion
 
-    showRegistrationCompleteDialog: (admin) ->
-      dialogView = @getRegistrationCompleteDialog admin
-      @show dialogView,
-          loading:
-            loadingType: "spinner"
-          region: App.dialogRegion
+    showRegistrationCompleteDialog: ->
+      options =
+        headerText: 'Registration Complete'
+        contentText: 'Welcome aboard! Please sign in to get started...'
+        primary: false
+        secondary:
+          text: 'Continue'
+          cssClass: 'btn btn-success'
+          hasDismiss: true
+
+      App.request("show:dialog:box", options)
 
 
     getPanelView: ->

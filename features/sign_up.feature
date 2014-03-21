@@ -2,7 +2,6 @@
 
 Feature: Sign up
 
-@sign_up-1
 Scenario: Signing up an organisation
   Given I navigate to the "sign up" page
   And I should see the text "Lets get started, eh?"
@@ -13,7 +12,8 @@ Scenario: Signing up an organisation
   And I attempt to confirm the sign up
   And I should see the text "Your Organisation..."
   Then I sign up an organisation
-  And I should see the text "The easy way to learn..."
+  And I should see the text "Registration Complete"
+  Then I should see a "button" with the "id" of "secondary-button"
   And I attempt to login with a known "new admin"
   Then I see the account administrator dashboard
 
