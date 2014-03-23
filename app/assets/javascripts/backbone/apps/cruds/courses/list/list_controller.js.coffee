@@ -9,7 +9,6 @@
 
       App.execute "when:fetched", App.currentUser, =>
         courses = @getCourses()
-
         @layout = @getLayoutView()
 
         @listenTo @layout, "show", =>

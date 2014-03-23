@@ -8,10 +8,8 @@ do (Backbone) ->
 			complete:		_.bind(methods.complete, entity, options)
 
 		sync = _sync(method, entity, options)
-		if !entity._fetch and method is "read"
+		if((!entity._fetch and method is "read") or (options.is_sign_in and method is "create"))
 			entity._fetch = sync
-
-
 
 	methods =
 		beforeSend: ->

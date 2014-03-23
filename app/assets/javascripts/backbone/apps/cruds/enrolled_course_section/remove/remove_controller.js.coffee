@@ -60,6 +60,11 @@
         collection: students
         itemViewId: "student_id"
         itemView:   App.Components.Selects.UserOption
+        emptyView:  App.Components.Selects.Empty
+
+      @listenTo selectView, "show", ->
+        is_students_empty = selectView.collection.size() is 0
+        $('span#remove-student-button').hide() if is_students_empty
 
       @show selectView,
         loading:

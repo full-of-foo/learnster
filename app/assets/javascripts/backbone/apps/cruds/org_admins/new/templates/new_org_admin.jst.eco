@@ -31,7 +31,13 @@
                 <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
             </div>
         </div>
-        
+
+        <div class="control-group">
+            <!-- role -->
+            <label class="control-label">Role</label>
+            <div id="role-select-region" class="controls"></div>
+        </div>
+
         <% if @currentUser().type is "AppAdmin": %>
              <div class="control-group">
                 <!-- Org -->

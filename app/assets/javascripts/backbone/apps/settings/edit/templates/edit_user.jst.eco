@@ -21,13 +21,9 @@
 				<div class="control-group">
 	          <!-- role -->
 	          <label class="control-label">Role</label>
-						<% if(@currentUser().type is "AppAdmin" or (@currentUser().type is "OrgAdmin" and @currentUser().role is "account_manager")): %>
-	                <div id="role-select-region" class="controls"></div>
-						<% else: %>
 							<div class="controls">
 								<%- @editOrShowField( "formatted_role", @formatted_role, false ) %>
 							</div>
-			      <% end %>
 			  </div>
 		 <% end %>
 

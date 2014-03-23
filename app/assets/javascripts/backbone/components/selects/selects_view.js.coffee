@@ -19,6 +19,12 @@
       @$el.attr "data-id", @model.get('id')
       @$el.attr "data-camel-value", @model.get('camelValue')
 
+  class Selects.Empty extends App.Views.ItemView
+    template: "selects/templates/_empty"
+    onShow: ->
+      $('.selectpicker').attr "disabled", "disabled"
+      $('.selectpicker').attr "title", "None to choose from :("
+
   class Selects.Wrapper extends App.Views.CompositeView
     template: "selects/templates/select"
     itemViewContainer: "select"
@@ -26,4 +32,5 @@
     onShow: ->
       $('.selectpicker').selectpicker()
       $(@itemViewContainer).attr("id", @options.itemViewId)
+
 

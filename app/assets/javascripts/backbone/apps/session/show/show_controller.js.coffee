@@ -7,9 +7,10 @@
       @layout = @getLayoutView()
 
       @listenTo session, "created", (userSession) ->
-        App.userSession = userSession
-        userAttrs       = userSession.attributes
-        currentUser     = App.request "set:current:user", userAttrs
+        App.userSession    = userSession
+        userAttrs          = userSession.attributes
+        currentUser        = App.request "set:current:user", userAttrs
+        currentUser._fetch = userSession._fetch
 
         @_setUserCookies(currentUser)
         @_setTokenHeaderToRequests(currentUser)

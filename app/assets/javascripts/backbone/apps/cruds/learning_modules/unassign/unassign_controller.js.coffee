@@ -62,6 +62,11 @@
         collection: modules
         itemViewId: "learning_module"
         itemView:   App.Components.Selects.OrgOption
+        emptyView:  App.Components.Selects.Empty
+
+      @listenTo selectView, "show", ->
+        is_modules_empty = selectView.collection.size() is 0
+        $('span#remove-module-button').hide() if is_modules_empty
 
       @show selectView,
         loading:

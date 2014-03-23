@@ -181,6 +181,7 @@
     bindInfiniteScroll: =>
       pageNumber = 1
 
+      console.log @collection
       App.execute "when:fetched", @collection, =>
         @_setScrollableCollection(pageNumber)
 

@@ -10,8 +10,8 @@
     regions:
       studentSelectRegion: "#student-select-region"
     triggers:
-      "click .cancel-enroll-student" : "form:cancel"
-      "click #remove-student-button"   : "remove:student:submitted"
+      "click .cancel-enroll-student"      : "form:cancel"
+      "click span#remove-student-button"  : "remove:student:submitted"
 
     form:
       buttons:

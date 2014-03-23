@@ -30,9 +30,11 @@
       formView = App.request "form:wrapper", @newView,
         toast:
           message: "administrator created"
-      user = App.request "get:current:user"
 
-      if user.get('type') is "AppAdmin"
+      @listenTo @newView, "show", ->
+        @setRoleSelector(org_admin)
+
+      if App.currentUser.get('type') is "AppAdmin"
         @listenTo @newView, "show", ->
           @setOrgSelector()
 
@@ -40,6 +42,26 @@
         @region.close()
 
       @layout.formRegion.show formView
+
+    setRoleSelector: (org_admin) ->
+      roles = App.request "role:entities"
+
+      selectView = App.request "selects:wrapper",
+        collection: roles
+        itemViewId: "formatted_role"
+        itemView:   App.Components.Selects.RoleOption
+
+      @listenTo selectView, "show", ->
+        @org_admin = org_admin
+        _.delay(( => @_bindSelectChange()) , 400)
+
+      @listenTo selectView, "close", ->
+        $('select#formatted_role').unbind('change')
+
+      @show selectView,
+        loading:
+          loadingType: "spinner"
+        region:  @newView.roleSelectRegion
 
 
     setOrgSelector: ->
@@ -57,5 +79,15 @@
         loading:
             loadingType: "spinner"
         region:  @newView.orgSelectRegion
+
+    _bindSelectChange: ->
+      defaultVal = $('.selectpicker').selectpicker('val')
+      camelVal   = $("select option:contains('#{defaultVal}')").attr('data-camel-value')
+      @org_admin.set('role', camelVal)
+
+      $('select#formatted_role').on 'change', =>
+          dropDownValue = $("#role-select-region .filter-option").text().trim()
+          camelValue = $("select option:contains('#{dropDownValue}')").attr('data-camel-value')
+          @org_admin.set('role', camelValue)
 
 
