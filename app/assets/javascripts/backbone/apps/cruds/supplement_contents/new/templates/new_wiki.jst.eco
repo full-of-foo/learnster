@@ -2,9 +2,16 @@
     <button type="button" class="close cancel-new-content" data-dismiss="alert">&times;</button>
 
     <blockquote>
-        <p class="text-info">New Wiki...</p>
+        <p class="text-info">New Educator Wiki...</p>
         <small class="text-info">hover over fields for help</small>
     </blockquote>
+
+    <div class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <small>Wiki's can be used as a space to share content with your students which can
+        be later updated</small>
+    </div>
+
 
     <div class="form-horizontal">
         <fieldset>

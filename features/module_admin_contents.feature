@@ -17,6 +17,12 @@ Scenario: CRUD Contents
 
   # create wiki
   Then I should see the text "No contents have been set :("
+  Then I click the "link" with the "id" of "new-content-upload-button"
+  Then I should see the text "File contents are the uploads you share with your students"
+  Then I click the "button" with the "class" of "cancel-new-content"
+  Then I click the "link" with the "id" of "new-wiki-content-button"
+  Then I should see the text "Wiki's can be used as a space to share content with your students which can be later updated"
+  Then I click the "button" with the "class" of "cancel-new-content"
   And I create a wiki content
   Then I see the wiki content listed
 

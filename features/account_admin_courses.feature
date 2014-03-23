@@ -11,6 +11,9 @@ Scenario: CRUD Course
   And I should not see a "td" with the "text" of "No courses found :("
 
   # create course
+  Then I click the "link" with the "id" of "new-course-button"
+  And I should see the text "Courses can be used for units of teaching that typical consist of more than one term"
+  Then I click the "button" with the "class" of "cancel-new-course"
   And I create a Course
   Then I see the Course show page
   And I should see a "td" with the "text" of "No course sections exist :("

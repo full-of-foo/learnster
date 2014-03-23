@@ -11,6 +11,9 @@ Scenario: CRUD Admins
   And I should not see a "td" with the "text" of "No admins found :("
 
   # create admin
+  Then I click the "link" with the "id" of "new-org-admin-button"
+  Then I should see a "small" with the "text" of "Accounts that can be used as administrators and/or educators:"
+  Then I click the "link" with the "id" of "new-org-admin-button"
   And I create an Admin
   Then I see the Admin edit page
 

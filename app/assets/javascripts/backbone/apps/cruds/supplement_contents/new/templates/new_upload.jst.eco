@@ -1,9 +1,14 @@
 <button type="button" class="close cancel-new-content" data-dismiss="alert">&times;</button>
 
 <blockquote>
-    <p class="text-info">New Content...</p>
+    <p class="text-info">New File Content...</p>
     <small class="text-info">hover over fields for help</small>
 </blockquote>
+
+<div class="alert alert-info">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <small>File contents are the uploads you share with your students</small>
+</div>
 
 <div class="form-horizontal">
     <fieldset>

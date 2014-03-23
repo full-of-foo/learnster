@@ -11,6 +11,9 @@ Scenario: CRUD Students
   And I should not see a "td" with the "text" of "No students found :("
 
   # create student
+  Then I click the "link" with the "id" of "new-student-button"
+  And I should see the text "Accounts that can be enrolled to study on course sections, and in turn particpate in that course section's learning modules"
+  Then I click the "button" with the "class" of "cancel-new-student"
   And I create a Student
   Then I see the Student edit page
 

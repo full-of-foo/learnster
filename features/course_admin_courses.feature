@@ -15,6 +15,10 @@ Scenario: CRUD Course
   Then I see the uneditable Course show page
 
   # create course section
+
+  Then I click the "link" with the "id" of "new-course-section-button"
+  And I should see the text "Course sections are the divisions or sections of your course, these could be the individual semesters or years of your course. Each having a set of enrolled students and according set of learning modules"
+  Then I click the "button" with the "class" of "cancel-new-course-section"
   And I create a Course Section
   Then I see the Course Section show page
   And I should see a "td" with the "text" of "No modules added :("

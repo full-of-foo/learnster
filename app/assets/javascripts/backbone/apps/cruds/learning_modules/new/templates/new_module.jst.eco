@@ -6,14 +6,18 @@
   <% hasEducatorPermission = true %>
 <% end %>
 
-
-
 <button type="button" class="close cancel-new-module" data-dismiss="alert">&times;</button>
 
 <blockquote>
-    <p class="text-info">New Module...</p>
+    <p class="text-info">New Learning Module...</p>
     <small class="text-info">hover over fields for help</small>
 </blockquote>
+
+<div class="alert alert-info">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <small>Modules are a method of presenting a course material for educators and students that are divided into
+    supplements/lessons</small>
+</div>
 
 <div class="form-horizontal">
     <fieldset>

@@ -11,6 +11,9 @@ Scenario: CRUD Module
   And I should not see a "td" with the "text" of "No modules found :("
 
   # create module
+  And I click the "link" with the "id" of "new-module-button"
+  Then I should see the text "Modules are a method of presenting a course material for educators and students that are divided into supplements/lessons"
+  And I click the "button" with the "class" of "cancel-new-module"
   And I create a Module
   Then I see the Module show page
   And I should see a "td" with the "text" of "No supplements added :("

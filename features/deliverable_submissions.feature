@@ -19,6 +19,7 @@ Scenario: CRUD Submissions and Deliverables
   Then I click the "link" with the "id" of "deliverables-tab"
   And I should see the text "No deliverables have been set :("
   And I click the "link" with the "id" of "new-deliverable-button"
+  Then I should see the text "Deliverables represent some required content from students for your module or lesson"
   And I create a Deliverable
   Then I see the Deliverable show page
   And I should see a "span" with the "id" of "edit-deliverable-button"
@@ -69,8 +70,11 @@ Scenario: CRUD Submissions and Deliverables
 
   # student deliverable create
   And I should see a "a" with the "id" of "new-submission-upload-button"
+  And I click the "link" with the "id" of "new-submission-upload-button"
+  Then I should see the text "Submissions as a file or zip folder for your deliverables"
   And I should see a "a" with the "id" of "new-wiki-submission-button"
   And I click the "link" with the "id" of "new-wiki-submission-button"
+  Then I should see the text "Wiki are versionable submissions for your deliverables, which you can later edit and version"
   And I create a Wiki Submission
 
   # student wiki edit
