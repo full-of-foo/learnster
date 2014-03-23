@@ -188,6 +188,7 @@
       columns: columns
       region: @layout.listRegion
       config:
+        spanClass: "span"
         emptyMessage: "No modules added :("
         itemProperties:
           triggers:
@@ -209,6 +210,7 @@
       columns: columns
       region: @layout.listRegion
       config:
+        spanClass: "span"
         emptyMessage: "No students added :("
         itemProperties:
           triggers:

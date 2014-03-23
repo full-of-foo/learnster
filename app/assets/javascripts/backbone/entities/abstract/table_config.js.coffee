@@ -2,4 +2,4 @@
 
     class Entities.TableConfig extends Entities.Models
         defaults:
-            spanClass: "span9"
+            spanClass: "span10"

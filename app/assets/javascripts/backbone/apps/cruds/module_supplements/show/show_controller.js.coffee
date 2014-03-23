@@ -233,7 +233,7 @@
       columns: columns
       region: @layout.listRegion
       config:
-        spanClass: "span7"
+        spanClass: "span"
         emptyMessage: "No deliverables have been set :("
         itemProperties:
           triggers:
@@ -244,7 +244,7 @@
       columns: columns
       region: @layout.listRegion
       config:
-        spanClass: "span7"
+        spanClass: "span"
         emptyMessage: "No contents have been set :("
         itemProperties:
           triggers:

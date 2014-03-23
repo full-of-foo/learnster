@@ -145,6 +145,7 @@
       columns: columns
       region: @layout.supplementsRegion
       config:
+        spanClass: "span10"
         emptyMessage: "No supplements added :("
         itemProperties:
           triggers:

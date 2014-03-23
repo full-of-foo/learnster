@@ -2,6 +2,7 @@
 
   class Show.Layout extends App.Views.Layout
     template: "courses/show/templates/show_layout"
+    className: "container-fluid row-fluid"
     regions:
       courseRegion:             "#show-course-region"
       courseSectionsRegion:     "#list-course-section-region"

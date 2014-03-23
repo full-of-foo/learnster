@@ -2,6 +2,7 @@
 
   class Edit.Layout extends App.Views.Layout
     template: "courses/edit/templates/edit_layout"
+    className: "container-fluid row-fluid"
     regions:
       titleRegion:  "#title-region"
       formRegion:   "#form-region"

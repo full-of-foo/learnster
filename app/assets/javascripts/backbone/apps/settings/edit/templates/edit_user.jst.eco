@@ -1,4 +1,3 @@
- <div class="span6">
 			<div class="control-group">
 				<label class="control-label" for="first_name">First Name</label>
 				<div class="controls">
@@ -72,5 +71,3 @@
 					</p>
 				</div>
 			</div>
-
-</div>

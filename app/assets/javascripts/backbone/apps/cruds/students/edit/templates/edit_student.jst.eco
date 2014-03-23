@@ -1,6 +1,5 @@
 <% isEditableForm = @isCreatedByUser(@created_by) %>
 
-<div class="span6">
 			<div class="control-group">
 				<label class="control-label" for="first_name">First Name</label>
 				<div class="controls">
@@ -34,7 +33,7 @@
 					</div>
 				</div>
 			<% end %>
-	
+
 			<div class="control-group">
 				<label class="control-label" for="created-at">Created at</label>
 				<div class="controls">
@@ -74,4 +73,3 @@
 					</div>
 				</div>
 			<% end %>
-</div>

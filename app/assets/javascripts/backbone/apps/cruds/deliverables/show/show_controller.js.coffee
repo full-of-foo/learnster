@@ -148,6 +148,7 @@
       columns: columns
       region: @layout.listRegion
       config:
+        spanClass: "span"
         emptyMessage: "No submissions have been made :("
         itemProperties:
           triggers:

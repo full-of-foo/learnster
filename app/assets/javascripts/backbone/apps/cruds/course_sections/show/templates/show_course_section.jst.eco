@@ -10,8 +10,6 @@
 <% end %>
 
 
- <div class="span6">
-
       <% if hasPermission: %>
         <div class="pull-right">
           <span id="edit-course-section-button" class="btn btn-success">Edit</span>
@@ -40,6 +38,3 @@
         </div>
       </div>
 
-
-
-</div>

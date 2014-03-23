@@ -22,9 +22,7 @@
 
             <div class="control-group">
                 <!-- Wiki -->
-                <div class="span">
-                  <textarea id="wiki_markup" name="wiki_markup" style="width:95%; margin-left: -2pc;"><%- @escape(@wiki_markup) %></textarea>
-                </div>
+                <textarea id="wiki_markup" name="wiki_markup"><%- @escape(@wiki_markup) %></textarea>
 
             </div>
 

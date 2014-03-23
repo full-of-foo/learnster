@@ -30,8 +30,8 @@
 
         <div class="control-group">
             <!-- Wiki -->
-        <div class="span">
-          <textarea id="wiki_markup" name="wiki_markup" style="width:100%;"><%- @escape(@wiki_markup) %></textarea>
+        <div>
+          <textarea id="wiki_markup" name="wiki_markup"><%- @escape(@wiki_markup) %></textarea>
         </div>
 
         </div>

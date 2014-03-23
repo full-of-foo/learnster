@@ -2,6 +2,7 @@
 
   class Show.Layout extends App.Views.Layout
     template: "module_supplements/show/templates/show_layout"
+    className: "container-fluid row-fluid"
     regions:
       supplementRegion: "#show-supplement-region"
       listRegion:       "#list-region"

@@ -7,7 +7,7 @@
   <% isAccountManager = false %>
 <% end %>
 
- <div class="span6">
+ <div>
 
       <% if isAccountManager: %>
         <div class="pull-right">

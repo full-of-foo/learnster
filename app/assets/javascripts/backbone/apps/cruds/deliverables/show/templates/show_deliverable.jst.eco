@@ -22,7 +22,6 @@
 
 <div id="push"></div>
 
- <div class="span6">
 
       <div class="control-group">
         <span class="control-label" for="title">Title</label>
@@ -66,4 +65,3 @@
             </span>
         </div>
       </div>
-  </div>

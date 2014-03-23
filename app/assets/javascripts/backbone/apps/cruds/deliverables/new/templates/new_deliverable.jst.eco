@@ -8,6 +8,11 @@
         <small class="text-info">hover over fields for help</small>
     </blockquote>
 
+    <!-- <div class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <small>Deliverables are student...</small>
+    </div> -->
+
     <div class="form-horizontal">
         <fieldset style="margin-left: -1.4pc;">
 
@@ -30,7 +35,7 @@
             <div class="control-group">
                 <!-- Is Private -->
                 <label class="control-label" for="is_private">Private</label>
-                <div class="span">
+                <div class="controls">
                     <input type="checkbox" id="is_private" name="is_private" value="false">
                 </div>
             </div>
@@ -38,7 +43,7 @@
             <div class="control-group">
                 <!-- Due date -->
                 <label class="control-label" for="due_date">Due date</label>
-                <div class="span">
+                <div class="controls">
                     <input data-provide="datepicker" id="due_date" name="due_date" class="datepicker input-xlarge" data-date-format="mm/dd/yyyy">
                 </div>
             </div>

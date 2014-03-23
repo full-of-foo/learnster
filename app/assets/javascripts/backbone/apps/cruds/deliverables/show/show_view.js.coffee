@@ -2,6 +2,7 @@
 
   class Show.Layout extends App.Views.Layout
     template: "deliverables/show/templates/show_layout"
+    className: "container-fluid row-fluid"
     regions:
       deliverableRegion: "#show-deliverable-region"
       panelRegion:       "#panel-region"

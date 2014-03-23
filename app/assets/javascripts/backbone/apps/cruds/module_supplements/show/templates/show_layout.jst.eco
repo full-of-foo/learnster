@@ -1,7 +1,6 @@
-<div class="hero-unit inline-block">
+<div class="hero-unit">
     <div id="show-supplement-region"></div>
 
-    <div id="push"></div>
     <div id="push"></div>
 
     <ul id="content-deliverable-tab-list" class="nav nav-tabs">
@@ -11,16 +10,15 @@
 
     <div class="tab-content">
       <div class="tab-pane active" id="content">
-      </div>
+    </div>
 
-      <div class="tab-pane" id="deliverables">
-      </div>
+    <div class="tab-pane" id="deliverables">
+    </div>
 
-      <div id="panel-region"></div>
-      <div id="new-region"></div>
-      <div class="span7">
-        <div id="list-region"></div>
-      </div>
+    <div id="panel-region"></div>
+    <div id="new-region"></div>
+
+    <div id="list-region"></div>
 
     </div>
 

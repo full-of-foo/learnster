@@ -1,4 +1,4 @@
-<div class="scroll-hor-wrapper span">
+<div class="scroll-hor-wrapper">
 		<ul id="app-list">
 		</ul>
 		<div class="pagination-area">&nbsp;</div>

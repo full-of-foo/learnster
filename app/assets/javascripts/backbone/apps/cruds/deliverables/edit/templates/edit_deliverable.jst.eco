@@ -25,14 +25,14 @@
 
       <div class="control-group">
         <label class="control-label" for="is_private">Private</label>
-        <div class="span">
+        <div class="controls">
             <input type="checkbox" id="is_private" name="is_private" <% if @is_private is true: %> checked <% end %>>
         </div>
       </div>
 
       <div class="control-group">
         <label class="control-label" for="is_closed">Closed</label>
-        <div class="span">
+        <div class="controls">
             <input type="checkbox" id="is_closed" name="is_closed" <% if @is_closed is true: %> checked <% end %>>
         </div>
       </div>

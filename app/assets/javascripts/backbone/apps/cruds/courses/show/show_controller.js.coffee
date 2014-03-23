@@ -140,6 +140,7 @@
       columns: columns
       region: @layout.courseSectionsRegion
       config:
+        spanClass: "span"
         emptyMessage: "No course sections exist :("
         itemProperties:
           triggers:
