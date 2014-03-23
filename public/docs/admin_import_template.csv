@@ -1,1 +1,2 @@
-id,email,first_name,surname,password
+email,first_name,surname,password,role
+ , , , ,module_manager

@@ -9,7 +9,10 @@ class OrgAdmin < User
   has_many :provisioned_courses, class_name: "CourseSection", foreign_key: "provisioned_by"
   has_many :learning_modules, class_name: "LearningModule", foreign_key: "educator_id"
 
-  enumerize :role, in: [:account_manager, :course_manager, :module_manager], default: :module_manager
+  enumerize :role, in: [:account_manager, :module_manager, :course_manager], default: :module_manager
+  ROLE_REGEX = /(^account_manager$)|(^module_manager$)|(^course_manager$)/
+  validates :role, :format => { :with => ROLE_REGEX, message: "invalid role type" }, :allow_blank => true
+  after_validation :remove_nonrequired_errors
 
 
   def self.model_name
@@ -31,7 +34,7 @@ class OrgAdmin < User
     educator_ids = LearningModule.where(id: module_ids).select("educator_id")
       .map(&:educator_id)
 
-    admin_ids = (course_manager_ids | provisioner_ids | educator_ids) 
+    admin_ids = (course_manager_ids | provisioner_ids | educator_ids)
     self.where(id: admin_ids)
   end
 
@@ -44,12 +47,12 @@ class OrgAdmin < User
       row = Hash[[header, spreadsheet.row(i)].transpose]
 
       params = row.to_hash.slice "email", "first_name", "surname", "password"
-      params['id'] = find_by_id(row["id"]) ? row["id"] : nil if row["id"]
       params['password_confirmation'] = params['password']
-      params['created_by'] = created_by
-      params['admin_for'] = admin_for
-      params = params.merge is_active: false, last_login: Time.zone.now
+      params['created_by']            = created_by
+      params['admin_for']             = admin_for
+      params['role']                  = row['role']
 
+      params = params.merge is_active: false, last_login: Time.zone.now
       admin = OrgAdmin.new(params.symbolize_keys)
 
       import_status_data["Row #{i}"] = admin.save ? true : admin.errors
@@ -119,6 +122,11 @@ class OrgAdmin < User
     UserMailer.signup_confirmation(self, confirm_url).deliver
     logger.info "Sending confirm email for user[id:#{self.id}, \
     email:'#{self.full_name}']; confirm url: #{confirm_url}"
+  end
+
+  def remove_nonrequired_errors
+    role_errors = self.errors.to_hash.fetch(:role){{}}
+    role_errors.delete_at(0) if role_errors[0] == "is not included in the list"
   end
 
   def created_students
