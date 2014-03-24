@@ -122,13 +122,11 @@
     showSearchOrgAdmins: (searchOpts) ->
       org_admins = App.request "search:org_admins:entities", searchOpts
       @colCollection = null
-      @showSettings() if not @layout.listSettingsRegion.currentView?.isClosed and @layout.listSettingsRegion.currentView
+      @showSettings() if not @layout.listSettingsRegion?.currentView?.isClosed and @layout.listSettingsRegion.currentView
       @showOrgAdmins(org_admins)
 
     showFetchedAdmins: ->
       admins = @getAdmins()
-      @colCollection = null
-      @showSettings() if not @layout.listSettingsRegion?.currentView?.isClosed and @layout.listSettingsRegion?.currentView
       @showOrgAdmins(admins)
 
     getMyPanelView: (org_admins) ->

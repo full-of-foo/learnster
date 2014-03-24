@@ -20,7 +20,7 @@ class Api::V1::SignUpController < ApplicationController
     @org_admin = OrgAdmin.where(id: params[:id],
      confirmation_code: params[:code]).first
     has_registered = @org_admin && !@org_admin.admin_for.nil?
-    has_confirmed = @org_admin && @org_admin.confirmed
+    has_confirmed  = @org_admin && @org_admin.confirmed
 
     if @org_admin && !has_registered
       @org_admin.update!(confirmed: true) if !has_confirmed
@@ -36,9 +36,9 @@ class Api::V1::SignUpController < ApplicationController
   end
 
   def auth_administrator_account
-    @org_admin = OrgAdmin.find_by_email(params[:email])
-    has_auth = @org_admin && @org_admin.authenticate(params[:password])
-    has_confirmed = @org_admin && @org_admin.confirmed
+    @org_admin     = OrgAdmin.find_by_email(params[:email])
+    has_auth       = @org_admin && @org_admin.authenticate(params[:password])
+    has_confirmed  = @org_admin && @org_admin.confirmed
     has_registered = @org_admin && !@org_admin.admin_for.nil?
 
     if has_auth && has_confirmed
@@ -58,9 +58,9 @@ class Api::V1::SignUpController < ApplicationController
     @org_admin = OrgAdmin
       .where(id: params[:id], confirmation_code: params[:code]).first
 
-    has_registered = @org_admin && !@org_admin.admin_for.nil?
-    @organisation = Organisation.new
-    params = permitted_params.sign_up_org_params
+    has_registered      = @org_admin && !@org_admin.admin_for.nil?
+    @organisation       = Organisation.new
+    params              = permitted_params.sign_up_org_params
     params[:created_by] = @org_admin
 
     if !has_registered && @organisation.update(params)

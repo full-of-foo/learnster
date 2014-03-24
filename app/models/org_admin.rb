@@ -10,8 +10,10 @@ class OrgAdmin < User
   has_many :learning_modules, class_name: "LearningModule", foreign_key: "educator_id"
 
   enumerize :role, in: [:account_manager, :module_manager, :course_manager], default: :module_manager
+
   ROLE_REGEX = /(^account_manager$)|(^module_manager$)|(^course_manager$)/
   validates :role, :format => { :with => ROLE_REGEX, message: "invalid role type" }, :allow_blank => true
+
   after_validation :remove_nonrequired_errors
 
 
@@ -51,6 +53,7 @@ class OrgAdmin < User
       params['created_by']            = created_by
       params['admin_for']             = admin_for
       params['role']                  = row['role']
+      params['confirmed']             = true if row['role'] == "account_manager"
 
       params = params.merge is_active: false, last_login: Time.zone.now
       admin = OrgAdmin.new(params.symbolize_keys)

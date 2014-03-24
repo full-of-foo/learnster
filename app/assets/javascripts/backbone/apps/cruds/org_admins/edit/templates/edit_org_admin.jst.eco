@@ -60,16 +60,17 @@
 					</p>
 				</div>
 			</div>
-			<div class="control-group">
-				<label class="control-label" for="created-by">Created by</label>
-				<div class="controls">
-					<p id="created-by" class="form-control-static">
-					<% if @created_by: %>
+			<% if @created_by: %>
+				<div class="control-group">
+					<label class="control-label" for="created-by">Created by</label>
+					<div class="controls">
+						<p id="created-by" class="form-control-static">
+
 						<%= @created_by.full_name %>
-					<% end %>
 					</p>
 				</div>
 			</div>
+		<% end %>
 
 			<% if @currentUser().type is "AppAdmin": %>
 				<div class="control-group">

@@ -1,6 +1,6 @@
 <% u = @currentUser() %>
 
-<% if u.type is "AppAdmin" or (u.type is "OrgAdmin" and u.role is "account_manager"): %>
+<% if u.type is "OrgAdmin" and u.role is "account_manager": %>
   <% hasCreatePermission = true %>
 <% else: %>
   <% hasCreatePermission = false %>

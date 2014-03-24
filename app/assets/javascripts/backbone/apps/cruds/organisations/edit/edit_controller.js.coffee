@@ -42,7 +42,7 @@
         App.vent.trigger "link-org-admins:clicked", org
 
       user = App.request "get:current:user"
-      createdByUser = org.get('created_by').id is user.get('id') or user instanceof App.Entities.AppAdmin
+      createdByUser = org.get('created_by')?.id is user.get('id') or user instanceof App.Entities.AppAdmin
 
       formView = App.request "form:wrapper", editView,
         toast:

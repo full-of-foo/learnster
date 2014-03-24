@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   generate_scopes
 
   def self.search_range(months_ago, date_attr_key, nested_org = nil)
-    date_attr_str = date_attr_key == :created_at ? "created_at" : "updated_at"
+    date_attr_str      = date_attr_key == :created_at ? "created_at" : "updated_at"
     (user_org_attr_str = self.name == "OrgAdmin" ? "admin_for" : "attending_org") if not nested_org.nil?
 
     if ["3", "6", "9", "12", "24", "36", "48", "60"].include? months_ago
@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
 
     def set_default_attributes
       self.confirmation_code ||= SecureRandom.hex
+      puts self.inspect
       self.confirmed = true if self.confirmed == false && (self.type != "OrgAdmin" || !self.role.account_manager?)
     end
 

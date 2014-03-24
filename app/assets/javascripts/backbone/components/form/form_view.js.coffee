@@ -60,15 +60,15 @@
       _.delay(( =>
         if @$('select').attr('id') is 'formatted_role'
           @_addToolTipTitle($select, 'Role cannot be changed later')
-        else if @$('select').attr('id') is 'provisioned_by' 
+        else if @$('select').attr('id') is 'provisioned_by'
           @_addToolTipTitle($select, 'Provisioning admin/educator for section')
         else if @$('select').attr('id') is 'educator'
           @_addToolTipTitle($select, 'Primary educator managing the module')
-        
+
         ), 2000)
 
     _addToolTipTitle: ($elem, title) ->
-      $elem.tooltip({placement: 'right', title: title, trigger: 'hover'})
+      $elem.tooltip({placement: 'right', title: title, trigger: 'hover focus'})
 
     _getTitleForTitleAttr: ->
       return 'Main course title (ex. MA in Poetry Studies)' if @model instanceof App.Entities.Course

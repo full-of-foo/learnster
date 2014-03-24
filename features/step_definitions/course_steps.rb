@@ -129,9 +129,9 @@ Given(/^I add my Student to the Course Section/) do
   step('I open the add-student well')
   page = Pages::CoursesPage.new(@browser)
 
-  sleep(0.4)
-  @browser.execute_script("$('.selectpicker').selectpicker('val', 'student@foo.com');")
-  sleep(0.2)
+  sleep(0.7)
+  @browser.execute_script("$('.selectpicker').selectpicker('val', 'johnr@boi.ie');")
+  sleep(0.3)
   page.submit_add_first_student_form()
 end
 
@@ -174,7 +174,8 @@ Given(/^I delete the Course Section$/) do
   step("I should see a \"button\" with the \"id\" of \"delete-course-section-button\"")
   step("I click the \"button\" with the \"id\" of \"delete-course-section-button\"")
 
-  StepsDataCache.course_section = nil
+  StepsDataCache.old_course_section = StepsDataCache.course_section
+  StepsDataCache.course_section     = nil
 end
 
 # assertions
@@ -231,6 +232,14 @@ Then(/^I see the first Student on the Course Section$/) do
 
   page.scroll_down
   step("I should see a \"td\" with the \"text\" of \"#{student.email}\"")
+end
+
+Then(/^I should not see the deleted Course Section$/) do
+  old_course_section = StepsDataCache.old_course_section
+  page               = Pages::CoursesPage.new(@browser)
+
+  sleep(0.3)
+  step("I should not see a \"td\" with the \"text\" of \"#{old_course_section.title}\"")
 end
 
 Then(/^I should not see the deleted Course$/) do

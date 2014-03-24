@@ -9,21 +9,26 @@ Given(/^I attempt to login with a known "(.+)"$/) do |user_type_str|
   when "system admin"
     @user = CacheEntities::User.new(first_name: "Foo", surname: "McSystemadmin",
       email: "lightweightdevelopment@gmail.com", password: "foobar")
+
   when "account admin"
-    @user = CacheEntities::User.new(first_name: "Foo", surname: "McAccmgr",
-      email: "admin@foo.com", password: "foobar")
-  when "course admin"
-    @user = CacheEntities::User.new(first_name: "Foo", surname: "McCourseadmin",
-      email: "courseadmin@foo.com", password: "foobar")
+    @user = CacheEntities::User.new(first_name: "Mike", surname: "Sean",
+      email: "mike@boi.ie", password: "foobar")
+
   when "module admin"
-    @user = CacheEntities::User.new(first_name: "Foo", surname: "McModuleadmin",
-      email: "moduleadmin@foo.com", password: "foobar")
+    @user = CacheEntities::User.new(first_name: "Paul", surname: "Doe",
+      email: "paul@boi.ie", password: "foobar")
+
+  when "course admin"
+    @user = CacheEntities::User.new(first_name: "Paddy", surname: "Brien",
+      email: "paddy@boi.ie", password: "foobar")
+
   when "new admin"
     @user = CacheEntities::User.new(first_name: "Foo", surname: "McBar",
       email: "signup@foo.com", password: "foobar")
+
   when "student"
-    @user = CacheEntities::User.new(first_name: "Foo", surname: "McStudent",
-      email: "student@foo.com", password: "foobar")
+    @user = CacheEntities::User.new(first_name: "John", surname: "Ryan",
+      email: "johnr@boi.ie", password: "foobar")
   else
     raise "invalid user type"
   end

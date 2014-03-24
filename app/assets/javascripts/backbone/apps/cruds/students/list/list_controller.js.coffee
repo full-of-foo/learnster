@@ -5,7 +5,7 @@
     initialize: (options = {}) ->
       @_isMyStudents = options.isMyStudents
       @_nestingOrgId = if options.id then options.id else false
-      @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
+      @_nestingOrg   = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
       App.execute "when:fetched", App.currentUser, =>
         students = @getStudents()
@@ -132,13 +132,11 @@
     showSearchStudents: (searchOpts) ->
       students = App.request "search:students:entities", searchOpts
       @colCollection = null
-      @showSettings() if not @layout.listSettingsRegion.currentView?.isClosed and @layout.listSettingsRegion.currentView
+      @showSettings() if not @layout.listSettingsRegion?.currentView?.isClosed and @layout.listSettingsRegion?.currentView
       @showStudents(students)
 
     showFetchedStudents: ->
       students = @getStudents()
-      @colCollection = null
-      @showSettings() if not @layout.listSettingsRegion?.currentView?.isClosed and @layout.listSettingsRegion?.currentView
       @showStudents(students)
 
     getPanelView: (students) ->

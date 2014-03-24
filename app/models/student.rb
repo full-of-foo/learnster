@@ -55,7 +55,6 @@ class Student < User
       row = Hash[[header, spreadsheet.row(i)].transpose]
 
       params = row.to_hash.slice "email", "first_name", "surname", "password"
-      params['id'] = find_by_id(row["id"]) ? row["id"] : nil if row["id"]
       params['password_confirmation'] = params['password']
       params['created_by'] = created_by
       params['attending_org'] = attending_organisation

@@ -57,8 +57,9 @@
     App.execute "reset:regions"
 
   App.vent.on "session:destroyed", (currentUser = null) ->
-    App.execute "reset:regions"
+    Learnster.resetRegistry()
     LearnsterCollab.getInstance().stop()
+    App.execute "reset:regions"
 
   App.reqres.setHandler "new:destroy:icon:view", ->
     API.getDestroyIconView()

@@ -32,7 +32,7 @@
     setFormRegion: (student) ->
       editView = @getEditView student
       user = App.request "get:current:user"
-      createdByUser = student.get('created_by').id is user.get('id') or user instanceof App.Entities.AppAdmin
+      createdByUser = student.get('created_by')?.id is user.get('id') or user instanceof App.Entities.AppAdmin
 
       editView.removeButtons() if not createdByUser
 

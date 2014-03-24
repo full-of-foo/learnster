@@ -44,4 +44,4 @@ Scenario: CRUD Course
   # delete course section
   Then I delete the Course Section
   Then I see the uneditable Course show page
-  And I should see a "td" with the "text" of "No course sections exist :("
+  And I should not see the deleted Course Section

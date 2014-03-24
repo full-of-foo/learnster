@@ -24,7 +24,7 @@
         App.vent.trigger "org_admin:cancelled", org_admin
 
       user = App.request "get:current:user"
-      createdByUser = org_admin.get('created_by').id is user.get('id') or user instanceof App.Entities.AppAdmin
+      createdByUser = org_admin.get('created_by')?.id is user.get('id') or user instanceof App.Entities.AppAdmin
 
       options =
         footer: if not createdByUser then false else true

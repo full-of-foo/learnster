@@ -24,7 +24,7 @@ end
 
 Given(/^I sign up an organisation$/) do
   page = Pages::SignUpPage.new(@browser)
-  signup_organisation = CacheEntities::Organisation.new("New College", "Some hip ass college")
+  signup_organisation = CacheEntities::Organisation.new(title: "New College", description: "Some hip ass college")
 
   page.sign_up_organisation(signup_organisation)
   StepsDataCache.signup_organisation = signup_organisation

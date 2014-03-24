@@ -34,7 +34,7 @@ Given(/^I open the first Admin$/) do
   sleep(0.6)
   full_name = @browser.tds(class: 'col-0')[0].text
   first_name = full_name.split(' ')[0]
-  surname = full_name.split(' ')[1]
+  surname = full_name.split(' ').size == 2 ? full_name.split(' ')[1] : "#{full_name.split(' ')[1]} #{full_name.split(' ')[2]}"
 
   admin = CacheEntities::Admin.new(first_name: first_name, surname: surname)
 

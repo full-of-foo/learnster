@@ -13,9 +13,9 @@ module CacheEntities
     class Organisation
       attr_accessor :title, :description
 
-      def initialize(title, description)
-        @title        = title
-        @description  = description
+      def initialize(options = {})
+        @title        = options[:title] || ''
+        @description  = options[:description] || ''
       end
     end
 

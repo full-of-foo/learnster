@@ -11,21 +11,15 @@ Given(/^I close the add-organisation well$/) do
   page.close_add_well
 end
 
-Given(/^I create an Organisation/) do
-  step('I open the add-organisation well')
+Given(/^I open the DIT Organisation from the grid$/) do
   page = Pages::OrganisationsPage.new(@browser)
+  step("I should see a \"th\" with the \"text\" of \"Title\"")
+  sleep(0.3)
 
-  title, description = TestDataGenerator.title, TestDataGenerator.description
+  organisation = CacheEntities::Organisation.new(title: "Dublin Institute of Technology")
 
-  page.submit_new_organisation_form(title, description)
-  StepsDataCache.organisation = CacheEntities::Organisation.new(title, description)
-end
-
-Given(/^I open the Organisation from the grid$/) do
-  page = Pages::OrganisationsPage.new(@browser)
-  title = StepsDataCache.organisation.title
-
-  page.select_grid_organainsation_title(title)
+  step("I click the \"td\" with the \"text\" of \"#{organisation.title}\"")
+  StepsDataCache.organisation = organisation
 end
 
 Given(/^I edit the Organisation$/) do
@@ -51,7 +45,7 @@ Given(/^I export the Organisations$/) do
   sleep 1
 end
 
-Given(/^I delete the Organisation from the grid$/) do
+Given(/^I delete the DIT Organisation from the grid$/) do
   page = Pages::OrganisationsPage.new(@browser)
   title = StepsDataCache.organisation.title
 

@@ -1,8 +1,8 @@
  <div id="list-panel" class="modal-header">
 
      <div class="btn-group pull-right">
-     
-          <a id="new-org-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i> New Organisation</a>
+
+          <!-- <a id="new-org-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i> New Organisation</a> -->
           <a class="btn" id="list-settings-button" href="#"><i class="fa fa-cog"></i></a>
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="fa fa-caret-down"></i></a>

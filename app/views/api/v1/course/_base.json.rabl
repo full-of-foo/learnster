@@ -1,4 +1,4 @@
-attributes :id, :title, :description, :created_at, :updated_at, :managed_by, :organisation
+attributes :id, :title, :description, :identifier, :created_at, :updated_at, :managed_by, :organisation
 
 
 node do |course|
