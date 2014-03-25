@@ -102,8 +102,6 @@
     getPanelView: (modules) ->
       new List.Panel
         collection: modules
-        templateHelpers:
-          nestingOrg: @_nestingOrg
 
     getMyPanelView: (modules) ->
       new List.MyPanel
@@ -130,7 +128,7 @@
        { title: "Title", attrName: "title", isSortable: true, isRemovable: false, default: true },
        { title: "Description", attrName: "description", default: true, isRemovable: false },
        { title: "# Supplements", htmlContent: '<%= model.get("supplement_count") %>', default: true,  isSortable: true, isRemovable: false },
-       { title: "Manager", attrName: "educator.full_name", isSortable: true, isRemovable: false, default: true },
+       { title: "Educator", attrName: "educator.full_name", isSortable: true, isRemovable: false, default: true },
        { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible", default: true, isRemovable: false }
       ]
 

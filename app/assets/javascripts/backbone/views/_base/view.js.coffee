@@ -34,6 +34,16 @@
 
     templateHelpers: ->
 
+      nestingOrg: ->
+        if App.currentUser
+          user = App.currentUser
+          if user.get('type') is "OrgAdmin"
+            App.request("set:current:org", user.get('admin_for'))
+          else 
+            App.request("set:current:org", user.get('attending_org'))
+        else
+          false
+
       route: (route_name, params = []) ->
         if params.length > 0 then Routes[route_name](params[0]) else Routes[route_name]()
 

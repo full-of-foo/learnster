@@ -28,11 +28,9 @@
             <li><a href=<% if @nestingOrg: %>"/api/organisation/<%= @nestingOrg.get('id') %>/student.xlsx"<% else: %>"api/student.xlsx"<% end %>><i class="fa fa-fixed-width fa-level-down"></i> Export All</a>
             </li>
             <% if hasCreatePermission: %>
-                <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
-                </li>
                 <% if @nestingOrg: %>
-                <li><a href="#" id="import-dropdown-item"><i class="fa fa-fixed-width fa-upload"></i> Import...</a>
-                </li>
+                  <li><a href="#" id="import-dropdown-item"><i class="fa fa-fixed-width fa-upload"></i> Import...</a>
+                  </li>
                 <% end %>
             <% end %>
         </ul>

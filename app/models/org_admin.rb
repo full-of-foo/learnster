@@ -2,7 +2,7 @@ class OrgAdmin < User
   extend Enumerize
   before_destroy :untrack_self
 
-  acts_as_xlsx
+  acts_as_xlsx columns: [:first_name, :surname, :email, :role, :created_at]
 
   belongs_to :admin_for, class_name: "Organisation", foreign_key: "admin_for"
 

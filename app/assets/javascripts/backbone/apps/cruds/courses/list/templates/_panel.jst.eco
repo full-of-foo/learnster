@@ -10,18 +10,16 @@
 
     <% if hasCreatePermission: %>
         <div class="btn-group pull-right">
-                <a id="new-course-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
-                New Course</a>
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href=<% if @nestingOrg: %>"/api/organisation/<%= @nestingOrg.get('id') %>/course.xlsx"<% else: %>"api/course.xlsx"<% end %>><i class="fa fa-fixed-width fa-level-down"></i>
-                Export All</a>
-                </li>
-                    <li><a href="#"><i class="fa fa-fixed-width fa-archive"></i> Archive All</a>
-                    </li>
-            </ul>
+          <a id="new-course-button" class="btn" href="#"><i class="fa fa-fixed-width fa-plus"></i>
+            New Course</a>
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="fa fa-caret-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+              <li><a href="/api/organisation/<%= @nestingOrg().get('id') %>/course.xlsx"<i class="fa fa-fixed-width fa-level-down"></i>
+              Export All</a>
+              </li>
+          </ul>
         </div>
     <% end %>
 

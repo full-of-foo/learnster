@@ -32,6 +32,9 @@ class Api::V1::StudentController < ApplicationController
       @students = CourseSection.find(params[:section_id]).students.order("created_at desc")
         .page(params[:page]).per_page(20)
 
+    elsif !params[:page] && params[:section_id]
+      @students = CourseSection.find(params[:section_id]).students.order("created_at desc")
+
     elsif params[:page] && params[:created_by]
       @students = OrgAdmin.find(params[:created_by]).created_students.order("created_at desc")
         .page(params[:page]).per_page(20)
@@ -45,6 +48,10 @@ class Api::V1::StudentController < ApplicationController
 
 
     if xlsx_request?
+      if !@students || @students.empty?
+        @students = Student.none
+      end
+
       respond_to do |format|
         format.xlsx {
           send_data @students.to_xlsx.to_stream.read, :filename => 'students.xlsx',

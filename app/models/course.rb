@@ -1,6 +1,6 @@
 class Course < ActiveRecord::Base
   before_destroy :untrack_self
-  acts_as_xlsx
+  acts_as_xlsx columns: [:title, :description, :identifier, :'managed_by.full_name', :created_at]
 
   belongs_to :organisation
   belongs_to :managed_by, class_name: "OrgAdmin", foreign_key: "managed_by"

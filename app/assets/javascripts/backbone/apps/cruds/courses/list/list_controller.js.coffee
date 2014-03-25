@@ -5,11 +5,13 @@
     initialize: (options) ->
       @_isMyCourses  = options.isMyCourses
       @_nestingOrgId = if options.id then options.id else false
-      @_nestingOrg   = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
       App.execute "when:fetched", App.currentUser, =>
-        courses = @getCourses()
-        @layout = @getLayoutView()
+        user         = App.currentUser
+        @_nestingOrg = if user.get('type') is "OrgAdmin" then user.get('admin_for') else user.get('attending_org')
+        @_nestingOrg = App.request("set:current:org", @_nestingOrg)
+        courses      = @getCourses()
+        @layout      = @getLayoutView()
 
         @listenTo @layout, "show", =>
           @showSearch courses
@@ -99,8 +101,6 @@
     getPanelView: (courses) ->
       new List.Panel
         collection: courses
-        templateHelpers:
-          nestingOrg: @_nestingOrg
 
     getMyPanelView: (courses) ->
       new List.MyPanel

@@ -1,5 +1,5 @@
 class Student < User
-  acts_as_xlsx
+  acts_as_xlsx columns: [:first_name, :surname, :email, :created_at]
 
   belongs_to :attending_org, class_name: "Organisation", foreign_key: "attending_org"
   has_many :enrolled_course_sections
