@@ -1,12 +1,13 @@
 class LearningModule < ActiveRecord::Base
   acts_as_xlsx
+  before_destroy :untrack_self
 
   belongs_to :educator, class_name: "OrgAdmin", foreign_key: "educator_id"
   belongs_to :organisation
 
-  has_many :section_modules
+  has_many :section_modules, :dependent => :destroy
   has_many :course_sections, through: :section_modules
-  has_many :module_supplements
+  has_many :module_supplements, :dependent => :destroy
 
   validates_presence_of :title, :description, :educator, :organisation
   validates_uniqueness_of :title, scope: :organisation,
@@ -73,5 +74,11 @@ class LearningModule < ActiveRecord::Base
   def student_count
     Student.module_students(self.id).count
   end
+
+  private
+
+    def untrack_self
+      Activity.delete_all(trackable_id: self.id) 
+    end
 
 end

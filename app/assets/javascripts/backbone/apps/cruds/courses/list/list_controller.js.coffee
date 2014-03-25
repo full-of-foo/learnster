@@ -76,6 +76,7 @@
         @listenTo dialogView, "dialog:delete:course:clicked", =>
           dialogView.$el.modal "hide"
           model.destroy()
+          model.on "destroy", ( => @showFetchedCourses())
 
         @show dialogView,
           loading:

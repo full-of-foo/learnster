@@ -79,7 +79,6 @@ class Api::V1::LearningModuleController < ApplicationController
     @learning_module = LearningModule.find(params[:id])
 
     if @learning_module.destroy()
-      untrack_trackable params[:id]
       render json: {}
     else
       respond_with @learning_module

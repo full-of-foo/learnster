@@ -4,7 +4,12 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">Delete Module Supplement</h4>
       </div>
+
       <div class="modal-body">
+        <div class="alert">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Warning!</strong> This will also delete any contents and deliverables on this section
+        </div>
         <p>Are you sure you want to delete <%= @title %>&hellip;</p>
       </div>
       <div class="modal-footer">

@@ -1,8 +1,8 @@
 class Api::V1::ModuleSupplementController < ApplicationController
+
   after_filter only: [:index] { paginate(:module_supplements) }
   before_filter :authenticate_and_authorize
   before_filter :find_org, only: [:index]
-
 
   def index
     if search_request?
@@ -55,7 +55,6 @@ class Api::V1::ModuleSupplementController < ApplicationController
     @module_supplement = ModuleSupplement.find(params[:id])
 
     if @module_supplement.destroy()
-      untrack_trackable params[:id]
       render json: {}
     else
       respond_with @module_supplement

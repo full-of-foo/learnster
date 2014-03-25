@@ -1,4 +1,6 @@
 class SupplementContent < ActiveRecord::Base
+  before_destroy :untrack_self
+ 
   belongs_to :module_supplement
   validates_presence_of :module_supplement, :title
 
@@ -21,4 +23,11 @@ class SupplementContent < ActiveRecord::Base
     self.joins(module_supplement: :learning_module)
       .where("module_supplements.learning_module_id IN (?)", module_ids)
   end
+
+
+  private
+    
+    def untrack_self
+      Activity.delete_all(trackable_id: self.id) 
+    end
 end

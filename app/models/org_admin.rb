@@ -1,13 +1,14 @@
 class OrgAdmin < User
   extend Enumerize
+  before_destroy :untrack_self
 
   acts_as_xlsx
 
   belongs_to :admin_for, class_name: "Organisation", foreign_key: "admin_for"
 
-  has_many :managed_courses, class_name: "Course", foreign_key: "managed_by"
-  has_many :provisioned_courses, class_name: "CourseSection", foreign_key: "provisioned_by"
-  has_many :learning_modules, class_name: "LearningModule", foreign_key: "educator_id"
+  has_many :managed_courses, class_name: "Course", foreign_key: "managed_by", :dependent => :destroy
+  has_many :provisioned_courses, class_name: "CourseSection", foreign_key: "provisioned_by", :dependent => :destroy
+  has_many :learning_modules, class_name: "LearningModule", foreign_key: "educator_id", :dependent => :destroy
 
   enumerize :role, in: [:account_manager, :module_manager, :course_manager], default: :module_manager
 
@@ -159,5 +160,11 @@ class OrgAdmin < User
   def org_title
     self.admin_for ? self.admin_for.title : nil
   end
+
+  private
+
+    def untrack_self
+      Activity.delete_all(trackable_id: self.id) 
+    end
 
 end

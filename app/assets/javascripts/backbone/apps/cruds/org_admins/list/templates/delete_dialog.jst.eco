@@ -5,6 +5,16 @@
         <h4 class="modal-title">Delete Administrator</h4>
       </div>
       <div class="modal-body">
+        <div class="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <ol>
+              <li>Will also delete any courses that the admin manages</li>
+              <li>Will also delete any sections that the admin provisions</li>
+              <li>Will also delete any modules that the admin teaches</li>
+            </ol>
+            <p>If this is not desired, please ensure you first switch the manager/provisioner/educator of those courses/sections/modules</p>
+        </div>
+
         <p>Are you sure you want to delete <%= @full_name %>&hellip;</p>
       </div>
       <div class="modal-footer">

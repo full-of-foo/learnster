@@ -9,11 +9,12 @@
 
       @layout = @getLayoutView @deliverable
 
-      App.execute "when:fetched", App.currentUser, =>
-        @listenTo @layout, "show", =>
-          @showDeliverable(@deliverable)
+      @listenTo @layout, "show", =>
+        @showDeliverable(@deliverable)
 
-        @show @layout
+      @show @layout,
+        loading:
+          loadingType: "spinner"
 
     showDeliverable: (deliverable) ->
       deliverableView = @getShowView(deliverable)
@@ -49,9 +50,6 @@
       @listenTo submissionsView, "childview:submission:clicked", (child, args) ->
         model = args.model
         App.vent.trigger "submission:clicked", model if model.get('type') is "WikiSubmission"
-
-      # @listenTo submissionsView, "childview:submission:delete:clicked", (child, args) ->
-      #   model = args.model
 
       @show submissionsView,
         loading:
@@ -130,8 +128,7 @@
         , isSortable: true, default: true, isRemovable: false },
        { title: "Wiki", htmlContent: '<% if(model.get("wiki_markup")){ %><span class="wiki-link">&#10004;</span><% } %>'
         , isSortable: true, default: true, isRemovable: false },
-       { title: "Submitted On", attrName: "created_at_formatted", isSortable: true, default: true, isRemovable: false },
-       { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible", default: true, isRemovable: false, hasData: false }
+       { title: "Submitted On", attrName: "created_at_formatted", isSortable: true, default: true, isRemovable: false }
       ]
 
     _deleteColTemplateString: ->

@@ -59,10 +59,9 @@ class Api::V1::DeliverableController < ApplicationController
   end
 
   def destroy
-    @deliverable = Deliverable.find(params[:id])
+    @deliverable   = Deliverable.find(params[:id])
 
     if @deliverable.destroy()
-      untrack_trackable params[:id]
       render json: {}
     else
       respond_with @deliverable

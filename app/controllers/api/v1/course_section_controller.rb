@@ -70,7 +70,6 @@ class Api::V1::CourseSectionController < ApplicationController
     @course_section = CourseSection.find(params[:id])
 
     if @course_section.destroy()
-      untrack_trackable params[:id]
       render json: {}
     else
       respond_with @course_section

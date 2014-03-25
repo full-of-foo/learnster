@@ -51,6 +51,7 @@ class Permission < Struct.new(:user)
             return true if admin_content_updates_and_creates?(controller, action, params)
             return true if my_module_updates?(controller, action, params)
             return true if create_module_request?(controller, action, params)
+            return true if my_supplement_updates_and_creates?(controller, action, params)
 
             @admin_courses = user.managed_courses
             return true if my_course_section_updates_and_creates?(controller, action, params)
@@ -138,7 +139,7 @@ class Permission < Struct.new(:user)
     end
 
     def reads_on_controller?(controller_name, controller, action)
-      controller.end_with?(controller_name) && action.in?(%w[index show])
+      controller.end_with?(controller_name) && action.in?(%w[index show show_version index_versions])
     end
 
     def my_course_section_updates_and_creates?(controller, action, params)

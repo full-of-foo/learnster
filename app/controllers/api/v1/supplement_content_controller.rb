@@ -36,7 +36,6 @@ class Api::V1::SupplementContentController < ApplicationController
     @supplement_content = SupplementContent.find(params[:id])
 
     if @supplement_content.destroy()
-      untrack_trackable params[:id]
       render json: {}
     else
       respond_with @supplement_content

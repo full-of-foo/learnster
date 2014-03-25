@@ -1,9 +1,10 @@
 class Deliverable < ActiveRecord::Base
+  before_destroy :untrack_self
+
   belongs_to :module_supplement
-  has_many :submissions
+  has_many :submissions, :dependent => :destroy
 
   validates_presence_of :module_supplement, :title, :due_date
-
 
   def self.organisation_deliverables(organisation_id)
     self.joins(module_supplement: [learning_module: :organisation])
@@ -38,4 +39,10 @@ class Deliverable < ActiveRecord::Base
   def unique_student_submission_count
     self.submissions.select("DISTINCT student_id").count
   end
+
+  private
+
+    def untrack_self
+      Activity.delete_all(trackable_id: self.id) 
+    end
 end

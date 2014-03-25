@@ -1,9 +1,10 @@
 class Course < ActiveRecord::Base
+  before_destroy :untrack_self
   acts_as_xlsx
 
   belongs_to :organisation
   belongs_to :managed_by, class_name: "OrgAdmin", foreign_key: "managed_by"
-  has_many :course_sections
+  has_many :course_sections, :dependent => :destroy
 
   validates_presence_of :title, :description, :managed_by, :organisation_id, :identifier
   validates_uniqueness_of :title, :scope => [:organisation_id]
@@ -48,5 +49,12 @@ class Course < ActiveRecord::Base
       self.all
     end
   end
+
+  private
+
+    def untrack_self
+      Activity.delete_all(trackable_id: self.id) 
+    end
+
 
 end

@@ -5,6 +5,11 @@
         <h4 class="modal-title">Delete Course</h4>
       </div>
       <div class="modal-body">
+        <div class="alert">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Warning!</strong> Will also delete all related sections and section enrollments
+        </div>
+
         <p>Are you sure you want to delete <%= @title %>&hellip;</p>
       </div>
       <div class="modal-footer">

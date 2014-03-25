@@ -50,7 +50,7 @@
           page: 1
           deliverable_id: deliverableId
           student_id:     studentId
-      submissions.put('deliverable_id', deliverable_id)
+      submissions.put('deliverable_id', deliverableId)
       submissions.put('student_id', studentId)
       submissions
 

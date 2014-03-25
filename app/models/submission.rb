@@ -1,4 +1,6 @@
 class Submission < ActiveRecord::Base
+  before_destroy :untrack_self
+
   belongs_to :deliverable
   belongs_to :student
 
@@ -13,4 +15,10 @@ class Submission < ActiveRecord::Base
     self.joins(deliverable: :module_supplement)
       .where("module_supplements.learning_module_id = ?", module_id)
   end
+
+  private
+
+    def untrack_self
+      Activity.delete_all(trackable_id: self.id) 
+    end
 end
