@@ -27,7 +27,7 @@
 
 			App.execute "when:fetched", collection, =>
 				data = @helper.getData()
-				statEntity = App.request "set:stat:entity", @title, data, @range
+				statEntity = App.request "set:stat:entity", @title, data, @range, collection.size()
 				statView.model = statEntity
 				statView.render()
 				statView.drawChart()

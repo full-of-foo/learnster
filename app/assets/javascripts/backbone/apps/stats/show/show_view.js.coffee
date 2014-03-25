@@ -39,6 +39,10 @@
       @ctx = $("#chart").get(0).getContext("2d")
       @chart = new Chart(@ctx)
       new Chart(@ctx).Line data,
+        scaleOverride: true,
+        scaleSteps: @model.get('size'),
+        scaleStepWidth: Math.ceil((@model.get('size') - 1) / @model.get('size')),
+        scaleStartValue: 1
 
     _getModelData: ->
       data =

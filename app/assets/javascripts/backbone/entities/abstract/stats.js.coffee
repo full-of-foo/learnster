@@ -28,11 +28,12 @@
 		model: Entities.Stat
 
 	API =
-		setStatEntity: (title, data, range) ->
+		setStatEntity: (title, data, range, size) ->
 			stat = new Entities.Stat
 			stat.set('title', title)
 			stat.set('range', range)
 			stat.set('labels', data.labels)
+			stat.set('size', size)
 			attrs = { dataCounts: data.dataset }
 			dataset = new Entities.StatDataset( attrs )
 			stat.set('dataset', dataset)
@@ -68,5 +69,5 @@
 	App.reqres.setHandler "stat:summary:entities", ->
 		API.getDefaultStatTypeCollection()
 
-	App.reqres.setHandler "set:stat:entity", (title, data, range) ->
-		API.setStatEntity title, data, range
+	App.reqres.setHandler "set:stat:entity", (title, data, range, size) ->
+		API.setStatEntity title, data, range, size
