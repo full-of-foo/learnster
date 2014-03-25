@@ -40,5 +40,6 @@
             <label class="control-label">Provisioner</label>
             <div id="provisioner-select-region" class="controls"></div>
         </div>
+        <div class="notice-icon" style="margin-top:-2.5pc;margin-left: 4pc;"></div>
 
 </div>

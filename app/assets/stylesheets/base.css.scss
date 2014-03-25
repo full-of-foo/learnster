@@ -158,14 +158,22 @@ html, body {
 	}
 }
 
+.notice-icon {
+  background-size: 100%;
+  height: 1.1pc;
+  width: 1.1pc;
+  position: absolute;
+  background:url('/images/notice.png') no-repeat;
+  cursor: pointer;
+}
+
 .basic-loader {
   background-size: 100%;
   text-align: center;
   margin-left: 1.32pc;
   margin-right: auto;
   vertical-align: middle;
-  height: 1.1pc;
-  width: 1.1pc;
+
   background: url("/images/loading.gif") no-repeat;
   margin-top: 1pc;
   position: relative;

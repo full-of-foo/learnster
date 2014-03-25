@@ -1,4 +1,10 @@
-<!-- TODO - if org admin has permission -->
+<% u = @currentUser() %>
+
+<% if u.type is "OrgAdmin" and (u.role is "course_manager" or u.role is "module_manager"): %>
+  <% hasManagerPermission = false %>
+<% else: %>
+  <% hasManagerPermission = true %>
+<% end %>
 <% isEditableForm = true %>
 
  <div>
@@ -8,12 +14,16 @@
          <p class="text-info"> <%- @editOrShowField( "section", @section, isEditableForm ) %> </p>
         </div>
 			</div>
-			<div class="control-group">
-        <label class="control-label" for="managed_by">Provisioner</label>
-        <div class="controls">
-          <p class="text-info"> <%- @editOrShowField( "provisioned_by", @provisioned_by.full_name, false ) %> </p>
-        </div>
-      </div>
 
+      <% if hasManagerPermission: %>
+            <div class="control-group">
+        <% else: %>
+            <div class="control-group" style="display: none;">
+        <% end %>
+            <!-- Provisioner -->
+            <label class="control-label">Provisioner</label>
+            <div id="provisioner-select-region" class="controls"></div>
+        </div>
+      <div class="notice-icon" style="margin-top:-2.8pc;margin-left: 4.1pc;"></div>
 
 </div>

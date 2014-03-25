@@ -29,13 +29,20 @@
         model: course
 
     setFormRegion: (course) ->
-      editView = @getEditView course
-      @listenTo editView, "form:cancel", ->
+      @editView = @getEditView course
+      
+      @listenTo @editView, "form:cancel", ->
         App.vent.trigger "course:cancelled", course
 
-      formView = App.request "form:wrapper", editView,
+      formView = App.request "form:wrapper", @editView,
         toast:
           message: "#{course.get('title')} updated"
+
+      @listenTo formView, "show", ->
+        @setManagerSelector(formView, course)
+
+      @listenTo @editView, "notice:icon:clicked", ->
+        $('.notice-icon').popover()
 
       @show formView,
         loading:
@@ -49,3 +56,22 @@
         loading:
           loadingType: "spinner"
         region:  @layout.titleRegion
+
+    setManagerSelector: (newLayout, course) ->
+      orgId        = App.currentUser.get('admin_for').id
+      defaultEmail = course.get('managed_by').email
+      admins       = App.request("org_admin:from:role:entities", orgId, "course_manager")
+      
+      selectView = App.request "selects:wrapper",
+        collection: admins
+        itemViewId: "managed_by"
+        itemView:   App.Components.Selects.UserOption
+
+      @listenTo selectView, "show", ->
+        _.delay(( => $('.selectpicker').
+                selectpicker('val', defaultEmail)) , 400)
+
+      @show selectView,
+        loading:
+            loadingType: "spinner"
+        region:  @editView.managerSelectRegion

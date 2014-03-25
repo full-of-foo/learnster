@@ -29,13 +29,19 @@
         model: courseSection
 
     setFormRegion: (courseSection) ->
-      editView = @getEditView courseSection
-      @listenTo editView, "form:cancel", ->
+      @editView = @getEditView courseSection
+      @listenTo @editView, "form:cancel", ->
         App.vent.trigger "course_section:cancelled", courseSection
 
-      formView = App.request "form:wrapper", editView,
+      formView = App.request "form:wrapper", @editView,
         toast:
           message: "#{courseSection.get('section')} updated"
+
+      @listenTo formView, "show", ->
+        @setProvisionerSelector(formView, courseSection)
+
+      @listenTo @editView, "notice:icon:clicked", ->
+        $('.notice-icon').popover()
 
       @show formView,
         loading:
@@ -49,3 +55,22 @@
         loading:
           loadingType: "spinner"
         region:  @layout.titleRegion
+
+    setProvisionerSelector: (newLayout, courseSection) ->
+      orgId        = App.currentUser.get('admin_for').id
+      defaultEmail = courseSection.get('provisioned_by').email
+      admins       = App.request("org_admin:from:role:entities", orgId, "course_manager")
+      
+      selectView = App.request "selects:wrapper",
+        collection: admins
+        itemViewId: "provisioned_by"
+        itemView:   App.Components.Selects.UserOption
+
+      @listenTo selectView, "show", ->
+        _.delay(( => $('.selectpicker').
+                selectpicker('val', defaultEmail)) , 400)
+
+      @show selectView,
+        loading:
+            loadingType: "spinner"
+        region:  @editView.provisionerSelectRegion

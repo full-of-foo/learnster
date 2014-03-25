@@ -40,6 +40,9 @@
         toast:
           message: "#{module.get('title')} updated"
 
+      @listenTo @editView, "notice:icon:clicked", ->
+        $('.notice-icon').popover()
+
       @listenTo formView, "show", ->
         orgId = module.get('organisation_id')
         @setEducatorSelector(formView, orgId)

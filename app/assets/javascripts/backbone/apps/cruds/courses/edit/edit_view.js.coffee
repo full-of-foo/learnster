@@ -14,7 +14,25 @@
       "updated": "render"
 
 
-  class Edit.Course extends App.Views.ItemView
+  class Edit.Course extends App.Views.Layout
     template: "courses/edit/templates/edit_course"
+    regions:
+      managerSelectRegion: "#manager-select-region"
     modelEvents:
       "sync:after": "render"
+
+    onShow: -> 
+      _.delay(( => 
+              options = 
+                content:   "<ul>
+                              <li>allows for the changing of this courses's manager</li>
+                              <li>any account and course managers can be this 'course's manager'</li>
+                            </ul>"
+                html:      true
+                placement: 'left' 
+
+              $('.notice-icon').popover(options)
+        ), 400)
+
+    triggers:
+      "click .notice-icon" : "notice:icon:clicked"

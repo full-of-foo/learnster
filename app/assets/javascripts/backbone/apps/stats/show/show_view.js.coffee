@@ -42,7 +42,7 @@
         scaleOverride: true,
         scaleSteps: @model.get('size'),
         scaleStepWidth: Math.ceil((@model.get('size') - 1) / @model.get('size')),
-        scaleStartValue: 1
+        scaleStartValue: 0
 
     _getModelData: ->
       data =

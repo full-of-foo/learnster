@@ -7,7 +7,8 @@
     model: Entities.OrgAdmin
 
     initialize: (options = {}) =>
-      @url = if not options.url then Routes.api_org_admin_index_path() else options.url
+      console.log options
+      @url = if options.url then options.url else Routes.api_org_admin_index_path()
       super
 
 
@@ -23,7 +24,7 @@
 
     getOrgAdminOrgEntities: (orgId) ->
       org_admins = new Entities.OrgAdminCollection
-                          url: Routes.api_organisation_admin_index_path(orgId)
+        url: Routes.api_organisation_admin_index_path(orgId)
       org_admins.fetch
         reset: true
       org_admins
@@ -52,7 +53,7 @@
 
     getOrgAdminEntity: (id) ->
       org_admin = Entities.OrgAdmin.findOrCreate
-                                      id: id
+        id: id
       org_admin.fetch
         reset: true
       org_admin
@@ -61,12 +62,16 @@
       new Entities.OrgAdmin
 
     getSearchOrgAdminEntities: (searchOpts) ->
+      console.log searchOpts
       { term, nestedId, owningId, studentId } = searchOpts
+      console.log nestedId
+
       if nestedId
         org_admins = new Entities.OrgAdminCollection
-                                    url: Routes.api_organisation_admin_index_path(nestedId)
+          url: Routes.api_organisation_admin_index_path(nestedId)
       else
         org_admins = new Entities.OrgAdminCollection()
+      console.log org_admins.url
 
       term['created_by'] = owningId  if owningId
       term['student_id'] = studentId if studentId
@@ -102,10 +107,10 @@
 
   App.reqres.setHandler "org_admin:from:role:entities", (orgId, fromRole) ->
     App.request "search:org_admins:entities",
+      nestedId: orgId
       term:
         search:    ""
         from_role: fromRole
-      nestedId: orgId
 
 
   App.reqres.setHandler "init:current:orgAdmin", (attrs) ->
@@ -130,4 +135,5 @@
     API.getOrgAdminEntity(id)
 
   App.reqres.setHandler "search:org_admins:entities", (searchTerm) ->
+    console.log searchTerm
     API.getSearchOrgAdminEntities(searchTerm)

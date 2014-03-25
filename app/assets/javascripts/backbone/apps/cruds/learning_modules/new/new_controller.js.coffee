@@ -38,6 +38,9 @@
       @listenTo @newView, "form:cancel", =>
         @region.close()
 
+      @listenTo @newView, "notice:icon:clicked", ->
+        $('.notice-icon').popover()
+
       @show formView,
         loading:
             loadingType: "spinner"

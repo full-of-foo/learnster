@@ -4,8 +4,8 @@
 
     initialize: (options) ->
       @_isMyCourses  = options.isMyCourses
-      @_nestingOrgId      = if options.id then options.id else false
-      @_nestingOrg        = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
+      @_nestingOrgId = if options.id then options.id else false
+      @_nestingOrg   = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
       App.execute "when:fetched", App.currentUser, =>
         courses = @getCourses()
@@ -18,7 +18,7 @@
 
         @show @layout
 
-    getCourses: ->
+    getCourses: ->      
       if not @_isMyCourses
         courses = App.request("org:course:entities", @_nestingOrgId)
       else if(App.currentUser.get('type') is "OrgAdmin")
