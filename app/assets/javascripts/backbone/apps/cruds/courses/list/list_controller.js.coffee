@@ -122,17 +122,19 @@
       new List.Layout
 
     getTableColumns: ->
-      [
+      cols = [
        { title: "Title", attrName: "title", isSortable: true, isRemovable: false, default: true },
        { title: "Description", attrName: "description", default: true, isRemovable: false },
        { title: "Identifier", attrName: "identifier", isSortable: true, isRemovable: false, default: true },
        { title: "# Sections", htmlContent: '<%= model.get("section_count") %>', default: true,  isSortable: true, isRemovable: false },
-       { title: "Manager", attrName: "managed_by.full_name", isSortable: true, isRemovable: false, default: true },
        { htmlContent: '<% if ( (currentUser.get("type") ===  "OrgAdmin" && currentUser.get("role") ===  "account_manager")
                                 || currentUser.get("type") ===  "AppAdmin" ) { %>
         <div class="delete-icon"><i class="icon-remove-sign"></i></div>
         <% } %>', className: "last-col-invisible", default: true, isRemovable: false }
       ]
+      mgrCol = { title: "Manager", attrName: "managed_by.full_name", isSortable: true, isRemovable: false, default: true }
+      cols.push(mgrCol) if not @_isMyCourses
+      cols
 
     getTableOptions: (columns) ->
       columns: columns

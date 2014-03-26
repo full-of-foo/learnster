@@ -3,9 +3,9 @@
   class List.Controller extends App.Controllers.Base
 
     initialize: (options) ->
-      @_isMyModules = options.isMyModules
+      @_isMyModules  = options.isMyModules
       @_nestingOrgId = if options.id then options.id else false
-      @_nestingOrg = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
+      @_nestingOrg   = if @_nestingOrgId then App.request("org:entity", @_nestingOrgId) else false
 
       App.execute "when:fetched", App.currentUser, =>
         modules = @getModules()
@@ -124,13 +124,15 @@
       new List.Layout
 
     getTableColumns: ->
-      [
+      cols = [
        { title: "Title", attrName: "title", isSortable: true, isRemovable: false, default: true },
        { title: "Description", attrName: "description", default: true, isRemovable: false },
        { title: "# Supplements", htmlContent: '<%= model.get("supplement_count") %>', default: true,  isSortable: true, isRemovable: false },
-       { title: "Educator", attrName: "educator.full_name", isSortable: true, isRemovable: false, default: true },
        { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible", default: true, isRemovable: false }
       ]
+      educatorCol = { title: "Educator", attrName: "educator.full_name", isSortable: true, isRemovable: false, default: true }
+      cols.push(educatorCol) if not @_isMyModules
+      cols
 
     _deleteColTemplateString: ->
       '<% if ( (currentUser.get("type") === "OrgAdmin" && currentUser.get("role") === "course_manager"

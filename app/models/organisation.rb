@@ -1,5 +1,5 @@
 class Organisation < ActiveRecord::Base
-  acts_as_xlsx
+  acts_as_xlsx columns: [:title, :description, :'created_by.full_name', :created_at]
 
   belongs_to :created_by, class_name: "OrgAdmin", foreign_key: "created_by"
 

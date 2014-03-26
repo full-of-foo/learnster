@@ -11,10 +11,10 @@
   class Edit.Title extends App.Views.ItemView
       template: "students/edit/templates/edit_title"
       modelEvents:
-            "updated": "render"
+        "updated": "render"
 
 
   class Edit.Student extends App.Views.ItemView
     template: "students/edit/templates/edit_student"
     modelEvents:
-            "sync:after": "render"
+      "sync:after": "render"
