@@ -43,7 +43,7 @@ solr/test
 solr/default
 solr/data
 kill_server.sh
-csv_examples/*.csv
+csv_examples/users.csv
 config/unicorn.rb
 erd.pdf
 public/uploads

@@ -1,0 +1,9 @@
+email,first_name,surname,password,role
+jenny@dit.ie,Jenny,Munnely,foobar,module_manager
+paddy@dit.ie,Paddy,Matthews,foobar,course_manager
+hugh@dit.ie,Hugh,Donnel,foobar,account_manager
+don@dit.ie,Don,Ryan,foobar,module_manager
+audery@dit.ie,Audery,Jennings,foobar,module_manager
+mary@dit.ie,Mary,Regan,foobar,module_manager
+aongus@dit.ie,Aongus,Cairbre,foobar,module_manager
+admin@dit.ie,Johnny,Mc Admin,foobar,account_manager

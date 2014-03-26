@@ -1,0 +1,9 @@
+email,first_name,surname,password,role
+paul@boi.ie,Paul,Doe,foobar,module_manager
+paddy@boi.ie,Paddy,Brien,foobar,course_manager
+mike@boi.ie,Mike,Sean,foobar,account_manager
+ian@boi.ie,Ian,Ryan,foobar,module_manager
+michelle@boi.ie,Michelle,Faye,foobar,module_manager
+emma@boi.ie,Emma,Keehan,foobar,module_manager
+sarah@boi.ie,Sarah,Taaffe,foobar,module_manager
+admin@boi.ie,Johnny,Mc Admin,foobar,account_manager
