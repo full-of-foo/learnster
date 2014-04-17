@@ -11,16 +11,16 @@
     regions:
       managerSelectRegion: "#manager-select-region"
 
-    onShow: -> 
-      _.delay(( => 
-              options = 
+    onShow: ->
+      _.delay(( =>
+              options =
                 content:   "<ul>
                               <li>allows the managing of this course's sections/terms, student enrollments and module module enrollments</li>
-                              <li>any account and course managers can be this 'course's manager'</li>
-                              <li>any account managers can later change this manager</li>
+                              <li>any account and course manager can be this \"course's manager\"</li>
+                              <li>any account manager can later change this manager</li>
                             </ul>"
                 html:      true
-                placement: 'left' 
+                placement: 'left'
                 title:     "Managing a course:"
 
               $('.notice-icon').popover(options)

@@ -21,15 +21,15 @@
     modelEvents:
       "sync:after": "render"
 
-    onShow: -> 
-      _.delay(( => 
-              options = 
+    onShow: ->
+      _.delay(( =>
+              options =
                 content:   "<ul>
                               <li>allows for the changing of this courses's manager</li>
-                              <li>any account and course managers can be this 'course's manager'</li>
+                              <li>any account and course manager can be this \"course's manager\"</li>
                             </ul>"
                 html:      true
-                placement: 'left' 
+                placement: 'left'
 
               $('.notice-icon').popover(options)
         ), 400)

@@ -20,7 +20,7 @@
 
         @show @layout
 
-    getCourses: ->      
+    getCourses: ->
       if not @_isMyCourses
         courses = App.request("org:course:entities", @_nestingOrgId)
       else if(App.currentUser.get('type') is "OrgAdmin")
@@ -133,7 +133,7 @@
         <% } %>', className: "last-col-invisible", default: true, isRemovable: false }
       ]
       mgrCol = { title: "Manager", attrName: "managed_by.full_name", isSortable: true, isRemovable: false, default: true }
-      cols.push(mgrCol) if not @_isMyCourses
+      cols.splice(cols.length-1, 0, mgrCol) if not @_isMyCourses
       cols
 
     getTableOptions: (columns) ->
