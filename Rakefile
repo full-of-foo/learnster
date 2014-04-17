@@ -25,4 +25,14 @@ task :start do
   system "tail -f log/unicorn.log"
 end
 
+namespace :db do
+  namespace :seed do
+    task :sys_admin do
+      Dir[File.join(Rails.root, 'db', 'system_admin.rb')].each do |filename|
+        load(filename) if File.exist?(filename)
+      end
+    end
+  end
+end
+
 Learnster::Application.load_tasks
