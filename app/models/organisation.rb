@@ -3,10 +3,10 @@ class Organisation < ActiveRecord::Base
 
   belongs_to :created_by, class_name: "OrgAdmin", foreign_key: "created_by"
 
-  has_many :admins, class_name: "OrgAdmin", foreign_key: "admin_for"
-  has_many :students, class_name: "Student", foreign_key: "attending_org"
-  has_many :courses
-  has_many :learning_modules
+  has_many :admins, class_name: "OrgAdmin", foreign_key: "admin_for", :dependent => :destroy
+  has_many :students, class_name: "Student", foreign_key: "attending_org", :dependent => :destroy
+  has_many :courses, :dependent => :destroy
+  has_many :learning_modules, :dependent => :destroy
 
   validates_uniqueness_of :title
   validates_presence_of :title, :description

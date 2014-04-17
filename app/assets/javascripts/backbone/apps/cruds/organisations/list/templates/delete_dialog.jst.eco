@@ -5,6 +5,10 @@
         <h4 class="modal-title">Delete Organisation</h4>
       </div>
       <div class="modal-body">
+        <div class="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> Will also delete all students, admins, courses and modules
+        </div>
         <p>Are you sure you want to delete <%= @title %>&hellip;</p>
       </div>
       <div class="modal-footer">

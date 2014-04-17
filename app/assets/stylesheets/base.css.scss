@@ -5,7 +5,7 @@ html, body {
 }
 
 .inline-block {
-	display: inline-block;
+  display: inline-block;
 }
 
 #wrap {
@@ -19,43 +19,43 @@ html, body {
 }
 
 #app-table {
-	background-color: #f8f9f9;
+  background-color: #f8f9f9;
 
-	tr:not(#app-table-header-row):not(.last-col-invisible):hover{
-		background-color: #F3FFFF;
-		cursor: pointer;
-		td:first-child {
-			border-left: 2px solid #06F0FF;
-		}
-		.delete-icon {
-	  	visibility: visible;
-	  }
-	}
-	.last-col-invisible {
-	  border-left: 0px;
-	  .delete-icon {
-	  	visibility: hidden;
-	  }
-	}
+  tr:not(#app-table-header-row):not(.last-col-invisible):hover{
+    background-color: #F3FFFF;
+    cursor: pointer;
+    td:first-child {
+      border-left: 2px solid #06F0FF;
+    }
+    .delete-icon {
+      visibility: visible;
+    }
+  }
+  .last-col-invisible {
+    border-left: 0px;
+    .delete-icon {
+      visibility: hidden;
+    }
+  }
 }
 
 .pagination-area {
-	text-align: center;
+  text-align: center;
 }
 
 .pagination-loader {
-	background-size: 100%;
-	text-align: center;
-	margin-left:auto;
-	margin-right:auto;
-	vertical-align: middle;
-	height: 1pc;
-	width: 1pc;
-	background:url('/images/loading.gif') no-repeat;
+  background-size: 100%;
+  text-align: center;
+  margin-left:auto;
+  margin-right:auto;
+  vertical-align: middle;
+  height: 1pc;
+  width: 1pc;
+  background:url('/images/loading.gif') no-repeat;
 }
 
 .sidenav.affix {
-  	top: 10px;
+    top: 10px;
 }
 
 @media (min-width: 1200px) {
@@ -90,7 +90,7 @@ html, body {
  margin-top: 0.5pc;
 
  div {
- 	margin-top: 1pc;
+  margin-top: 1pc;
  }
 }
 
@@ -100,25 +100,25 @@ html, body {
 }
 
 .opacity {
-	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
-  	opacity: 0.4;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+    opacity: 0.4;
 }
 
 .scroll-hor-wrapper {
-	overflow-x: scroll;
-	white-space: nowrap;
+  overflow-x: scroll;
+  white-space: nowrap;
 }
 
 .wrap-text {
-	word-wrap: break-word;
+  word-wrap: break-word;
 }
 
 #col-list {
-	margin-left: 6pc;
+  margin-left: 6pc;
 
-	li {
-		margin-left: 1pc
-	}
+  li {
+    margin-left: 1pc
+  }
 }
 
 .RETROtxt {
@@ -143,19 +143,21 @@ html, body {
 
 /* base table sorting styles */
 .tablesorter {
-	 .header:hover {
-		background-image: url("/images/bg.gif");
-		background-repeat: no-repeat;
-		background-position: top right;
-		padding-top: 8px;
-		height: auto;
-	}
-	.headerSortUp:hover {
-		background-image: url("/images/asc.gif");
-	}
-	.headerSortDown:hover {
-		background-image: url("/images/desc.gif");
-	}
+   .header:hover {
+    background-image: url("/images/bg.gif");
+    background-repeat: no-repeat;
+    background-position: top right;
+    padding-top: 8px;
+    height: auto;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .headerSortUp:hover {
+    background-image: url("/images/asc.gif");
+  }
+  .headerSortDown:hover {
+    background-image: url("/images/desc.gif");
+  }
 }
 
 .notice-icon {

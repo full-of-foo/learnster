@@ -116,7 +116,7 @@
        { title: "Description", attrName: "description", default: true },
        { title: "# Students", htmlContent: '<a href="#" class="org-student-count"> <%= model.get("studentCount")
         %></a>', isSortable: true, default: true },
-       { title: "# Admins", htmlContent: '<a href="#" class="org-student-count">
+       { title: "# Admins", htmlContent: '<a href="#" class="org-admin-count">
         <%= model.get("adminCount") %></a>',  isSortable: true },
        { title: "Created On", attrName: "created_at_formatted",  isSortable: true },
        { htmlContent: '<% if ( currentUser.get("type") ===  "AppAdmin" ) { %>
@@ -132,6 +132,7 @@
         itemProperties:
           triggers:
             "click .org-student-count" : "org-students:clicked"
+            "click .org-admin-count"   : "org-admins:clicked"
             "click .delete-icon i"     : "org:delete:clicked"
             "click"                    : "org:clicked"
 
