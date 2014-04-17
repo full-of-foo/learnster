@@ -18,6 +18,10 @@ html, body {
   width: 1050px;
 }
 
+label {
+  cursor: default !important;
+}
+
 #app-table {
   background-color: #f8f9f9;
 
@@ -118,6 +122,23 @@ html, body {
 
   li {
     margin-left: 1pc
+  }
+  li:hover {
+    text-decoration: underline;
+  }
+}
+
+#title-region {
+  margin-bottom: 1pc;
+
+  p.text-info,small.text-info {
+    color: #58585A !important;
+  }
+}
+
+#form-content-region {
+  li:not(.disabled) a:hover {
+    text-decoration: underline;
   }
 }
 
