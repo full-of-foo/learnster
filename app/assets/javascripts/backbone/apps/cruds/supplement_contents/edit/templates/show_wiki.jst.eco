@@ -14,39 +14,36 @@
     <div class="pull-right">
       <span id="edit-wiki-button" class="btn btn-success">Edit</span>
     </div>
-<% end %>
+<% end%>
 
-<blockquote>
-    <p class="text-info">Showing Educator Wiki...</p>
-    <small class="text-info">hover over fields for help</small>
-</blockquote>
+
+<div class="control-group">
+    <!-- Title -->
+    <label class="control-label" for="title">Wiki Title</label>
+    <div class="controls">
+        <p class="text-info"> <%- @editOrShowField( "title", @title, isEditableForm ) %> </p>
+    </div>
+</div>
+
+<div class="control-group">
+    <!-- Description -->
+    <label class="control-label" for="description">Description</label>
+    <div class="controls">
+        <p class="text-info"> <%- @editOrShowField( "description", @description, isEditableForm ) %> </p>
+    </div>
+</div>
+
+<div class="control-group">
+    <!-- Updated -->
+    <label class="control-label" for="updated_at_formatted">Last updated</label>
+    <div class="controls">
+        <p class="text-info"> <%- @editOrShowField( "updated_at_formatted", @updated_at_formatted, isEditableForm ) %> </p>
+    </div>
+</div>
 
 <div class="form-horizontal">
     <fieldset>
 
-        <div class="control-group">
-            <!-- Title -->
-            <label class="control-label" for="title">Title</label>
-            <div class="controls">
-                <%- @editOrShowField( "title", @title, isEditableForm ) %>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <!-- Description -->
-            <label class="control-label" for="description">Description</label>
-            <div class="controls">
-                <%- @editOrShowField( "description", @description, isEditableForm ) %>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <!-- Description -->
-            <label class="control-label" for="updated_at_formatted">Last updated</label>
-            <div class="controls">
-                <%- @editOrShowField( "updated_at_formatted", @updated_at_formatted, isEditableForm ) %>
-            </div>
-        </div>
         <div class="control-group">
             <!-- Wiki -->
             <div class="span" style="width:98%; background: white; margin-right: 3pc; margin-top: 1pc; padding: -1pc;"><%- @wiki_markup %></div>

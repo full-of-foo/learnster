@@ -1,7 +1,7 @@
 <% isEditableForm = true %>
 
 <div class="pull-right">
-  <span id="preview-wiki-button" class="btn btn-success">Preview</span>
+  <span id="preview-wiki-button" class="btn btn-success">Show</span>
 </div>
 
 <blockquote>

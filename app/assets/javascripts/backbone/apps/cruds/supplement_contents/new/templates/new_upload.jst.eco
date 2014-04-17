@@ -33,7 +33,7 @@
             <!-- File -->
             <div id="upload-results"></div>
 
-            <div id="content-upload-area"></div>
+            <div id="content-upload-area" style="margin-bottom: -2pc;"></div>
 
 
         </div>

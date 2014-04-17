@@ -58,7 +58,8 @@
 
     setUploadFormRegion: (content) ->
       @newView = @getNewUploadView content
-      formView = App.request "form:wrapper", @newView
+      formView = App.request "form:wrapper", @newView,
+        footer: false
       @newView['_formWrapper'] = formView
 
       content.on "created", ->

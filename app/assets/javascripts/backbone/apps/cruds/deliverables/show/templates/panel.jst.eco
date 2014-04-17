@@ -23,9 +23,9 @@
 <blockquote>
 
 <% if u.type is "Student" and @is_private is true: %>
-  <p class="muted well-small">My Submissions...</p>
+  <p class="muted well-small">My submissions made...</p>
 <% else: %>
-  <p class="muted well-small">Submissions...</p>
+  <p class="muted well-small">All submissions made...</p>
 <% end %>
 
 </blockquote>

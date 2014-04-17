@@ -25,7 +25,7 @@
             <!-- File -->
             <div id="upload-results"></div>
 
-            <div id="submission-upload-area"></div>
+            <div id="submission-upload-area" style="margin-bottom: -2pc;"></div>
 
 
         </div>

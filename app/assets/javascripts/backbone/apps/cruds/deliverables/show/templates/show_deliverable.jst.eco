@@ -16,15 +16,8 @@
   </div>
 <% end %>
 
-<blockquote id="edit-form-header">
-    <p class="text-info">Showing Deliverable: </p>
-</blockquote>
-
-<div id="push"></div>
-
-
       <div class="control-group">
-        <span class="control-label" for="title">Title</label>
+        <label class="control-label" for="title">Deliverable Title</label>
         <div class="controls">
          <p class="text-info"> <%- @editOrShowField( "title", @title, isEditableForm ) %> </p>
         </div>
@@ -42,7 +35,11 @@
       <div class="control-group">
           <label class="control-label" for="description">Module</label>
           <div class="controls">
-           <p class="text-info"> <%= @module_supplement.learning_module.title %> (<%= @module_supplement.title %>) </p>
+           <p class="text-info">
+              <span>
+                <%= @module_supplement.learning_module.title %> (<%= @module_supplement.title %>)
+              </span>
+            </p>
           </div>
         </div>
 
