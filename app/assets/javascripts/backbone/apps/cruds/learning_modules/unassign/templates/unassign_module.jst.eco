@@ -1,7 +1,7 @@
 <button type="button" class="close cancel-unassign-module" data-dismiss="alert">&times;</button>
 
 <blockquote>
-    <p class="text-info">Remove Module...</p>
+    <p class="text-info">Remove learning module from this section...</p>
 </blockquote>
 
 <div class="form-horizontal">

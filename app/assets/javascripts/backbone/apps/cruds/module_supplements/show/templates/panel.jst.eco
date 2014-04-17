@@ -22,5 +22,5 @@
       </div>
 
   </div>
-  <div id="push"></div>
+  <div class="small-push"></div>
 <% end %>

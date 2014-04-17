@@ -11,18 +11,18 @@
     regions:
       educatorSelectRegion: "#educator-select-region"
 
-    onShow: -> 
-      _.delay(( => 
-              options = 
+    onShow: ->
+      _.delay(( =>
+              options =
                 content:   "<ul>
-                              <li>along with the manager of the course and provisioners of the section, the educator can manage this 
+                              <li>along with any account manager, an educator can manage this
                               module's supplements/lessons, contents and deliverables</li>
-                              <li>all manager account holders can be a module 'educator'</li>
-                              <li>this educator, along with the manager of the course and provisioners of the section, can later change 
+                              <li>all manager account holders can be a module \"educator\"</li>
+                              <li>this educator, along with any account manager, can later change
                               this educator</li>
                             </ul>"
                 html:      true
-                placement: 'left' 
+                placement: 'left'
                 title:     "Educating a module:"
 
               $('.notice-icon').popover(options)

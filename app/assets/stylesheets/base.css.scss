@@ -14,6 +14,14 @@ html, body {
     min-height: 100%;
 }
 
+.small-push {
+  height: 30px;
+}
+
+.push {
+  height: 60px;
+}
+
 .container {
   width: 1050px;
 }
@@ -128,6 +136,12 @@ label {
   }
 }
 
+.controls {
+  p.text-info span {
+    color: #68818D !important;
+  }
+}
+
 #title-region {
   margin-bottom: 1pc;
 
@@ -148,10 +162,23 @@ blockquote {
   }
 }
 
+.pagination-area span.text-info {
+  color: #999999 !important;
+}
+
 #form-content-region {
   li:not(.disabled) a:hover {
     text-decoration: underline;
   }
+}
+
+#content-deliverable-tab-list, #module-supplement-region .tab-content {
+  font-size: smaller;
+}
+
+#module-supplement-region .hero-unit {
+  padding: 42px;
+  margin-right: 2pc;
 }
 
 .RETROtxt {

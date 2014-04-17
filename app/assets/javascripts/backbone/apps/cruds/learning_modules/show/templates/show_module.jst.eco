@@ -18,26 +18,25 @@
   </div>
 <% end %>
 
-<blockquote id="edit-form-header">
-    <p class="text-info">Showing Module: </p>
-</blockquote>
-<div id="push"></div>
-
       <div class="control-group">
-        <label class="control-label" for="title">Title</label>
+        <label class="control-label" for="title">Module Title</label>
         <div class="controls">
          <p class="text-info"> <%- @editOrShowField( "title", @title, isEditableForm ) %> </p>
         </div>
       </div>
 
       <div class="control-group">
-        <label class="control-label" for="section_count">Description
-        <p class="text-info"> <%- @editOrShowField( "description", @description, isEditableForm ) %> </p> </label>
+        <label class="control-label" for="section_count">Description</label>
+        <div class="controls">
+          <p class="text-info"> <%- @editOrShowField( "description", @description, isEditableForm ) %> </p>
+        </div>
       </div>
 
       <div class="control-group">
-        <label class="control-label" for="section_count">On Course(s) Amount:
-        <p class="text-info"> <%- @editOrShowField( "shared_on_course_section_count", @shared_on_course_section_count, isEditableForm ) %> </p> </label>
+        <label class="control-label" for="section_count">On Course(s) Amount</label>
+        <div class="controls">
+          <p class="text-info"> <%- @editOrShowField( "shared_on_course_section_count", @shared_on_course_section_count, isEditableForm ) %> </p>
+        </div>
       </div>
 
       <div class="control-group">

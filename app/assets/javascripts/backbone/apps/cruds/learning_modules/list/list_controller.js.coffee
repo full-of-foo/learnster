@@ -131,7 +131,7 @@
        { htmlContent: @_deleteColTemplateString(), className: "last-col-invisible", default: true, isRemovable: false }
       ]
       educatorCol = { title: "Educator", attrName: "educator.full_name", isSortable: true, isRemovable: false, default: true }
-      cols.push(educatorCol) if not @_isMyModules
+      cols.splice(cols.length-1, 0, educatorCol) if not @_isMyModules
       cols
 
     _deleteColTemplateString: ->

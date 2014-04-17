@@ -1,7 +1,7 @@
 <button type="button" class="close cancel-enroll-student" data-dismiss="alert">&times;</button>
 
 <blockquote>
-    <p class="text-info">Add Student...</p>
+    <p class="text-info">Enroll student on this section...</p>
 </blockquote>
 
 <div class="form-horizontal">

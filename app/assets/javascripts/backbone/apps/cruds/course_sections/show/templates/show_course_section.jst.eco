@@ -18,7 +18,7 @@
       <% end %>
 
       <div class="control-group">
-        <label class="control-label" for="title">Title</label>
+        <label class="control-label" for="title">Section Title</label>
         <div class="controls">
          <p class="text-info"> <%- @editOrShowField( "section", @section, isEditableForm ) %> </p>
         </div>
@@ -32,7 +32,7 @@
       </div>
 
       <div class="control-group">
-        <label class="control-label" for="title">Course</label>
+        <label class="control-label" for="title">From Course</label>
         <div class="controls">
          <p class="text-info"> <%- @editOrShowField( "course", @course.title, isEditableForm ) %> </p>
         </div>

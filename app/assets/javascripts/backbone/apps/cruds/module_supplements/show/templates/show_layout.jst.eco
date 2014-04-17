@@ -1,7 +1,7 @@
 <div class="hero-unit">
     <div id="show-supplement-region"></div>
 
-    <div id="push"></div>
+    <div class="small-push"></div>
 
     <ul id="content-deliverable-tab-list" class="nav nav-tabs">
       <li><a id="contents-tab" href="#contents" data-toggle="tab">Contents</a></li>

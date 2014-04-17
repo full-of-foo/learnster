@@ -1,7 +1,7 @@
 <button type="button" class="close cancel-assign-module" data-dismiss="alert">&times;</button>
 
 <blockquote>
-    <p class="text-info">Add Module...</p>
+    <p class="text-info">Add learning module to this section...</p>
 </blockquote>
 
 <div class="form-horizontal">

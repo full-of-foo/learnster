@@ -1,7 +1,7 @@
 <button type="button" class="close cancel-remove-student" data-dismiss="alert">&times;</button>
 
 <blockquote>
-    <p class="text-info">Remove Student...</p>
+    <p class="text-info">Remove student enrollment from this section...</p>
 </blockquote>
 
 <div class="form-horizontal">
