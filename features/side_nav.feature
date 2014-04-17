@@ -37,7 +37,7 @@ Scenario: System admin sidebar navigation
 
   Then I sidebar navigate to "Administrators"
   Then the "Administrators" nav is active
-  And I should see the text "Organisation Administrators..."
+  And I should see the text "Administrators..."
 
   Then I sidebar navigate to "Students"
   Then the "Students" nav is active

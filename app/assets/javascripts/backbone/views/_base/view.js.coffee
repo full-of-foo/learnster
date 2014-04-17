@@ -39,7 +39,7 @@
           user = App.currentUser
           if user.get('type') is "OrgAdmin"
             App.request("set:current:org", user.get('admin_for'))
-          else 
+          else
             App.request("set:current:org", user.get('attending_org'))
         else
           false
@@ -65,10 +65,10 @@
 
       isCreatedByUser: (created_by) ->
         user = App.reqres.request("get:current:user")
-        if Object(user) not instanceof Boolean and created_by
-          created_by_id = if created_by.id then created_by.id else created_by
+        if Object(user) not instanceof Boolean
+          created_by_id = if created_by?.id then created_by.id else created_by
 
-          created_by_id is user.get('id') or user instanceof App.Entities.AppAdmin
+          (created_by_id is user.get('id')) or (user instanceof App.Entities.AppAdmin)
         else
           false
 

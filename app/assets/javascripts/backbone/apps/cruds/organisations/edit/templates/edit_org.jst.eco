@@ -1,20 +1,20 @@
 <% isEditableForm = @isCreatedByUser(@created_by) %>
 
 <div class="row">
-        
+
         <div class="pull-right">
 
              <ul class="nav nav-pills nav-stacked">
                 <li><a id="org-admins-link" href="#">Administrators: <% if @admins: %><%= @adminCount %><% end %></a></li>
                 <li><a id="org-students-link" href="#">Students Attending: <%= @studentCount %></a></li>
-                <% if @currentUser().type is "AppAdmin": %>
-                    <li class="disabled"><a id="org-created-by-link" href="#">Created by: 
+                <% if @created_by: %>
+                    <li class="disabled"><a id="org-created-by-link" href="#">Created by:
                     <% if @created_by: %> <%= @created_by.full_name %><% end %></a></li>
                 <% end %>
              </ul>
 
         </div>
-       
+
         <div class="span6">
             <div class="control-group">
                 <label class="control-label" for="title">Title</label>
@@ -29,6 +29,6 @@
                     <%- @editOrShowField( "description", @description, isEditableForm ) %>
                 </div>
             </div>
-            
+
         </div>
 </div>

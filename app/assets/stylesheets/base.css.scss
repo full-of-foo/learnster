@@ -136,6 +136,12 @@ label {
   }
 }
 
+.well {
+  p.text-info,small.text-info {
+    color: #999999 !important;
+  }
+}
+
 #form-content-region {
   li:not(.disabled) a:hover {
     text-decoration: underline;
