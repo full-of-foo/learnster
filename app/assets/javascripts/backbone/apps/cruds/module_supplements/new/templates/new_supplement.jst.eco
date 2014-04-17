@@ -7,8 +7,7 @@
 
 <div class="alert alert-info">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <small>Module Supplements are the lessons/supplements for your course sections,
-    which can be used to divide and/or order your lesson contents and lesson deliverables</small>
+    <small>Module Supplements are the lessons/supplements for your course sections, which can be used to divide and/or order your lesson contents and lesson deliverables</small>
 </div>
 
 <div class="form-horizontal">

@@ -15,7 +15,7 @@
 <% end %>
 
 <blockquote>
-    <p class="text-info">Showing Wiki...</p>
+    <p class="text-info">Showing Wiki Submission...</p>
 </blockquote>
 
 <div class="form-horizontal">

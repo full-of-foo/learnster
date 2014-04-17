@@ -21,7 +21,7 @@ Scenario: CRUD Modules
 
   # create supplement
   Then I click the "link" with the "id" of "add-module-supplement-button"
-  And I should see the text "Module Supplements are the lessons/supplements for your course sections, which can used to divide and/or order your lesson contents and lesson deliverables"
+  And I should see the text "Module Supplements are the lessons/supplements for your course sections, which can be used to divide and/or order your lesson contents and lesson deliverables"
   Then I click the "button" with the "class" of "cancel-new-supplement"
   And I create a Supplement for the Module
   Then I see the Supplement show page

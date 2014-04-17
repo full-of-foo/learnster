@@ -1,7 +1,6 @@
 <div id="form-content-region"></div>
 <% if @footer: %>
 <div id="form-foot" class="row-fluid">
-<legend>
 	<% if @buttons: %>
 		<div id="form-btn-wrapper">
 			<% for button in @buttons: %>
@@ -9,6 +8,5 @@
 			<% end %>
 		</div>
 		<% end %>
- </legend>   
 </div>
 <% end %>

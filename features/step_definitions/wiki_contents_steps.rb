@@ -3,7 +3,7 @@
 Given(/^I create a wiki content$/) do
   page = Pages::SupplementPage.new(@browser)
   step('I click the "link" with the "id" of "new-wiki-content-button"')
-  step('I should see a "p" with the "text" of "New Educator Wiki..."')
+  step('I should see a "p" with the "text" of "New educator wiki for this supplement..."')
 
   new_title, new_description, new_markup =
     TestDataGenerator.title, TestDataGenerator.description, TestDataGenerator.lorem_word

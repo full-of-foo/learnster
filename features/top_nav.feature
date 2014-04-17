@@ -85,16 +85,12 @@ Scenario: Top navigate to items as module admin
   And I see the settings the page
 
 @top_nav-6
-Scenario: Top navigate to items as module admin
+Scenario: Top navigate to items as student
   Given I navigate to the "login" page
   And I attempt to login with a known "student"
 
   Then I topbar navigate to "Notifications"
   And I should see the text "My Notifications"
-
-  Then I topbar navigate to "Statistics"
-  And I should see the text "Organisation Statistics"
-  And there exists some statistics
 
   Then I topbar navigate to "Home"
   And I click the "h1" with the "text" of "My Module Contents"

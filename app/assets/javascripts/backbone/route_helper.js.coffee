@@ -12,7 +12,6 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^about$/,
           /^testimonials$/,
           /^signu(.+)$/,
-          /^statistics$/,
           /^404$/
         ]
 
@@ -57,6 +56,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^course\/(.+?)\/show$/,
           /^module\/(.+?)\/edit$/,
           /^module\/(.+?)\/show$/,
+          /^statistics$/,
           /^module\/(.+?)\/supplement\/(.+?)\/show$/,
           /^course_section\/(.+?)\/edit$/,
           /^course_section\/(.+?)\/show$/,
@@ -69,6 +69,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
           /^organisations$/,
           /^students$/,
           /^admins$/,
+          /^statistics$/,
           /^notifications$/
         ]
 

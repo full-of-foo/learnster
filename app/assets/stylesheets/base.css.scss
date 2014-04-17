@@ -23,11 +23,20 @@ html, body {
 }
 
 .container {
-  width: 1050px;
+  width: 1015px;
 }
 
 label {
   cursor: default !important;
+}
+
+#header-region .container {
+  width: 1040px;
+}
+
+#main-region .hero-unit {
+  padding: 40px;
+  margin-bottom: 25px;
 }
 
 #app-table {

@@ -2,7 +2,7 @@
     <button type="button" class="close cancel-new-submission" data-dismiss="alert">&times;</button>
 
     <blockquote>
-        <p class="text-info">New Wiki...</p>
+        <p class="text-info">New wiki submission for this deliverable...</p>
         <small class="text-info">hover over fields for help</small>
     </blockquote>
 

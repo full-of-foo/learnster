@@ -25,7 +25,7 @@ Scenario: CRUD Submissions and Deliverables
   And I should see a "span" with the "id" of "edit-deliverable-button"
   And I should see a "span" with the "id" of "delete-deliverable-button"
   And I should not see a "a" with the "id" of "new-submission-upload-button"
-  And I should see the text "Submissions..."
+  And I should see the text "All submissions made..."
 
   # edit deliverable
   And I click the "span" with the "id" of "edit-deliverable-button"

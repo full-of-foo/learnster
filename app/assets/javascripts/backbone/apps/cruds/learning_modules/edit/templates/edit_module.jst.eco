@@ -29,5 +29,6 @@
         <label class="control-label">Educator</label>
         <div id="educator-select-region" class="controls"></div>
       </div>
+    <% if hasEducatorPermission: %>
       <div class="notice-icon" style="margin-top:-2.8pc;margin-left: 4.8pc;"></div>
-
+    <% end %>
