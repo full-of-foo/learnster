@@ -1,40 +1,36 @@
 <% isEditableForm = true %>
 
- <div class="span6">
+<div class="control-group">
+  <label class="control-label" for="title">Title</label>
+  <div class="controls">
+    <%- @editOrShowField( "title", @title, isEditableForm ) %>
+  </div>
+</div>
 
-      <div class="control-group">
-        <label class="control-label" for="title">Title</label>
-        <div class="controls">
-          <%- @editOrShowField( "title", @title, isEditableForm ) %>
-        </div>
-      </div>
+<div class="control-group">
+  <label class="control-label" for="description">Description</label>
+  <div class="controls">
+    <%- @editOrShowField( "description", @description, isEditableForm ) %>
+  </div>
+</div>
 
-      <div class="control-group">
-        <label class="control-label" for="description">Description</label>
-        <div class="controls">
-          <%- @editOrShowField( "description", @description, isEditableForm ) %>
-        </div>
-      </div>
+<div class="control-group">
+  <label class="control-label" for="due_date">Due date</label>
+  <div class="controls">
+    <input data-provide="datepicker" id="due_date" name="due_date" class="datepicker" data-date-format="mm/dd/yyyy" value="<%= @due_date_formatted %>">
+  </div>
+</div>
 
-      <div class="control-group">
-        <label class="control-label" for="due_date">Due date</label>
-        <div class="controls">
-          <input data-provide="datepicker" id="due_date" name="due_date" class="datepicker" data-date-format="mm/dd/yyyy" value="<%= @due_date_formatted %>">
-        </div>
-      </div>
+<div class="control-group">
+  <label class="control-label" for="is_private">Private</label>
+  <div class="controls">
+      <input type="checkbox" id="is_private" name="is_private" <% if @is_private is true: %> checked <% end %>>
+  </div>
+</div>
 
-      <div class="control-group">
-        <label class="control-label" for="is_private">Private</label>
-        <div class="controls">
-            <input type="checkbox" id="is_private" name="is_private" <% if @is_private is true: %> checked <% end %>>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label class="control-label" for="is_closed">Closed</label>
-        <div class="controls">
-            <input type="checkbox" id="is_closed" name="is_closed" <% if @is_closed is true: %> checked <% end %>>
-        </div>
-      </div>
-
+<div class="control-group">
+  <label class="control-label" for="is_closed">Closed</label>
+  <div class="controls">
+      <input type="checkbox" id="is_closed" name="is_closed" <% if @is_closed is true: %> checked <% end %>>
+  </div>
 </div>

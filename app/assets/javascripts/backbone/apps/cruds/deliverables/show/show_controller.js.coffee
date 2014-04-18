@@ -84,7 +84,7 @@
       @listenTo dialogView, "dialog:delete:deliverable:clicked", =>
         dialogView.$el.modal "hide"
         moduleId     = deliverable.get('module_supplement').learning_module.id
-        supplementId =  deliverable.get('module_supplement').id
+        supplementId = deliverable.get('module_supplement').id
         deliverable.destroy()
         deliverable.on "destroy", => App.navigate "/module/#{moduleId}/supplement/#{supplementId}/show"
 
@@ -149,7 +149,7 @@
         emptyMessage: "No submissions have been made :("
         itemProperties:
           triggers:
-              "click .delete-icon i"   : "submission:delete:clicked"
-              "click"                  : "submission:clicked"
+            "click .delete-icon i" : "submission:delete:clicked"
+            "click"                : "submission:clicked"
           events:
-              "click a.file-link" : ((e) => e.stopImmediatePropagation())
+            "click a.file-link" : ((e) => e.stopImmediatePropagation())

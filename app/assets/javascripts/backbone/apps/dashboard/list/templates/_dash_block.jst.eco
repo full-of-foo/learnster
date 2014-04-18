@@ -2,7 +2,7 @@
 
 <!-- Notification template -->
 <% if  @action_formatted:  %>
-  <span class="content">
+  <span class="content no-pointer">
   <% if u.id is @user.id: %>
     You
   <% else: %>
@@ -24,7 +24,7 @@
   <% end %>
 
 </span>
-<span class="timestamp"> <%= @created_at_formatted %> ago </span>
+<span class="timestamp no-pointer"> <%= @created_at_formatted %> ago </span>
 <% end %>
 
 

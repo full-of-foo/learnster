@@ -73,6 +73,7 @@
           false
 
       editOrShowField: (id, value, isField, editType = "text") ->
+        value = "" if value is "null" or not value
         if isField
           "<input type='#{@escape(editType)}' id='#{@escape(id)}' value='#{@escape(value)}'/>"
         else

@@ -173,6 +173,7 @@ do (Learnster, $, Backbone, Marionette, _) ->
     _getSideRoutes: ->
       [ /^login$/, /^signu(.+)$/, /^organisations$/, /^admins$/, /^students$/,
         /^organisation\/(.+?)\/dashboard$/, /^organisation\/(.+?)\/admins$/,
+        /^organisation\/(.+?)\/modules$/, /^organisation\/(.+?)\/courses$/,
         /^organisation\/(.+?)\/students$/, /^organisation\/(.+?)\/my_students$/,
         /^organisation\/(.+?)\/my_admins$/, /^organisation\/(.+?)\/my_courses$/,
         /^organisation\/(.+?)\/my_modules$/, /^organisation\/(.+?)\/my_deliverables$/]
@@ -186,6 +187,8 @@ do (Learnster, $, Backbone, Marionette, _) ->
       id = "side-item-dash"         if /^organisation\/(.+?)\/dashboard$/.test(route)
       id = "side-item-all-admins"   if /^organisation\/(.+?)\/admins$/.test(route)
       id = "side-item-all-students" if /^organisation\/(.+?)\/students$/.test(route)
+      id = "side-item-all-courses"  if /^organisation\/(.+?)\/courses$/.test(route)
+      id = "side-item-all-modules"  if /^organisation\/(.+?)\/modules$/.test(route)
       id = "side-item-my-administrators" if /^organisation\/(.+?)\/my_admins$/.test(route)
       id = "side-item-my-students"  if /^organisation\/(.+?)\/my_students$/.test(route)
       id = "side-item-my-courses"   if /^organisation\/(.+?)\/my_courses$/.test(route)

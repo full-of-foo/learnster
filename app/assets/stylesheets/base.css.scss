@@ -60,6 +60,10 @@ label {
   }
 }
 
+.no-pointer {
+  cursor: default !important;
+}
+
 .pagination-area {
   text-align: center;
 }
