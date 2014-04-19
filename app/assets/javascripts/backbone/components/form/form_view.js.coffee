@@ -77,14 +77,16 @@
       return 'title for upload (ex. Lecture Slides)'       if @model instanceof App.Entities.ContentUpload
       return 'title for wiki (ex. Module Descriptor Wiki)' if @model instanceof App.Entities.WikiContent
       return 'title for deliverable (ex. Assignment 1)'    if @model instanceof App.Entities.Deliverable
+      return 'title of your organisation'                  if @model instanceof App.Entities.Org
 
     _getTitleForDescriptionAttr: ->
       return 'Breif description of the course' if @model instanceof App.Entities.Course
       return 'Breif description of the module' if @model instanceof App.Entities.LearningModule
       return 'Breif description of lesson/supplement' if @model instanceof App.Entities.ModuleSupplement
-      return 'Breif description of upload' if @model instanceof App.Entities.ContentUpload
-      return 'Breif description of wiki' if @model instanceof App.Entities.WikiContent
+      return 'Breif description of upload'      if @model instanceof App.Entities.ContentUpload
+      return 'Breif description of wiki'        if @model instanceof App.Entities.WikiContent
       return 'Breif description of deliverable' if @model instanceof App.Entities.Deliverable
+      return 'Breif description of your organisation' if @model instanceof App.Entities.Org
 
     addError: (name, error) ->
       el = @$("[id='#{name}']")
