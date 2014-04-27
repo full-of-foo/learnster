@@ -21,6 +21,8 @@ group :test do
   gem "parallel_tests"
 end
 
+gem 'html_routes', '~> 1.0', group: :development
+gem "railroady"
 gem "jbuilder", "1.0.2"
 gem "progress_bar"
 gem "acts_as_xlsx"
