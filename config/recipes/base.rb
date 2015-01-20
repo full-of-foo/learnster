@@ -62,7 +62,7 @@ namespace :cmd do
 
   desc "Run a task on a remote server."
   task :invoke do
-    run("cd #{current_path} && #{ENV['cmd']}")
+    run("cd #{current_path} && #{ENV['cmd']} RAILS_ENV=#{rails_env}")
   end
 end
 
