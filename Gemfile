@@ -2,7 +2,7 @@ source "https://rubygems.org"
 # ruby "2.0.0"
 
 gem "coffee-rails", "4.0.0" #gemfile hack
-gem 'rails', git: 'https://github.com/rails/rails', branch: '4-0-stable'
+gem 'rails', "4.0.13"
 
 group :development, :test do
   gem "coffee-rails-source-maps"
@@ -14,6 +14,13 @@ group :development, :test do
 end
 
 group :test do
+  gem 'minitest-rails'
+  gem 'minitest-rails-capybara'
+  gem 'minitest-colorize'
+  gem 'minitest-focus'
+  gem 'sqlite3'
+  gem 'database_cleaner'
+
   gem "rb-fsevent"
   gem "terminal-notifier-guard"
   gem 'cucumber-rails', :require => false

@@ -7,60 +7,40 @@ GIT
       activerecord (>= 3.0, < 4.1)
       delayed_job (>= 3.0, < 4.1)
 
-GIT
-  remote: https://github.com/rails/rails
-  revision: 9369486c71a6a330eb6aff07f3f46122dafca114
-  branch: 4-0-stable
+GEM
+  remote: https://rubygems.org/
   specs:
-    actionmailer (4.0.2)
-      actionpack (= 4.0.2)
-      mail (~> 2.5.4)
-    actionpack (4.0.2)
-      activesupport (= 4.0.2)
+    actionmailer (4.0.13)
+      actionpack (= 4.0.13)
+      mail (~> 2.5, >= 2.5.4)
+    actionpack (4.0.13)
+      activesupport (= 4.0.13)
       builder (~> 3.1.0)
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    activemodel (4.0.2)
-      activesupport (= 4.0.2)
+    activemodel (4.0.13)
+      activesupport (= 4.0.13)
       builder (~> 3.1.0)
-    activerecord (4.0.2)
-      activemodel (= 4.0.2)
+    activerecord (4.0.13)
+      activemodel (= 4.0.13)
       activerecord-deprecated_finders (~> 1.0.2)
-      activesupport (= 4.0.2)
+      activesupport (= 4.0.13)
       arel (~> 4.0.0)
-    activesupport (4.0.2)
+    activerecord-deprecated_finders (1.0.3)
+    activesupport (4.0.13)
       i18n (~> 0.6, >= 0.6.9)
       minitest (~> 4.2)
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
-    rails (4.0.2)
-      actionmailer (= 4.0.2)
-      actionpack (= 4.0.2)
-      activerecord (= 4.0.2)
-      activesupport (= 4.0.2)
-      bundler (>= 1.3.0, < 2.0)
-      railties (= 4.0.2)
-      sprockets-rails (~> 2.0.0)
-    railties (4.0.2)
-      actionpack (= 4.0.2)
-      activesupport (= 4.0.2)
-      rake (>= 0.8.7)
-      thor (>= 0.18.1, < 2.0)
-
-GEM
-  remote: https://rubygems.org/
-  specs:
-    activerecord-deprecated_finders (1.0.3)
     acts_as_xlsx (1.0.6)
       activerecord (>= 2.3.9)
       axlsx (>= 1.0.13)
       i18n (>= 0.4.1)
     addressable (2.3.6)
     api-pagination (2.1.0)
-    arel (4.0.1)
-    atomic (1.1.14)
+    arel (4.0.2)
     axlsx (2.0.0)
       htmlentities (~> 4.3.1)
       nokogiri (>= 1.4.1)
@@ -116,6 +96,7 @@ GEM
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
     daemons (1.1.9)
+    database_cleaner (1.3.0)
     datejs-rails (2.0.1)
       railties (>= 3.1)
     delayed_job (4.0.0)
@@ -177,13 +158,30 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     lumberjack (1.0.4)
-    mail (2.5.4)
-      mime-types (~> 1.16)
-      treetop (~> 1.4.8)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
+    minitest-capybara (0.4.2)
+      capybara (~> 2.0)
+      minitest (~> 4.0)
+      rake
+    minitest-colorize (0.0.5)
+      minitest (>= 2.0)
+    minitest-focus (1.1.0)
+      minitest (>= 4, < 6)
+    minitest-metadata (0.6.0)
+      minitest (>= 4.7, < 6.0)
+    minitest-rails (0.9.2)
+      minitest (~> 4.7)
+      rails (>= 3.0)
+    minitest-rails-capybara (0.10.0)
+      capybara (~> 2.0)
+      minitest-capybara (~> 0.4)
+      minitest-metadata (~> 0.4)
+      minitest-rails (~> 0.9.1)
     multi_json (1.8.4)
     multi_test (0.0.3)
     net-scp (1.1.2)
@@ -205,7 +203,6 @@ GEM
     parallel_tests (0.16.8)
       parallel
     pg (0.15.1)
-    polyglot (0.3.3)
     populator (1.0.0)
     progress_bar (1.0.0)
       highline (~> 1.6.1)
@@ -220,6 +217,14 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     railroady (1.1.1)
+    rails (4.0.13)
+      actionmailer (= 4.0.13)
+      actionpack (= 4.0.13)
+      activerecord (= 4.0.13)
+      activesupport (= 4.0.13)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 4.0.13)
+      sprockets-rails (~> 2.0)
     rails-erd (1.1.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
@@ -230,8 +235,13 @@ GEM
       rails_stdout_logging
     rails_serve_static_assets (0.0.2)
     rails_stdout_logging (0.0.3)
+    railties (4.0.13)
+      actionpack (= 4.0.13)
+      activesupport (= 4.0.13)
+      rake (>= 0.8.7)
+      thor (>= 0.18.1, < 2.0)
     raindrops (0.12.0)
-    rake (10.1.1)
+    rake (10.4.2)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
@@ -272,19 +282,16 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    sqlite3 (1.3.10)
     syntax (1.2.0)
     teaspoon (0.7.9)
       railties (>= 3.2.5, < 5)
     terminal-notifier-guard (1.5.3)
     thor (0.18.1)
-    thread_safe (0.1.3)
-      atomic
+    thread_safe (0.3.4)
     tilt (1.4.1)
     timers (1.1.0)
-    treetop (1.4.15)
-      polyglot
-      polyglot (>= 0.3.1)
-    tzinfo (0.3.38)
+    tzinfo (0.3.42)
     uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
@@ -314,6 +321,7 @@ DEPENDENCIES
   coffee-rails-source-maps
   cucumber-rails
   daemons
+  database_cleaner
   datejs-rails
   delayed_job_active_record!
   eco
@@ -327,6 +335,10 @@ DEPENDENCIES
   jbuilder (= 1.0.2)
   jquery-rails (~> 3.0.4)
   js-routes
+  minitest-colorize
+  minitest-focus
+  minitest-rails
+  minitest-rails-capybara
   oj
   paper_trail (~> 3.0.0)
   parallel_tests
@@ -335,7 +347,7 @@ DEPENDENCIES
   progress_bar
   rabl
   railroady
-  rails!
+  rails (= 4.0.13)
   rails-erd
   rails_12factor (= 0.0.2)
   rb-fsevent
@@ -345,6 +357,7 @@ DEPENDENCIES
   sass-rails (= 4.0.0)
   sdoc (= 0.3.20)
   spinjs-rails
+  sqlite3
   teaspoon
   terminal-notifier-guard
   uglifier (= 2.1.1)

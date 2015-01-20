@@ -5,7 +5,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "sprockets/railtie"
 require 'csv'
-
+require "minitest/rails/railtie"
 
 Bundler.require(:default, Rails.env)
 

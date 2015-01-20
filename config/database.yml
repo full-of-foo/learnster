@@ -8,13 +8,10 @@ development:
   password:
 
 test:
-  adapter: postgresql
-  host: localhost
-  encoding: unicode
-  database: learnster_development
+  adapter: sqlite3
+  database: db/test.sqlite3
   pool: 5
-  username: anthonytroy
-  password:
+  timeout: 5000
 
 # Capistrano generates a seperate database.yml file
 # on deploys
