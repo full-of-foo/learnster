@@ -7,8 +7,8 @@ gem 'rails', "4.0.13"
 group :development, :test do
   gem "coffee-rails-source-maps"
   gem "teaspoon"
-  gem "guard-teaspoon"
-  gem 'guard-cucumber'
+  gem 'guard'
+  gem 'guard-minitest'
   gem "ruby_gntp"
   gem "rails-erd"
 end
@@ -27,6 +27,7 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem "watir-webdriver"
   gem "parallel_tests"
+  gem 'ruby-prof'
 end
 
 gem 'html_routes', '~> 1.0', group: :development
