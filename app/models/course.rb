@@ -53,8 +53,7 @@ class Course < ActiveRecord::Base
   private
 
     def untrack_self
-      Activity.delete_all(trackable_id: self.id) 
+      Activity.delete_all(trackable_id: self.id)
     end
-
 
 end

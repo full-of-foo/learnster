@@ -7,7 +7,7 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test 'is valid' do
-    unsaved_organisation = build(:organisation, title: "foo")
+    unsaved_organisation = build(:organisation, title: "Totaly Unsaved Ltd.")
     organisation = create(:organisation)
 
     assert_equal true, unsaved_organisation.valid?
