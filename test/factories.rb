@@ -153,6 +153,13 @@ FactoryGirl.define do
     trait :dit do end
   end
 
+  factory :wiki_content, class: WikiContent, parent: :supplement_content do
+    wiki_markup "<div>I could not complete this deliverable :(</div>"
+
+    trait :dcu do end
+    trait :dit do end
+  end
+
   factory :submission, class: Submission do
     association :student, factory: :student
     association :deliverable, factory: :deliverable

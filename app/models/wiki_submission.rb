@@ -5,4 +5,5 @@ class WikiSubmission < Submission
   def wiki_word_count
     Nokogiri::HTML(self.wiki_markup).inner_text.downcase.scan(/[\w']+/).length
   end
+
 end
