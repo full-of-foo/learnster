@@ -1,18 +1,31 @@
 FactoryGirl.define do
 
-  factory :org_admin, class:  OrgAdmin do
-    sequence(:email){|n| "admin#{n}@dit.ie" }
-    first_name "John"
+  factory :user, class: User do
     password "foobar"
     password_confirmation "foobar"
+  end
+
+  factory :org_admin, class:  OrgAdmin, parent: :user do
+    sequence(:email){|n| "admin#{n}@dit.ie" }
+    first_name "John"
     surname "McSystemadmin"
 
     trait :dcu do
       sequence(:email){|n| "admin#{n}@dcu.ie" }
     end
-    trait :dit do
-      sequence(:email){|n| "admin#{n}@dit.ie" }
+    trait :dit do end
+  end
+
+  factory :student, class:  Student, parent: :user  do
+    sequence(:email){|n| "student#{n}@dit.ie" }
+    first_name "Billy"
+    surname "McStudent"
+    association :attending_org, factory: :organisation
+
+    trait :dcu do
+      sequence(:email){|n| "student#{n}@dcu.ie" }
     end
+    trait :dit do end
   end
 
   factory :organisation, class:  Organisation do
@@ -24,23 +37,6 @@ FactoryGirl.define do
 
     trait :dcu do
       sequence(:title){|n| "Dublin City University #{n}" }
-    end
-    trait :dit do
-      sequence(:title){|n| "Dublin Institute of Technology #{n}" }
-    end
-  end
-
-  factory :student, class:  Student do
-    sequence(:email){|n| "student#{n}@dit.ie" }
-    first_name "Billy"
-    password "student"
-    password_confirmation "student"
-    surname "McStudent"
-    association :attending_org, factory: :organisation
-
-
-    trait :dcu do
-      sequence(:email){|n| "student#{n}@dcu.ie" }
     end
     trait :dit do end
   end
@@ -97,11 +93,7 @@ FactoryGirl.define do
       association :educator, :factory => [:org_admin, :dcu]
       association :organisation, :factory => [:organisation, :dcu]
     end
-    trait :dit do
-      title "Object Orientated Programming 1"
-      description "Introductory one-year module in software development in an\
-                            object oriented environment using Java"
-    end
+    trait :dit do end
   end
 
   factory :section_module, class: SectionModule do
@@ -183,6 +175,10 @@ FactoryGirl.define do
 
     trait :dcu do end
     trait :dit do end
+  end
+
+  factory :api_key, class: ApiKey do
+    association :user, factory: :user
   end
 
 end
