@@ -134,4 +134,26 @@ FactoryGirl.define do
     end
     trait :dit do end
   end
+
+  factory :deliverable, class: Deliverable do
+    title "Assignment 1"
+    due_date Date.today
+    association :module_supplement, factory: :module_supplement
+
+    trait :dcu do
+      association :module_supplement, :factory => [:module_supplement, :dcu]
+    end
+    trait :dit do end
+  end
+
+  factory :submission, class: Submission do
+    association :student, factory: :student
+    association :deliverable, factory: :deliverable
+
+    trait :dcu do
+      association :student, :factory => [:student, :dcu]
+      association :deliverable, :factory => [:deliverable, :dcu]
+    end
+    trait :dit do end
+  end
 end
