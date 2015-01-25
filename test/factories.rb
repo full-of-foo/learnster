@@ -115,4 +115,14 @@ FactoryGirl.define do
     trait :dit do end
   end
 
+  factory :module_supplement, class: ModuleSupplement do
+    title "Lesson 1"
+    association :learning_module, factory: :module
+
+    trait :dcu do
+      association :learning_module, :factory => [:module, :dcu]
+    end
+    trait :dit do end
+  end
+
 end
