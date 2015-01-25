@@ -21,7 +21,8 @@ class LearningModule < ActiveRecord::Base
   end
 
   def self.course_modules(course_id)
-    CourseSection.where(course_id: course_id).first.learning_modules
+    section = CourseSection.where(course_id: course_id).first
+    section ? section.learning_modules : self.none
   end
 
   def self.student_modules(student_id)
@@ -78,7 +79,7 @@ class LearningModule < ActiveRecord::Base
   private
 
     def untrack_self
-      Activity.delete_all(trackable_id: self.id) 
+      Activity.delete_all(trackable_id: self.id)
     end
 
 end

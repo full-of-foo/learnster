@@ -1,7 +1,7 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-guard :minitest do
+guard :minitest, cli: '--test' do
   # with Minitest::Unit
   watch(%r{^test/(.*)\/?test_(.*)\.rb$})
   watch(%r{^lib/(.*/)?([^/]+)\.rb$})     { |m| "test/#{m[1]}test_#{m[2]}.rb" }
@@ -15,5 +15,6 @@ guard :minitest do
   watch(%r{^lib/(.+)\.rb$})                               { |m| "test/lib/#{m[1]}_test.rb" }
   watch(%r{^test/.+_test\.rb$})
   watch(%r{^test/test_helper\.rb$}) { 'test' }
+  watch(%r{^test/factories\.rb$}) { 'test' }
 
 end
