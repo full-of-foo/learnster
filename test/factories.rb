@@ -125,6 +125,17 @@ FactoryGirl.define do
     trait :dit do end
   end
 
+  factory :deliverable, class: Deliverable do
+    title "Assignment 1"
+    due_date Date.today
+    association :module_supplement, factory: :module_supplement
+
+    trait :dcu do
+      association :module_supplement, :factory => [:module_supplement, :dcu]
+    end
+    trait :dit do end
+  end
+
   factory :supplement_content, class: SupplementContent do
     title "Class wiki"
     association :module_supplement, factory: :module_supplement
@@ -135,14 +146,10 @@ FactoryGirl.define do
     trait :dit do end
   end
 
-  factory :deliverable, class: Deliverable do
-    title "Assignment 1"
-    due_date Date.today
-    association :module_supplement, factory: :module_supplement
+  factory :content_upload, class: ContentUpload, parent: :supplement_content do
+    file_upload ActionDispatch::Http::UploadedFile.new(tempfile: File.new("#{Rails.root}/public/favicon.ico"), filename: "favicon.ico")
 
-    trait :dcu do
-      association :module_supplement, :factory => [:module_supplement, :dcu]
-    end
+    trait :dcu do end
     trait :dit do end
   end
 
@@ -159,6 +166,13 @@ FactoryGirl.define do
 
   factory :submission_upload, class: SubmissionUpload, parent: :submission do
     file_upload ActionDispatch::Http::UploadedFile.new(tempfile: File.new("#{Rails.root}/public/favicon.ico"), filename: "favicon.ico")
+
+    trait :dcu do end
+    trait :dit do end
+  end
+
+  factory :wiki_submission, class: WikiSubmission, parent: :submission do
+    wiki_markup "<div>I could not complete this deliverable :(</div>"
 
     trait :dcu do end
     trait :dit do end
