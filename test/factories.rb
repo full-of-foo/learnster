@@ -156,4 +156,12 @@ FactoryGirl.define do
     end
     trait :dit do end
   end
+
+  factory :submission_upload, class: SubmissionUpload, parent: :submission do
+    file_upload ActionDispatch::Http::UploadedFile.new(tempfile: File.new("#{Rails.root}/public/favicon.ico"), filename: "favicon.ico")
+
+    trait :dcu do end
+    trait :dit do end
+  end
+
 end
