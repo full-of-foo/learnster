@@ -181,4 +181,19 @@ FactoryGirl.define do
     association :user, factory: :user
   end
 
+  factory :activity, class: Activity do
+    association :user, factory: :user
+
+    %w(module deliverable course course_section submission wiki_submission wiki_content
+            content_upload supplement_content submission_upload section_module enrollment).each do | factory |
+      trait "dcu_#{factory}".to_sym do
+        association :trackable, factory: [factory.to_sym, :dcu]
+      end
+      trait "dit_#{factory}".to_sym do
+        association :trackable, factory: [factory.to_sym, :dcu]
+      end
+    end
+
+  end
+
 end

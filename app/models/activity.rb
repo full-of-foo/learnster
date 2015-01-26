@@ -13,13 +13,15 @@ class Activity < ActiveRecord::Base
   end
 
   def self.manager_activities(admin_id)
-    admin              = OrgAdmin.find(admin_id)
+    admins = OrgAdmin.where(id: admin_id)
+    return Activity.none if admins.empty?
+    admin = admins.first
 
-    course_ids         = admin.managed_courses.ids
+    course_ids = admin.managed_courses.ids
     course_section_ids = course_ids.empty? ? [] : CourseSection.where(course_id: course_ids).ids
-    module_ids         = admin.learning_modules.ids
-    supplement_ids     = module_ids.empty? ? [] : ModuleSupplement.where(learning_module_id: module_ids).ids
-    content_ids        = supplement_ids.empty? ? [] : SupplementContent.where(module_supplement_id: supplement_ids).ids
+    module_ids = admin.learning_modules.ids
+    supplement_ids = module_ids.empty? ? [] : ModuleSupplement.where(learning_module_id: module_ids).ids
+    content_ids = supplement_ids.empty? ? [] : SupplementContent.where(module_supplement_id: supplement_ids).ids
 
     ids = course_ids.concat(course_section_ids).concat(module_ids)
       .concat(supplement_ids).concat(content_ids).uniq
@@ -66,7 +68,7 @@ class Activity < ActiveRecord::Base
 
     def user_activity_message
       actionString = self.action == "create" ? "created the account" : "updated the profile"
-      className    = self.trackable_type.downcase
+      className = self.trackable_type.downcase
 
       "#{actionString} of the #{className} #{self.trackable.full_name}"
     end
@@ -79,34 +81,33 @@ class Activity < ActiveRecord::Base
 
     def content_activity_message
       actionString = self.action == "create" ? "uploaded" : "updated"
-      className    = self.trackable.is_a?(SubmissionUpload) ? "a submission" : "some module content"
+      className = self.trackable.is_a?(SubmissionUpload) ? "a submission" : "some module content"
 
       "#{actionString} #{className}"
     end
 
     def course_activity_message
       actionString = self.action == "create" ? "created" : "updated"
-      className    = self.trackable.is_a?(Course) ? "the course" : "a course section"
-      title        = self.trackable.is_a?(CourseSection) ? self.trackable.section : self.trackable.title
+      className = self.trackable.is_a?(Course) ? "the course" : "a course section"
+      title = self.trackable.is_a?(CourseSection) ? self.trackable.section : self.trackable.title
 
       "#{actionString} #{className} #{title}"
     end
 
     def module_activity_message
       actionString = self.action == "create" ? "created" : "updated"
-      className    = self.trackable.is_a?(LearningModule) ? "the module" : "a module supplement named"
-      title        = self.trackable.title
+      className = self.trackable.is_a?(LearningModule) ? "the module" : "a module supplement named"
+      title = self.trackable.title
 
       "#{actionString} #{className} #{title}"
     end
 
     def deliverable_activity_message
       actionString = self.action == "create" ? "created" : "updated"
-      className    = "the deliverable named"
-      title        = self.trackable.title
+      className = "the deliverable named"
+      title = self.trackable.title
 
       "#{actionString} #{className} #{title}"
     end
-
 
 end
