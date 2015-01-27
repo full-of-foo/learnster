@@ -5,6 +5,12 @@ FactoryGirl.define do
     password_confirmation "foobar"
   end
 
+  factory :app_admin, class:  AppAdmin, parent: :user do
+    sequence(:email){|n| "superadmin#{n}@learnster.ie" }
+    first_name "Tony"
+    surname "Cool"
+  end
+
   factory :org_admin, class:  OrgAdmin, parent: :user do
     sequence(:email){|n| "admin#{n}@dit.ie" }
     first_name "John"
