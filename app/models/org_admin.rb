@@ -107,30 +107,13 @@ class OrgAdmin < User
     admins
   end
 
-  def self.search_role(role)
-    is_course_mgr_search = role == 'course_manager'
-    is_account_mgr_search = role == 'account_manager'
-    is_module_mgr_search = role == 'module_manager'
-    is_valid_role = is_course_mgr_search || is_account_mgr_search || is_module_mgr_search
-
-    if is_valid_role
-      self.role_eq role
-    end
-  end
-
   def self.deliver_confirmation_mail(id, confirm_url)
     find(id).deliver_confirmation_mail(confirm_url)
   end
 
   def deliver_confirmation_mail(confirm_url)
     UserMailer.signup_confirmation(self, confirm_url).deliver
-    logger.info "Sending confirm email for user[id:#{self.id}, \
-    email:'#{self.full_name}']; confirm url: #{confirm_url}"
-  end
-
-  def remove_nonrequired_errors
-    role_errors = self.errors.to_hash.fetch(:role){{}}
-    role_errors.delete_at(0) if role_errors[0] == "is not included in the list"
+    logger.info "Sending confirm email for user[id:#{self.id}, email:'#{self.full_name}']; confirm url: #{confirm_url}"
   end
 
   def created_students
@@ -164,7 +147,23 @@ class OrgAdmin < User
   private
 
     def untrack_self
-      Activity.delete_all(trackable_id: self.id) 
+      Activity.delete_all(trackable_id: self.id)
+    end
+
+    def search_role(role)
+      is_course_mgr_search = role == 'course_manager'
+      is_account_mgr_search = role == 'account_manager'
+      is_module_mgr_search = role == 'module_manager'
+      is_valid_role = is_course_mgr_search || is_account_mgr_search || is_module_mgr_search
+
+      if is_valid_role
+        self.role_eq role
+      end
+    end
+
+    def remove_nonrequired_errors
+      role_errors = self.errors.to_hash.fetch(:role){{}}
+      role_errors.delete_at(0) if role_errors[0] == "is not included in the list"
     end
 
 end

@@ -11,6 +11,7 @@ group :development, :test do
   gem 'guard-minitest'
   gem "ruby_gntp"
   gem "rails-erd"
+  gem "factory_girl_rails", "~> 4.0"
 end
 
 group :test do
@@ -20,7 +21,6 @@ group :test do
   gem 'minitest-focus'
   gem 'sqlite3'
   gem 'database_cleaner'
-  gem "factory_girl_rails", "~> 4.0"
 
   gem "rb-fsevent"
   gem "terminal-notifier-guard"
