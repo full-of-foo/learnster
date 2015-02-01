@@ -8,26 +8,6 @@ class Student < User
 
   validates_presence_of :attending_org
 
-  def org_id
-    self.attending_org ? self.attending_org.id : nil
-  end
-
-  def org_title
-    self.attending_org ? self.attending_org.title : nil
-  end
-
-  def app_admin?
-    false
-  end
-
-  def org_admin?
-    false
-  end
-
-  def student?
-    true
-  end
-
   def self.coursemates(student_id)
     section_ids  = EnrolledCourseSection.where("student_id = ?", student_id)
       .select("enrolled_course_sections.course_section_id").to_a.map(&:course_section_id)
@@ -96,6 +76,26 @@ class Student < User
     else
       self.all
     end
+  end
+
+  def org_id
+    self.attending_org ? self.attending_org.id : nil
+  end
+
+  def org_title
+    self.attending_org ? self.attending_org.title : nil
+  end
+
+  def app_admin?
+    false
+  end
+
+  def org_admin?
+    false
+  end
+
+  def student?
+    true
   end
 
 end

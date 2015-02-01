@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class ActivityTest < ActiveSupport::TestCase
-  ENTITY_FACTORIES = %w(module deliverable course course_section submission wiki_submission wiki_content
-                                                      content_upload supplement_content submission_upload section_module enrollment)
+  ENTITY_FACTORIES = %w(module deliverable course course_section submission
+                        wiki_submission wiki_content content_upload
+                        supplement_content submission_upload section_module
+                        enrollment)
 
   test 'is valid by default' do
     assert_equal true, Activity.new.valid?

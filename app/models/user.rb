@@ -43,10 +43,10 @@ class User < ActiveRecord::Base
 
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
-    when ".csv" then Roo::CSV.new(file.path)
-    when ".xls" then Roo::Excel.new(file.path)
-    when ".xlsx" then Roo::Excelx.new(file.path)
-    else raise "Unknown file type: #{file.original_filename}"
+      when ".csv" then Roo::CSV.new(file.path)
+      when ".xls" then Roo::Excel.new(file.path)
+      when ".xlsx" then Roo::Excelx.new(file.path)
+      else raise "Unknown file type: #{file.original_filename}"
     end
   end
 
@@ -68,9 +68,7 @@ class User < ActiveRecord::Base
 
     def set_default_attributes
       self.confirmation_code ||= SecureRandom.hex
-      puts self.inspect
       self.confirmed = true if self.confirmed == false && (self.type != "OrgAdmin" || !self.role.account_manager?)
     end
-
 
 end
