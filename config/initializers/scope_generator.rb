@@ -22,6 +22,19 @@ module ScopeGenerator
   end
 end
 
+# TODO - fix this ugliness
+module DummyScopeGenerator
+  def generate_scopes
+  end
+
+  def predicates_for(column)
+  end
+end
+
 ActiveSupport.on_load :active_record do
-  extend ScopeGenerator
+  if ActiveRecord::Base.connection.tables.any?
+    extend ScopeGenerator
+  else
+    extend DummyScopeGenerator
+  end
 end

@@ -1,6 +1,6 @@
 class CourseSection < ActiveRecord::Base
   before_destroy :untrack_self
-  acts_as_xlsx
+  acts_as_xlsx if ActiveRecord::Base.connection.tables.any?
 
   belongs_to :course
   belongs_to :provisioned_by, class_name: "OrgAdmin", foreign_key: "provisioned_by"
@@ -12,8 +12,7 @@ class CourseSection < ActiveRecord::Base
 
   validates_presence_of :section, :provisioned_by, :course_id
   validates_uniqueness_of :section, :scope => [:course_id]
-
-  generate_scopes
+ generate_scopes
 
   def self.organisation_course_sections(organisation_id, course_id = nil)
     if course_id.nil?
@@ -26,7 +25,7 @@ class CourseSection < ActiveRecord::Base
   private
 
     def untrack_self
-      Activity.delete_all(trackable_id: self.id) 
+      Activity.delete_all(trackable_id: self.id)
     end
 
 end

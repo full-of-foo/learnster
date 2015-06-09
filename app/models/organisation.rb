@@ -1,5 +1,5 @@
 class Organisation < ActiveRecord::Base
-  acts_as_xlsx columns: [:title, :description, :created_at]
+  acts_as_xlsx columns: [:title, :description, :created_at] if ActiveRecord::Base.connection.tables.any?
 
   belongs_to :created_by, class_name: "OrgAdmin", foreign_key: "created_by"
 

@@ -1,5 +1,5 @@
 class LearningModule < ActiveRecord::Base
-  acts_as_xlsx columns: [:title, :description, :'educator.full_name', :created_at]
+  acts_as_xlsx columns: [:title, :description, :'educator.full_name', :created_at] if ActiveRecord::Base.connection.tables.any?
   before_destroy :untrack_self
 
   belongs_to :educator, class_name: "OrgAdmin", foreign_key: "educator_id"

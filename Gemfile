@@ -39,8 +39,8 @@ gem "axlsx_rails"
 gem "rubyzip",  "~> 0.9.9"
 gem "roo"
 gem "bcrypt-ruby", "~> 3.1.2"
-gem 'will_paginate', '~> 3.0.5'
-gem 'api-pagination'
+gem 'api-pagination', "2.1.0"
+gem 'will_paginate', '~> 3.0.7'
 gem "faker"
 gem 'enumerize'
 gem 'daemons'
@@ -52,7 +52,7 @@ group :development do
   gem "populator"
 end
 
-gem "sass-rails", "4.0.0"
+gem "sass-rails", "~> 4.0.2"
 gem "bootstrap-sass-rails", "2.3.2.1"
 gem "jquery-rails", "~> 3.0.4"
 gem "eco", :require => "eco"
@@ -62,7 +62,7 @@ gem "rabl"
 gem "oj"
 gem "gon", '4.1.1'
 gem "js-routes"
-gem "spinjs-rails"
+gem "spinjs-rails", "1.3"
 gem "datejs-rails"
 gem "pg", "0.15.1"
 gem "carrierwave"
